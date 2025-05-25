@@ -1,0 +1,16 @@
+[bibliography]
+== Normative references
+
+The following referenced documents are required for the application of this document.
+For dated references, only the edition cited applies. For undated references, the
+latest edition of the referenced document (including amendments) applies.
+
+* [[[ISO19135,ISO 19135:2005]]]
+
+* [[[ISO19126,ISO 19126:2009]]]
+
+* [[[ISO19117,ISO 19117:2012]]]
+
+* [[[ISO19106,ISO 19106]]]
+
+* [[[IEC62288,IEC 62288:2014]]]

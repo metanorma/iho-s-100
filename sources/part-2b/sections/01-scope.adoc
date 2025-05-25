@@ -1,0 +1,21 @@
+== Scope
+
+The IHO Geospatial Information (GI) Registry contains a number of Registers, one of
+which will be for portrayal. The Portrayal Register registers the components used to
+build Portrayal Catalogues. When provided with a Feature Catalogue and compliant
+data, a Portrayal Catalogue built from registered components transforms features and
+attributes into a portrayal.
+
+The portrayal of data is independent of the data but closely related to the data.
+That is, the attributes within the data set drive the portrayal process, but there
+may be many different portrayals for the same data.
+
+The use of a Register to store portrayal components improves the IHO's ability to
+manage and extend the portrayal of products based on S-100. This Register supports
+wider use of registered items by making them publicly available and increasing their
+visibility to Portrayal Catalogue developers. This Part describes the content of the
+Portrayal Register.
+
+=== Conformance
+
+This profile conforms to conformance class 2 of <<ISO19106>>.
