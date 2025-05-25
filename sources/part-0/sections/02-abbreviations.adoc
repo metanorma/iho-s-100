@@ -1,0 +1,115 @@
+== Abbreviations used in this publication
+
+2-D:: Two-dimensional
+
+2.5D:: Two and a half dimensional
+
+API:: Application Programming Interface
+
+ASCII:: American Standard Code for Information Interchange
+
+CRS:: Coordinate Reference System
+
+CSL:: Conceptual schema language
+
+DEF:: Data Exchange Format
+
+DIS:: Draft International Standard
+
+ECDIS:: Electronic Chart Display and Information System
+
+ECS:: Electronic Chart System
+
+ENC:: Electronic Navigational Chart
+
+EPSG:: European Petroleum Survey Group
+
+FCD:: Feature Concept Dictionary
+
+FDIS:: Final Draft International Standard
+
+GFM:: General Feature Model
+
+GML:: Geography Markup Language
+
+HDF:: Hierarchical Data Format
+
+HSSC:: IHO Hydrographic Services and Standards Committee (formerly CHRIS)
+
+IALA:: International Association of Lighthouse Authorities
+
+ICC:: International Colour Consortium
+
+IEC:: International Electrotechnical Commission
+
+IETF:: Internet Engineering Task Force
+
+IHB:: International Hydrographic Bureau
+
+IHO:: International Hydrographic Organization
+
+IMO:: International Maritime Organization
+
+IOGP:: International Association of Oil and Gas Producers (formerly OGP)
+
+ISO:: International Organization for Standardization
+
+ISO/TC211:: ISO Technical Committee for Geographic information/Geomatics
+
+JPEG:: Joint Photographic Experts Group
+
+MRN:: Maritime Resource Name
+
+OCL:: Object Constraint Language
+
+ODP:: Open Distributed Processing
+
+OEM:: Original Equipment Manufacturer
+
+OGC:: Open Geospatial Consortium
+
+OMG:: Object Management Group
+
+OSI:: Open Systems Interconnection
+
+RENC:: Regional ENC Coordinating Centre
+
+RFC:: Request for Comments
+
+RNC:: Raster Navigational Chart
+
+RSS:: Recommended Security Scheme
+
+SENC:: System-ENC
+
+SKOS:: Simple Knowledge Organization System
+
+TC:: Technical Committee
+
+TIFF:: Tagged Image File Format
+
+TIN:: Triangulated Irregular Network
+
+TS:: Technical Specification
+
+TSMAD:: Transfer Standard Maintenance and Application Development Working Group
+
+S-100WG:: S-100 Working Group
+
+SVG:: Scalable Vector Graphics
+
+UML:: Unified Modelling Language
+
+URI:: Uniform Resource Identifier
+
+URL:: Universal Resource Locator
+
+XLink:: XML Linking Language
+
+XMI:: XML Metamodel Interchange
+
+XML:: Extensible Markup Language
+
+XSD:: World Wide Web Consortium XML Schema Definition
+
+XSL:: eXtensible Stylesheet Language

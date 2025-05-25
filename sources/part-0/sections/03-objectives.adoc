@@ -1,0 +1,17 @@
+== Objectives of S-100
+
+The objectives of S-100 are:
+
+. To comply with the emerging ISO standards for geographic information being produced
+by ISO TC 211;
+. To provide support for a greater variety of marine or hydrographic-related digital
+data, products and customers;
+. To separate the data content from the encoding format, enabling format neutral
+product specifications;
+. To enable manageable flexibility that can accommodate change. The intention is that
+product specifications will be allowed to evolve through extension without the need to
+publish new versions of existing product specifications;
+. To provide an ISO-conformant registry managed by the IHO containing registers such as
+feature concept dictionaries and product feature catalogues that are flexible and
+capable of managed expansion;
+. To provide separate registers for different user communities.

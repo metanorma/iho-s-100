@@ -1,0 +1,51 @@
+== Foreword
+
+Development of S-100 -- the _IHO Universal Hydrographic Data Model_ was included in the
+IHO Work Programme in 2001. S-100 has been developed by the IHO Transfer Standards
+Maintenance and Applications Development (TSMAD) Working Group with active
+participation from hydrographic offices, industry and academia. Since 2015, S-100 has
+been further developed by the S100 Working Group (S100WG).
+
+S-100 provides a contemporary hydrographic geospatial data standard that can support a
+wide variety of hydrographic-related digital data sources, and is fully aligned with
+mainstream international geospatial standards, in particular the ISO 19100 series of
+geographic standards, thereby enabling the easier integration of hydrographic data and
+applications into geospatial solutions.
+
+The primary goal for S-100 is to support a greater variety of hydrographic-related
+digital data sources, products, and customers. This includes the use of imagery and
+gridded data, enhanced metadata specifications, unlimited encoding formats and a more
+flexible maintenance regime. This enables the development of new applications that go
+beyond the scope of traditional hydrography - for example, high-density bathymetry,
+seafloor classification, marine GIS, et cetera. S-100 is designed to be extensible and
+future requirements such as 3-D, time-varying data (x, y, z, and time) and Web-based
+services for acquiring, processing, analysing, accessing, and presenting hydrographic
+data can be easily added when required.
+
+The S-100 development and maintenance process is specifically aimed at allowing direct
+input from non-IHO stakeholders, thereby increasing the likelihood that these potential
+users will maximise their use of hydrographic data for their particular purposes.
+
+S-100 will eventually replace S-57 -- the established _IHO Transfer Standard for Digital
+Hydrographic Data_. Although S-57 has many good aspects, it has some limitations:
+
+* S-57 has been used almost exclusively for encoding Electronic Navigational Charts
+(ENCs) for use in Electronic Chart Display and Information Systems (ECDIS).
+* S-57 is not a contemporary standard that is widely accepted in the GIS domain.
+* It has an inflexible maintenance regime. Freezing standards for lengthy periods is
+counter-productive.
+* As presently structured, it cannot support future requirements (for example, gridded
+bathymetry, or time-varying information).
+* Embedding the data model within the encapsulation that is, file format) restricts the
+flexibility and capability of using a wider range of transfer mechanisms.
+* It is regarded by some as a limited standard focused exclusively for the production
+and exchange of ENC data.
+
+The transition from S-57 to S-100 will be carefully monitored by the IHO to ensure that
+existing S-57 users, particularly ENC stakeholders, are not adversely affected. S-57
+will continue to exist as the designated format for ENC data for the foreseeable future.
+
+In the meantime, all existing and potential users of hydrographic information and data
+are encouraged to use S-100 as the basis for new applications, seeking input to the
+further development of the standard if their particular requirements are not yet
+catered for.

@@ -1,0 +1,41 @@
+[.preface]
+== Introduction
+
+Standards should encapsulate the use of best practice methods and procedures. They
+should include guidance on how to implement efficient production methods and optimize
+the quality of an organizations products and services, and should also enable
+interoperability between disparate technologies through the use of common interfaces.
+The S-100 standard attempts to achieve all of these objectives. Furthermore it provides
+a framework of components that can be used by interested communities to develop their
+own maritime geospatial products and services.
+
+The S-100 standard has been developed with the advantage of hindsight based on
+experience gained through the development and use of the existing IHO Transfer Standard
+for Digital Hydrographic Data (known as S-57). S-100 has been documented using an
+object-oriented notation known as the Unified Modelling Language (UML). (Although UML
+defines nine types of diagrams, only class, object and package diagrams have been used
+in S-100).
+
+The S-100 standard provides a theoretical framework of components that are based on the
+ISO 19100 series of standards and specifications. These standards and specifications
+are also used as the basis for most contemporary geospatial standards development
+activities and are closely aligned with other standards development initiatives such as
+the Open Geospatial Consortium (OGC).
+
+The IHO has also developed an associated Geospatial Information (GI) Registry which can
+be used in conjunction with the S-100 standard. The IHO GI Registry contains the
+following additional components;
+
+* Concept Register.
+* Data Dictionary Register.
+* Portrayal Register.
+* Register of IHO Data Producer Codes.
+* Register of S-100 based Product Specifications.
+* A help and guidance repository containing supporting documentation and tools to
+support S-100 based Product Specification development, such as Catalogue Builders.
+
+The IHO GI Registry provides the infrastructure and mechanisms required to manage and
+maintain the resources listed above, and to extend them as required.
+
+NOTE: S-100 provides a Schema and overarching management procedures for a Registry and
+its Registers and the IHO GI Registry is implemented using these concepts.

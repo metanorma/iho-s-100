@@ -1,0 +1,32 @@
+== Scope
+
+S-100 -- IHO _Universal Hydrographic Data Model_ comprises a set of related parts that
+give the user the appropriate tools and framework to develop and maintain hydrographic
+related data, products and registers. These standards specify, for hydrographic and
+related information, methods and tools for data management, processing, analysing,
+accessing, presenting and transferring such data in digital/electronic form between
+different users, systems and locations. By following this set of geospatial
+hydrographic standards users will be able to build constituent parts of an S-100
+compliant product specification.
+
+S-100 conforms as far as is reasonably possible to the ISO TC 211 series of
+geographical information standards, and where necessary has been tailored to suit
+hydrographic requirements.
+
+S-100 details the standard to be used for the exchange of hydrographic and related
+geospatial data between national hydrographic offices as well as between other
+organizations and for its distribution to manufactures, mariners and other data users.
+
+S-100 comprises multiple parts that profile standards developed by the ISO Technical
+Committee 211. ISO TC 211 is responsible for the ISO series of standards for geographic
+information. The objective is that, together, the standards will form a framework for
+the development of sector specific applications that use geographic information. S-100
+is an example of such an application.
+
+This standard specifies the procedures to be followed for:
+
+. establishing and maintaining registers of hydrographic and related information;
+. creating product specifications, feature catalogues and a definition of the general
+feature model;
+. using spatial, imagery and gridded data, and metadata specifically aimed at
+fulfilling hydrographic requirements.
