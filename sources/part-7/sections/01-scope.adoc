@@ -1,0 +1,24 @@
+== Scope
+
+The spatial requirements of S-100 are less comprehensive than the requirements of
+<<ISO19107>> "Geographical Information - Spatial schema" which contains all the
+information necessary for describing and manipulating the spatial characteristics
+of geographical features and on which this Part is based. Hence this Part contains
+only the subset of <<ISO19107>> classes required for S-100. This version only
+contains geometry, if there is a future requirement for topology then this Part
+will be extended to meet these requirements.
+
+This Part specifies:
+
+. A subset of <<ISO19107>> classes (clause 6) which is the minimum required to
+support 0, 1, 2 and 2.5 dimensional Spatial Schemas. As such it is restricted to
+specifying only data and does not include operations; and
+. Additional constraints (omitted optional elements or constrained cardinalities)
+which are imposed on these classes by this profile.
+. Additional classes for certain kinds of curvilinear geometry. These additional
+classes are based on specifications that are expected to be in the next edition of
+<<ISO19107>>.
+
+[[fig-7-1]]
+.S-100 Spatial Schema relationship with ISO 19100 Packages
+image::img43.png[]
