@@ -1,0 +1,34 @@
+== Package Overview
+
+=== The package diagram
+
+<<fig-6-1>> shows the packages used in this Part and their
+dependencies.
+
+[[fig-6-1]]
+.The CRS packages
+image::img37.png[]
+
+The elements for referencing spatial objects by use of
+coordinates are described in five packages. All packages depend
+on the package "Identified Objects", which describes the
+mechanism of linking elements to external definitions.
+
+It also assures that each element can be uniquely named to
+identify it in a data set or software application. To facilitate
+the work with class names, every package shall use a prefix for
+its classes and data types. <<tab-6-1>> below shows the prefixes
+for various packages:
+
+[[tab-6-1]]
+.Package prefixes
+[cols=2,options=header]
+|===
+| Package name | Prefix
+
+| Identified Objects | IO
+| Coordinate Reference Systems | SC
+| Coordinate Systems | CS
+| Datums | CD
+| Coordinate Operations | CC
+|===
