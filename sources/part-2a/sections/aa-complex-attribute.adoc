@@ -1,0 +1,123 @@
+[[app-2a-A]]
+[appendix,obligation=informative]
+== Example of a complex attribute (informative)
+
+NOTE: The following example does not reflect the modelling of lights in
+any S-100 based Product Specification.
+
+A light may have several sectors. All of them share the same light
+characteristic and sequence. Other common attributes are the height and
+the name.
+
+All attributes describing one sector in a complex attribute are
+structured "Light sector".
+
+A complex attribute for the "Rhythm of light" is also defined.
+
+The simple attributes used in "lightSector" are:
+
+* sectorLimit1 (type Real)
+* sectorLimit2 (type Real)
+* colour (type Enumeration)
+* valueOfNominalRange (type Real)
+
+Therefore the complex attribute is:
+
+[%unnumbered,options=header,cols=3]
+|===
+| Characteristic 2+| Value
+
+| name 2+| Light sector
+| definition 2+| A sector is the part of a circle between two straight lines drawn from the centre to the circumference. (Advanced Learner's Dictionary, 2nd Edition).
+| remarks 2+| n/a
+| camelCase 2+| lightSector
+| alias 2+| LITSEC
+
+h| Sub Attributes 2+h| Attribute Binding
+h| camelCase Identifier h| multiplicity h| sequential
+
+| sectorLimit1 | 1 | n/a
+| sectorLimit2 | 1 | n/a
+| colour | 1 | n/a
+| valueOfNominalRange | 0..1 | n/a
+|===
+
+NOTE: The multiplicity and sequence are carried in the attribute between
+the complex and sub-attribute.
+
+The "Rhythm of light" consists of:
+
+* lightCharacteristic
+* signalPeriod
+* signalGroup
+
+[%unnumbered,options=header,cols=3]
+|===
+| Characteristic 2+| Value
+
+| name 2+| Rhythm of light
+| definition 2+|
+| remarks 2+| n/a
+| camelCase 2+| rhythmOfLight
+| alias 2+| RHYLGT
+
+h| Sub Attributes 2+h| Attribute Binding
+h| camelCase Identifer h| multiplicity h| sequential
+
+| lightCharacteristic | 1 | n/a
+| signalPeriod | 0..1 | n/a
+| signalGroup | 0..1 | n/a
+|===
+
+A second way of describing the rhythm of light is the "signal sequence"
+as it is done with the S-57 SIGSEQ attribute. A signal sequence consists
+of intervals where the signal is either on or off (here light or eclipse)
+
+[%unnumbered,options=header,cols=3]
+|===
+| Characteristic 2+| Value
+
+| name 2+| Signal sequence interval
+| definition 2+| tbd.
+| remarks 2+| n/a
+| camelCase 2+| signalSequenceInterval
+| alias 2+| SGSQIN
+
+h| Sub Attributes 2+h| Attribute Binding
+h| camelCase Identifer h| multiplicity h| sequential
+
+| signalStatus | 1 | n/a
+| duration | 1 | n/a
+|===
+
+A Signal sequence is then just an ordered list of those intervals.
+
+[%unnumbered,cols=3,options=header]
+|===
+| Characteristic 2+| Value
+
+| name 2+| Signal sequence
+| definition 2+| The sequence of times occupied by intervals of light and eclipse for all "light characteristics". (Adapted from S-57 Edition 3.1, Appendix A -- Chapter 2, Page 2.191, November 2000).
+| remarks 2+| n/a
+| camelCase 2+| signalSequence
+| alias 2+| SIGSEQ
+
+h| Sub Attributes 2+h| Attribute Binding
+h| camelCase Identifer h| multiplicity h| sequential
+
+| signalSequenceInterval | 1..* | True
+|===
+
+A light object would now consist of:
+
+Light:
+
+* rhythmOfLight [1..*]
+* lightSector [1..*]
+* signalSequence [0..1]
+* objectName[0..1]
+* height[0..1]
+
+This definition would be included in the Feature Catalogue, although the
+definition of the attributes are derived from the Concept Register.
+

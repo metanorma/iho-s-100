@@ -1,0 +1,24 @@
+[bibliography]
+== Normative references
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including amendments)
+applies.
+
+* [[[ISO19135,ISO 19135:2005]]]
+
+* [[[ISO19126,ISO 19126:2009]]]
+
+* [[[ISO8601,ISO 8601:2004]]]
+
+* [[[ISO10646,ISO/IEC 10646:2017]]]
+
+* [[[RFC3986,IETF RFC 3986]]]
+
+* [[[RFC2141,IETF RFC 2141]]]
+
+* [[[W3C,W3C]]],
+span:title[_XML Schema Part 2: Datatypes_],
+span:edition[2],
+span:series[Appendix F _Regular Expressions_]. URL: span:uri[https://www.w3.org/TR/xmlschema-2/#regexs]
