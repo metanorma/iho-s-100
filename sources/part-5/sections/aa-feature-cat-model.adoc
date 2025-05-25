@@ -1,0 +1,783 @@
+[[app-5-A]]
+[appendix,obligation=normative]
+== Feature Catalogue Model
+
+This appendix presents the S-100 Feature Catalogue. <<fig-5-A-1>> is the S-100
+Feature Catalogue modelled in UML and <<tab-5-A-1;to!tab-5-A-20>> illustrate the
+structure of the Feature Catalogue in conformance to the model shown.
+
+[%landscape]
+<<<
+
+[[fig-5-A-1]]
+.Feature Catalogue -- UML Model
+image::img36.png[width=100%]
+
+[[tab-5-A-1]]
+.S100_FC_FeatureCatalogue
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_FeatureCatalogue
+| A Feature Catalogue contains its identification and contact information, and definition of some number of feature types with other information necessary for those definitions
+| -
+| -
+| -
+
+| Attribute
+| name
+| Name for this Feature Catalogue
+| 1
+| CharacterString
+|
+
+| Attribute
+| scope
+| Subject domain of feature types defined in this Feature Catalogue
+| 1
+| CharacterString
+|
+
+| Attribute
+| fieldOfApplication
+| Description of the kind of use to which this Feature Catalogue may be put
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| versionNumber
+| Version number of this Feature Catalogue, which may include both a major version number or letter and a sequence of minor release numbers or letters, such as "3.2.4a." The format of this attribute may differ between cataloguing authorities
+| 1
+| CharacterString
+|
+
+| Attribute
+| versionDate
+| Effective date of this Feature Catalogue
+| 1
+| Date
+|
+
+| Attribute
+| productId
+| The ID of the product for which the Catalogue is intended
+| 1
+| CharacterString
+|
+
+| Attribute
+| producer
+| Name, address, country, and telecommunications address of person or organization having primary responsibility for the intellectual content of this Feature Catalogue
+| 1
+| CI_Responsibility
+| CI_Responsibility>CI_Individual or +
+CI_Responsibility>CI_Organisation
+
+| Role
+| item
+| List of items defined by this Feature Catalogue; items are feature types, information types, feature associations, information associations, attributes, and roles
+| 1..*
+| S100_FC_Item
+| Aggregation
+
+| Role
+| definitionSource
+| List of sources of definitions of items and listed values that are defined by this Feature Catalogue. Usually those sources are Feature Data Dictionaries
+| 0..*
+| FC_DefinitionSource
+| Aggregation
+
+| Role
+| classification
+| The classification of the Feature Catalogue.
+| 0..1
+| MD_ClassificationCode
+| 1 unclassified +
+2 restricted +
+3 confidential +
+4 secret +
+5 top secret +
+6 sensitive but unclassified +
+7 for official use only +
+8 protected +
+9 limited distribution
+|===
+
+[[tab-5-A-2]]
+.FC_DefinitionSource
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| FC_DefinitionSource
+| Class that specifies the source of a definition
+| -
+| -
+| -
+
+| Attribute
+| source
+| Actual citation of the source, sufficient to identify the document and how to obtain it
+| 1
+| CI_Citation
+|
+|===
+
+[[tab-5-A-3]]
+.FC_DefinitionReference
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| FC_DefinitionReference
+| Class that links a data instance to the source of its definition
+| -
+| -
+| -
+
+| Attribute
+| sourceIdentifier
+| Information to locate the definition in the source document. The format of this information is specific to the structure of the source document
+| 1
+| CharacterString
+| Includes online dictionaries or "vocabularies" used by dictionary-type codelist attributes
+
+| Role
+| definitionSource
+| The source of the definition
+| 1
+| FC_DefinitionSource
+|
+|===
+
+[[tab-5-A-4]]
+.S100_FC_Item
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| _S100_FC_Item_
+| Abstract base class that defines the common properties of all items in the Feature Catalogue; items are feature types, information types, feature associations, information associations, attributes and roles
+| -
+| -
+| Abstract class
+
+| Attribute
+| name
+| Name of the item
+| 1
+| CharacterString
+|
+
+| Attribute
+| definition
+| Definition of the named type in a natural language
+| 1
+| CharacterString
+|
+
+| Attribute
+| code
+| Code that uniquely identifies the named type within the Feature Catalogue
+| 1
+| CharacterString
+|
+
+| Attribute
+| remarks
+| Further explanation about the item
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| alias
+| Equivalent name(s) of this item
+| 0..*
+| CharacterString
+|
+
+| Role
+| definitionReference
+| The link to the source of the definition
+| 0..1
+| FC_DefinitionReference
+|
+|===
+
+[[tab-5-A-5]]
+.S100_FC_NamedType
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| _S100_FC_NamedType_
+| Abstract base class that defines the common properties for feature types and information types
+| -
+| -
+| Abstract class
+
+| Attribute
+| isAbstract
+| Indicates if instances of this named type can exist in a geographic data set. Abstract types cannot be instantiated but serve as base classes for other (non-abstract) types
+| 1
+| Boolean
+|
+
+| Role
+| attributeBinding
+| List of bindings to attributes which describe the characteristic of this named type
+| 0..*
+| S100_FC_AttributeBinding
+| Aggregation
+|===
+
+[[tab-5-A-6]]
+.S100_FC_ObjectType
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | _S100_FC_ObjectType_ | Abstract base class that defines the common properties for feature types and information types | - | - | Abstract class; derived from S100_FC_NamedType
+
+| Role | informationBinding | List of bindings to information types that can be associated to this object type by means of an information association | 0..* | S100_FC_InformationBinding | Aggregation
+|===
+
+[[tab-5-A-7]]
+.S100_FC_InformationType
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_InformationType
+| Class that defines all properties of an information type
+| -
+| -
+| Derived from S100_FC_NamedType
+
+| Role
+| superType
+| Indicates the information type from which an information type is derived. The sub-type will inherit all properties from its super-type: Name, definition and code will usually be overridden by the sub-type, although new properties may be added to the sub-type
+| 0..1
+| S100_FC_InformationType
+|
+
+| Role
+| subType
+| Indicates the information types which are derived from an information type
+| 0..*
+| S100_FC_InformationType
+|
+|===
+
+[[tab-5-A-8]]
+.S100_FC_FeatureType
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_FeatureType
+| Class that defines all properties of a feature type
+| -
+| -
+| Derived from S100_FC_NamedType
+
+| Attribute
+| featureUseType
+| The use type of this feature type
+| 1
+| S100_CD_FeatureUseType
+|
+
+| Attribute
+| permittedPrimitives
+| The combination of 0 or more spatial primitives permitted for feature type
+| 0..*
+| S100_FC_SpatialPrimitiveType
+|
+
+| Role
+| featureBinding
+| List of bindings to feature types that can be related to this feature type by means of a feature association
+| 0..*
+| S100_FC_FeatureBinding
+| Aggregation
+
+| Role
+| superType
+| Indicates the feature type from which a feature type is derived. The sub-type will inherit all properties from its super-type: Name, definition and code will usually be overridden by the sub-type, although new properties may be added to the sub-typeIf permittedPrimitives is present in a sub-type it overrides permittedPrimitives in any of its super-types
+| 0..1
+| S100_FC_FeatureType
+|
+
+| Role
+| subType
+| Indicates the feature types which are derived from a feature type
+| 0..*
+| S100_FC_FeatureType
+|
+|===
+
+[example]
+If a super-type allows point and area primitives and the sub-type only curve primitives, instances of the sub-type must indicate location with curve spatial objects. Sub-types of the sub-type will take only line primitives unless they specify their own permitted primitives.
+
+[[tab-5-A-9]]
+.S100_FC_InformationAssociation
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_InformationAssociation
+| An information association describes the relationship between an object (feature or information type) and an information type
+| -
+| -
+| Derived from S100_FC_NamedType Individual Product Specifications may restrict directionality
+
+| Role
+| role
+| The role of the association
+| 0..2
+| S100_FC_Role
+| Default role name if missingProduct Specification can constrain further
+
+| Role
+| superType
+| Indicates the information association from which an information association is derived. The sub-type will inherit all properties from its super-type: Name, definition and code will usually be overridden by the sub-type, although new properties may be added to the sub-type
+| 0..1
+| S100_FC_InformationAssociation
+|
+
+| Role
+| subType
+| Indicates the information associations which are derived from an information association
+| 0..*
+| S100_FC_InformationAssociation
+|
+|===
+
+[[tab-5-A-10]]
+.S100_FC_FeatureAssociation
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_FeatureAssociation
+| A feature association describes the relationship between two feature typesA feature association is bidirectional and has a separate role for each direction
+| -
+| -
+|
+
+| Role
+| role
+| The role of the association
+| 0..2
+| S100_FC_Role
+|
+
+| Role
+| superType
+| Indicates the feature association from which a feature association is derived. The sub-type will inherit all properties from its super-type: Name, definition and code will usually be overridden by the sub-type, although new properties may be added to the sub-type
+| 0..1
+| S100_FC_FeatureAssociation
+|
+
+| Role
+| subType
+| Indicates the feature associations which are derived from a feature association.
+| 0..*
+| S100_FC_FeatureAssociation
+|
+|===
+
+[[tab-5-A-11]]
+.S100_FC_Role
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | S100_FC_Role | A role which can be used in a feature association or an information association | - | - | Derived from S100_FC_Item
+|===
+
+[[tab-5-A-12]]
+.S100_FC_Attribute
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | _S100_FC_Attribute_ | Abstract base class for the two kinds of attributes: simple attributes and complex attributes. Attributes carry the characteristics of named types | - | - | Abstract derived from S100_FC_Item
+|===
+
+[[tab-5-A-13]]
+.S100_FC_SimpleAttribute
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_SimpleAttribute
+| Attribute that carries a value
+| -
+| -
+| Derived from S100_FC_Attribute
+
+| Attribute
+| valueType
+| The value type of this feature attribute
+| 1
+| S100_CD_AttributeValueType
+|
+
+| Attribute
+| uom
+| Unit of measure used for values of this feature attribute
+| 0..1
+| S100_UnitOfMeasure
+|
+
+| Attribute
+| quantitySpecification
+| Specification of the quantity
+| 0..1
+| S100_CD_QuantitySpecification
+|
+
+| Role
+| constraints
+| Constraints which may apply to the attribute
+| 0..1
+| S100_CD_AttributeConstraints
+| Composition
+
+| Role
+| listedValue
+| Set of listed values for an enumerated attribute domain
+| 0..*
+| S100_FC_ListedValue
+a| Composition.
+
+Applies only if valueType is Enumeration or S100_Codelist (with codelistType=open enumeration)
+|===
+
+[[tab-5-A-14]]
+.S100_FC_ComplexAttribute
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | S100_FC_ComplexAttribute | A complex attribute consists of a list of sub-attributes which can be both simple and complex attributes | - | - | Derived from S100_FC_Attribute
+
+| Role | subAttributeBinding | List of attribute bindings to the sub-attributes | 1..* | S100_FC_AttributeBinding | Aggregation
+|===
+
+[[tab-5-A-15]]
+.S100_FC_ListedValue
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_ListedValue
+| Value of an enumerated attribute domain, including its codes and definition
+| -
+| -
+|
+
+| Attribute
+| label
+| Descriptive label that uniquely identifies one value of the feature attribute
+| 1
+| CharacterString
+|
+
+| Attribute
+| definition
+| Definition of the listed value in a natural language
+| 1
+| CharacterString
+|
+
+| Attribute
+| code
+| Numeric code that uniquely identifies the listed value for the corresponding feature attribute
+| 1
+| PositiveInteger
+|
+
+| Attribute
+| remarks
+| Further explanation about the listed value
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| alias
+| Equivalent name(s) of this listed value
+| 0..*
+| CharacterString
+|
+
+| Role
+| definitionReference
+| The link to the source of the definition
+| 0..1
+| FC_DefinitionReference
+|
+|===
+
+[[tab-5-A-16]]
+.S100_FC_AttributeBinding
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_AttributeBinding
+| Class that is used to describe the specifics of how an attribute is bound to a particular named type or a complex attribute
+| -
+| -
+|
+
+| Attribute
+| multiplicity
+| Multiplicity defining how many instances of the attribute can be part of the named type or complex attribute
+| 1
+| S100_Multiplicity
+|
+
+| Attribute
+| sequential
+| Describes if the sequence of the attributes is meaningful or not
+| 1
+| Boolean
+| Applies only to attributes which may occur more than once
+
+| Attribute
+| attributeVisibility
+| An indication of the expected visibility of an attribute in end user systems
+| 0..1
+| S100_FC_AttributeVisibility
+|
+
+| Role
+| permittedValues
+| Permissible values of the attribute
+| 0..*
+| S100_FC_ListedValue
+| Applies only to attributes of data type enumeration
+
+| Role
+| attribute
+| The attribute that is bound to the item or complex attribute
+| 1
+| S100_FC_Attribute
+|
+|===
+
+[[tab-5-A-17]]
+.S100_FC_InformationBinding
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_InformationBinding
+| Class describing the use of an information type by a named type
+| -
+| -
+|
+
+| Attribute
+| multiplicity
+| Multiplicity defining how many instances of the target information type can be linked to one instance of the named type
+| 1
+| S100_Multiplicity
+|
+
+| Attribute
+| roleType
+| The nature of the association end
+| 1
+| S100_FC_RoleType
+|
+
+| Role
+| role
+| The role used for the binding. It must be part of the association used for the binding and defines the end of the association
+| 0..1
+| S100_FC_Role
+|
+
+| Role
+| association
+| The association used for the binding; defining also the role
+| 1
+| S100_FC_InformationAssociation
+|
+
+| Role
+| informationType
+| The target information type
+| 1..*
+| S100_FC_InformationType
+|
+|===
+
+[[tab-5-A-18]]
+.S100_FC_FeatureBinding
+[options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_FC_FeatureBinding
+| Class describing the relationship from one feature type to another feature type by means of a feature association
+| -
+| -
+|
+
+| Attribute
+| multiplicity
+| Multiplicity defining how many instances of the target feature type can be linked to one instance of the source feature type
+| 1
+| S100_Multiplicity
+|
+
+| Attribute
+| roleType
+| The nature of the association end
+| 1
+| S100_FC_RoleType
+|
+
+| Role
+| featureType
+| The target feature type
+| 1..*
+| S100_FC_FeatureType
+|
+
+| Role
+| role
+| The role used for the binding. It must be part of the association used for the binding and defines the end of the association
+| 1
+| S100_FC_Role
+|
+
+| Role
+| association
+| The association used for the binding
+| 1
+| S100_FC_FeatureAssociation
+|
+|===
+
+[[tab-5-A-19]]
+.S100_FC_RoleType
+[options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_FC_RoleType
+| Defines the type of an association end (that is, a "role")
+|
+
+| Literal
+| association
+| The association end is an ordinary linkage. (In UML terms, the role type is "aggregationKind=ordinary" and the link in a diagram does not have a diamond)
+| The object at this end may be participating in an ordinary association, an aggregation, or a composition
+
+| Literal
+| aggregation
+| The association end is a UML aggregation. (In UML terms, the role type is "aggregationKind=aggregation" and the link in a diagram has an unfilled diamond at this association end)
+| The object at this end is the "owner", "whole" or "container" in an aggregation association
+
+| Literal
+| composition
+| The association end is a UML aggregation. (In UML terms, the role type is "aggregationKind=composition" and the link in a diagram has a filled diamond at this association end)
+| The object at this end is the "owner", "whole" or "container" in an composition association
+|===
+
+NOTE: If one end of the association is "aggregation" or "composition", the other
+end must be coded as "association".
+
+[[tab-5-A-20]]
+.S100_FC_SpatialPrimitiveType
+[options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_FC_SpatialPrimitiveType
+| Specifies spatial primitives permitted for use with a feature instance
+|
+
+| Literal
+| point
+| Point spatial primitive
+| *GM_Point*
+
+| Literal
+| pointSet
+| Point set spatial primitive
+| *GM_MultiPoint*
+
+| Literal
+| curve
+| Curve spatial primitive
+| *GM_OrientableCurve*
+
+| Literal
+| surface
+| Surface spatial primitive
+| *GM_OrientableSurface*
+
+| Literal
+| coverage
+| Coverage spatial primitive
+| *CV_Coverage*
+
+| Literal
+| noGeometry
+| The feature type is not associated with a spatial primitive for the location of instances
+| In some cases, an explicit statement is needed to indicate that there are no spatial primitives for the locations of instances. See the rules for subtypes and super-types in S100_FC_FeatureType
+|===
+
+[[tab-5-A-21]]
+.S100_FC_AttributeVisibility
+[options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_FC_AttributeVisibility
+| An indication of the expected visibility of an attribute in end user systems
+| Production systems should be considered as distinct from end user systems and may not restrict attribute visibility in the same way as end user systems
+
+| Literal
+| publicVisibility
+| Attribute visibility is for all uses
+|
+
+| Literal
+| protectedVisibility
+| Attribute visibility is protected in some uses. The details to be defined in the product specification
+|
+
+| Literal
+| privateVisibility
+| Attribute visibility is private and should not be shown outside production environments. The details to be defined in the product specification
+|
+|===

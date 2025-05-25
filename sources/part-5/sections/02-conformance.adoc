@@ -1,0 +1,21 @@
+== Conformance
+
+This profile conforms to conformance class 2 of ISO 19106:2004. The following is
+a brief description of the specializations and generalizations where the profile
+differs from ISO 19110.
+
+. New abstract classes, __S100_FC_Item__, __S100_FC_NamedType__, and
+_S100_FC_ObjectType_ are introduced.
+. A new class, S100_FC_InformationType is introduced.
+. New classes, S100_FC_FeatureBinding, S100_FC_InformationBinding and
+S100_FC_AttributeBinding are introduced.
+. A new class, S100_CD_AttributeConstraints is introduced.
+. The class FC_FeatureAttribute is specialized to be the abstract class
+_S100_FC_Attribute_.
+. New classes, S100_FC_SimpleAttribute and S100_FC_ComplexAttribute are
+introduced.
+. The classes FC_InheritanceRelation, FC_FeatureOperation, FC_Binding,
+FC_Constraint and FC_BoundFeatureAttributeare not used.
+
+Further reference or explanation of the above changes can be found in the
+following text where appropriate.

@@ -1,0 +1,17 @@
+== Scope
+
+This Part provides a standard framework for organizing and reporting the
+classification of real world phenomena in a set of geographic data. It defines
+the methodology for classification of the feature types and specifies how they
+are organized in a Feature Catalogue and presented to the users of a set of
+geographic data. This methodology is applicable to creating catalogues of feature
+types in previously uncatalogued domains and to revising existing Feature
+Catalogues to comply with standard practice. It applies to the cataloguing of
+feature types that are represented in digital form. Its principles can be
+extended to the cataloguing of other forms of geographic data.
+
+A Feature Catalogue shall be defined for each Product Specification.
+
+This Part is applicable to the definition of geographic features at the type
+level but not applicable to the representation of individual instances of each
+type.
