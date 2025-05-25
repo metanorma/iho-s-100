@@ -1,0 +1,95 @@
+== Roles and responsibilities in the management of Registers
+
+=== Register Owner
+
+The Register Owner is an organization that:
+
+. establishes one or more Registers within a Registry;
+. has primary responsibility for the management, dissemination, and intellectual
+content of those Registers;
+. may appoint another organization to serve as the Register Manager; and
+. shall establish a procedure to process proposals and appeals made by Submitting
+Organizations.
+
+=== Register Manager
+
+The Register Manager is responsible for the administration of a Register. This
+includes:
+
+. coordinating with other Register Managers, Submitting Organizations, the related
+ControlBody, Register Owner and the Registry Manager;
+. maintaining items within the Register;
+. maintain and publish a List of Submitting Organizations;
+. distributing an information package containing a description of the Register and
+how to submit proposals; and
+. providing periodic reports to the Register Owner and/or the Control Body. Each
+report shall describe the proposals received and the decisions taken since the last
+report. The interval between those reports must not exceed 12 months.
+
+A Register Manager may manage multiple Registers.
+
+=== Register User
+
+A Register User is any person or organization interested in accessing or
+determining the content of a Register.
+
+=== Domain Control Body
+
+The Domain Control Body (DCB) for a Register is a group of technical experts
+appointed by a Register Owner to decide on the acceptability of proposals for
+changes to the content of a Register. The group must comprise experts in the
+related field that makes up the contents of the Register. As such, the DCB consists
+of at least one representative from each of the Domains contributing to the content
+of the Register.
+
+=== Executive Control Body
+
+The Executive Control Body (ECB) must consist of a representative of each of the
+Domains within the Register. The ECB will monitor and advise the Register
+Manager(s) and act as arbiters for any decisions or disputes in the Register
+process. In the event that a resolution cannot be achieved, the ECB may request a
+decision from the IHO Hydrographic Services and Standards Committee (HSSC).
+
+=== Submitting Organizations
+
+==== Eligible Submitting Organizations
+
+A Submitting Organization is an organization that is qualified under criteria
+determined by the Register Owner to propose changes to the content of a Register.
+The Register Manager must determine whether a Submitting Organization is qualified
+in accordance with the criteria established by the Register Owner. An approved
+Submitting Organization shall have at least one representative appointed to submit
+proposals to the Register on its behalf (multiple representatives of a Submitting
+Organization may be appointed in consultation with the Register Manager).
+
+=== Processing of Proposals
+
+Submitting Organizations may submit requests for addition, clarification,
+supersession, and retirement of registered items.
+
+==== Addition of registered items
+
+Addition is the insertion into a Register of a new item that describes a concept
+not adequately described by a valid or processing item already in the Register.
+
+==== Clarification of registered items
+
+Clarifications correct errors in spelling, punctuation, grammar or improvements to
+content or wording. A clarification shall not cause any substantive semantic change
+to a registered item. The three characteristics that may be clarified are
+definition, other references, and remarks.
+
+==== Supersession of registered items
+
+Supersession of an item means any proposal that would result in a substantive
+semantic change to an existing valid item, such as a change to the name of an item
+or its camelCase identifier; or a change in the portrayal of an item in the
+Portrayal Register. Supersession shall be accomplished by including one or more new
+items in the Register with new identifiers and a more recent date. The original
+item shall remain in the Register but must include the date at which it was
+superseded, and a reference to the items that superseded it.
+
+==== Retirement of registered items
+
+Retirement shall be affected by leaving the item in the Register; marking it
+retired; and including the date of retirement.

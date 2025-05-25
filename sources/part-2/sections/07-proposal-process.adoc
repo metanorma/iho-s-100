@@ -1,0 +1,157 @@
+== Proposal process
+
+[[fig-2-1]]
+.Proposal process -- Concept Register
+image::img16.png[]
+
+[[fig-2-2]]
+.Proposal process -- Data Dictionary Register
+image::img17.png[]
+
+=== Approval process
+
+The process for determining the acceptability of proposals is illustrated in
+<<fig-2-1;and!fig-2-2>> above. It must be completed within a time period specified
+by the Register Owner, in accordance with S-99.
+
+The Register Manager shall ensure the following:
+
+. If the proposal is for clarification or retirement of a Register item, set the
+_itemStatus_ of the item to 'processing'; and forward the proposal to the Register
+Domain Control Body; or
+. If the proposal is for registration of a new item or supersession of an existing
+Register item:
+
+.. Assign an _itemIdentifier_ to the new or superseding item;
+.. Set the _itemStatus_ of the item to 'processing', and
+.. forward the proposal to the Register Domain Control Body.
+
+The Register Domain Control Body shall:
+
+. Decide to accept the proposal without change; to accept the proposal subject to
+changes negotiated with the Submitting Organization; or not to accept the proposal.
+Criteria for not accepting a proposal include:
+
+.. The specification of the item is incomplete or incomprehensible;
+.. An identical or very similar item already exists in the Register or in another
+Register of the Registry;
+.. The proposed item does not belong to an item class included in the Register;
+.. The proposed item does not fall within the scope of this Register; or
+.. The justification for the proposal is inadequate.
+. Inform the Register Manager of the decision, and the rationale for the decision,
+within a time limit specified by the Register Owner, in accordance with S-99.
+
+The Register Manager shall:
+
+. Serve as the point of contact if there is a need for negotiations between the
+Submitting Organization and the Register Domain Control Body regarding changes to
+the proposal that are specified by the Domain Control Body as a condition of
+acceptance; and
+. Inform the Submitting Organization representative of the results of processing
+the proposal.
+
+If the decision of the Register Domain Control Body is positive, the Register
+Manager shall, in accordance with policies for the Register:
+
+. Complete the proposal management record with _proposalStatus_ set to 'accepted';
+and _dateAmended_ to the date of the Domain Control Body's decision;
+. Make approved changes to the content of the Register item; and
+. Set the Register item _itemStatus_ to 'valid'. For supersession or retirement
+proposals, the replaced or retired item has __itemStatus__ set to 'superseded' or
+'retired', as appropriate.
+
+If the decision of the Register Domain Control Body is negative, the Register
+Manager shall:
+
+. Update the proposal management record by setting _proposalStatus_ to 'rejected';
+and _dateAmended_ to the date of the Domain Control Body's decision; and
+. Inform the Submitting Organization of the deadline for appealing the decision of
+the Domain Control Body.
+
+Submitting Organization representatives shall:
+
+. Negotiate with the Register Domain Control Body through the Register Manager,
+with regard to changes to their proposal that are specified by the Domain Control
+Body as a condition of acceptance; and
+. Make known within their respective Submitting Organization communities or
+organizations the decisions taken on proposals by the Domain Control Body as
+transmitted to them by the Register Manager.
+
+The Register Manager shall:
+
+. Disseminate the results of the approval process to the public.
+
+==== Withdrawal of proposals
+
+Submitting Organization representatives may decide to withdraw a proposal at any
+time during the approval process.
+
+The Register Manager shall:
+
+. Change the proposal management record _proposalStatus_ from 'not yet determined'
+to 'withdrawn'.
+
+==== Appeals
+
+A Submitting Organization representative may appeal to the Register Executive
+Control Body if it disagrees with the decision of a Register Domain Control Body to
+reject a proposal for addition, clarification, supersession or retirement of an
+item in the Register. An appeal shall contain at a minimum a description of the
+situation; a justification for the appeal; and a statement of the impact if the
+appeal is not successful. The appeal process is included in the overall proposal
+process as shown in <<fig-2-1;and!fig-2-2>> above.
+
+The Submitting Organization shall:
+
+. Determine if the decision regarding a proposal for registration is acceptable; and
+. If not, submit an appeal to the Register Manager.
+
+The Register Manager shall:
+
+. Forward the appeal to the Register Executive Control Body.
+
+The Register Executive Control Body shall:
+
+. Process the appeal in conformance with its established procedures;
+. Decide whether to accept or reject the appeal; and
+. Return the result to the Register Manager.
+
+The Register Manager shall:
+
+. Update the proposal management record fields _proposalStatus_ and __dateAmended__;
+. Update the Register item __itemStatus__; and
+. Provide the results of the decision to the Register Domain Control Body and to
+the Submitting Organization representative.
+
+The Submitting Organization representative shall:
+
+. Make the results of the appeal known within their Submitting Organization
+community or organization.
+
+=== List of Submitting Organizations
+
+The Register Manager shall maintain and publish a Register-specific list of all
+qualified Submitting Organizations that may submit proposals for changes to the
+content of each Register that it manages. Each list shall include the name and
+contact information of the representative(s) for each Submitting Organization. The
+Registry shall contain an application to become a Submitting Organization. The
+Register Owner will be responsible for accepting or rejecting the application.
+
+=== Publication
+
+The Registry Manager shall ensure that information about valid, clarified,
+superseded, or retired items in the Register is readily available to users. The
+method for providing this information may depend upon the requirements of the
+members of the user community.
+
+=== Integrity
+
+The Register Manager shall ensure that, for each Register being managed:
+
+. All aspects of the registration process are handled in accordance with good
+business practice;
+. The content of the Register is accurate; and
+. Only authorised persons can make changes to the Register content.
+
+The Registry Manager shall ensure the security and integrity of the Registry using
+IT best practices.

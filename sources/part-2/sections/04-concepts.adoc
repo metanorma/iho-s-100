@@ -1,0 +1,56 @@
+== General concepts
+
+=== Registry
+
+A Registry is the information system on which a Register or series of Registers is
+maintained.
+
+==== Registry Owner
+
+A Registry Owner has the authority to host the Registers and establish the policy
+for access. The Registry Owner decides whether a proposed Register shall be hosted
+on the Registry.
+
+==== Registry Manager
+
+The Registry Manager is responsible for the day-to-day operation of the Registry.
+This includes:
+
+. providing Registry access for Register Managers, Control Bodies, and Register
+Users;
+. ensuring that information about items in the Registers is readily available to
+users in relation to those items that have the status of valid, invalid, clarified,
+superseded, retired or processing;
+. accepting proposals and forwarding them to all Register Managers; and
+. managing the resolution of persistent URI identifiers to appropriate resources,
+but only if resolution services are provided on a Registry server.
+
+=== Register
+
+A Register is simply a managed list. It is easier to maintain than a fixed
+document, because new items can be added as needed to the Register; and existing
+items in the Register can be clarified, superseded or retired. Each Register item
+has one or more dates associated with it that indicate when changes in its status
+occurred. This means that a Product Specification, defined at a given date, may
+reference an item in the Register at a specific point in time.
+
+==== Registers within the IHO Geospatial Information (GI) Registry
+
+The following Registers have been implemented within the IHO Geospatial Information
+(GI) Registry structure. A full description of these Registers is included in the
+accompanying references:
+
+* Concept Register (S-100 Part 2a);
+* Data Dictionary Register (S-100 Part 2a);
+* Portrayal Register (S-100 Part 2b);
+* Metadata Register (not currently described - to be included in a future Edition
+of S-100);
+* Product Specification Register (not currently described - to be included in a
+future Edition of S-100); and
+* Producer Code Register (not currently described - to be included in a future
+Edition of S-100).
+
+A description of the operational and management procedures for the IHO GI Registry,
+expanding further on the general concepts described in the following clauses, is
+included in IHO Publication S-99 -- _Operational Procedures for the Organization
+and Management of the IHO Geospatial Information (GI) Registry_.
