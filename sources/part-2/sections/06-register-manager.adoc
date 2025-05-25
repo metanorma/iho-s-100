@@ -1,0 +1,22 @@
+== The Register Manager shall
+
+. Receive proposals from Submitting Organization representatives;
+. Review proposals for completeness;
+. Return proposals to the Submitting Organization representative if incomplete;
+. Check within the Register for similar proposals; and if similar, the Register
+Manager shall contact the Submitting Organization representative;
+. Coordinate proposals with other Register Managers within two calendar weeks from
+the date received;
+. Generate a proposal management record, with the status set to 'transferred'; and
+. Initiate the approval process.
+
+=== Proposal legitimacy
+
+The Register Manager shall use the following criteria to determine if the proposal
+is complete and reject the proposal if:
+
+. The submitter is not a qualified Submitting Organization representative;
+. The proposed item does not belong to an item class assigned to this Register
+Manager;
+. The proposed item does not fall within the scope of the Register; or
+. The proposed item has already been proposed.

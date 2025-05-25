@@ -1,0 +1,10 @@
+[bibliography]
+== Normative references
+
+* [[[ISO19126,ISO 19126:2009]]]
+
+* [[[ISO19135,ISO 19135:2005]]]
+
+* [[[ISO8601,ISO 8601:2004]]]
+
+* [[[S99,IHO S-99]]]

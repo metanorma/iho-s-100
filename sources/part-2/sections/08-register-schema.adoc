@@ -1,0 +1,558 @@
+== Register Schema
+
+=== Introduction
+
+The schema specified in this clause describes the structure of an IHO Geospatial
+Information Register.
+
+Information about the Register and items in the Register shall be:
+
+. Accessible through an on-line interface to the Register;
+. Included in any copy of the Register; and
+. Included in any information package about the Register.
+
+[[fig-2-3]]
+.The Register schema
+image::img18.png[]
+
+[%landscape]
+<<<
+
+=== S100_RE_Register
+
+The class S100_RE_Register specifies information about the Register itself.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+| Class
+| S100_RE_Register
+|
+| -
+| -
+|
+
+| Attribute | name | The name of the Register | 1 | CharacterString | Unique within the Registry
+| Attribute
+| operatingLanguage
+| The language used in this Register
+| 1
+| RE_Locale
+|
+
+| Attribute
+| contentSummary
+| Summary of the content
+| 1
+| CharacterString
+|
+
+| Attribute
+| uniformResourceIdentifier
+| The link to the interface of the Register in the Internet
+| 1
+| CI_OnlineResource
+|
+
+| Attribute
+| dateOfLastChange
+| The date when the last change was made to this Register
+| 1
+| Date
+|
+
+| Association
+| registerItem
+| The items of the Register
+| 0..*
+| S100_RE_RegisterItem
+|
+|===
+
+=== S100_RE_RegisterItem
+
+The class S100_RE_RegisterItem carries the characteristics that are common to all
+types of registered items. Domain specific extensions may be added in the
+appropriate part of S-100; for example, Part 2a -- Concept and Data Dictionary
+Registers.
+
+[%unnumbered,cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_RE _RegisterItem
+|
+| -
+| -
+| Class is abstract
+
+| Attribute
+| itemIdentifier
+| Each item has its own unique identifier in a Register
+| 1
+| Integer
+|
+
+| Attribute
+| name
+| Succinct expression of the item concept it denotes
+| 1
+| CharacterString
+|
+
+| Attribute
+| definition
+| Shall be a precise statement of the nature, properties, scope, or essential qualities of the concept as realized by the item
+| 0..1
+| CharacterString
+| Mandatory for the Concept, Data Dictionary, Portrayal and Metadata Registers
+
+| Attribute
+| remarks
+| Supplementary information
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| itemStatus
+| The state in which a registered item exists
+| 1
+| S100_RE_ItemStatus
+|
+
+| Attribute
+| alias
+| Equivalent name(s) used for the item
+| 0..*
+| CharacterString
+|
+
+| Attribute
+| camelCase
+| Identifier of the item using camelCase notation
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| definitionSource
+| The source of the definition
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| reference
+| An identifier of the place in the definitionSource from which the definition is derived
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| similarityToSource
+| The type of change that has been made to a definition relative to the definition as it exists in the definition source
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| justification
+| Primary reason for the proposal including how it is proposed to be used
+| 0..1
+| CharacterString
+| Inherited from S-100_RE_ManagementInfo
+
+| Attribute
+| proposedChange
+| The text of the proposed change
+| 0..1
+| CharacterString
+| Inherited from S-100_RE_ManagementInfo
+
+| Association
+| register
+| The Register that contains the item
+| 1
+| S100_RE_Register
+|
+
+| Association
+| referenceSource
+| The source information the item definition was taken from.
+| 0..1
+| S100_RE_ReferenceSource
+|
+
+| Association
+| reference
+| Reference to other relevant standards or documents
+| 0..*
+| S100_RE_Reference
+| For example INT1 or M4
+
+| Association
+| managementInfo
+| Sets of information describing the management of the item in the Register
+| 1..*
+| S100_RE_ManagementInfo
+|
+|===
+
+The camelCase must:
+
+. Be compound words in which the words are joined without spaces and are
+capitalized within the compound.
+. Be unique within the Registry.
+. Conform to UTF-8 character encoding (refer ISO/IEC 10646) with uppercase
+characters A-Z, lowercase characters a-z and numbers 0-9.
+. Concepts must begin with lowercase a-z.
+
+[example]
+beaconCardinal is the Camel Case identifier for the concept Beacon Cardinal
+
+[example]
+categoryOfLandmark is the Camel Case identifier for the concept Category of Landmark
+
+=== S100_RE_ItemStatus
+
+The enumeration S100_RE_ItemStatus identifies the registration status of a Register
+item.
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+| Enumeration
+| S100_RE_ItemStaus
+|
+|
+
+| Literal
+| processing
+| The item has been entered into the Register, but the Domain Control Body is evaluating the proposal
+|
+
+| Literal
+| valid
+| The item has been accepted, is recommended for use, and has not been superseded or retired
+|
+
+| Literal
+| superseded
+| The item has been superseded by one or more items and is no longer recommended for use
+|
+
+| Literal
+| notValid
+| The item has been entered into the Register, but the Domain Control Body has not accepted the proposal to add it
+|
+
+| Literal
+| retired
+| A decision has been made that the item is no longer recommended for use. It has not been superseded by another item
+|
+
+| Literal
+| clarified
+| The item has been clarified and is no longer recommended for use
+|
+|===
+
+=== S100_RE_ReferenceSource
+
+The class S100_RE_ReferenceSource specifies information about the source of a
+Register item taken from an external document or Register.
+
+[%unnumbered,cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+| Class
+| S100_RE_ReferenceSource
+|
+| -
+| -
+|
+
+| Attribute
+| referenceIdentifier
+| An identifier of the place in the source document that is referenced
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| sourceDocument
+| The source document
+| 1
+| CI_Citation
+|
+
+| Attribute
+| similarity
+| Indicates how the definition is related to the source document
+| 1
+| S100_RE_SimilarityToSource
+|
+|===
+
+=== S100_RE_SimilarityToSource
+
+The enumeration S100_RE_SimilarityToSource identifies the type of change that has
+been made to an item specification relative to an item specification in an external
+source.
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_RE_SimilarityToSource
+|
+|
+
+| Literal
+| identical
+| No change has been made to the definition
+|
+
+| Literal
+| restyled
+| The style of the definition has been changed to match the style and structure of other definitions in the Register that has imported the definition
+|
+
+| Literal
+| contextAdded
+| The definition includes information about its context that is not explicit in the specification in the external source
+|
+
+| Literal
+| generalization
+| The definition of the register item has been generalized to have a broader meaning than the item specified in the external source
+|
+
+| Literal
+| specialization
+| The definition of the Register item has been specialized to have a narrower meaning than the item specified in the external source
+|
+
+| Literal
+| unspecified
+| The nature of the differences between the Register item and the similar item in the external source is unspecified
+|
+|===
+
+=== S100_RE_Reference
+
+The class S100_RE_Reference specifies information about the source and/or lineage
+of a specific Register item derived from an external document or Register.
+
+[%unnumbered,cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_RE_Reference
+|
+| -
+| -
+|
+
+| Attribute
+| referenceIdentifier
+| An identifier of the place in the source document that is referenced
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| sourceDocument
+| The source document
+| 1
+| CI_Citation
+|
+|===
+
+=== S100_RE_ManagementInfo
+
+The class S100_RE_ManagementInfo specifies the management record of a Register item.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_RE_ManagementInfo
+|
+| -
+| -
+|
+
+| Attribute
+| proposalType
+| The type of the proposal
+| 1
+| S100_RE_ProposalType
+|
+
+| Attribute
+| submittingOrganisation
+| The proposal's sponsor
+| 1
+| CharacterString
+|
+
+| Attribute
+| proposedChange
+| The text describing the proposed change
+| 1
+| CharacterString
+|
+
+| Attribute
+| justification
+| Primary reason for the proposal including how it is proposed to be used
+| 1
+| CharacterString
+|
+
+| Attribute
+| dateAccepted
+| Date the proposal was accepted
+| 0..1
+| Date
+|
+
+| Attribute
+| dateProposed
+| Date the proposal was made
+| 1
+| Date
+|
+
+| Attribute
+| dateAmended
+| Date the proposal was adjudicated
+| 1
+| Date
+|
+
+| Attribute
+| proposalStatus
+| Provides values for describing the disposition of a proposal to add or modify a Register item
+| 1
+| RE_ProposalStatus
+|
+
+| Attribute
+| controlBodyNotes
+| Supplementary management information
+| 0..*
+| CharacterString
+|
+|===
+
+=== S100_RE_ProposalType
+
+The enumeration S100_RE_ProposalType species the type of proposal for a Register
+item.
+
+[%unnumbered,cols=4,options=header]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_RE_ProposalType
+|
+|
+
+| Literal
+| addition
+| The item is to be added to the Register
+|
+
+| Literal
+| clarification
+| A non-substantive change to an item in the Register
+|
+
+| Literal
+| supersession
+| The item has been superseded by another item and is no longer recommended for use.
+|
+
+| Literal
+| retirement
+| A decision has been made that the item is no longer recommended for use. It has not been superseded by another item
+|
+|===
+
+=== S100_RE_ProposalStatus
+
+The enumeration S100_RE_ProposalStatus specifies the disposition of a proposal to
+add or change a Register item.
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_RE_ProposalStatus
+|
+|
+
+| Literal
+| notYetDetermined
+| The submitting Organization has submitted the proposal
+|
+
+| Literal
+| transferred
+| The Register Manager has requested the Domain Control Body to review the proposal
+|
+
+| Literal
+| retransferred
+| The Register Manager has requested the Submitting Organization to supplement the proposal
+|
+
+| Literal
+| accepted
+| The Control Body has accepted the proposal
+|
+
+| Literal
+| rejected
+| The Control Body has not accepted the proposal
+|
+
+| Literal
+| withdrawn
+| The Submitting Organization has withdrawn the proposal
+|
+
+| Literal
+| negotiation
+| The Domain Control Body has requested the Submitting Organization to supplement the proposal
+|
+
+| Literal
+| appeal
+| The Submitting Organization has initiated an appeal
+|
+
+| Literal
+| appealTransferred
+| The Register Manager has transferred the appeal to the Executive Control Body
+|
+
+| Literal
+| appealAccepted
+| The Executive Control Body has accepted the appeal
+|
+
+| Literal
+| appealRejected
+| The Executive Control Body has not accepted the appeal
+|
+|===
