@@ -1,0 +1,28 @@
+== References
+
+[bibliography]
+=== Normative references
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including amendments)
+applies.
+
+* [[[ISO19107,ISO 19107:2003]]]
+
+* [[[ISO19103,ISO TS 19103:2005]]]
+
+* [[[ISO19111,ISO 19111]]]
+
+[bibliography]
+=== Non-normative references
+
+The following references are listed only for informative purposes or to clarify
+parts of this document. Drafts are subject to change and are not international
+standards.
+
+* [[[ISO19107dis,nofetch(ISO/DIS 19107)]]], ISO/DIS 19107 _Geographic information – Spatial schema_ (Draft – June 2018)
+
+* [[[ISO19106,hidden(ISO 19106)]]]
+
+* [[[ISO19136,hidden(ISO 19136)]]]

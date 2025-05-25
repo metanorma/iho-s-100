@@ -1,0 +1,56 @@
+[[app-7-a]]
+[appendix,obligation=informative]
+== Examples
+
+=== Curve Example
+
+[[fig-7-A.1]]
+.Curve Example
+====
+[%unnumbered]
+image::img50.png[]
+
+[%unnumbered]
+image::img51.png[]
+====
+
+The following describes the geometrical elements of the curve example (<<fig-7-A.1>>).
+
+C1 (GM_Curve) consists of CS1, CS2 and CS3 (GM_CurveSegment). CS1 uses a geodetic
+interpolation, CS2 linear and CS3 circularArc3Points. SP (start point) and EP (end
+point) (GM_Point) are the start and end points of C1 and can also be used
+indirectly as a 0 dimension position for a point feature. An array of control
+points for each segment consists of a combination of SP, EP and vertices as
+indicated in the above diagram. The orientation of C1 is + (forward) from SP to EP.
+
+=== Surface Example
+
+[[fig-7-A.2]]
+.Surface Example
+====
+[%unnumbered]
+image::img52.png[]
+
+[%unnumbered]
+image::img53.png[]
+====
+
+The following describes the geometrical elements of the surface example
+(<<fig-7-A.2>>).
+
+S1 (GM_Surface) is represented by the surface patch P1 (GM_Polygon) the boundary
+of which consists of exterior and interior rings. The exterior ring CC1
+(GM_CompositeCurve) is an aggregation of C1, C2, C3 (GM_Curve), the interior ring
+C4 is a simple GM_Curve.
+
+=== 2.5 Dimensional Geometry Example
+
+[[fig-7-A.3]]
+.2.5D Example
+image::img54.png[]
+
+In the depicted example, the curve which constitutes the exterior boundary of a
+GM_Polygon consists of an array of 3D control points. Note that the surface
+interpolation must be "none", which means that the position of interior points is
+not determined. The "planar" interpolation would only be acceptable if all points
+were lying on a plane.

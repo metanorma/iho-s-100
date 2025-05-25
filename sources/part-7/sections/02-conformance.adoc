@@ -1,0 +1,29 @@
+== Conformance
+
+This profile consists of simple geometry based on three criteria -- complexity,
+dimensionality and functional complexity. The first two criteria (complexity and
+dimensionality) determine the types defined in this profile that shall be
+implemented according to an Application Schema that conforms to a given
+conformance option.
+
+There are:
+
+Two levels of complexity:
+
+. Geometric Primitives
+. Geometric Complexes;
+
+Four levels of dimensionality:
+
+. 0-dimensional objects
+. 0- and 1-dimensional objects
+. 0-, 1- and 2-dimensional objects
+. 0-, 1-, 2- and 2.5 -dimensional objects; and
+
+One level of functional complexity:
+
+. Data types only (operations are not included).
+
+This profile satisfies the conformance classes A.1.1.1, A.1.1.2, A.1.1.3, A.2.1.1
+and A.2.1.2 in <<ISO19107>>. This profile conforms to conformance class 2 of
+<<ISO19106>>.

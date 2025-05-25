@@ -1,0 +1,769 @@
+== Geometry
+
+=== Introduction
+
+This profile consists of simple geometry which can be expressed in multiple
+configurations as described in <<ISO19107,clause="6.1">>.
+
+==== S-100 Spatial Schema geometry classes and their <<ISO19107>> reference
+
+[[tab-7-1]]
+.Spatial types
+[cols=4,options=header]
+|===
+| Coordinate Geometry | Geometry Primitive | Geometry Complex | Geometry Aggregate
+
+| DirectPosition (<<ISO19107,clause=6.4.1>>) | GM_Curve (<<ISO19107,clause=6.3.16>>) | GM_Complex (<<ISO19107,clause=6.6.2>>) | GM_Aggregate (<<ISO19107,clause=6.5.2>>)
+
+| CurveInterpolation (<<ISO19107,clause=6.4.8>>) | GM_CurveBoundary (<<ISO19107,clause=6.3.5>>) | GM_Composite (<<ISO19107,clause=6.6.3>>) | GM_MultiPoint (<<ISO19107,clause=6.5.4>>)
+
+| GM_CurveSegment (<<ISO19107,clause=6.4.9>>) | GM_OrientableCurve (<<ISO19107,clause=6.3.14>>) | GM_CompositeCurve (<<ISO19107,clause=6.6.5>>) |
+
+| GM_Position (<<ISO19107,clause=6.4.5>>) | GM_OrientableSurface (<<ISO19107,clause=6.3.15>>) | |
+
+| GM_Polygon (<<ISO19107,clause=6.4.36>>) | GM_Point (<<ISO19107,clause=6.3.11>>) | |
+
+| GM_SurfacePatch (<<ISO19107,clause=6.4.34>>) | GM_Primitive (<<ISO19107,clause=6.3.10>>) | |
+
+| SurfaceInterpolation (<<ISO19107,clause=6.4.32>>) | GM_Ring (<<ISO19107,clause=6.3.6>>) | |
+
+| S100_ArcByCenterPoint (none) | GM_Surface (<<ISO19107,clause=6.3.17>>) | |
+
+| S100_CircleByCenterPoint (none) | GM_SurfaceBoundary (<<ISO19107,clause=6.3.7>>) | |
+
+| S100_GM_SplineCurve | | |
+
+| S100_GM_PolynomialSpline | | |
+|===
+
+[[cls-7-4.1.1.1]]
+===== Splines model (Informative)
+
+The spline classes S100_GM_SplineCurve and S100_GM_PolynomialSpline in this
+version of S-100 bridge the curves and splines model in <<ISO19107>> and the draft
+revision of <<ISO19107>>, which is under development as this update to S-100 is
+being developed. Considerations in this bridging are:
+
+* The new draft ISO model removes the concept of curve segment: "...Curve,
+CurveSegment, GenericCurve and CompositeCurve [are] implemented by a single class.
+For the same reason, there are no separate 'segments' or patches". A strict
+integration of this concept into S-100 would require a comprehensive overhaul of
+Part 7, and potentially of the S-100 data formats as well.
+* The model in <<ISO19107>> is flawed in its modelling of knots, and this has
+propagated into the GML Schema in <<ISO19136>>.
+* Finalization of the new edition of <<ISO19107>> is still some time away -- the
+current draft is not yet an ISO International Standard and is subject to change.
+* Some spline classes (or interfaces) merely add constraints and/or change a fixed
+attribute value compared to their generalizations, without defining any new
+attributes.
+
+The cross-references for the S100 spline classes to <<ISO19107>> and the draft
+<<ISO19107>> classes as of August 2017 are given in the table below:
+
+[[tab-7-2]]
+.ISO references for S-100 spline classes
+[cols="a,a,a",options=header]
+|===
+| S-100 class | <<ISO19107>> reference | Draft <<ISO19107dis>> model reference
+
+| S100_GM_SplineCurve | GM_SplineCurve (<<ISO19107,clause=6.4.26>>); +
+GM_BSplineCurve (<<ISO19107,clause=6.4.30>>) | <interface>SplineCurve; +
+<interface>BSplineCurve +
+<datatype>BSplineData
+| S100_GM_PolynomialSpline | GM_PolynomialSpline (<<ISO19107,clause=6.4.27>>); +
+GM_CubicSpline (<<ISO19107,clause=6.4.28>>) | <interface>PolynomialSpline; +
+<interface>CubicSpline
+|===
+
+All the "classes" in the draft revision of <<ISO19107>> are "interfaces", and the
+representation of the coordinates is an implementation decision. The new classes
+are therefore given an "S100_" prefix.
+
+[[fig-7-2]]
+.Coordinate Geometry
+image::img44.png[]
+
+==== DirectPosition
+
+===== Semantics
+
+_DirectPosition_ holds the coordinates for a position within a particular
+coordinate reference system. In this profile, the associated _SC_CRS_ must be
+linked at the _GM_Aggregate_ level and not directly to a _DirectPosition_.
+
+==== GM_Position
+
+===== Semantics
+
+The data type _GM_Position_ (<<fig-7-2>>) consists of either a _DirectPosition_ or
+a reference to a _GM_Point_ (_GM_PointRef_) from which a _DirectPosition_ can be
+obtained.
+
+This profile does not permit the use of the indirect position (_GM_PointRef_).
+
+=== Simple geometry
+
+[[fig-7-3]]
+.Geometry
+image::img45.png[]
+
+==== S100_GM_CurveInterpolation
+
+===== Semantics
+
+_S100_GM_CurveInterpolation_ (<<fig-7-3>>) is a list of codes to be used to
+identify the interpolation mechanisms specified by an Application Schema.
+
+In this profile, the types of interpolation available are limited to the following:
+
+. None (none) -- the interpolation is not specified. The assumption is that the
+curve conforms to the spatial object type, if constrained by that (for example,
+for arcs and circles) or, if not so constrained, is loxodromic.
+. Linear (linear) -- the interpolation is defined by a series of DirectPositions
+on a straight line between each consecutive pair of controlPoints.
+. Geodesic (geodesic) -- the interpolation mechanism shall return DirectPositions
+on a geodesic curve between each consecutive pair of controlPoints. A geodesic
+curve is a curve of shortest length. The geodesic shall be determined in the
+coordinate reference system of the _GM_Curve_ in which the _GM_CurveSegment_ is
+used.
+. Circular arc by 3 points (circularArc3Points) -- the interpolation defined by a
+series of DirectPositions on a circular arc passing from the start point through
+the middle point to the end point for each set of three consecutive controlPoints.
+The middle point is located halfway between the start and end point.
+. Loxodromic (loxodromic) -- the interpolation method shall return DirectPositions
+on a loxodromic curve between each consecutive pair of controlPoints. A loxodrome
+is a line crossing all meridians at the same angle, that is a path of constant
+bearing.
+. Elliptical arc (elliptical): for each set of four consecutive controlPoints, the
+interpolation mechanism shall return DirectPositions on an elliptical arc passing
+from the first controlPoint through the middle controlPoints in order to the
+fourth controlPoint. Note: if the four controlPoints are co-linear, the arc
+becomes a straight line. If the four controlPoints are on the same circle, the arc
+becomes a circular one.
+. Conic arc (conic): the same as elliptical arc but using five consecutive points
+to determine a conic section.
+. Circular arc with centre and radius (circularArcCenterPointWithRadius) -- the
+interpolation is defined by an arc of a circle of the specified radius centred at
+the position given by the single control point. The arc starts,at the start angle parameter and extends for the angle given by the angular distance parameter. This
+interpolation type shall be used only with S100_ArcByCenterPoint and
+S100_CircleByCenterPoint geometry. The precise semantics of the parameters are
+defined in <<cls-7-4.2.20>> (S100_ArcByCenterPoint).
+. Polynomial (polynomialSpline) -- the control points are ordered as in a
+line-string, but they are spanned by a polynomial function. Normally, the degree
+of continuity is determined by the degree of the polynomials chosen.
+. Bézier Spline (bezierSpline) -- the data are ordered as in a line string, but
+they are spanned by a polynomial or spline function defined using the Bézier
+basis. Normally, the degree of continuity is determined by the degree of the
+polynomials chosen.
+. B-spline (bSpline) -- the control points are ordered as in a line string, but
+they are spanned by a polynomial or rational (quotient of polynomials) spline
+function defined using the B-spline basis functions (which are piecewise
+polynomials). The use of a rational function is determined by the Boolean flag
+"isRational". If isRational is TRUE then all the DirectPositions associated with
+the control points are in homogeneous form. Normally, the degree of continuity is
+determined by the degree of the polynomials chosen.
+. Blended parabolic (blendedParabolic) -- the control points are ordered as in a
+line-string, but are spanned by a function that blends segments of parabolic
+curves defined by triplet sequences of successive data points. Each triplet
+includes the final two points of its predecessor. Further details of the semantics
+are provided in <<cls-7-4.2.2.2>>.
+
+==== GM_CurveSegment
+
+===== Semantics
+
+A _GM_CurveSegment_ (<<fig-7-3>>) defines the position, shape and orientation of a
+single _GM_Curve_. A _GM_CurveSegment_ consists either of positions which are
+joined by straight lines, or positions which fall on a line defined by a
+particular type of interpolation as described in 7-5.2.1.
+
+[[cls-7-4.2.2.2]]
+===== Semantics of specific interpolations
+
+The curve interpolation type _blendedParabolic_ is intended for representing
+smooth curves (or segments) using a reasonably low number of control points. This
+interpolation type means that the curve segment encoded in the control point array
+is composed of sequentially blended parabolic curves. The parabolic curves to be
+blended are determined by successive triplets of control points. Each triplet
+shares the two last points of its predecessor. The figure below illustrates the
+concept.
+
+[[fig-7-4]]
+.Ilustration of blended parabolic interpolation
+image::img46.png[]
+
+The sequence of 5 points stem:[P_0] -- stem:[P_4] determines 3 parabolic segments:
+stem:[S1(P_0-P_1-P_2)], stem:[S2(P_1-P_2-P_3)] and stem:[S3(P_2-P_3-P_4)]. The
+curve between stem:[P_1] and stem:[P_2] is determined by blending the
+stem:[P_1-P_2] segments of stem:[S1] and stem:[S2] while the curve between
+stem:[P_2] and stem:[P_3] is determined by blending the stem:[P_2-P_3] segments of
+stem:[S2] and stem:[S3]. The resultant curve between stem:[P_1-P_3] is shown by
+the dashed line.
+
+The resultant curve between two control points is computed as a combination of the
+two parabolas which share the two control points, for example it may be computed
+using the convex combination stem:[S(P_i, P_(i+1)) = (1-t) * S_j + t * S_(j+1)]
+where stem:[t] varies from 0 to 1 as the path progresses from stem:[P_i] to stem:[P_(i+1)].
+
+In practice it is not necessary to compute the equations of the parabolas to be
+blended, as the interpolated points can be computed using the coordinates of the
+control points. For example, the convex combination given earlier results in the
+formula below for the curve from stem:[P_k] to stem:[P_(k+1)], which is applied to
+the stem:[X] and stem:[Y] dimensions separately:
+
+[stem]
+++++
+P(t) = P_k + 1/2 t (P_(k+1) - P_(k-1))
+
+- 1/2 t^2 (P_(k+2) - 4P_(k+1) + 5P_k - 2P_(k-1))
+
++ 1/2 t^3 (P_(k+2) - 3P_(k+1) + 3P_k - P_(k-1))
+++++
+
+For open curves the first interpolated segment of the curve segment as a whole can
+be generated by adding a fictitious point preceding the first point in the control
+point array, with coordinate values such that the second derivative in
+stem:[t]-space (the _acceleration_ of the curve) at the first point in the control
+point array is zero. (This allows the use of the same blending formula as for the
+rest of the curve.) The final interpolated segment can be computed in a similar
+manner by adding a fictitious control point after the last point in the array.
+
+For closed curves, continuity and smoothness at the first and last point in the
+control point array require that the first triplet of control points be the same
+as the last triplet (or equivalently, that the curve be specifically designated as
+a closed curve so that the construction procedure can 'wrap around' the beginning
+and end of the control points array).
+
+Due to distortions caused by applying plane methods to curved surfaces, the
+_blendedParabolic_ interpolation should not be used where the precise location of
+the resultant curve is important. (It is possible to achieve higher precision by
+increasing the number of control points, but that defeats the pupose of using this
+interpolation type.)
+
+Curves with this interpolation type have the following characteristics:
+
+* Smooth representations with a reasonably low number of control points. However,
+the smoothness properties are not as high quality as cubic splines;
+* Less expensive computationally than cubic splines;
+* Better local control -- for example, moving a control point affects only the two
+segments it begins and terminates and their immediate neighbors;
+* There must be at least 3 points in the control points array.
+
+==== GM_SurfaceInterpolation
+
+===== Semantics
+
+_GM_SurfaceInterpolation_ (<<fig-7-3>>) is a list of codes which are used to
+identify the method of interpolation.
+
+In this profile, the types of _interpolation_ are constrained to the following:
+
+. None (none) -- the interior of the surface is not specified. The assumption is
+that the surface follows the reference surface defined by the coordinate reference
+system.
+. Planar (planar) -- the interpolation is a section of a planar, or flat, surface.
+The boundary in this case shall be contained within that plane.
+
+==== GM_SurfacePatch
+
+===== Semantics
+
+The _GM_SurfacePatch_ (<<fig-7-3>>) is the abstract root class for all
+2-dimensional geometric constructs. It uses a single interpolation to define the
+shape and position of the associated _GM_Surface_ primitives.
+
+==== GM_Polygon
+
+===== Semantics
+
+A _GM_Polygon_ (<<fig-7-3>>) is defined by a boundary (see <<cls-7-4.2.7>> below)
+and an underlying surface to which this boundary is connected. The polygon uses
+planar interpolation. A _GM_Polygon_ is a subtype of _GM_SurfacePatch_.
+
+==== GM_Curve
+
+===== Semantics
+
+_GM_Curve_ (<<fig-7-3>>) is a descendent subtype of _GM_Primitive_ through
+_GM_OrientablePrimitive_. It is the basis for 1-dimensional geometry. A curve is a
+continuous image of an open interval and so could be written as a parameterized
+function such as stem:[c(t):(a, b) -> E_n] where "stem:[t]" is a real parameter
+and stem:[E_n] is Euclidean space of dimension stem:[n] (usually 2 or 3, as
+determined by the coordinate reference system). Any other parameterization that
+results in the same image curve, traced in the same direction, such as any linear
+shifts and positive scales such as stem:[e(t) = c(a + t(b-a)):(0,1) -> E_n], is an
+equivalent representation of the same curve. For the sake of simplicity,
+_GM_Curve_ should be parameterized by arc length, so that the parameterization
+operation inherited from _GM_GenericCurve_ (see <<ISO19107,clause=6.4.7>>) will be
+valid for parameters between 0 and the length of the curve.
+
+Curves are continuous, connected, and have a measurable length in terms of the
+coordinate system. The orientation of the curve is determined by this
+parameterization, and is consistent with the tangent function, which approximates
+the derivative function of the parameterization and shall always point in the
+"forward" direction. The parameterization of the reversal of the curve defined by
+stem:[c(t):(a, b) -> E_n] would be defined by a function of the form
+stem:[s(t) = c(a + b - t):(a, b) -> E_n].
+
+A curve is composed of one or more curve segments. Each curve segment within a
+curve may be defined using a different interpolation method. The curve segments
+are connected to one another, with the end point of each segment except the last
+being the start point of the next segment in the segment list.
+
+Individual Product Specifications may constrain the interpolation types allowed
+for spatial attributes.
+
+[example]
+An isobar feature is constrained to curves consisting only of segments with
+interpolation type _polynomialSpline_ and degree 3 (that is, cubic splines).
+
+[[cls-7-4.2.7]]
+==== GM_CurveBoundary
+
+===== Semantics
+
+The boundary of __GM_Curve__ shall be represented as __GM_CurveBoundary__.
+
+==== GM_OrientableCurve
+
+===== Semantics
+
+A __GM_OrientableCurve__ (<<fig-7-3>>) is a __GM_Curve__ with an associated
+orientation inherited from __GM_OrientablePrimative__.
+
+==== GM_OrientableSurface
+
+===== Semantics
+
+A __GM_OrientableSurface__ (<<fig-7-3>>) is a __GM_Surface__ with an associated
+orientation inherited from its __GM_OrientablePrimative__ parent.
+
+==== GM_Point
+
+===== Semantics
+
+__GM_Point__ (<<fig-7-3>>) is a 0-dimensional geometric primitive (__GM_Primitive__).
+
+__GM_Point__ is the data type for a geometric object consisting of one and only
+one point.
+
+==== GM_Primitive
+
+===== Semantics
+
+__GM_Primitive__ (<<fig-7-3>>) is the abstract root class for all geometric
+primitives defined in this profile. A __GM_Primitive__ is a __GM_Object__.
+__GM_Primitive__ consists of three sub-types. __GM_Point__ which is
+0-dimensional; __GM_Curve__ which is 1-dimensional and __GM_Surface__ which is
+2-dimensional. All geometric primitives (__GM_Primitive__) must be part of at
+least one __GM_Aggregate__ (see <<ISO19107,clause=8.10.1>>). There is no direct
+link between each __GM_Primitive__ and the coordinate reference system __SC_CRS__
+used for defining the position of the __GM_Primitive__. All __GM_Primitive__
+contained within a __GM_Aggregate__ use the same __SC_CRS__ for defining their
+position.
+
+==== GM_Ring
+
+===== Semantics
+
+A __GM_Ring__ (<<fig-7-3>>) is composed of a number of references to
+__GM_OrientableCurves__. The endpoint of __GM_OrientableCurve__ "stem:[n]" is the
+startPoint of __GM_OrientableCurve__ "stem:[n+1]" and the first startpoint is
+coincident with the last endpoint, meaning the __GM_Ring__ is closed. A
+__GM_Ring__ must be simple, that is it does not intersect itself.
+
+==== GM_Surface
+
+===== Semantics
+
+__GM_Surface__ (<<fig-7-3>>) is a subclass of __GM_Primitive__ and is the basis
+for 2-dimensional geometry. It is a __GM_OrientableSurface__ with a positive
+orientation.
+
+This profile does not use instances of _GM_Surface_. A _GM_Surface_ within this
+profile must be subtyped as a _GM_Polygon._
+
+==== GM_SurfaceBoundary
+
+===== Semantics
+
+The boundary of _GM_Surfaces_ shall be represented as _GM_SurfaceBoundary_
+(<<fig-7-3>>).
+
+A _GM_SurfaceBoundary_ consists of references to a combination of at least one
+exterior _GM_Ring_ and zero or more interior _GM_Ring_. The rings must be closed
+as described in <<ISO19107,clause="6.6.11.1">>.
+
+==== GM_Complex
+
+===== Semantics
+
+A _GM_Complex_ (<<fig-7-3>>) is a collection of geometrically separate, simple
+_GM_Primitive_. If a _GM_Primitive_ (other than a _GM_Point_) is in a particular
+__GM_Complex__, then there exists a set of primitives of lower dimension in the
+same complex that form the boundary of this primitive. For example a _GM_Surface_
+is a 2 dimensional object, its boundary consists of _GM_Curve_ which are 1
+dimensional.
+
+==== GM_Composite
+
+===== Semantics
+
+A geometric composite, _GM_Composite_ (<<fig-7-3>>), is a collection of primitives
+which must have geometry of the same type and which could exist as a single
+example of that primitive. For example, a composite curve is a collection of
+curves which could equally be represented by a single curve. This does not apply
+to _GM_Point_ which can only contain one point.
+
+==== GM_CompositeCurve
+
+===== Semantics
+
+A _GM_CompositeCurve_ (<<fig-7-3>>) has all the geometric properties of a curve. A
+composite curve is a sequence of __GM_OrientableCurve__, each curve (except the
+first) begins where the previous curve ends.
+
+==== GM_Aggregate
+
+===== Semantics
+
+The aggregates, _GM_Aggregate_ (<<fig-7-3>>) gather geometric objects. Since they
+will often use orientation modification, the curve reference and surface
+references do not go directly to the _GM_Curve_ and __GM_Surface__, but are
+directed to __GM_OrientableCurve__ and _GM_OrientableSurface_.
+
+Most geometric objects are contained in features, and cannot be held in
+collections that are strong aggregations. For this reason, the collections
+described in this clause are all weak aggregations, and shall use references to
+include geometric objects.
+
+NOTE: The subclasses of _GM_OrientablePrimitive_ are handled in such a manner that
+the reference object can link to a specific orientation of that object.
+
+==== GM_MultiPoint
+
+===== Semantics
+
+_GM_MultiPoint_ is an aggregate class containing only points. The association role
+"element" shall be the set of _GM_Point_ contained in this _GM_MultiPoint_.
+
+[[cls-7-4.2.20]]
+==== S100_ArcByCenterPoint
+
+===== Semantics
+
+An S100_ArcByCenterPoint is an arc of the circle with centre given by the single
+control point and radius given by the _radius_ parameter. Radius is geodesic
+distance from the centre. The arc starts at the bearing given by the _start angle_
+attribute and ends at the bearing calculated by adding the value of the _angular
+distance_ parameter to the start angle. The direction of the arc is given by the
+sign of the angular distance, with positive values indicating a clockwise
+direction with respect to an observer located vertically above the centre point.
+Bearings are relative to true north except that arcs centred at either pole (where
+true north is undefined or ambiguous) shall use the prime meridian as the
+reference direction.
+
+Start angle must be in degrees and is limited to the range [0.0, 360.0]. Angular
+distance must be in degrees and is limited to the range [-360.0, +360.0]. The
+upper bound on radius varies with location and reference geoid but shall be less
+than the minimum geodesic distance from the position of the centre to its
+antipodal point. Tools or Product Specifications may impose a lower limit on
+radius.
+
+==== S100_CircleByCenterPoint
+
+===== Semantics
+
+An S100_CircleByCenterPoint is a circle with centre given by the single control
+point and radius given by the _radius_ parameter. Start angle and angular distance
+may be omitted. The semantics and limits of the attributes are the same as
+S100_ArcByCenterPoint with start angle assumed to be stem:[0.0 "unitsml(deg)"] and
+angular distance assumed to be stem:[+360.0 "unitsml(deg)"] if not provided. If
+provided, angular distance must be stem:[+360.0] or stem:[-360.0].
+
+==== S100_GM_SplineCurve
+
+===== Semantics
+
+All splines share the property that they can be represented by parametric
+functions that map into the coordinate system of the geometric object that they
+will represent. Spline Curves come in essentially two forms: interpolant and
+approximant.
+
+Interpolating splines ("interpolant") pass through each of the given control
+points. In general, the curves are defined by their data points with extra
+conditions at boundary points (the data points at either end of the segment), and
+the level of continuity (for example, stem:[C^0] continuity at a point means the
+curve is connected at the point; stem:[C^1] that the segments on either side have
+the same first derivative at the point). A cubic spline passes through each data
+point, is continuous and has a smooth tangent at each point.
+
+The second type ("approximants") only approximate the control points. These
+splines use sets of real valued functions which are all defined on a single common
+domain (for example, the interval [0.0, 1.0]); are always non-negative in their
+values; and always sum as a complete set to 1.0 for their entire domain. These
+functions are used in vector equations so that the tracing of the curve is a
+weighted average. The spline curve always lies in the convex hull of the control
+points. Since such functions are defined in vector form, they can generally be
+used in any target dimension coordinate system.
+
+Approximants have nice properties involving ease of representation, ease of
+calculation, smoothness, and some form of convexity. They do not usually pass
+through the control point, but if the control point array is dense enough, the
+local properties will force a good approximation of them, and will give a
+well-behaved curve in terms of shape and smoothness.
+
+S100_GM_SplineCurve and its subclass(es) must have values of curveInterpolation
+that are appropriate to the type of curve; that is, one of polynomialSpline,
+bezierSpline, or bSpline as appropriate.
+
+Due to distortions caused by applying plane methods to curved surfaces and the
+nature of splines and blended curve as approximations, the various spline and
+_blendedParabolic_ interpolations should not be used where accuracy in the
+location of the resultant curve is important, such as defining the boundaries of
+restricted areas. (In principle it is possible to produce high-precision curves by
+increasing the number of control points, but that defeats the purpose of using
+these interpolation types.)
+
+For the reasons mentioned in <<cls-7-4.1.1.1>> and the omission of curveForm, this
+class is given an 'S100_' prefix.
+
+===== Attributes
+
+knot:: The attribute "knot" is an array of knots, each of which define a value in
+the parameter space of the spline, and will be used to define the spline basis
+functions. The _knot_ data type holds information on knot multiplicity. The
+parameter values in this array must be monotonic and strictly increasing; that is,
+each value must be greater than its predecessor.
+
+degree:: The attribute "degree" shall be the degree of the polynomials used for
+defining the interpolation. Rational splines will have this degree as the limiting
+degree for both the numerator and denominator of the rational functions being used
+for the interpolation.
+
+knotSpec:: The attribute "knotSpec" gives the type of knot distribution used in
+defining this spline. This is for information and possible implementation
+optimizations, and must be set according to the different construction-functions.
+
+isRational:: The attribute "isRational" indicates that the spline uses rational
+functions to define the curve. This is done by creating a polynomial spline on
+homogeneous coordinates, and projecting back to regular coordinates when all
+calculations are done. The attribute "isRational" must be "TRUE" if and only if
+the control points of the spline are in homogeneous coordinates, each point having
+a weight.
+
+The <<ISO19107>> attribute "curveForm" is not used since it is for information
+only, used to capture the original intention.
+
+===== Semantics of specific varieties
+
+A B-spline is a piecewise parametric polynomial or rational curve described in
+terms of control points and basis functions. If the knotSpec is not present, then
+the knotType is uniform and the knots are evenly spaced, and except for the first
+and last have multiplicity = 1. At the ends the knots are of multiplicity =
+degree+1. If the knotType is uniform they need not be specified. B-splines must
+have curveInterpolation set to _bSpline_. The basis functions for B-splines depend
+on the degree and are defined in textbooks in mathematics, computer graphics, and
+computer-aided geometric design.
+
+A B-spline curve is a piecewise Bézier curve if it is quasi-uniform except that
+the interior knots have attribute multiplicity{blank}footnote:[This is the
+attribute named "multiplicity" of class GM_Knot] = "degree" rather than having multiplicity one. In this subtype the knot spacing shall be 1.0, starting at 0.0.
+A piecewise Bézier curve that has only two knots, 0.0, and 1.0, each of
+multiplicity (degree+1), is equivalent to a simple Bézier curve.
+
+Bézier splines are polynomial splines that use Bézier or Bernstein polynomials for
+interpolation purposes. These polynomials are defined in textbooks in mathematics,
+computer graphics, and computer-aided geometric design. Bézier splines must have
+curveInterpolation set to _bezierSpline_.
+
+==== S100_GM_PolynomialSpline
+
+===== Semantics
+
+A polynomial spline is a polynomial curve passing through the points in the
+control points array. Construction of such a spline depends on the constraints,
+which may include:
+
+* restrictions on values or derivatives of the spline at the data points;
+* restrictions on the continuity of various derivatives at chosen points;
+* degree of the polynomial in use.
+
+A polynomial spline of degree stem:[n] shall be defined piecewise between knot
+parameter values, as an stem:[n]-degree polynomial, with up to stem:[C^(n-1)]
+continuity at the control points where the defining polynomial may change.
+
+This level of continuity shall be controlled by the attribute
+numDerivativesInterior, which shall default to (degree-1).
+
+Constructive parameters may include constraints for as many as "degree-1"
+derivatives of the polynomials at each knot.
+
+The major difference between the polynomial splines, the B-splines (basis splines)
+and Bézier splines is that polynomial splines pass through their control points,
+making the control point and sample point array identical.
+
+===== Attributes
+
+derivativeAtStart, derivativeAtEnd (vector):: The attribute "derivativeAtStart"
+shall be the values used for the initial derivatives (up to degree -- 2) used for
+interpolation in this curve at the start point of the spline. The attribute
+"derivativeAtEnd" shall be the values used for the final derivative (up to
+degree-2) used for interpolation in this curve at the end point of the spline.
+These attributes are used to ensure continuity and smoothness with predecessor and
+successor curves if any; for example, if this curve segment is one of a sequence
+of curve segments, or if the curve is part a composite curve.
+
+numDerivativesInterior (Integer):: The attribute "numDerivativesInterior" is the
+number of continuous derivatives required at interior knots (that is, between the
+first and the last knot). The attribute "numDerivativesInterior" specifies the
+type of continuity that is guaranteed interior to the curve. The value of "0"
+means stem:[C^0] continuity (which is a mandatory minimum level of continuity),
+the value "1" means stem:[C^1] continuity, etc.
+
+===== Semantics of specific varieties
+
+Cubic splines are polynomial splines with degree = 3. The number of points in the
+control points array must be stem:[3*N+1] where stem:[N] is the number of cubic
+pieces.
+
+==== S100_GM_Knot (DataType)
+
+===== Semantics
+
+The knots are values from the domain of a constructive parameter space for curves,
+surfaces and solids{blank}footnote:[Solids are not implemented in S-100.]. Each
+knot sequence is used for a dimension of the parameter space
+stem:[k_i = {u_0,u_1,u_2...}]. Thus, in a surface using a functional interpolation
+such as a B-spline, there will be two knot-sequences, one for each parameter,
+stem:[k_(i,j) = (u_i, v_j)].
+
+In the knot sequence for a B-spline, a knot can be repeated (affecting the
+underlying spline formulae). In other curves, knots will all be multiplicity 1. In
+S-100 knot sequences are represented as in the <<ISO19107dis>> (2017 draft) model; that
+is, distinct values accompanied by a multiplicity, expressed as
+stem:[t in R, m in Z]. The alternative storage form (simple sequence, with
+repetitions or each knot
+according to its multiplicity) is acceptable in a data format if required by the
+encoding standard on which the data format is based.
+
+===== Attributes
+
+value (Real):: The attribute "value" is the value of the parameter at the knot of
+the spline. The values of successive knots must be monotonically increasing.
+
+Multiplicity (Integer):: The attribute "multiplicity" is the multiplicity of the
+knot.
+
+==== S100_GM_KnotType
+
+===== Semantics
+
+A B-spline is uniform if and only if all knots are of multiplicity one and they
+differ by a positive constant from the preceding knot. A B-spline is quasi-uniform
+if and only if the knots are of multiplicity (degree+1) at the ends, of
+multiplicity one elsewhere and they differ by a positive constant from the
+preceding knot. This enumeration is used to describe the distribution of knots in
+the parameter space of various splines. Possible values are:
+
+. Uniform (uniform): Knots are equally spaced, all multiplicity 1.
+. Non-uniform (nonUniform): Knots have varying spacing and multiplicity.
+. Quasi-Uniform (quasiUniform): The interior knots are uniform, but the first and
+last have multiplicity one larger than the degree of the spline stem:[(p+1)].
+. Piecewise Bézier (piecewiseBezier): The underlying spline is formally a Bézier
+spline, but knot multiplicity is always the degree of the spline except at the
+ends where the knot degree is stem:[(p+1)]. Such a spline is a pure Bézier spline
+between its distinct knots.
+
+==== Vector
+
+The datatype "Vector" must be associated with a point on the
+GeometricReferenceSurface (for example, the surface of the geoid) to be well
+defined. The attributes of the vector also specify the "start position" of the
+vector.
+
+===== Attributes
+
+origin:: DirectPosition -- The attribute "origin" is the location of the point on
+the GeometricReferenceSurface for which the vector is a tangent. The direct
+position is associated with a coordinate system; this determines the coordinate
+system for the vector. The direct position's spatial dimension determines the
+dimension of the vector.
+
+offset:: Real [1..*] -- The attribute "offset" uses the coordinate system of the
+direct position and represents the local tangent vector in terms of the
+differentials of the local coordinates. The offset values are the magnitude of the
+vector along each coordinate axis.
+
+dimension:: Integer -- The attribute "dimension" is the dimension of the origin
+and therefore the dimension of the local tangent space of the vector.
+
+coordinateSystem:: the attribute "coordinateSystem" is the same as the coordinate
+system of the origin.
+
+For curve spatial types the origin will be the point at which the vector is
+defined; the offset will be the latitude and longitude differentials, which
+together indicate the magnitude and direction of the vector; the dimension will be
+2 for curves with control points encoded as latitude/longitude; and the
+coordinateSystem being the same as that of the origin is not encoded.
+
+=== Geometry configurations
+
+<<fig-7-3>> depicts a one size fits all geometry model which can be further
+constrained in both dimensionality and complexity. This is broken down into 5
+basic levels.
+
+==== Level 1 -- 0-, 1-Dimension (no constraints)
+
+A set of isolated point and curve primitives. Curves do not reference points (no
+boundary), points and curves may be coincident. Areas are represented by a closed
+loop of curves.
+
+==== Level 2a -- 0-, 1-Dimension
+
+A set of point and curve primitives with the following constraints:
+
+. Each curve must reference a start and end point (they may be the same).
+. Curves must not self-intersect as shown in <<fig-7-5>>.
+. Areas are represented by a closed loop of curves beginning and ending at a common point.
+. In the case of areas with holes, all internal boundaries must be completely
+contained within the external boundary and the internal boundaries must not
+intersect each other or the external boundary. Internal boundaries may touch other
+internal boundaries or the external boundary tangentially (that is at one point)
+as shown in <<fig-7-6>>.
+. The outer boundary of a surface must be in a clockwise direction (surface to the
+right of the curve) and the curve orientation positive. The inner boundary of a
+surface must be in a counter-clockwise direction (surface to the right of the
+curve) and the curve orientation negative as shown in <<fig-7-7>>.
+
+[[fig-7-5]]
+.Self Intersect Example (Invalid Geometries)
+image::img47.png[]
+
+[[fig-7-6]]
+.Area Holes (Valid Geometries)
+image::img48.png[]
+
+[[fig-7-7]]
+.Boundary Direction
+image::img49.png[]
+
+==== Level 2b -- 0-, 1-Dimension
+
+A set of point and curve primitives. The constraints for Level 2a apply plus the
+following:
+
+. Each set of primitives must form a geometric complex;
+. Curves must not intersect without referencing a point at the intersection;
+. Duplication of coincident geometry is prohibited.
+
+==== Level 3a -- 0-, 1- and 2-Dimension
+
+A set of point, curve and surface primitives. The constraints for Level 2a applies.
+
+==== Level 3b -- 0-, 1- and 2-Dimension
+
+A set of point, curve and surface primitives. The constraints for Levels 2a and 2b
+apply plus the following:
+
+. Surfaces must be mutually exclusive and provide exhaustive cover.
