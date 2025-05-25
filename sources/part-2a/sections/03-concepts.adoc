@@ -1,0 +1,88 @@
+== General concepts
+
+=== Register
+
+As described in Part 2, a Register is simply a managed list. It is easier to
+maintain than a fixed document, because new items can be added as needed to the
+Register, and existing items in the Register can be clarified, superseded or
+retired. Each Register item has one or more dates associated with it that indicate
+when changes in its status occurred. This means that a Product Specification,
+defined at a given date, may reference an item in the Register at that specific
+point in time.
+
+=== Relationship to the ISO Register and Feature Concept Dictionary Models
+
+The realization of ISO 19126 and ISO 19135 types in the IHO GI Registry is shown in
+<<fig-2a-1>> below. This Figure depicts the ISO types (elements with grey
+backgrounds); the implemented S-100 Registry model classes (elements with tan
+backgrounds); and two of the Registers comprising the IHO GI Registry (elements
+with white backgrounds). The Registers themselves are implemented within different
+sections of the IHO GI Registry web site, each accessible through a site navigation
+menu.
+
+The ISO type "Feature Concept Dictionary", which contains definitions of feature
+and attribute types, is implemented as the "Data Dictionary Register" in the IHO GI
+Registry (S100_DataDictionaryRegister in <<fig-2a-1>>). The Data Dictionary
+Register contains definitions of features, information types, attributes (both
+simple and complex), and enumerated values for enumeration and S100_Codelist
+attributes (see S-100 Part 1, clauses 1-4.7 and 1-4.8). The Data Dictionary
+Register is further described in <<cls-2a-3.4;and!cls-2a-4.1.2>>.
+
+The IHO GI Registry also implements a "Concept Register" (S100_ConceptRegister in
+<<fig-2a-1>>), which can be understood as a kind of glossary of terms with
+definitions and sources. Individual entries in the Concept Register are represented
+by the class S100_Concept. The Concept Register is separate from the Data
+Dictionary Register. However, entries in the Data Dictionary Register are derived
+from entries in the Concept Register. The Concept Register is further described in
+<<cls-2a-3.3;and!cls-2a-4.1.1>>.
+
+Registers for associations and roles are not currently implemented within the IHO
+GI Registry and the corresponding ISO types are therefore not included in
+<<fig-2a-1>>. Also, the IHO GI Registry includes additional Registers (for Portrayal,
+Producer Codes, Product Specifications, and Metadata) which are not shown in
+<<fig-2a-1>>.
+
+[[fig-2a-1]]
+.Relationships of the S-100 Registry Classes to ISO 19126/ISO 19135 Model
+image::img19.png[]
+
+[[cls-2a-3.3]]
+=== Concept Register
+
+A Concept Register specifies unique, independent sets of definitions of concepts
+that may be used to describe geographic, hydrographic, and metadata information.
+These concepts as registered in a Concept Register may then be used within a Data
+Dictionary or Meta Data Register to develop a Feature Catalogue. Unlike a Data
+Dictionary Register, a Concept Register does not make associations; or define type
+or bindings of concepts to other concepts. From this perspective, registered items
+within the Concept Register are essentially "stateless", which allows for
+flexibility of the use of the concepts for suitable data modelling to satisfy the
+requirements of Product Specifications.
+
+Such Registers of geospatial information may serve as sources of reference for
+similar Registers established by other geographic information communities as part
+of a system of cross-referencing.
+
+[[cls-2a-3.4]]
+=== Data Dictionary Register
+
+A Data Dictionary Register specifies independent sets of definitions of features,
+attributes, enumerated values, and information types that may be used to describe
+geographic, hydrographic, and metadata information. A Data Dictionary Register may
+be used to assign an item defined in a Concept Register a type (for example
+feature, attribute and enumerate value); and define recommended associations and
+attribute/feature bindings to facilitate the development of Feature Catalogues.
+Items in a Concept Register can only be registered once against each type in a Data
+Dictionary Register in order to support interoperability.
+
+Such Data Dictionaries of geospatial information may serve as sources of reference
+for similar Data Dictionaries or Registers established by other geographic
+information communities as part of a system of cross-referencing.
+
+=== Feature Catalogue
+
+A Feature Catalogue is a document that describes the content of a data product. It
+uses item types, for example features and attributes, from one or more Data
+Dictionaries and binds them together. In addition constraints, units of measurement
+and format description of attributes can be specified. Feature Catalogues are
+described in detail in S-100 Part 5.

@@ -1,0 +1,45 @@
+== Scope
+
+The IHO Geospatial Information (GI) Registry contains a number of Registers, some
+of which are based on the contents of the Concept Register. The Concept Register
+specifies hydrographic core conceptual information (definitions, camelCase, etc)
+that may be used to describe geographic or meta data information. The use of a
+Register to store hydrographic definitions significantly improves the IHOs ability
+to manage and extend multiple products based on S-100 which can be made available
+for use in a relatively short timescale. As such, the Register supports wider use
+of registered items by making them publicly available; and increases their
+visibility to potential users. The Concept Register is the primary resource where
+all registered concepts are stored and managed as "stateless" concepts (that is,
+items are not assigned a type and there is no defined binding of concepts to other
+concepts within the Register). Each concept shall be included as a single instance
+in the Register and will be used as the common source from which Data Dictionary
+Register and Meta Data Register concepts are derived and used to model features,
+attributes etc. for use in S-100 based Product Specifications.
+
+The Data Dictionary Register expands on the concepts stored in the Concept Register
+by including the assignment of item types and feature binding in discrete Domains
+within the Register. This allows S-100 based Product Specification developers to
+develop their data models to best suit their specific requirements for
+representation of the real world.
+
+This Part describes the content of the Concept and Data Dictionary Registers and
+specifies procedures to be followed in establishing, maintaining, and publishing
+Registers of unique, unambiguous and permanent identifiers that are assigned to
+items of geographic, hydrographic and metadata information. In order to accomplish
+this purpose, this Part specifies elements of information that are necessary to
+provide identification and definitions to the registered items.
+
+=== Conformance
+
+This profile conforms to conformance class 2 of ISO 19106:2004. The following is a
+brief description of the specializations and generalizations where the profile
+differs from ISO 19126:2008.
+
+. A new class, S100_CD_Information is introduced.
+. New classes, S100_CD_Feature and S100_CD_Information are introduced.
+. A new class, S100_CD_AttributeConstraints is introduced.
+. The class FC_FeatureAttribute is specialized to be the abstract class
+_S100_CD_Attribute_.
+. New classes, S100_CD_SimpleAttribute and S100_CD_ComplexAttribute are introduced.
+. The classes CD_InheritanceRelation, CD_FeatureOperation CD_Binding, CD_Constraint
+and CD_BoundFeatureAttribute are not used.

@@ -1,0 +1,559 @@
+== IHO Concept and Data Dictionary Registers
+
+=== Detail of registered items
+
+[[cls-2a-4.1.1]]
+==== IHO Concept Register
+
+The following are the details available in a Concept Register to describe and
+manage hydrographic, marine-related and meta data information:
+
+. Item Name
+. Item Identifier
+. Item Status
+. Alias
+. Camel Case
+. Definition
+. Definition Source
+. Definition Reference
+. Similarity to Source
+. Remarks
+. Proposal Type
+. Successor
+. Predecessor
+. Submitting Organization
+. Date Proposed
+. Date Accepted
+. Date Amended
+. Proposed Change
+. Justification
+
+These details are derived from the classes S100_RE_RegisterItem and
+S100_RE_ManagementInfo (see <<cls-2a-4.2>> below and Part 2, clauses 2-8.3 and
+2-8.8).
+
+[[cls-2a-4.1.2]]
+==== IHO Data Dictionary Register
+
+The following are types of items, as derived from a Concept Register, which may be
+registered within a Data Dictionary Register:
+
+. Feature -- abstraction of real world phenomena.
+. Attribute -- characteristic of a feature concept.
+. Enumerated Value -- one of a set of mutually exclusive values constituting the
+domain of an attribute.
+. Information -- an identifiable object that contains attributes, associations to
+other information concepts, but no spatial information.
+. Codelist -- an open enumeration, or the identifier of a vocabulary (mapping
+between codes, labels and definitions).
+
+[[cls-2a-4.2]]
+=== Data model of the IHO Concept and Data Dictionary Registers
+
+==== UML Model
+
+The following Figure shows the UML information model of the IHO Concept and Data
+Dictionary Registers:
+
+[[fig-2a-2]]
+.IHO Concept and Data Dictionary Registers
+image::img20.png[]
+
+[%landscape]
+<<<
+
+==== S100_RE_Register
+
+The class S100_RE_Register models a Register in a Registry. Further details can be
+found in S-100 Part 2, clause 2-8.2.
+
+==== S100_CD_RegisterItem
+
+The class S100_CD_RegisterItem is a specialization of the class
+S100_RE_RegisterItem and carries the characteristics that are common to all types
+of registered items listed in <<cls-2a-4.1.1>>. This class is included in the model
+for consistency with Part 2b, in which a similar extension (S100_PR_RegisterItem)
+defines additional attributes.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | S100_CD_RegisterItem | Extension of S100_RE_RegisterItem | - | - | Abstract class
+|===
+
+==== S100_CD_Feature
+
+This class is derived from S100_RE_RegisterItem via intermediate super-classes. It defines the following additional properties:
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_Feature
+| A feature type in a Data Dictionary
+| -
+| -
+| Derived from S100_Concept
+
+| Attribute
+| featureUseType
+| The intended use of a feature type
+| 1
+| S100_CD_FeatureUseType
+|
+
+| Association role
+| distinction
+| References to feature types that this feature type is distinct from
+| 0..*
+| S100_CD_Feature
+|
+
+| Association
+| conceptReference
+| References S100_Concept as the base class
+| 1
+| S100_Concept
+|
+|===
+
+NOTE: The attribute camelCase is mandatory for this class.
+
+==== S100_CD_FeatureUseType
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_CD_FeatureUseType
+| Categories of feature types
+|
+
+| Literal
+| geographic
+| carries the descriptive characteristics of a real world entity
+|
+
+| Literal
+| meta
+| Delineates geographic location where meta information is applicable" distinct from an Information Type which carries information related to features which are related
+|
+
+| Literal
+| cartographic
+| carries information about the cartographic representation (including text) of a real world entity
+|
+
+| Literal
+| theme
+| Grouping features thematically
+|
+|===
+
+==== S100_CD_Attribute
+
+Attributes may either be simple or complex. A simple attribute carries a specific
+value such as a date. A complex attribute is an aggregation of other attributes
+either simple or complex. Examples of complex attributes are in <<app-2a-A>>. This
+class is derived from S100_RE_RegisterItem via intermediate super-classes and
+describes the common characteristics of all attribute types.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_Attribute
+| Base class of all attribute types in a Data Dictionary
+| -
+| -
+| Derived from S100_Concept
+
+| Association
+| conceptReference
+| References S100_Concept as the base class
+| 1
+| S100_Concept
+|
+|===
+
+NOTE: The attribute camelCase is mandatory for this class.
+
+==== S100_CD_SimpleAttribute
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_SimpleAttribute
+| A simple attribute type in a Data Dictionary
+| -
+| -
+| Derived from S100_CD_Attribute
+
+| Attribute
+| valueType
+| Describes representation, interpretation and structure of values
+| 1
+| S100_CD_AttributeValueType
+| See below
+
+| Attribute
+| quantitySpecification
+| Specification of the quantity, for example length, volume, depth, weight etc
+| 0..1
+| S100_CD_QuantitySpecification
+|
+
+| Association
+| constraints
+| Constraints of the attribute type
+| 0..1
+| S100_CD_AttributeConstraints
+| Must be consistent with dataType
+|===
+
+If the _valueType_ is S100_Codelist exactly one of the following must be true:
+
+. There is an associated S100_RE_Reference with the namespace of a dictionary that
+is listed in the IHO GI Registry.
+. There is at least one S100_CD_EnumeratedValue associated to the attribute.
+
+Condition 1 identifies the dictionary for codelists of type "open dictionary" or
+"closed dictionary". Condition 2 provides the enumerated value(s) for codelists of
+type "open enumeration". The precise codelist type is determined in individual
+Product Specifications.
+
+==== S100_CD_QuantitySpecification
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_CD_QuantitySpecification
+| Types of quantity measures
+| Adapted from ISO 19103 Measure Types
+
+| Literal
+| angularVelocity
+| The instantaneous rate of change of angular displacement with time
+| From ISO 19103
+
+| Literal
+| area
+| The measure of the physical extent of any two-dimensional geometric object
+| From ISO 19103
+
+| Literal
+| density
+| Mass per unit volume; number per unit area. Also: specific gravity (S-32). Density of soundings is the intervals between lines of sounding and soundings in the same line (S-32)
+| "Density" can be used in different senses, the unit of measure and attribute definition must make it clear which is intended
+
+| Literal
+| duration
+| Interval of time
+|
+
+| Literal
+| frequency
+| Number of vibrations or cycles per unit time
+| IHO S-32
+
+| Literal
+| length
+| The longest dimension of an object; distance measured along a line or curve
+|
+
+| Literal
+| mass
+| A numerical measure of the inertia of an object; the quantity of matter which a body contains, irrespective of its bulk or volume
+|
+
+| Literal
+| planeAngle
+| The amount of rotation needed to bring one line or plane into coincidence with another, generally measured in radians or degrees
+| From ISO 19103 "angle"
+
+| Literal
+| power
+| Rate of doing work or transferring energy; magnification
+| S-32 refers "power" to "magnifying power: the ratio of the apparent length of a linear dimension as seen through an optical instrument to that seen by the unaided eye". The unit of measure and attribute definition must make it clear which sense is intended
+
+| Literal
+| pressure
+| Force per unit area
+|
+
+| Literal
+| salinity
+| A measure of the quantity of dissolved salts
+| IHO S-32 (abbrev.)
+
+| Literal
+| speed
+| Rate of change of position with time
+| Usually calculated using the simple formula, the change in position during a given time interval. Speed is a scalar physical quantity, having magnitude but not direction. Contrast to "velocity" which is a vector quantity having both magnitude and direction. (Adapted from ISO 19103 "velocity")
+
+| Literal
+| temperature
+| The intensity or degree of heat
+| IHO S-32
+
+| Literal
+| volume
+| The measure of the physical space of any 3-D geometric object
+| From ISO 19103
+
+| Literal
+| weight
+| The force experienced by an object due to gravity
+|
+
+| Literal
+| otherQuantity
+| A quantity different from the other literals of this enumeration
+|
+|===
+
+==== S100_CD_AttributeValueType
+
+[%unnumbered,options=header,cols=4]
+|===
+| Item | Name | Description | Remarks
+
+| Enumeration
+| S100_CD_AttributeValueType
+| Value types of simple attributes
+|
+
+| Literal
+| boolean
+| True or False
+|
+
+| Literal
+| enumeration
+| List of predetermined values that can be expanded and contracted
+|
+
+| Literal
+| integer
+| Numeric value with defined range, units and format
+|
+
+| Literal
+| real
+| Floating point number
+|
+
+| Literal
+| text
+| A sequence of characters
+|
+
+| Literal
+| date
+| Character encoding shall follow the format for date as specified by ISO 8601
+|
+
+| Literal
+| time
+| Character encoding shall follow the format for time as specified by ISO 8601
+|
+
+| Literal
+| dateTime
+| Character encoding shall follow the format for date and time as specified by ISO 8601
+|
+
+| Literal
+| URI
+| Character encoding shall follow the format for URI as specified by RFC 3986
+|
+
+| Literal
+| URL
+| Character encoding shall follow the format for URL as specified by RFC 3986
+|
+
+| Literal
+| URN
+| Character encoding shall follow the format for URN as defined by RFC 2141
+|
+
+| Literal
+| S100_CodeList
+| Open enumeration or identifier of entry in a vocabulary
+|
+
+| Literal
+| S100_TruncatedDate
+| Truncated format for date
+|
+|===
+
+==== S100_CD_AttributeConstraints
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_AttributeConstraints
+| Constraints of a simple attribute
+| -
+| -
+|
+
+| Attribute
+| stringLength
+| Shall be represented as a positive integer (that is, greater than zero) that specifies the maximum number of characters that may be assigned to the text attribute type. If not specified, then the text length shall be unconstrained
+| 0..1
+| PositiveInteger
+|
+
+| Attribute
+| textPattern
+| A character string that specifies a scheme of one or more constraints on the structure of the text values that may be assigned to the attribute. This shall be achieved by using a regular expression. W3C XML Schema Part 2: Datasets Second Edition, Appendix F (Regular Expressions) shall be used to define text patterns in this standard
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| range
+| Specifies the range of allowed numeric values
+| 0..1
+| S100_NumericRange
+|
+
+| Attribute
+| precision
+| Specifies the precision of a real number
+| 0..1
+| NonNegativeInteger
+|
+|===
+
+==== S100_CD_ComplexAttribute
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class | S100_CD_ComplexAttribute | A complex attribute type in a Data Dictionary | - | - | Derived from S100_CD_Attribute
+| Association | subAttribute | References the sub attribute | 1..* | S100_CD_Attribute | Characteristics defined by S100_CD_AttributeUsage
+|===
+
+==== S100_CD_AttributeUsage
+
+This class specifies the characteristics of the association between a
+complex attribute type and its sub attributes.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_AttributeUsage
+| Characteristics of the association between a complex attribute and its sub attributes
+| -
+| -
+|
+
+| Attribute
+| multiplicity
+| Number of occurrences of the sub attribute
+| 1
+| S100_Multiplicity
+|
+
+| Attribute | sequential | Boolean value that indicates if the sub attributes of a complex attribute are in a particular order | 1 | Boolean | It is only applicable if a sub attribute has multiplicity > 1
+|===
+
+==== S100_CD_EnumeratedValue
+
+This class is derived from S100_RE_RegisterItem via intermediate
+super-classes and describes the characteristics of an enumerated value
+type.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_EnumeratedValue
+| Characteristics of an enumerated value type in a Data Dictionary
+| -
+| -
+|
+
+| Attribute
+| numericCode
+| A positive integer designating the unique value in the domain
+| 1
+| PositiveInteger
+|
+
+| Association | associatedAttribute | Specifies the attribute type item for which this is a domain value | 1 | S100_CD_SimpleAttribute | Applies only where class S100_CD_SimpleAttribute attribute valueType = _enumeration_ or _S100_CodeList_
+| Association
+| conceptReference
+| References S100_Concept as the base class
+| 1
+| S100_Concept
+|
+|===
+
+==== S100_CD_Information
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_CD_Information
+| Characteristics of an information type in a Data Dictionary
+| -
+| -
+|
+
+| Association
+| distinction
+| Similar information types that this is distinct from
+| 0..*
+| S100_CD_Information
+|
+
+| Association
+| conceptReference
+| References S100_Concept as the base class
+| 1
+| S100_Concept
+|
+|===
+
+NOTE: The attribute camelCase is mandatory for this class.
+
+==== S100_Concept
+
+The class S100_Concept identifies the required information for the
+Concept Register. Further details can be found in <<cls-2a-3.3>>.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_Concept
+| A definition of object, information or phenomena of nature
+| -
+| -
+|
+|===
+
+[%portrait]
+<<<
