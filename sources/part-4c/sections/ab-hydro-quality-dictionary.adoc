@@ -1,0 +1,112 @@
+[[app-4c-B]]
+[appendix,obligation=normative]
+== Hydrographic Quality Metadata profile Data Dictionary
+
+The hydrographic metadata Catalogue table below has been derived from the ISO 19115
+Standard.
+
+The table contains the following information:
+
+. The first column "__ISO LineNo.__" refers to the line numbers in the ISO 19115
+Standard, however as this profile does not use all the 19115 elements, line numbers may
+not always be contiguous.
+. Name/role name is a label assigned to a metadata entity or to a metadata element.
+Further columns could give the name or meaning in other languages.
+. Definition column provides a description of the metadata entity/element.
+. The obligation descriptor provides an indication of whether a metadata entity or
+metadata element shall always be documented or will only sometimes be documented. This
+descriptor may have the following values: M (mandatory), C (conditional), or O
+(optional).
+. The Occurrence column specifies the maximum number of instances the metadata entity
+or the metadata element may have. Single occurrences are shown by "1"; repeating
+occurrences are represented by "N". Fixed number occurrences other than one are
+allowed, and will be represented by the corresponding number (that is "2", "3"...etc.).
+. Data type specifies a set of distinct values for representing the metadata elements;
+for example, integer, real, string, DateTime, and Boolean. The data type attribute is
+also used to define metadata entities, stereotypes, and metadata associations.
+. Domain - for an entity, the domain indicates the line numbers covered by that entity.
+
+[%landscape]
+<<<
+
+[%unnumbered,options=header,cols=8]
+|===
+2+| ISO Line No. | Name / role name | Definition | Obligation | Maximum Occurrence | Data Type | Domain
+
+2+| | *B.2.4 Data quality information* | | | | |
+
+2+| | *B.2.4.1 General* | | | | |
+
+2+| 78 | DQ_DataQuality | Quality information for the data specified by a data quality scope | Use obligation from referencing object | Use maximum occurrence from referencing object | Aggregated Class (MD_Metadata) | Lines 79-81
+
+2+| 79 | scope | The specific data to which the data quality information applies | M | 1 | Class | DQ_Scope \<<DataType>> (B.2.4.4)
+
+2+| 80 | Role name: report | Quantitative quality information for the data specified by the scope | C / lineage not provided? | N | Association | DQ_Element \<<Abstract>> (B 2.4.2)
+
+2+| 81 | Role name: lineage | Non-quantitative quality information about the lineage of the data specified by the scope | C / report not provided? | 1 | Association | LI_Lineage (B 2.4.1)
+
+2+| | *B.2.4.2 Lineage information* | | | | |
+
+2+| | *B.2.4.2.1 General* | | | | |
+
+2+| 82 | LI_Lineage | Information about the events or source data used in constructing the data specified by the scope or lack of knowledge about lineage | Use obligation from referencing object | Use maximum occurrence from referencing object | Aggregated Class (DQ_DataQuality) | Lines 83-85
+
+| 83 2+| statement | General explanation of the data producer's knowledge about the lineage of a dataset | C / (DQ_DataQuality.scope.DQ_Scope.level = "dataset" or "series")? | 1 | CharacterString | Free text
+
+| 84 2+| Role name: processStep | Information about an event in the creation process for the data specified by the scope | C / mandatory if statement and source not provided? | N | Association | LI_ProcessStep (B.2.4.1.1)
+
+| 85 2+| Role name: source | Information about the source data used in creating the data specified by the scope | C / mandatory if statement and processStep not provided? | N | Association | LI_Source (B.2.4.1.2)
+
+| 2+| *B.2.4.2.2 Process step information* | | | | |
+
+| 86 2+| LI_ProcessStep | Information about an event in the creation process for the data specified by the scope | Use obligation from referencing object | Use maximum occurrence from referencing object | Aggregated Class (LI_Lineage) | Lines 86-91
+
+| 87 2+| description | Description of the event, including related parameters or tolerances | M | 1 | CharacterString | Free Text
+
+| 88 2+| rationale | Requirement or purpose for the process step | O | 1 | CharacterString | Free Text
+
+| 89 2+| dateTime | Date and time or range of date and time on or over which the process step occurred | O | 1 | Class | DateTime (B.4.2)
+
+| 90 2+| processor | Identification of, and means of communication with, person(s) and organisation(s) associated with the process step | O | N | Class | CI_ResponsibleParty &laquo;DataType&gaquo; (B.3.2)
+
+| 91 2+| Role name: source | Information about the source data used in creating the data specified by the scope | O | N | Association | LI_Source (B.2.4.1.2)
+
+| 2+| *B.2.4.2.3 Source information* | | | | |
+
+| 92 2+| LI_Source | Information about the source data used in creating the data specified by the scope | Use obligation from referencing object | Use maximum occurrence from referencing object | Aggregated Class (LI_Lineage) | Lines 93-98
+
+| 93 2+| description | Detailed description of the level of the source data | C/ sourceExtent notprovided? | 1 | CharacterString | Free Text
+
+| 94 2+| scaleDenominator | Denominator of the representative fraction on a source map | O | 1 | Class | MD_RepresentativeFraction &laquo;DataType&gaquo; (B.2.2.3)
+
+| 95 2+| sourceReferenceSystem | Spatial reference system used by the source data | O | 1 | Class | MD_ReferenceSystem (B.2.7)
+
+| 96 2+| sourceCitation | Recommended reference to be used for the source data | O | 1 | Class | CI_Citation &laquo;DataType&gaquo; (B.3.2)
+
+| 97 2+| sourceExtent | Information about the spatial, vertical and temporal extent of the source data | C/ description notprovided? | N | Class | EX_Extent &laquo;DataType&gaquo; (B.3.1)
+
+| 98 2+| Role name: sourceStep | Information about an event in the creation process for the source data | O | N | Association | LI_ProcessStep (B.2.4.1.1)
+
+| 2+| *B.2.4.2 Data quality element information* | | | | |
+
+| 99 2+| DQ_Element | Type of test applied to the data specified by a data quality scope | Use obligation from referencing object | Use maximum occurrence from referencing object | Aggregated Class | Lines 100-107
+
+| 100 2+| nameOfMeasure | Name of the test applied to the data | O | N | CharacterString | Free text
+
+| 101 2+| measureIdentification | Code identifying a registered standard procedure | O | 1 | Class (19138 List) | MD_Identifier.IHO_DqMeasure &laquo;DataType&gaquo; (B.2.7.2)
+
+| 102 2+| measureDescription | Description of the measure being determined | O | 1 | CharacterString | Free text
+
+| 103 2+| evaluationMethodType | Type of method used to evaluate quality of the dataset | O | 1 | Class | DQ_EvaluationMethodTypeCode &laquo;Enumeration&gaquo; (B.5.6)
+
+| 104 2+| evaluationMethodDescription | Description of the evaluation method | O | 1 | CharacterString | Free text
+
+| 105 2+| evaluationProcedure | Reference to the procedure information | O | 1 | Class | CI_Citation &laquo;DataType&gaquo; (B.3.2)
+
+| 106 2+| dateTime | Date or range of dates on which a data quality measure was applied | O | 1 | Class | DateTime (B.4.2)
+
+| 107 2+| result | Value (or set of values) obtained from applying a data quality measure or the out come of evaluating the obtained value (or set of values) against a specified acceptable conformance quality level | M | 2 | Class | DQ_Result &laquo;DataType&gaquo; (B.2.4.3)
+|===
+
+[%portrait]
+<<<

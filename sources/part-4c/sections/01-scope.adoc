@@ -1,0 +1,24 @@
+== Scope
+
+The general scope of Parts 4a, b and c has been described at the beginning of Part 4a.
+This Part is a metadata quality guidance and incorporates quality measures as described
+in ISO 19113, 19114 and 19138 and complies with ISO 19106 _Geographical Information --
+Profiles_ which describes the rules for developing profiles of the 19100 series
+standards. This guidance is applicable to IHO hydrographic data sets, data set series,
+and individual features and feature properties. It is intended for hydrographic
+requirements and describes how to document information about the quality of digital
+geographic data.
+
+The purpose of this Part is to:
+
+. Provide data producers with appropriate information to characterize their geographic
+data properly;
+. Enable users to determine whether geographic data in a holding will be of use to them.
+
+It defines:
+
+. Mandatory and conditional metadata sections, metadata entities and metadata elements;
+. Optional metadata elements to allow for more detailed description of geographic data.
+
+Although this document is largely based on the standards mentioned above, additional
+standards are referenced where relevant. (See section 4c-2References).
