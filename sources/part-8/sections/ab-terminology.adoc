@@ -1,0 +1,59 @@
+[[app-8-B]]
+[appendix,obligation=informative]
+== Terminology
+
+The terminology used in S-100 aligns with the terminology used in the ISO 19100
+suite of standards and it is different from that used in <<S57>>. <<S57>> uses the
+terms "raster" and "matrix" to address images and data described by organized sets of
+attribute values. The ISO 19100 suite of standards has a more rigorous definition
+of terms, but these new terms include much more that is normally thought of as
+"Raster" or "Matrix" data. Unfortunately current terms in this field have been used
+with broad overlapping meanings and the terminology can be confusing.
+
+One of the most misused terms is "raster". Technically the term describes the row by
+column scanning of a regular rectangular grid, such as the raster scan of a
+television screen. A raster is a type of a grid. However, often the term is used in a
+very broad sense to mean most, but not all types of data that cover an area. S-100
+now makes use of the term "raster" in its more precise technical sense as a traversal
+method for a grid of data.
+
+"matrix" is a term that is also used in different ways in different contexts. It is
+sometimes colloquially used to address all gridded data that corresponds to
+measurements from non-imaging sensors. But what is an imaging sensor? What is an
+image? Anything that can be "seen" is thought of as being an image. But a graph of
+measured data such as elevations, even a two-dimensional graph of data, can be seen.
+In fact visualization is the purpose of graphing. The term "matrix" also has a
+mathematical meaning of being an organized set of numbers. The current colloquial
+meaning of the term "matrix" has been abandoned in this edition of S-100, and the
+mathematical meaning of an ordered set of numbers is retained as the meaning for the
+word.
+
+ISO begins defining its terminology by defining a "coverage". In TC211, a coverage is
+defined as a "function to return one or more feature attribute values for any direct
+position within its spatiotemporal domain". For a continuous coverage any position in
+the spatiotemporal domain has a value. A coverage function is basically an
+interpolation function over a set of grid points or other points covering an area.
+This makes a coverage the inverse of what is normally thought of as a set of gridded
+data. Data collected from a sensor creates a values matrix that drives the coverage
+function. This set of values may be organized in several ways. The simplest is a
+regular grid, but there may be other organizations of grids such as tiled grids or
+irregular shaped grids. There may even be grids with variable size cells in
+multi-dimensions that have been shown to be quite effective in handling hydrographic
+sounding data. The <<ISO19123>> standard defines a Grid Value Matrix, TIN Value
+Triangle, Segmented-Curve Value Curves, and Thiessen Value Polygons as the base
+elements for the set of data sampled from a sensor. This component of S-100 only
+needs the concept of a grid value matrix, and does not need to address Segmented
+Curves, or Thiessen Polygons.
+
+The terms Imagery, Gridded and Coverage data are not mutually exclusive terms.
+Imagery is a type of Gridded data and Gridded data is a type of Coverage data.
+Coverage is the broad term. Grid describes one organization of the matrix of data
+supporting a coverage function. An image is data that may be "viewed".
+
+S-100 needs to use terminology in alignment with ISO and other external standards.
+However it also needs to recognize the uses of terms in previous editions of <<S57>>.
+A raster is a grid traversal method. Therefore "Raster Image Data" means data
+organized as a set of grid value matrix points representing an image. "Raster Image
+Data" corresponds generally to the term Raster Data as used in S-57 edition 3. Gridded data is all data organized as a set of grid value matrix points. Therefore
+"Gridded Data" corresponds generally to the term Matrix Data as used in S-57 Edition
+3.

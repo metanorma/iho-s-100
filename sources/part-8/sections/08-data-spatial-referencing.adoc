@@ -1,0 +1,109 @@
+[[cls-8-8]]
+== Data Spatial Referencing
+
+Spatial referencing for gridded data and for point set data and TIN data are handled
+differently. Point set data includes a coordinate direct position for each point in
+the point set. TIN data includes a point at each vertex of a TIN triangle. Spatial
+referencing of direct positions is described in <<ISO19111>> Spatial referencing by
+coordinates, and is the same for point set, and TIN data as it is for other types of
+vector data. Gridded data references the grid as a whole.
+
+[[cls-8-8.1]]
+=== Gridded data spatial referencing
+
+The two spatial properties of gridded data describe how the spatial extent was
+tessellated into small units and spatial referencing to the earth. The <<ISO19123>>
+standard indicates that a grid may be defined in terms of a coordinate reference
+system. This requires additional information about the location of the grid's origin
+within the coordinate reference system, the orientation of the grid axes, and a
+measure of the spacing between the grid lines. A grid defined in this way is called a
+rectified grid. If the coordinate reference system is related to the Earth by a
+datum, the grid is a georectified grid. The essential point is that the
+transformation of grid coordinates to coordinates of the external coordinate
+reference system is an affine transformation. The class SC_CRS is specified in
+<<ISO19111>>. A referenceable grid is one that can be converted to a rectified grid
+by a coordinate transform.
+
+[[cls-8-8.1.1]]
+==== Georectified
+
+_Georectified_ gridded data is _uniformly spaced_ gridded data. Any cell in a
+georectified gridded data can be uniquely geolocated, given the cell spacing, grid
+origin and orientation. In most georectified gridded data, cell size is constant
+across the whole coverage and also equates to the cell spacing. (Note, however, that
+uniformly spaced gridded data may be uniformly spaced in terms of image coordinates,
+and not geolocatable.) For georectified gridded data, information as simple as the
+map coordinate values of any two cells not in the same row and column can geolocate
+all cells in the coverage to the map coordinate system, since cell spacing, grid
+origin and orientation can be derived from the coordinates of the two cells.
+
+It should be pointed out that the cell spacing (that is, cell size) in the above
+definition is the distance measured at the map projection coordinate system. Uniform
+spacing in a map coordinate system may not necessarily indicate equal spacing on the
+earth's surface, depending on the map projection selected. For example, a cell size
+of 0.1 degree longitude in the geographic coordinate system (that is lat/long)
+corresponds to different surface distances in kilometres at high and low latitudes.
+
+The term "uniform spacing" means that there is equal spacing in some defined
+coordinate system. "Regular spacing" means that there is some function that equates
+location to cell spacing.
+
+[[fig-8-26]]
+.Non uniform spacing of grid cells
+image::img81.png[]
+
+[[cls-8-8.1.2]]
+==== Ungeorectified
+
+_Ungeorectified_ gridded data is geospatial gridded data whose cells are
+non-uniformly spaced in any geographic/map projection coordinate system. Therefore,
+the location of one cell in an ungeorectified gridded data cannot be determined based
+on another cell's location.
+
+Ungeorectified gridded data can be further classified into _georeferenced_ and
+_georeferenceable_ subclasses, depending on whether information is provided with a
+dataset that allows determination of the geolocation of a cell.
+
+[[cls-8-8.1.3]]
+==== Georeferenced
+
+_Georeferenced_ gridded data is gridded data whose cell locations can be uniquely
+determined through certain geolocating algorithms, such as warping, using information
+provided with the data. Most raw remote sensing data and raw hydrographic sonar data
+are in the georeferencaeble form.
+
+[[fig-8-27]]
+.Georectified data
+image::img82.png[]
+
+[[cls-8-8.1.4]]
+==== Georeferenceable
+
+Georeferenceablegridded data is ungeorectified gridded data that does not include any
+information that can be used to determine a cell's geographic coordinate values, for
+example, a digital perspective aerial photograph without georectifiction information
+included. (An aerial photograph can be georeferenced through a set of ground control
+points.)
+
+The difference between georectified and georeferenced data is that cell spacing is
+constant in a georectified data while it may be variable in georeferenced data. In
+georectified data, the location of any cell can be determined given the data's cell
+spacing, grid orientation and the coordinates of any one cell. In georeferenced data,
+there is no predefined association between one cell's location and that of another;
+each cell's location might be independently calculated. Georectified gridded data are
+normally obtained from georeferenced data through georectification (also called
+geometric correction). The georectification process involves two steps. The first
+step is to calculate the grid coordinates (for example row and column) of regularly
+spaced cells located at the map coordinate stem:[x], stem:[y]. This step is called
+_coordinate mapping_. The second step is to assign the cell with an attribute value
+based on the attribute values at the corresponding and neighbouring grid coordinates.
+This step is called _resampling_. Spatial referencing information for imagery data is
+carried as metadata.
+
+[[cls-8-8.2]]
+=== Point set data and TIN triangle vertex spatial referencing
+
+Point sets and TIN triangles are described in the ISO Spatial Schema standard 19107,
+which has been profiled as part of S-100. Each point in a point set is located by a
+direct position. The spatial referencing system that relates to the direct positions
+in the set is referenced by the Spatial Schema, through the same SC_CRS object.

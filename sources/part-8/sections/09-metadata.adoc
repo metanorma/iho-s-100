@@ -1,0 +1,26 @@
+[[cls-8-9]]
+== Metadata
+
+The metadata for all types of geographic data is covered in the metadata standard
+<<ISO19115-1>> _Geographic information - Metadata_. This standard includes mandatory
+identification metadata that describes the data set. It also includes some metadata
+describing the content of a data set. Much of the metadata corresponding to vector
+based geometric data does not apply to imagery and gridded data.
+
+S-100 uses the metadata elements in <<ISO19115-1>>, where possible, to address the
+basic metadata requirements for geographic data, including Imagery, Gridded, and
+Coverage data. Other metadata elements primarily related to acquisition and
+processing are addressed in <<ISO19115-2>> _Geographic information - Metadata - Part
+2: Extensions for imagery and gridded data_. Quality metadata is described in
+<<ISO19157>> _Geographic information - Data Quality_. The minimum amount of metadata
+required to describe geographic data is addressed in <<ISO19115-1>>. The details of
+sensor models and their associated data models and metadata are provided in
+<<ISO19130>> _Geographic information - Sensor and data models for imagery and gridded
+data_.
+
+Metadata for S-100 is described in S-100 Parts 4a-4c. The specific metadata for S-100
+Imagery and Gridded Data is shown in <<app-8-D>>. The data format representations for
+S-100 metadata are described in S-100 Parts 10c and 17.
+
+Suggested metadata supporting a scanned paper chart in compliance with  <<S61>> is
+described in <<app-8-D>> (<<cls-8-D-4>>).

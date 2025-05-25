@@ -1,0 +1,14 @@
+[[cls-8-10]]
+== Quality
+
+The general concept for handling quality in the ISO 19100 series of standards is
+defined in the <<ISO19113>> "Quality principles". The procedures to evaluate quality
+are defined in the <<ISO19114>> "Quality evaluation procedures". <<ISO19138>> "Data
+quality measures" provides a definitive set of measures. The metadata quality
+elements from <<<ISO19115>> have been moved to a new standard <<ISO19157>> Geographic
+information -- Data quality.
+
+The <<ISO19129>> standardizes quality aspects that are specific for imagery, gridded,
+and coverage data. The testing of the quality according to this standard is model
+based. The quality measures are attributes or constraints of the classes of the
+model. <<app-8-C>> shows the proposed top-level classes of the quality model.

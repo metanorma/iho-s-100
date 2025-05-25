@@ -1,0 +1,99 @@
+[[app-8-A]]
+[appendix,obligation=normative]
+== Abstract Test Suite
+
+[[cls-8-A-1]]
+=== Quadrilateral Grid
+
+. Test Purpose: Verify that an Application Schema instantiates the classes defined in
+<<ISO19123>> of CV_Grid, CV_GridPoint, CV_GridCell, CV_GridValuesMatrix,
+CV_GridPointValuePair, CV_DiscreteGridPointCoverage, or CV_ContinuousGridCoverage,
+and CV_GridValueCell with their specified attributes, operations, associations and
+constraints, in the context of the classes S100_IF_GridCoverage, S100_IF_Grid and
+S100_IF_GridValues as defined in this Standard
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123,clause=8>>.
+. Test Type: Capability.
+
+[[cls-8-A-2]]
+=== Scanned Image
+
+. Test Purpose: Verify that an Application Schema for Raster Scan Image satisfies the
+requirements of <<cls-8-A-1>>; that it includes the metadata elements identified in
+<<tab-8-D-3>>.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19115-1>>, <<S61>>.
+. Test Type: Capability.
+
+[[cls-8-A-3]]
+=== TIN Coverage
+
+. Test Purpose: Verify that an Application Schema for TIN Coverage instantiates the
+classes defined in <<ISO19123>> of CV_TINCoverage, CV_ValueTriangle, and
+CV_GridPointValuePair with their specified attributes, operations, associations and
+constraints, in the context of the class S100_IF_TINCoverage as defined in this
+Standard.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123>>
+. Test Type: Capability.
+
+[[cls-8-A-4]]
+=== Point Coverage
+
+. Test Purpose: Verify that an Application Schema for Point Coverage instantiates the
+classes defined in <<ISO19123>> of CV_DiscretePointCoverage, and CV_PointValuePair,
+with their specified attributes, operations, associations and constraints, in the
+context of the class S100_IF_PointCoverage as defined in this Standard.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123>>
+. Test Type: Capability.
+
+[[cls-8-A-5]]
+=== Point Set
+
+. Test Purpose: Verify that an Application Schema for Point Set instantiates the
+classes defined in <<ISO19107>> of GM_Point, with its specified attributes,
+operations, associations and constraints, in the context of the classes
+S100_IF_PointSet and S100_Point as defined in this Standard.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19107>>
+. Test Type: Capability.
+
+[[cls-8-A-6]]
+=== Variable Cell Size Grid
+
+. Test Purpose: Verify that an Application Schema for Variable Cell Size instantiates
+the classes defined in <<ISO19123>> of CV_Grid, CV_GridPoint, CV_GridCell,
+CV_GridValuesMatrix, CV_GridPointValuePair, CV_DiscreteGridPointCoverage, or
+CV_ContinuousGridCoverage, and CV_GridValueCell with their specified attributes,
+operations, associations and constraints, with the CV_ContinuousCoverage
+CV_InterpolationMethod attribute set to NearestNeighbour and the CV_GridValuesMatrix
+CV_SequenceRule attribute set to stem:[(x,y)] Morton.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123>>
+. Test Type: Capability.
+
+[[cls-8-A-7]]
+=== Feature Oriented Image Discrete Coverage
+
+. Test Purpose: Verify that an Application Schema for Feature Oriented Image that
+uses a discrete coverage instantiates the classes defined in <<ISO19123>> of CV_Grid,
+CV_GridPoint, CV_GridCell, CV_GridValuesMatrix, CV_GridPointValuePair,
+CV_DiscreteGridPointCoverage, CV_DiscreteCoverage, and CV_GeometryValuePair with
+their specified attributes, operations, associations and constraints.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123>>, <<ISO19109>>
+. Test Type: Capability.
+
+[[cls-8-A-8]]
+=== Feature Oriented Image in a Multi-feature Environment
+
+. Test Purpose: Verify that an Application Schema instantiates the classes defined in
+<<ISO19123>> of CV_Grid, CV_GridPoint, CV_GridCell, CV_GridValuesMatrix,
+CV_GridPointValuePair, CV_DiscreteGridPointCoverage, or CV_ContinuousGridCoverage,
+and CV_GridValueCell with their specified attributes, operations, associations and
+constraints, and that multiple features are permitted with separate CV_Coverages or
+GM_Objects.
+. Test Method: Inspect the documentation of the Application Schema or profile.
+. Reference: <<ISO19123>>, <<ISO19109>>, <<ISO19107>>
+. Test Type: Capability

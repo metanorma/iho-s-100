@@ -1,0 +1,95 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: |
+         Removed Table 8-1 and replaced with text referencing ISO 19115-1/2 (Table moved to Appendix 8-D). [All following Table numbers amended accordingly.]
+
+         Added paragraph clarifying requirement for metadata to conform to S-100 parts 10c and 17.
+      location:
+        - part=8,clause=8-4.3.1
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: |
+        Amended paragraph to remove language about S100_IF_Collection metadata being optional.
+
+        Sentence added clarifying that structural, acquisition, and quality metadata are optional except for elements required to describe the coverage format.
+
+        Amended Figure 8-19 to remove overlapping role names for the association S100_IF_Collection / S100_IF_CollectionMetadata.
+      location:
+        - part=8,clause=8-5.3
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Applied corrections for clarity and grammar. Sentences added to clarify where these abstract classes are realized.
+      location:
+        - part=8,clause=8-5.3.6
+        - part=8,clause=8-5.3.7
+        - part=8,clause=8-5.3.8
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Removed reference to point set data.
+      location:
+        - part=8,clause=8-5.3.9
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: |
+           Clause heading amended from "Imagery and Gridded Data Metadata" to "Metadata" and clause condensed to avoid duplication of Figure (former Figure 8-28) and accompanying text content in clause 8-5.3. [All following Figure numbers amended accordingly.]
+
+           Multiple revisions to remove duplicative language, remove digressions and introduce a reference to quality metadata.
+
+           Sentence added mentioning the new location of suggested metadata supporting scanned paper charts.
+      location:
+        - part=8,clause=8-9
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.1.0
+  amend:
+    - description: The former clause 8-13 (Metadata for scanned image) moved to Appendix 8-D.
+      location:
+        - part=8,clause=8-13
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: New clause "Typical metadata" (metadata-related content moved from clause 8-4.3.1).
+      location:
+        - part=8,clause=8-D-1
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: New clause heading "Derivation of S-100 metadata and ISO metadata" inserted and Table number for the pre-existing table "Relationship between packages of metadata and metadata classes" added.
+      location:
+        - part=8,clause=8-D-2
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: New clause "Metadata for scanned image" added (content moved from the former clause 8-13).
+      location:
+        - part=8,clause=8-D-3
+----

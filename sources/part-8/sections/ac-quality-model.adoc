@@ -1,0 +1,55 @@
+[[app-8-C]]
+[appendix,obligation=informative]
+== Quality Model for Imagery and Gridded Data
+
+The following is a list of quality elements test procedures that addresses imagery.
+Quality elements for gridded and coverage data are described in S-100 Part 4c and
+<<S97,part=C>>.
+
+=== Top-level classes of the quality-model
+
+* General image quality
+* Visual inspection and evaluation of image geometry
+* Analytical inspection and evaluation of image geometry
+* Visual inspection and evaluation of image radiometry
+* Analytical inspection and evaluation of image radiometry
+
+The following listings are non-exhaustive listings of the subclasses of the quality
+model.
+
+=== Class General image quality
+
+* check parameters affecting the quality (data compression etc.)
+* make test scanning or test imaging
+
+=== Class Visual inspection and evaluation of image geometry
+
+* check number of channels (black&white, colour, multispectral, etc.)
+* check edge-matching
+* check event of blurring
+* check rectification errors
+* check "pixel-stretching"
+* check overlay with vector data (other mapping data, map-frame)
+* check overlay with other raster or gridded data
+* identify source of data
+* inspect documentation of the quality of the sensor or the scanner (calibration data)
+* inspect documentation of previous processing step (image enhancements)
+* check resolution of imaged test patterns
+
+=== Class Analytical inspection and evaluation of image geometry
+
+* check seam lines of mosaics
+* check colour stability / homogeneity / balance
+* check grade of illumination of the image (hot spot)
+* check histogram
+* check coloured fringes along lines with high contrast
+
+=== Class Visual inspection and evaluation of image radiometry
+
+* calculate geometric residuals at checkpoints in 2D and/or in 3D
+* calculate residuals in range at checkpoints
+
+=== Class Analytical inspection and evaluation of image radiometry
+
+* calculate contrast
+* calculate brightness

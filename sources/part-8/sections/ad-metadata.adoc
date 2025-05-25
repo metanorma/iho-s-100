@@ -1,0 +1,378 @@
+[[app-8-D]]
+[appendix,obligation=informative]
+== Metadata
+
+[[cls-8-D-1]]
+=== Typical metadata
+
+Typical metadata elements that are used in imagery, gridded and coverage data are
+presented in <<tab-8-D-1>> below. The Table organizes the metadata elements according
+to whether the metadata relates to the description of the imagery, gridded or
+coverage data content; or to the environment in which it exists; or the
+representation of the data. Additional representational metadata may exist in an
+encoding format.
+
+[[tab-8-D-1]]
+.Metadata Elements
+[cols=3,options=header]
+|===
+| Type (Metadata Package) | Description | Relationship
+
+3+h| Metadata Elements (<<ISO19115-1>>)
+
+| Metadata information | Metadata information | Environment
+| Identification information | Information to uniquely identify the data. Identification information includes information about the citation for the resource, an abstract, the purpose, credit, the status and points of contact | Environment
+| Constraint information | Information concerning the restrictions placed on data | Environment
+| Data quality information (<<ISO19157>>) | Assessment of the quality of the data | Content
+| Maintenance information | Information about the scope and frequency of updating data | Environment
+| Spatial representation information | Information concerning the mechanisms used to represent spatial information | Content
+| Reference system information | The description of the spatial and temporal reference system(s) | Content
+| Content information | Information identifying the Feature Catalogue | Content
+| Portrayal Catalogue information | Information identifying the Portrayal Catalogue | Representation
+| Distribution information | Information about the distributor of, and options for obtaining, a resource | Environment
+| Metadata extension information | Information about user specified extensions | Various
+| Application Schema information | Information about the Application Schema used to build a dataset | Content
+
+3+h| Metadata Imagery Extensions per <<ISO19115-2>>
+
+| Content Information Imagery | Additional information used to identify the content of coverage data | Content
+| Identification Information Imagery | Information to uniquely identify the data, including extensions to describe references that apply to the data and entities to identify the components used to acquire the data | Environment
+| Requirements Information Imagery | Provides details specific to the tasking and planning associated with the collection of imagery and gridded data | Environment
+| Acquisition Information Imagery
+| Information on the acquisition of imagery and gridded data
+|
+| Data Quality Information Imagery | Assessment of the quality of the imagery data | Content
+| Spatial Representation Information Imagery | Additional information the mechanisms used to represent spatial information for imagery | Content
+
+3+h| Metadata Datatypes
+
+| Extent information | Metadata elements that describe the spatial and temporal Extent - "geographicElement", "temporalElement", and "verticalElement | Content
+| Extent Information Imagery | Defines additional attributes used to specify the location of the minimum and maximum vertical extent values within the dataset | Content
+| Citation and responsible party information | A standardized method (CI_Citation) for citing a resource (dataset, feature, source, publication, etc.), as well as information about the party responsible (CI_Responsibility) for a resource | Environment
+|===
+
+=== Derivation of S-100 metadata and ISO metadata
+
+Metadata for S-100 is taken where possible from the <<ISO19115-1>> Metadata standard
+to ensure a high level of compatibility with other standards based on the same
+metadata standard. This metadata has been organized into a number of packages. The
+following is a list of the packages defined in <<ISO19115-1>>.
+
+[[tab-8-D-2]]
+.Relationship between packages of metadata and metadata classes
+[cols=2,options=header]
+|===
+| Package | Class
+| Metadata information | MD_Metadata
+| Identification information | MD_Identification
+| Constraint information | MD_Constraints
+| Data quality information | DQ_DataQuality (<<ISO19157>>)
+| Maintenance information | MD_MaintenanceInformation
+| Spatial representation information | MD_SpatialRepresentation
+| Reference system information | MD_ReferenceSystem
+| Content information | MD_ContentInformation
+| Portrayal Catalogue information | MD_PortrayalCatalogueReference
+| Distribution information | MD_Distribution
+| Metadata extension information | MD_MetadataExtensionInformation
+| Application Schema information | MD_ApplicationSchemaInformation
+| Extent information | EX_Extent
+| Citation and responsible party information a| CI_Citation +
+CI_Responsibility
+|===
+
+ISO TC211 has also completed <<ISO19115-2>> _Geographic information - Metadata - Part
+2: Extensions for imagery and gridded data_. It contains additional packages for
+MI_AcquisitionInformation, Lineage (Source and Process), Quality result for Coverage
+(QE_CoverageDescription) and usability (QE_Usability) that are relevant for the
+description of Imagery and Gridded data in S100.
+
+The MI_AcquisitionInformation package provides details specific to the acquisition of
+imagery and gridded data. It contains:
+
+. MI_Instrument, designations of the measuring instruments used to acquire the data;
+. MI_Operation, designations of the overall data gathering program to which the data
+contribute;
+. MI_Platform, designations of the platform from which the data were taken;
+. MI_Objective, the characteristics and geometry of the intended object to be
+observed;
+. MI_Requirement, the user requirements used to derive the acquisition plan;
+. MI_Plan, the acquisition plan that was implemented to acquire the data;
+. MI_Event, describes a significant event that occurred during data acquisition. An
+event can be associated with an operation, objective, or platform pass; and
+. MI_PlatformPass, identifies a particular pass made by the platform during data
+acquisition. A platform pass is used to provide supporting identifying information
+for an event and for data acquisition of a particular objective.
+
+The additional classes to address the sources and production processes of particular
+importance for imagery and gridded data are:
+
+. QE_CoverageResult is a specified subclass of DQ_Result and aggregates information
+required to report data quality for a coverage;
+. QE_Usability is a specified subclass of DQ_Element used to provide user specific
+quality information about a dataset's suitability for a particular application;
+. LE_ProcessStep is a specified subclass of LI_ProcessStep and contains additional
+information on the history of the algorithms used and processing performed to produce
+the data. It includes a description of:
+.. LE_Processing, which describes the procedure by which the algorithm was applied to
+generate the data from the source data;
+.. LE_ProcessStepReport which identifies external information describing the
+processing of the data;
+.. LE_Source,which describes the output of a process step.
+
+=== Metadata class information (MD_Metadata) from <<ISO19115-1>> and <<ISO19157>>
+
+The MD_Metadata class is an aggregate of the following classes (which are further
+explained in the following subclauses):
+
+==== Identification information (MD_Identification)
+
+Identification information contains information to uniquely identify the data. It
+includes information about the citation for the resource, an abstract, the purpose,
+credit, the status and points of contact. The MD_Identification entity is mandatory.
+It contains mandatory, conditional, and optional elements. MD_Identification is an
+aggregate of the following entities:
+
+. MD_Format, format of the data;
+. MD_BrowseGraphic, graphic overview of the data;
+. MD_Usage, specific uses of the data;
+. MD_Constraints, constraints placed on the resource;
+. MD_Keywords, keywords describing the resource; and
+. MD_MaintenanceInformation, how often the data is scheduled to be updated and the
+scope of the update.
+
+==== Constraint information (MD_Constraints)
+
+This package contains information concerning the restrictions placed on data. The
+MD_Constraints entity is optional and may be specified as MD_LegalConstraints and/or
+MD_SecurityConstraints. The otherConstraint element of MD_LegalConstraints shall be
+non-zero (used) only if accessConstraints and/or useConstraints elements have a value
+of "otherRestrictions", which is found in the MD_RestrictionCode enumeration.
+
+==== Data quality information (DQ_DataQuality -- <<ISO19157>>)
+
+This package contains a general assessment of the quality of the dataset. The
+DQ_DataQuality entity is optional and contains the scope of the quality assessment.
+DQ_DataQuality is an aggregate of LI_Lineage and DQ_Element. DQ_Element can be
+specified as DQ_Completeness, DQ_LogicalConsistency, DQ_PositionalAccuracy,
+DQ_ThematicAccuracy and DQ_TemporalAccuracy. Those five entities represent Elements
+of data quality and can be further subclassed to the sub-Elements of data quality.
+Users may add additional elements and sub-elements of data quality by sub-classing
+DQ_Element or the appropriate sub-element.
+
+This package also contains information about the sources and production processes
+used in producing a dataset. The LI_Lineage entity is optional and contains a
+statement about the lineage. LI_Lineage is an aggregate of LI_ProcessStep and
+LI_Source. The "report" and "lineage" roles of DQ_DataQuality are mandatory if
+DQ_DataQuality.scope.DQ_Scope.level has a value of "dataset". The "levelDescription"
+element of DQ_Scope is mandatory if the "level" element of DQ_Scope does not have a
+value of "dataset" or "series". The "statement" element of LI_Lineage is mandatory if
+DQ_DataQuality.scope.DQ_Scope.level has a value of "dataset" or "series" and the
+LI_Lineage roles of "source" and "processStep" are not documented.
+
+The "source" role of LI_Lineage is mandatory if the "statement" element and the
+"processStep" role of LI_Lineage are not documented. The "processStep" role of
+LI_Lineage is mandatory if the "statement" element and the "source" role of
+LI_Lineage are not documented. Either the "description" or "sourceExtent" element of
+LI_Source must be documented.
+
+==== Maintenance information (MD_MaintenanceInformation)
+
+This package contains information about the scope and frequency of updating data. The
+MD_MaintenanceInformation entity is optional and contains mandatory and optional
+metadata elements.
+
+==== Spatial representation information (MD_SpatialRepresentation)
+
+This package contains information concerning the mechanisms used to represent spatial
+information in a dataset. The MD_SpatialRepresentation entity is optional and can be
+specified as MD_GridSpatialRepresentation and MD_VectorSpatialRepresentation. Each of
+the specified entities contains mandatory and optional metadata elements. When
+further description is necessary, MD_GridSpatialRepresentation may be specified as
+MD_Georectified and/or MD_Georeferenceable. Metadata for Spatial data representation
+are derived from <<ISO19107>>.
+
+==== Reference system information (MD_ReferenceSystem)
+
+This package contains the description of the spatial and temporal reference system(s)
+used in a dataset. MD_ReferenceSystem contains an element to identify the reference
+system used. MD_ReferenceSystem may be subclassed as MD_CRS, which is an aggregate of
+MD_ProjectionParameters and MD_EllipsoidParameters. MD_ProjectionParameters is an
+aggregate of MD_ObliqueLineAzimuth and MD_ObliqueLinePoint. MD_ReferenceSystem is
+derived from RS_ReferenceSystem, which can be specified as SC_CRS,
+SI_SpatialReferenceSystemUsingGeographicIdentifiers and TM_ReferenceSystem. Metadata
+for Reference system information are derived from <<ISO19108>>, <<ISO19111>> and
+<<ISO19112>>.
+
+==== Content information (MD_ContentInformation)
+
+This package contains information identifying the Feature Catalogue used
+(MD_FeatureCatalogueDescription) and/or information describing the content of a
+coverage dataset (MD_CoverageDescription). Both description entities are subclasses
+of the MD_ContentInformation entity. MD_CoverageDescription may be subclassed as
+MD_ImageDescription, and is an aggregate of MD_RangeDimension. MD_RangeDimension may
+additionally be subclassed as MD_Band.
+
+==== Portrayal Catalogue information (MD_PortrayalCatalogueReference)
+
+This package contains information identifying the Portrayal Catalogue used. It
+consists of the optional entity MD_PortrayalCatalogueReference. This entity contains
+the mandatory element used to specify which Portrayal Catalogue is used by the
+dataset.
+
+==== Distribution information (MD_Distribution)
+
+This package contains information about the distributor of, and options for
+obtaining, a resource. It contains the optional MD_Distribution entity.
+MD_Distribution is an aggregate of the options for the digital distribution of a
+dataset (MD_DigitalTransferOptions), identification of the distributor
+(MD_Distributor) and the format of the distribution (MD_Format), which contain
+mandatory and optional elements. MD_DigitalTransferOptions contains the medium used
+for the distribution (MD_Medium) of a dataset, and is an aggregate of
+MD_DigitalTransferOptions. MD_Distributor is an aggregate of the process for ordering
+a distribution (MD_StandardOrderProcess).
+
+The "distributionFormat" role of MD_Distribution is mandatory if the
+"distributorFormat" role of MD_Distributor is not documented. The "distributorFormat"
+role of MD_Distributor is mandatory if the "distributionFormat" role of
+MD_Distribution is not documented.
+
+==== Metadata extension information (MD_MetadataExtensionInformation)
+
+This package contains information about user specified extensions. It contains the
+optional MD_MetadataExtensionInformation entity. MD_MetadataExtensionInformation is
+an aggregate of information describing the extended metadata elements
+(MD_ExtendedElementInformation).
+
+==== Application Schema information (MD_ApplicationSchemaInformation)
+
+This package contains information about the Application Schema used to build a
+dataset. It contains the optional entity MD_ApplicationSchemaInformation which is an
+aggregate of MD_SpatialAttributeSupplement, which is an aggregate of
+MD_FeatureTypeList. The entities contain mandatory and optional elements.
+
+Metadata extensions for Imagery from <<ISO19115-2>>. The work on <<ISO19115-2>> is
+still (June 2009) in the development phase. However the general types of extensions
+have been identified. The following are examples of those extensions.
+
+*MI_AcquisitionInformation --* a new class in the Data Identification Package
+
+. planningPoints
+. instrumentIdentification
+. platformIdentification
+. missionIdentification
+
+*MD_ImageDescription*
+
+. aerotriangulationReference
+. localElevationAngle
+. localAzimuthAngle
+. relativeAzimuth
+. platformDescending
+. nadir
+
+Other metadata will derive from the work on <<ISO19130>> Sensor Models, and any input
+from IHO. In particular there is a need for input on metadata about hydrographic
+sounding sensors.
+
+[[cls-8-D-4]]
+=== Metadata for scanned image
+
+The following Table assigns the metadata identified in IHO Publication <<S61>>
+_Product Specification for Raster Navigational Charts (RNC)_ to the metadata classes
+in <<ISO19115-1;and!ISO19115-2>>.
+
+[[tab-8-D-3]]
+.<<S61>> Metadata in terms of <<ISO19115-1;and!ISO19115-2>>
+[cols=2,options=header]
+|===
+| <<S61>> | <<ISO19115-1>>/<<ISO19115-2>> class
+
+| Producing Agency
+a| MD_Metadata - contact - +
+CI_Responsibility (including organization name, contact info and role of producing agency)
+
+|
+a| MD_Metadata - identificationInfo - +
+MD_Identification - purpose - +
+"Raster Nautical Chart"
+
+|
+| MD_Constraints_useLimitation
+
+|
+| MD_Constraints_MD_LegalConstraints
+
+| RNC number
+a| MD_Identification - citation - +
+CI_Citation - identifier
+
+| Chart identifier
+a| LI_Lineage - LI_Source - sourceCitation - +
+CI_Citation - identifier
+
+| RNC edition date
+a| MD_Metadata - dateStamp - +
+Date
+
+| Chart edition date
+a| LI_Lineage - LI_Source - sourceCitation - +
+CI_Citation - edition
+
+| Last update or Notice to Mariner applied
+| LI_Lineage - LI_Source - SourceStep - LI_ProcessStep_dateTime
+
+|
+| MD_DataIdentification - topicCategory - TopicCategoryCode
+
+|
+| MD_DataIdentification - SpatialRepresentationType - SpatialRepresentationTypeCode - "2" (grid)
+
+| Chart scale
+| MD_ReferenceSystem
+
+| Orientation of North
+| MD_ReferenceSystem
+
+| Projection and projection parameters
+| MD_ReferenceSystem
+
+| Horizontal Datum
+| MD_ReferenceSystem
+
+| Horizontal Datum shift
+| MD_ReferenceSystem
+
+| Vertical datums
+| MD_ReferenceSystem
+
+| Depth and Height units
+a| MD_ReferenceSystem +
+or MD_Identification -- EX_Extent -- EX_VerticalExtent -- MD_ReferenceSystem +
+or MD_Identification -- EX_Extent -- EX_VerticalExtent -- SC_VerticalCRS -- axisUnitID: unitOfMeasure
+
+| Pixel Resolution
+| MD_DataIdentification - spatialResolution - MD_Resolution -
+
+| Transform to allow geographic positions to be converted to RNC coordinates
+| MD_ReferenceSystem
+
+| Colour palettes for daytime, nighttime and dusk
+| MD_PortrayalCatalogueReference
+
+| Information to handle notes, diagrams and marginalia
+| Notes and textual marginalia may be captured as MD_MetadataExtensionInformation, whereas diagrams must be handled by reference to an associated data file containing the diagram.
+
+| Source diagram
+| Textual description of source may be captured as MD_MetadataExtensionInformation, whereas a source diagram must be handled by reference to an associated data file containing the diagram.
+
+a| Update metadata including:
+
+* producer of update;
+* update number;
+* date;
+* identifier of which RNC to which it applies;
+* chart edition to which it applies;
+* changes to metadata; and
+* information so it can be applied automatically
+| MD_MaintenanceInformation together with MD_Identification
+|===

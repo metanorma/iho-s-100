@@ -1,0 +1,8 @@
+[[cls-8-12]]
+== Imagery and Gridded Data Encoding
+
+Details of encoding are out of scope of this component of S-100. The standard S-100
+encoding for coverage datasets is described in S-100 Part 10c. An S-100 standard for
+"picture/image" encoding has not been defined as yet, but the References clause in
+this Part and the list of allowed support file formats in S-100 Part 17 may be
+consulted for hints on formats which may be of use.

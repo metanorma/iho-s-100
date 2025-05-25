@@ -1,0 +1,70 @@
+[[app-8-E]]
+[appendix,obligation=informative]
+== Feature Oriented Images
+
+The Spatial Object in the S-100 model and in the ISO model can represent either
+Vector data or Imagery, Gridded or Coverage data. Both make reference to an
+externally defined Spatial Referencing System. Also both are feature oriented.
+
+Most people do not think of Imagery, Gridded or Coverage data as being feature
+oriented. At the minimum an image or a set of gridded measurements or a TIN coverage
+can be considered as a single feature, so in essence such data is feature oriented.
+But this is the minimum case. It is possible to include in an imagery, gridded or
+coverage dataset a data structure that could group pixels to identify features. For
+example an attribute could be included with each pixel that carried a feature ID
+number. This would allow one to identify certain features as being a particular
+feature type. In an image dataset corresponding to a scanned paper chart, one could
+mark sets of pixels as representing various hydrographic features. There are other
+more efficient methods of carrying such feature ID attribute data for an image than
+adding bits to each pixel. There is no obligation to build such sophisticated feature
+oriented imagery datasets, but both S-100 and the ISO standards allow them to be
+built if needed. This can be very important for the fusion of bathymetric sensor data
+represented as an image together with vector chart data.
+
+This appendix discusses the utility of feature oriented images and gives examples.
+The structures to support feature oriented images are very simple and are part of the
+application. It is not obvious that a single reference within the data model allows
+for an entire capability, so this informative appendix illustrates how that
+capability can be implemented and used.
+
+All gridded datasets are feature oriented, in that a coverage is a subtype of a
+feature. That is, an entire gridded dataset can be considered to be a single feature.
+A feature structure can be applied to gridded data in two different ways. First, a
+discrete coverage can carry a feature code as an attribute. For example, a coverage
+corresponding to the postal code system will have discrete values for each postal
+code, yet still cover the country completely. The only difference in the Application
+Schema is a relationship between the discrete coverage and the feature. This is shown
+in <<fig-8-E-1>>.
+
+[[fig-8-E-1]]
+.Feature oriented discrete coverage
+image::img84.png[]
+
+The model shown in <<fig-8-E-2>> below illustrates the collocation of two grids,
+supported by one grid value matrix to achieve the assignment of feature ID to
+specific cells. The discrete coverage allows for the assignment of feature codes to
+Grid Value Matrix entities and the continuous coverage allows one to handle the image.
+
+[[fig-8-E-2]]
+.Assigning feature codes to pixels in an image.
+image::img85.png[]
+
+The second method of establishing a feature structure is to develop a composite
+dataset that contains many separate but adjoining coverages. The coverages may be
+continuous or discrete. This is very much like the way a "vector" dataset is composed
+where each feature has its own geometry and attributes. In fact vector data may be
+mixed with coverage data in the same dataset. The Application Schema simply allows
+multiple instances of features.
+
+Geometric elements such as grids may be shared between multiple features, and
+features may be related by composition or other relationships as allowed in the
+general feature model of <<ISO19109>>. A complex feature may include both a
+continuous grid coverage and vector data such as a polygonal boundary. A feature
+oriented dataset may contain both a continuous coverage of the ocean as collected by
+sonar, and point and line features corresponding to navigational aids. Topological
+primitives may relate all of the features. This allows for some interesting and
+useful structures. For example, a scanned paper map represented as a gridded dataset
+may include additional vector data describing the roads and other features on the
+scanned map, which is not "visible" in that it is not portrayed, but which is active
+in that a user might query the name of a feature or traverse along a road on what
+would appear to be a gridded data set.

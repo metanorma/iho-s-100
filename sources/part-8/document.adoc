@@ -1,0 +1,56 @@
+= Universal Hydrographic Data Model -- Part 8: Imagery and Gridded Data
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-conformance.adoc[]
+
+include::sections/03-references.adoc[]
+
+include::sections/04-imagery-framework.adoc[]
+
+include::sections/05-imagery-schema.adoc[]
+
+include::sections/06-tiling-schema.adoc[]
+
+include::sections/07-spatial-schema.adoc[]
+
+include::sections/08-data-spatial-referencing.adoc[]
+
+include::sections/09-metadata.adoc[]
+
+include::sections/10-quality.adoc[]
+
+include::sections/11-imagery-portrayal.adoc[]
+
+include::sections/12-imagery-encoding.adoc[]
+
+include::sections/13-feature-oriented-image.adoc[]
+
+include::sections/aa-abstract-test-suite.adoc[]
+
+include::sections/ab-terminology.adoc[]
+
+include::sections/ac-quality-model.adoc[]
+
+include::sections/ad-metadata.adoc[]
+
+include::sections/ae-feature-oriented-images.adoc[]

@@ -1,0 +1,32 @@
+== Conformance
+
+=== Conformance of this Profile with other Standards
+
+This Part defines a profile of <<ISO19123>> concepts and types that constitutes the
+conceptual basis for the relevant S-100 encoding format (S-100 Part 10c -- HDF5 Data
+Model and File Format), and for S-100-based Product Specifications describing data
+products based on gridded information and other coverage-type products.
+
+This Part utilises the approach taken by ISO/TS 19129 and concepts defined in that
+specification to define specific conceptual structures combining <<ISO19123>> concepts
+in order to provide a simplified common basis for the S-100 encoding format for
+coverage-based hydrographic data, which is described in Part 10c.
+
+=== Backward compatibility
+
+Part 8 in this edition of S-100 is a correction, restructuring and rationalization of
+Part 8 in S-100 5.0.0, intended to correct internal discrepancies and update the
+conceptual framework to make it fully compatible with the encoding format for coverage
+information specified in S-100 Edition 5.0.0 Part 10c (HDF5 encoding). It simplifies
+Part 8 in previous editions of S-100 by removing superfluous concepts but does not
+entail changes to Product Specification data formats that conform to Part 10c of S-100
+Edition 5.0.0.
+
+=== Conformance to this Profile
+
+The Abstract Test Suite presented in <<app-8-A>> indicates how a coverage based
+product complies with the content models established in this document.
+
+Any product addressing imagery, gridded or coverage data, claiming conformance with
+S-100 shall pass the requirements described in the abstract test suite, presented in
+<<app-8-A>>.

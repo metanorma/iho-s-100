@@ -1,0 +1,36 @@
+== Scope
+
+S-100 has the capability to support imagery, gridded and several other types of
+coverage data as an integral component. Imagery and gridded data are common forms of
+geographic data and there exist many external standards designed to handle such data.
+An image is a particular type of gridded data structure that can be visualized. Since
+almost all sets of gridded data can be portrayed to form an image, the term image is
+very broad. S-100 must not preclude compatibility with external sources of data.
+
+Certain kinds of hydrographic information such as soundings, current information and
+water level information are by their nature a set of data points distributed over an
+area. Other kinds of information relevant to water-borne transportation, such as
+meteorological information, are also data points distributed over an area. Images are
+also of great importance for hydrographic data. This includes images from sensors such
+as aerial photography or LIDAR, photographs that can be associated with vector based
+feature oriented data and products based on scanned paper charts, commonly known as
+"Raster Charts". All of these types of data are covered by this Part of S-100.
+
+A set of data comprised of a set of attribute values distributed over an area is
+called a coverage. There are many different types of coverages, for example grid
+structures of different types such as elevation models using a regular grid spacing;
+irregular grids with variable size cells; Triangulated Irregular Networks (TINs), etc.
+
+This Part of S-100 aligns with the international standards for imagery and coverage
+data in order to support multiple sources of data. It uses a set of common information
+structures, based on the ISO TC/211 19100 suite of standards, that allows application
+systems to display or otherwise combine imagery, gridded and coverage data with
+boundary defined (vector based) data and other types of data.
+
+This Part of S-100 defines content models and conceptual structures for grid based
+coverages (simple grids and selected kinds of complex grids) as well as point set
+coverages and TINs, for coverage data in hydrographic applications, including imagery
+as a type of gridded data. It describes the organization, type of grid or other
+coverage structure and associated metadata and spatial referencing for georeferenced
+data. The manner by which encoding and portrayal makes use of the content models are
+described in other Parts of S-100.
