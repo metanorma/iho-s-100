@@ -1,0 +1,1361 @@
+== IHO Portrayal Register
+
+=== Types of registered items
+
+The following are types of items that may be registered:
+
+. Pixmap
+. Colour Value
+. Colour Token
+. Colour Palette
+. Symbol
+. Line Style
+. Area Fill
+. Font
+. Viewing Group
+. Viewing Group Layer
+. Display Mode
+. Display Plane
+. Context Parameter
+. Symbol Schema
+. Line Style Schema
+. Area Fill Schema
+. Pixmap Schema
+. Colour Profile Schema
+. Drawing Priority
+. Alert
+. Alert Message
+. Alert Highlight
+
+=== Data model of a Portrayal Register
+
+==== UML Model
+
+<<fig-2b-1;and!fig-2b-2>> show the register management and information models
+respectively of the hydrographic Portrayal Register:
+
+[[fig-2b-1]]
+.Portrayal Register management model
+image::img21.png[]
+
+[[fig-2b-2]]
+.Portrayal Register information model
+image::img22.png[]
+
+[%landscape]
+<<<
+
+==== S100_PR_Register
+
+This class S100_PR_Register is a specialization of the class S100_RE_Register. It is
+extended with an 'owner' and 'domain'. An organization may have a dedicated Register
+and a Register is intended for a specific Domain.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_Register
+| Portrayal Register extension to S100_RE_Register
+| -
+| S100_RE_Register
+| Inherits all characteristics of S100_RE_RegisterItem and extended with domain and owner
+
+| Association
+| owner
+| The organization responsible for managing the contents of the Register
+| 1
+| S100_PR_RegisterOrganization
+|
+
+| Association
+| domain
+| The domain for which the Register is primarily intended
+| 1
+| S100_PR_RegisterDomain
+|
+|===
+
+==== S100_PR_RegisterDomain
+
+This class indicates the Domain for which a Register is intended.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterDomain
+| Definition of a Domain
+| -
+| -
+|
+
+| Attribute
+| name
+| Name of Domain
+| 1
+| CharacterString
+|
+
+| Attribute
+| description
+| Description of Domain
+| 1
+| CharacterString
+|
+|===
+
+==== S100_PR_User
+
+This class represents a user of the Register.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterUser
+| Identification of a Register user
+| -
+| -
+|
+
+| Attribute
+| firstName
+| First name of user
+| 1
+| CharacterString
+|
+
+| Attribute
+| lastName
+| Last name of user
+| 1
+| CharacterString
+|
+
+| Attribute
+| creationDate
+| Date user was entered
+| 1
+| Date
+|
+
+| Attribute
+| email
+| Email of user
+| 1
+| CharacterString
+|
+
+| Association
+| organization
+| Reference to organization
+| 1
+| S100_PR_RegisterOrganization
+|
+|===
+
+==== S100_PR_RegisterManager
+
+This class identifies a Register Manager along with current status and time period.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterManager
+| Indicates the manager of a Register
+| -
+| -
+|
+
+| Attribute
+| startDate
+| The start date of the manager
+| 1
+| Date
+|
+
+| Attribute
+| endDate
+| The date on which the manager duties end
+| 0..1
+| Date
+|
+
+| Attribute
+| active
+| Flag if manager is currently active
+| 1
+| Boolean
+|
+
+| Association
+| register
+| The Register that the manager manages
+| 1
+| S100_PR_Register
+|
+
+| Association
+| user
+| The user that is the manager
+| 1
+| S100_PR_User
+|
+|===
+
+==== S100_PR_RegisterOrganization
+
+This class represents a Register Organization.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterOrganization
+| Definition of a Register Organization
+| -
+| -
+|
+
+| Attribute
+| shortName
+| Abbreviated or simple form name
+| 1
+| CharacterString
+|
+
+| Attribute
+| fullName
+| Full name of organization
+| 1
+| CharacterString
+|
+|===
+
+==== S100_PR_RegisterPermissions
+
+A class used to assign permissions to a Register user.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterPermissions
+| Register user permissions
+| -
+| -
+|
+
+| Attribute
+| read
+| Permission to read Register entries
+| 1
+| Boolean
+|
+
+| Attribute
+| write
+| Permission to write Register entries
+| 1
+| Boolean
+|
+
+| Attribute | controlBody | User is Control Body | 1 | Boolean | Part 2 Management of Registers
+| Association
+| register
+| The Register that the manager manages
+| 1
+| S100_PR_Register
+|
+
+| Association
+| user
+| The user that is the manager
+| 1
+| S100_PR_User
+|
+|===
+
+==== S100_PR_ManagementInfo
+
+This class is a portrayal extension of the S100_RE_ManagementInfo class with a
+reference to an Organization object and possible attachments.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ManagementInfo
+| Extension of S100_RE_ManagementInfo
+| -
+| S100_RE_ManagementInfo
+|
+
+| Association
+| organization
+| Organization submitting Register entries
+| 1
+| S100_PR_RegisterOrganization
+|
+
+| Association
+| attachment
+| Attached file or files
+| 0..*
+| S100_PR_Attachment
+|
+|===
+
+==== S100_PR_Attachment
+
+This class handles attachments.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ Attachment
+| Holds an attached file
+| -
+| -
+|
+
+| Attribute
+| name
+| Name of attachment
+| 1
+| CharacterString
+|
+
+| Attribute
+| type
+| Type of attachment
+| 1
+| S100_PR_FileType
+|
+
+| Attribute
+| file
+| The attachment
+| 1
+| Blob
+|
+|===
+
+==== S100_PR_RegisterItem
+
+The class S100_PR_RegisterItem is a specialization of the class S100_RE_RegisterItem
+which carries a valid XML identifier to be used in a Portrayal Catalogue.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_RegisterItem
+| Extension of S100_RE_RegisterItem
+| -
+| S100_RE_RegisterItem
+|
+
+| Attribute
+| xmlID
+| Valid XML identifier string
+| 1
+| CharacterString
+|
+
+| Attribute
+| description
+| Description in a national language
+| 0..*
+| S100_PR_NationalLanguageString
+| Provides S100_RE_RegisterItem definition attribute in alternate languages, supporting population of Portrayal Catalogue language-independent descriptions
+|===
+
+==== S100_PR_VisualItem
+
+An abstract specialization of S100_PR_RegisterItem to represent 'symbol',
+'lineStyle', 'areaFill' or 'pixmap'. The visual items each have an XML identifier
+string and XML document defining the item details as well as a preview image and an
+engineering image with dimensions.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_VisualItem
+| Abstract class representing a graphic element such as a symbol or linestyle
+| -
+| S100_PR_ RegisterItem
+|
+
+| Attribute
+| itemDetail
+| The XML file of the item
+| 0..1
+| Blob
+|
+
+| Attribute
+| previewImage
+| A preview image of the item
+| 0..1
+| Blob
+|
+
+| Attribute
+| engineeringImage
+| The engineering image with measurements
+| 0..1
+| Blob
+|
+
+| Attribute
+| previewType
+| The file type of the preview image
+| 0..1
+| S100_PR_ImageType
+| Required if previewImage is populated
+
+| Attribute
+| engineeringImageType
+| The file type of the engineering image
+| 0..1
+| S100_PR_ImageType
+| Required if engineeringImage is populated
+
+| Association
+| itemSchema
+| The XML schema to validate the item
+| 1
+| S100_PR_ItemSchema
+|
+
+| Association
+| colourToken
+| The colour tokens used by the visual item
+| 0..*
+| S100_PR_ColourToken
+| Needed to identify dependencies when assembling a Portrayal Catalogue
+|===
+
+==== S100_PR_Symbol
+
+The class S100_PR_Symbol is a specialization of the class S100_PR_VisualItem used to
+register a symbol according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_Symbol
+| Symbol visual item
+| -
+| S100_PR_VisualItem
+|
+|===
+
+==== S100_PR_LineStyle
+
+The class S100_PR_LineStyle is a specialization of the class S100_PR_VisualItem used
+to register a linestyle according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_LineStyle
+| Line style visual item
+| -
+| S100_PR_VisualItem
+|
+
+| Association
+| symbol
+| Symbols used by the line style
+| 0..*
+| S100_PR_ Symbol
+| Used to identify dependencies
+|===
+
+==== S100_PR_AreaFill
+
+The class S100_PR_AreaFill is a specialization of the class S100_PR_VisualItem used
+to register an area fill according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_AreaFill
+| Area fill visual item
+| -
+| S100_PR_VisualItem
+|
+
+| Association
+| symbol
+| Symbols used by the area fill
+| 0..*
+| S100_PR_ Symbol
+| Used to identify dependencies
+|===
+
+==== S100_PR_Pixmap
+
+The class S100_PR_Pixmap is a specialization of the class S100_PR_VisualItem used to
+register a pixmap according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_Pixmap
+| Pixmap visual item
+| -
+| S100_PR_VisualItem
+|
+|===
+
+==== S100_PR_ItemSchema
+
+The class S100_PR_ItemSchema is a specialization of the class S100_PR_RegisterItem
+used to register a portrayal item schema according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ItemSchema
+| Schema of an XML portrayal item
+| -
+| S100_PR_RegisterItem
+|
+
+| Attribute
+| xmlSchema
+| The XML schema stored as a Blob
+| 1
+| Blob
+| Schema from Part 9 Portrayal
+|===
+
+===== S100_PR_ SymbolSchema
+
+The class is a specialization of S100_PR_ItemSchema and is used to register the Part
+9 Portrayal symbol schema.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_SymbolSchema
+| Symbol schema
+| -
+| S100_PR_ItemSchema
+|
+|===
+
+===== S100_PR_ LineStyleSchema
+
+The class is a specialization of S100_PR_ItemSchema and is used to register the Part
+9 Portrayal line style schema.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_LineStyleSchema
+| Line style schema
+| -
+| S100_PR_ItemSchema
+|
+|===
+
+===== S100_PR_AreaFillSchema
+
+The class is a specialization of S100_PR_ItemSchema and is used to register the Part
+9 Portrayal area fill schema.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_AreaFillSchema
+| Area fill schema
+| -
+| S100_PR_ItemSchema
+|
+|===
+
+===== S100_PR_PixmapSchema
+
+The class is a specialization of S100_PR_ItemSchema and is used to register the Part
+9 Portrayal pixmap schema.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_PixmapSchema
+| Pixmap schema
+| -
+| S100_PR_ItemSchema
+|
+|===
+
+===== S100_PR_ColourProfileSchema
+
+The class is a specialization of S100_PR_ItemSchema and is used to register the Part
+9 colour profile schema.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ColourProfileSchema
+| Colour profile schema
+| -
+| S100_PR_ItemSchema
+|
+|===
+
+==== S100_PR_ColourToken
+
+The class S100_PR_ColourToken is a specialization of the class S100_PR_RegisterItem.
+A color token defines a single reference for multiple color values, each of which is
+associated with a single colour palette.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ColourToken
+| Definition of a colour token
+| -
+| S100_PR_RegisterItem
+|
+
+| Attribute
+| token
+| Identifier of the colour value(s)
+| 1
+| CharacterString
+|
+
+| Association
+| value
+| The colour(s) associated with this token
+| 1..*
+| S100_PR_PaletteItem
+| Used to identify dependenciesMultiplicity if intended for use by ECDIS is 3..*
+|===
+
+==== S100_PR_ColourPalette
+
+The class S100_PR_ColourPalette is a specialization of the class S100_PR_RegisterItem.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ColourPalette
+| Definition of a colour palette
+| -
+| S100_PR_RegisterItem
+|
+|===
+
+==== S100_PR_PaletteItem
+
+The class S100_PR_PaletteItem is a specialization of the class S100_PR_RegisterItem.
+It provides a colour value for colour tokens within a colour palette.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_PaletteItem
+| Definition of a colour palette entry
+| -
+| S100_PR_RegisterItem
+|
+
+| Attribute
+| transparency
+| Transparency
+| 0..1
+| Real
+| Range is [0, 1], default is 0 (opaque)
+
+| Attribute
+| colour
+| The colour value
+| 1
+| S100_PR_ColourValue
+|
+
+| Association
+| palette
+| The palette(s) associated with this item
+| 1..*
+| S100_PR_ColourPalette
+| Used to identify dependencies
+|===
+
+==== S100_PR_DisplayMode
+
+This is a specialization of the class S100_PR_RegisterItem used to register a Display
+Mode according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_DisplayMode
+| Used to register a Display Mode
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+|===
+
+==== S100_PR_ViewingGroupLayer
+
+This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
+Group Layer according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class | S100_PR_ViewingGroupLayer | Used to register a Viewing Group Layer | - | S100_PR_RegisterItem | See Part 9 Portrayal
+| Association | displayMode | A display mode which may include this layer | 0..* | S100_PR_DisplayMode | Used to identify dependencies
+|===
+
+==== S100_PR_ViewingGroup
+
+This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
+Group according to Part 9 Portrayal.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_ViewingGroup
+| Used to register a Viewing Group
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+
+| Attribute
+| foundationMode
+| Indicates the viewing group should always be on.
+| 0..1
+| Boolean
+| Default is false
+
+| Association
+| viewingGroupLayer
+| A viewing group layer which may include this viewing group
+| 0..*
+| S100_PR_ViewingGroupLayer
+| Used to identify dependencies
+|===
+
+==== S100_PR_DisplayPlane
+
+This is a specialization of the class S100_PR_RegisterItem.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_DisplayPlane
+| The specific content for a display plane definition as a register item of type 'displayPlane'
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+
+| Attribute
+| order
+| Used to sort the drawing order of display planes
+| 1
+| Integer
+|
+|===
+
+==== S100_PR_Font
+
+This is a specialization of S100_PR_RegisterItem. Used to register a font file for
+use in a Portrayal Catalogue.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_Font
+| The specific content for a font file definition as a register item of type 'font'
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+
+| Attribute
+| fontFile
+| A font file for inclusion in a portrayal catalogue
+| 1
+| Blob
+|
+
+| Attribute
+| fontType
+| The type of font file
+| 1
+| S100_PR_FontType
+| Initially restricted to True Type Font
+|===
+
+==== S100_PR_DrawingPriority
+
+S100_PR_DrawingPriority is a specialization of S100_PR_RegisterItem.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_PR_DrawingPriority
+| Used to register drawing priorities to be used in a Portrayal Catalogue
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+
+| Attribute
+| priority
+| Used to sort drawing instructions within a display plane
+| 1
+| Integer
+|
+|===
+
+==== S100_PR_ContextParameter
+
+S100_PR_ContextParameter is a specialization of S100_PR_RegisterItem.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_ContextParameter
+| The specific content for a context parameter as a register item of type 'contextParameter'
+| -
+| S100_PR_RegisterItem
+| See Part 9 Portrayal
+
+| Attribute
+| parameterType
+| Data type of context parameter
+| 1
+| S100_PR_ParameterType
+|
+
+| Attribute
+| defaultValue
+| Default or initial value
+| 0..1
+| CharacterString
+|
+|===
+
+==== S100_PR_ColourValue
+
+Identifies a colour value in one or more colour spaces.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_ColourValue
+| Describes a colour value in one or more colour spaces
+| -
+| -
+| At least one colour value must be present
+
+| Attribute
+| sRGB
+| The colour value in the sRGB colour space
+| 0..1
+| S100_PR_SRGBValue
+|
+
+| Attribute
+| cie
+| The colour value in the CIE colour space
+| 0..1
+| S100_PR_CIEValue
+|
+|===
+
+==== S100_PR_SRGBValue
+
+Identifies a colour value in the sRGB colour space.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_SRGBValue
+| A colour value in the sRGB colour space
+| -
+| -
+|
+
+| Attribute
+| red
+| Amount of red
+| 1
+| Integer
+| Range is [0,255]
+
+| Attribute
+| green
+| Amount of green
+| 1
+| Integer
+| Range is [0,255]
+
+| Attribute
+| blue
+| Amount of blue
+| 1
+| Integer
+| Range is [0,255]
+|===
+
+==== S100_PR_CIEValue
+
+Identifies a colour value in the CIE colour space.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_CIEValue
+| A colour value in the CIE colour space
+| -
+| -
+|
+
+| Attribute
+| x
+| x component of the chromaticity
+| 1
+| Real
+| Range [0,1]
+
+| Attribute
+| y
+| y component of the chromaticity
+| 1
+| Real
+| Range [0,1]
+
+| Attribute
+| L
+| Luminance in cd/m2
+| 1
+| Real
+|
+|===
+
+==== S100_PR_Alert
+
+S100_PR_Alert is a specialization of S100_PR_RegisterItem. An alert is associated
+with features by Portrayal Catalogue rules.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_Alert
+| Provides a priority, message, and the viewing groups associated with a graphical highlight.
+| -
+| S100_PR_RegisterItem
+| One of routeMonitor or routePlan must be present
+
+| Attribute
+| routeMonitor
+| Describes the attributes of the alert during route monitoring
+| 0..*
+| S100_PR_AlertInfo
+|
+
+| Attribute
+| routePlan
+| Describes the attributes of the alert during route planning
+| 0..*
+| S100_PR_AlertInfo
+|
+|===
+
+==== S100_PR_AlertInfo
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_AlertInfo
+| The attributes of an alert
+| -
+| -
+|
+
+| Attribute
+| priority
+| The priority of the alert
+| 1..*
+| S100_PR_AlertPriority
+| Multiplicity supports user selection of priority
+
+| Association
+| msg
+| A message to display while the alert is active
+| 1
+| S100_PR_AlertMessage
+|
+
+| Association
+| highlight
+| Supports toggling display of the graphical highlight
+| 0..1
+| S100_PR_AlertHighlight
+|
+|===
+
+==== S100_PR_AlertPriority
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_AlertPriority
+| The priority of an alert
+| -
+| -
+|
+
+| Attribute
+| priority
+| The priority value
+| 1
+| S100_PR_AlertPriorityType
+|
+
+| Attribute
+| default
+| Indicates this priority is the default
+| 0..1
+| Boolean
+| Default is false
+
+| Attribute
+| optional
+| Indicates exposing this priority to the user is optional
+| 0..1
+| Boolean
+| Default is false
+|===
+
+==== S100_PR_AlertMessage
+
+S100_PR_AlertMessage is a specialization of S100_PR_RegisterItem. Messages are
+displayed while any associated alert is active.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_AlertMessage
+| A message associated with one or more alerts
+| -
+| S100_PR_RegisterItem
+|
+
+| Attribute
+| text
+| Message in one or more languages
+| 1..*
+| S100_PR_NationalLanguageString
+| Message in English must be provided
+
+| Association
+| icon
+| A symbol to display with or instead of the text.
+| 0..1
+| S100_PR_Symbol
+|
+|===
+
+==== S100_PR_AlertHighlight
+
+S100_PR_AlertHighlight is a specialization of S100_PR_RegisterItem. Highlights
+associate viewing groups with alert information, which allows users to disable
+graphical highlighting of one or more active S100_PR_Alerts.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_AlertHighlight
+| Associates display parameters with alerts
+| -
+| S100_PR_RegisterItem
+|
+
+| Attribute
+| style
+| Overrides the style of graphical highlight shown in the chart area
+| 0..1
+| S100_PR_HighlightStyle
+a| When empty, style is inferred from the alert priority
+
+* Alarm: AlarmHighlight
+* Others: CautionHighlight
+
+| Attribute
+| optional
+| Indicates whether allowing the highlight to be turned off is optional
+| 0..1
+| Boolean
+| Default is false
+
+| Association
+| viewingGroup
+| The viewing group(s) associated with an alert highlight (Portrayal Catalogue rules generate the drawing instructions which implement the highlight)
+| 1..*
+| S100_PR_ViewingGroup
+a| Multiple viewing groups are present to allow highlighting of alerts triggered by specific feature types to be disabled independently
+
+For example, ProhibitedAreaHighlight supports disabling highlighting of Seaplane Landing Areas while other prohibited areas continue to be highlighted
+
+When multiple viewing groups are provided, consideration should be given to providing a viewing group layer to toggle all the viewing groups at once
+
+| Association
+| msg
+| A message to display while any of the viewing groups are disabled
+| 0..1
+| S100_PR_AlertMessage
+|
+|===
+
+==== S100_PR_NationalLanguageString
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_PR_NationalLanguageString
+| Text specific to a national language
+| -
+| -
+|
+
+| Attribute
+| text
+| A string in a national language
+| 1
+| CharacterString
+|
+
+| Attribute
+| language
+| ISO 639-2/T 3-letter language code
+| 0..1
+| CharacterString | Default is "eng"
+|===
+
+==== S100_PR_FileType
+
+[%unnumbered,options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_PR_FileType
+| The type and format of a file.
+| -
+|
+
+| Value
+| docx
+| Office Open XML Document
+| -
+| Zip and XML-based file format for documents. Not to be confused with OpenOffice format or generic XML
+
+| Value
+| zip
+| Zip archive format
+| -
+|
+
+| Value
+| xlsx
+| Office Open XML Workbook
+| -
+| Zip and XML-based file format for spreadsheets. Not to be confused with OpenOffice format or generic XML
+|===
+
+==== S100_PR_FontType
+
+[%unnumbered,options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_PR_FontType
+| A font specification
+| -
+|
+
+| Value
+| ttf
+| TrueType font
+| -
+|
+|===
+
+==== S100_PR_ImageType
+
+[%unnumbered,options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_PR_ImageType
+| An image specification
+| -
+|
+
+| Value
+| jpg
+| JPEG 2000 image coding system
+| -
+|
+
+| Value
+| png
+| Portable Network Graphics format
+| -
+|
+
+| Value
+| tif
+| Tagged Image File Format
+| -
+|
+|===
+
+==== S100_PR_AlertPriorityType
+
+[%unnumbered,options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_PR_AlertPriorityType
+| Defines the possible priorities for an alert.
+| -
+|
+
+| Value
+| alarm
+| Indicates conditions requiring immediate attention and action by the bridge team
+| -
+| From MSC.252(83) 19.1.2
+
+| Value
+| warning
+| Indicates changed conditions and should be presented for precautionary reasons which are not immediately hazardous but which may become so, if no action is taken
+| -
+| From MSC.252(83) 19.1.3
+
+| Value
+| caution
+| Indicates a condition which does not warrant an alarm or warning condition, but still requires attention and out of the ordinary consideration of the situation or of given information
+| -
+| From MSC.252(83) 19.1.4
+
+| Value
+| indication
+| Display of regular information and conditions
+| -
+| From MSC.252(83) appendix 1
+|===
+
+==== S100_PR_ParameterType
+
+The definition and members of enumeration S100_PR_ParameterType are the same as
+ParameterType in Part 9, clause 9-13.3.30.
+
+==== S100_PR_HighlightStyle
+
+[%unnumbered,options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_PR_HighlightStyle
+| Defines the possible graphical highlight styles for an alert
+| -
+|
+
+| Value
+| AlarmHighlight
+| Red highlight
+| -
+| <<IEC62288,table="A.3">>, Navigation symbols, entry 3.5 b
+
+| Value
+| CautionHighlight
+| Yellow highlight
+| -
+| <<IEC62288,table="A.3">>, Navigation symbols, entry 3.5 c
+|===

@@ -1,0 +1,33 @@
+== General concepts
+
+=== Register
+
+As described in Part 2, a Register is simply a managed list. It is easier to maintain
+than a fixed document, because new items can be added as needed to the Register, and
+existing items in the Register can be clarified, superseded or retired. Each Register
+item has one or more dates associated with it that indicate when changes in its
+status occurred. This means that a Product Specification, defined at a given date,
+may reference an item in the Register at that specific point in time.
+
+=== Portrayal Register
+
+The Portrayal Register specifies the independent sets of components used to build
+Portrayal Catalogues such as colours, symbols, and fonts. The Register also specifies
+supporting items such as context parameters, viewing groups, display planes and the
+components used within an optional Alerts Catalogue.
+
+The Portrayal Register may be subdivided into different Domains; and may be used to
+develop a Portrayal Catalogue. Unlike a Portrayal Catalogue, the Portrayal Register
+does not define the portrayal rules or bind the portrayal or alerts/indications to a
+feature.
+
+Such Registers of portrayal information may serve as sources of reference for similar
+Registers established by other geographic information communities as part of a system
+of cross-referencing.
+
+=== Portrayal catalogue
+
+The Portrayal Catalogue contains portrayal rules that map the features to symbology;
+and optionally to alerts/indications. It also contains symbol definitions, colour
+definitions, portrayal parameters and portrayal management concepts. Portrayal
+Catalogues are described in detail in S-100 Part 9.
