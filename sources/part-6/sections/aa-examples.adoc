@@ -1,0 +1,397 @@
+[[app-6-A]]
+[appendix,obligation=informative]
+== Examples
+
+Four examples are shown in this Appendix to demonstrate the use
+of the required information to describe a coordinate reference
+system:
+
+. 2D geodetic CRS using references to an external source;
+. Projected CRS using references to an external source;
+. The same CRS defining all details in place;
+. A compound CRS combining the first example with a vertical CRS.
+
+An XML like notation is used for the examples. UML identifiers
+are used as element names. Values are shown in *bold*. For a
+better overview, data types may be included in the element's name
+and shown in span:blue[blue].
+
+[[cls-6-A-1]]
+=== 2D geodetic CRS using references to an external source
+
+This example uses a reference to the EPSG Geodetic Parameter Data
+Set. Please note that the class SC_CRS is used for the
+referencing and all details are defined in the referenced source.
+An exception is the scope since this is a mandatory field in the
+class SC_CRS.
+
+[source%unnumbered]
+----
+<{{{span:blue[SC_CRS]}}}:example1>
+  <{{{span:blue[RS_Identifier]}}}:name>
+    <code>{{{*WGS 84*}}}</code>
+  </{{{span:blue[RS_Identifier]}}}:name>
+  <{{{span:blue[RS_Identifier]}}}:identifier>
+    <{{{span:blue[CI_Citation]}}}:authority>
+      <title>{{{*EPSG Geodetic Parameter Data Set*}}}</title>
+      <edition>{{{*6.5*}}}</edition>
+      <{{{span:blue[CI_Date]}}}:date>
+        <date>{{{*20040113*}}}</date>
+        <dateType>{{{*revision*}}}</dateType>
+      </{{{span:blue[CI_Date]}}}:date>
+    </{{{span:blue[CI_Citation]}}}:authority>
+    <code>{{{*4326*}}}</code>
+  </{{{span:blue[RS_Identifier]}}}:identifier>
+<scope>
+    {{{*Horizontal component of the 3D geodetic CRS used by the GPS satellite system.*}}}
+</scope>
+</{{{span:blue[SC_CRS]}}}:example1>
+----
+
+[[cls-6-A-2]]
+=== Projected CRS using references to an external source
+
+This example is similar to <<cls-6-A-1>>. It defines a projected
+CRS by referencing the EPSG Geodetic Parameter Data Set.
+
+[source%unnumbered]
+----
+<{{{span:blue[SC_CRS]}}}:example2>
+  <{{{span:blue[RS_Identifier]}}}:name>
+    <code>{{{*Amersfoort / RD new*}}}</code>
+  </{{{span:blue[RS_Identifier]}}}:name>
+  <{{{span:blue[RS_Identifier]}}}:identifier>
+    <{{{span:blue[CI_Citation]}}}:authority>
+      <title>{{{*EPSG Geodetic Parameter Data Set*}}}</title>
+      <edition>{{{*6.5*}}}</edition>
+      <{{{span:blue[CI_Date]}}}:date>
+        <date>{{{*20040113*}}}</date>
+        <dateType>{{{*revision*}}}</dateType>
+      </{{{span:blue[CI_Date]}}}:date>
+    </{{{span:blue[CI_Citation]}}}:authority>
+    <code>{{{*28992*}}}</code>
+  </{{{span:blue[RS_Identifier]}}}:identifier>
+<scope>
+    {{{*Large and medium scale topographic mapping and engineering survey.*}}}
+</scope>
+</{{{span:blue[SC_CRS]}}}:example2>
+----
+
+[[cls-6-A-3]]
+=== Projected CRS defining all details
+
+This example is the full detail of <<cls-6-A-2>>.
+
+[source%unnumbered]
+----
+<{{{span:blue[SC_ProjectedCRS]}}}:example3>
+  <!-- {{{span:red[name and scope]}}} -->
+  <{{{span:blue[RS_Identifier]}}}:name>
+    <code>{{{*Amersfoort / RD new*}}}</code>
+  </{{{span:blue[RS_Identifier]}}}:name>
+<scope>
+    {{{*Large and medium scale topographic mapping and engineering survey.*}}}
+</scope>
+
+  <!-- {{{span:red[the coordinate system]}}} -->
+  <{{{span:blue[CS_CartesianCS]}}}:coordinateSystem>
+    <!-- {{{span:red[axis # 1]}}} -->
+    <{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+      <{{{span:blue[RS_Identifier]}}}:name>
+        <code>{{{*Easting*}}}</code>
+      </{{{span:blue[RS_Identifier]}}}:name>
+      <axisSymbol>{{{*X*}}}</axisSymbol>
+      <axisDirection>{{{*east*}}}</axisDirection>
+      <{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Metre*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <symbol>{{{*m*}}}</symbol>
+        <type>{{{*length*}}}</type>
+      </{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+    </{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+    <!-- {{{span:red[axis # 2]}}} -->
+    <{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+      <{{{span:blue[RS_Identifier]}}}:name>
+        <code>{{{*Northing*}}}</code>
+      </{{{span:blue[RS_Identifier]}}}:name>
+      <axisSymbol>{{{*Y*}}}</axisSymbol>
+      <axisDirection>{{{*north*}}}</axisDirection>
+      <{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Metre*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <symbol>{{{*m*}}}</symbol>
+        <type>{{{*length*}}}</type>
+      </{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+    </{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+  </{{{span:blue[CS_CartesianCS]}}}:coordinateSystem>
+  <!-- end of {{{span:red[the coordinate system]}}} -->
+
+  <!-- {{{span:red[the coordinate conversion]}}} -->
+  <{{{span:blue[CC_Conversion]}}}:conversion>
+    <{{{span:blue[RS_Identifier]}}}:name>
+      <code>{{{*RD New*}}}</code>
+    </{{{span:blue[RS_Identifier]}}}:name>
+<scope>
+    {{{*Large and medium scale topographic mapping and engineering survey.*}}}
+</scope>
+
+    <!-- {{{span:red[the operation method including the list of parameters]}}} -->
+    <{{{span:blue[CC_OperationMethod]}}}:method>
+      <{{{span:blue[RS_Identifier]}}}:name>
+        <code>{{{*Oblique Stereographic*}}}</code>
+      </{{{span:blue[RS_Identifier]}}}:name>
+      <formula>{{{*See EPSG guidance No. 7*}}}</formula>
+      <{{{span:blue[CC_OperationParameter]}}}:parameter>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Latitude of natural origin*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+      </{{{span:blue[CC_OperationParameter]}}}:parameter>
+      <{{{span:blue[CC_OperationParameter]}}}:parameter>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Longitude of natural origin*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+      </{{{span:blue[CC_OperationParameter]}}}:parameter>
+      <{{{span:blue[CC_OperationParameter]}}}:parameter>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Scale factor at natural origin*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+      </{{{span:blue[CC_OperationParameter]}}}:parameter>
+      <{{{span:blue[CC_OperationParameter]}}}:parameter>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*False easting*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+      </{{{span:blue[CC_OperationParameter]}}}:parameter>
+      <{{{span:blue[CC_OperationParameter]}}}:parameter>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*False northing*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+      </{{{span:blue[CC_OperationParameter]}}}:parameter>
+    </{{{span:blue[CC_OperationMethod]}}}:method>
+    <!-- {{{span:red[The parameter value # 1]}}} -->
+    <{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+      <parameter>{{{*Latitude of natural origin*}}}</parameter>
+      <{{{span:blue[CC_ParameterValue]}}}:value>
+        <{{{span:blue[CC_Measure]}}}:measure>
+          <value>{{{stem:[52 "unitsml(deg)" 9 "unitsml(')" 22.1780 "unitsml(")" " N"]}}}</value>
+          <{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+            <{{{span:blue[RS_Identifier]}}}:name>
+              <code>{{{*Degree*}}}</code>
+            </{{{span:blue[RS_Identifier]}}}:name>
+            <type>{{{*angle*}}}</type>
+          </{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+        </{{{span:blue[CC_Measure]}}}:measure>
+      </{{{span:blue[CC_ParameterValue]}}}:value>
+    </{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+    <!-- {{{span:red[The parameter value # 2]}}} -->
+    <{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+      <parameter>{{{*Longitude of natural origin*}}}</parameter>
+      <{{{span:blue[CC_ParameterValue]}}}:value>
+        <{{{span:blue[CC_Measure]}}}:measure>
+          <value>{{{stem:[5 "unitsml(deg)" 23 "unitsml(')" 15.5 "unitsml(")" " E"]}}}</value>
+          <{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+            <{{{span:blue[RS_Identifier]}}}:name>
+              <code>{{{*Degree*}}}</code>
+            </{{{span:blue[RS_Identifier]}}}:name>
+            <type>{{{*angle*}}}</type>
+          </{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+        </{{{span:blue[CC_Measure]}}}:measure>
+      </{{{span:blue[CC_ParameterValue]}}}:value>
+    </{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+    <!-- {{{span:red[The parameter value # 3]}}} -->
+    <{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+      <parameter>{{{*Scale factor at natural origin*}}}</parameter>
+      <{{{span:blue[CC_ParameterValue]}}}:value>
+        <{{{span:blue[CC_Measure]}}}:measure>
+          <value>{{{*0.9999079*}}}</value>
+          <{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+            <{{{span:blue[RS_Identifier]}}}:name>
+              <code>{{{*Scale*}}}</code>
+            </{{{span:blue[RS_Identifier]}}}:name>
+            <type>{{{*scale*}}}</type>
+          </{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+        </{{{span:blue[CC_Measure]}}}:measure>
+      </{{{span:blue[CC_ParameterValue]}}}:value>
+    </{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+    <!-- {{{span:red[The parameter value # 4]}}} -->
+    <{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+      <parameter>{{{*False easting*}}}</parameter>
+      <{{{span:blue[CC_ParameterValue]}}}:value>
+        <{{{span:blue[CC_Measure]}}}:measure>
+          <value>{{{*155000*}}}</value>
+          <{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+            <{{{span:blue[RS_Identifier]}}}:name>
+              <code>{{{*Metre*}}}</code>
+            </{{{span:blue[RS_Identifier]}}}:name>
+            <symbol>{{{*m*}}}</symbol>
+            <type>{{{*length*}}}</type>
+          </{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+        </{{{span:blue[CC_Measure]}}}:measure>
+      </{{{span:blue[CC_ParameterValue]}}}:value>
+    </{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+    <!-- {{{span:red[The parameter value # 5]}}} -->
+    <{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+      <parameter>{{{*False northing*}}}</parameter>
+    <{{{span:blue[CC_ParameterValue]}}}:value>
+      <{{{span:blue[CC_Measure]}}}:measure>
+        <value>{{{*463000*}}}</value>
+        <{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+          <{{{span:blue[RS_Identifier]}}}:name>
+            <code>{{{*Metre*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:name>
+          <symbol>{{{*m*}}}</symbol>
+          <type>{{{*length*}}}</type>
+        </{{{span:blue[CS_UnitOfMeasure]}}}:uom>
+      </{{{span:blue[CC_Measure]}}}:measure>
+    </{{{span:blue[CC_ParameterValue]}}}:value>
+    </{{{span:blue[CC_OperationParameterValue]}}}:parameterValue>
+  </{{{span:blue[CC_Conversion]}}}:conversion>
+  <!-- {{{span:red[end of coordinate conversion]}}} -->
+
+  <!-- {{{span:red[the base geodetic CRS]}}} -->
+  <{{{span:blue[SC_GeodeticCRS]}}}:baseCRS>
+    <!-- {{{span:red[the coordinate system of the base CRS]}}} -->
+    <{{{span:blue[CS_GeodeticCS]}}}:coordinateSystem>
+      <!-- {{{span:red[axis # 1]}}} -->
+      <{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Latitude*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <axisSymbol>{{{*stem:[varphi]*}}}</axisSymbol>
+        <axisDirection>{{{*north*}}}</axisDirection>
+        <{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+          <{{{span:blue[RS_Identifier]}}}:name>
+            <code>{{{*Degree*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:name>
+          <symbol>{{{stem:["unitsml(deg)"]}}}</symbol>
+          <type>{{{*angle*}}}</type>
+        </{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+      </{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+      <!-- {{{span:red[axis # 2]}}} -->
+      <{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Longitude*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <axisSymbol>{{{stem:[lambda]}}}</axisSymbol>
+        <axisDirection>{{{*east*}}}</axisDirection>
+        <{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+          <{{{span:blue[RS_Identifier]}}}:name>
+            <code>{{{*Degree*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:name>
+          <symbol>{{{stem:["unitsml(deg)"]}}}</symbol>
+          <type>{{{*angle*}}}</type>
+        </{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+      </{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+    </{{{span:blue[CS_GeodeticCS]}}}:coordinateSystem>
+    <!-- {{{span:red[end of coordinate system of the base CRS]}}} -->
+
+    <!-- {{{span:red[the geodetic datum]}}} -->
+    <{{{span:blue[CD_GeodeticDatum]}}}:datum>
+      <{{{span:blue[RS_Identifier]}}}:name>
+        <code>{{{*Amersfoort*}}}</code>
+      </{{{span:blue[RS_Identifier]}}}:name>
+      <scope>
+        {{{*Geodetic survey, cadastre, topographic mapping, engineering survey.*}}}
+      </scope>
+      <{{{span:blue[CD_Ellipsoid]}}}:ellipsoid>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Bessel 1841*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <semiMajorAxis>{{{*6377397.155 m*}}}</semiMajorAxis>
+        <{{{span:blue[CD_SecondParameter]}}}:secondParameter>
+          <inversFlattening>{{{*299.1528128*}}}</inversFlattening>
+        </{{{span:blue[CD_SecondParameter]}}}:secondParameter>
+      </{{{span:blue[CD_Ellipsoid]}}}:ellipsoid>
+      <{{{span:blue[CD_PrimeMeridian]}}}:primeMeridian>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Greenwich*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <greenwichLongitude>{{{*0*}}}</greenwichLongitude>
+      </{{{span:blue[CD_PrimeMeridian]}}}:primeMeridian>
+    </{{{span:blue[CD_GeodeticDatum]}}}:datum>
+    <!-- {{{span:red[end of the geodetic datum]}}} -->
+  </{{{span:blue[SC_GeodeticCRS]}}}:baseCRS>
+  <!-- {{{span:red[end of base geodetic CRS]}}} -->
+</SC_ProjectedCRS:example3>
+----
+
+==== A compound CRS combining the first example with a vertical CRS
+
+Here a compound CRS is defined. The horizontal component will be
+defined by referencing the vertical component and is defined by
+details (again only the vertical datum is again defined by
+referencing).
+
+[source%unnumbered]
+----
+<{{{span:blue[SC_CompoundCRS]}}}:example4>
+  <!-- The horizontal component -->
+  <{{{span:blue[SC_CRS]}}}:component>
+    <{{{span:blue[RS_Identifier]}}}:name>
+      <code>{{{*WGS 84*}}}</code>
+    </{{{span:blue[RS_Identifier]}}}:name>
+    <{{{span:blue[RS_Identifier]}}}:identifier>
+      <{{{span:blue[CI_Citation]}}}:authority>
+        <title>{{{*EPSG Geodetic Parameter Data Set*}}}</title>
+        <edition>{{{*6.5*}}}</edition>
+        <{{{span:blue[CI_Date]}}}:date>
+          <date>{{{*20040113*}}}</date>
+          <dateType>{{{*revision*}}}</dateType>
+        </{{{span:blue[CI_Date]}}}:date>
+      </{{{span:blue[CI_Citation]}}}:authority>
+      <code>{{{*4326*}}}</code>
+    </{{{span:blue[RS_Identifier]}}}:identifier>
+    <scope>
+      {{{*Horizontal component of the 3D geodetic CRS used by the GPS satellite system.*}}}
+    </scope>
+      </{{{span:blue[SC_CRS]}}}:component>
+      <!-- {{{span:red[The vertical component]}}} -->
+      <{{{span:blue[SC_VerticalCRS]}}}:component>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Mean low water springs*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <scope>{{{*Hydrography*}}}</scope>
+      <{{{span:blue[CS_VerticalCS]}}}:coordinateSystem>
+        <{{{span:blue[RS_Identifier]}}}:name>
+          <code>{{{*Gravity related depth*}}}</code>
+        </{{{span:blue[RS_Identifier]}}}:name>
+        <!-- {{{span:red[axis # 1]}}} -->
+        <{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+          <{{{span:blue[RS_Identifier]}}}:name>
+            <code>{{{*Depth*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:name>
+          <axisSymbol>{{{*z*}}}</axisSymbol>
+          <axisDirection>{{{*down*}}}</axisDirection>
+          <{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+            <{{{span:blue[RS_Identifier]}}}:name>
+              <code>{{{*Metre*}}}</code>
+            </{{{span:blue[RS_Identifier]}}}:name>
+            <symbol>{{{*m*}}}</symbol>
+            <type>{{{*length*}}}</type>
+          </{{{span:blue[CS_UnitOfMeasure]}}}:unitOfMeasure>
+        </{{{span:blue[CS_CoordinateSystemAxis]}}}:axis>
+        <!-- {{{span:red[The vertical datum (referenced to S-57 Attribute Catalogue)]}}} -->
+        <{{{span:blue[CD_VerticalDatum]}}}:datum>
+          <{{{span:blue[RS_Identifier]}}}:name>
+            <code>{{{*Mean low water springs*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:name>
+          <{{{span:blue[RS_Identifier]}}}:identifier>
+            <{{{span:blue[CI_Citation]}}}:authority>
+              <title>
+                {{{*IHO TRANSFER STANDARD for DIGITAL HYDROGRAPHIC DATA - Annex A*}}}
+              </title>
+              <edition>{{{*3.1*}}}</edition>
+              <{{{span:blue[CI_Date]}}}:date>
+                <date>{{{*200011*}}}</date>
+                <dateType>{{{*publication*}}}</dateType>
+              </{{{span:blue[CI_Date]}}}:date>
+            </{{{span:blue[CI_Citation]}}}:authority>
+            <code>{{{*VERDAT 1*}}}</code>
+          </{{{span:blue[RS_Identifier]}}}:identifier>
+          <scope>{{{*Hydrography*}}}</scope>
+        </{{{span:blue[CD_VerticalDatum]}}}:datum>
+      </{{{span:blue[CS_VerticalCS]}}}:coordinateSystem>
+      </{{{span:blue[SC_VerticalCRS]}}}:component>
+</{{{span:blue[SC_CompoundCRS]}}}:example4>
+----

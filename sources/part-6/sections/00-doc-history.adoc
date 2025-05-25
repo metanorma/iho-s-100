@@ -1,0 +1,22 @@
+[.preface]
+== metanorma-extension
+
+=== user-css
+
+[source]
+----
+.blue { color: blue}
+.red { color: red}
+----
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description:
+----

@@ -1,0 +1,13 @@
+[bibliography]
+== Normative References
+
+The following referenced documents are indispensable for the
+application of this document. For dated references, only the
+cited edition applies. For undated references, the latest edition
+of the referenced document (including any amendments) applies.
+
+* [[[ISO19111,ISO 19111:2007]]]
+
+* [[[ISO19103,ISO/TS 19103]]]
+
+* [[[ISO19115,ISO 19115]]]

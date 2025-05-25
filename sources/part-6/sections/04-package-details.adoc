@@ -1,0 +1,595 @@
+== Package details
+
+=== The Identified Object package
+
+[[fig-6-2]]
+.The Identified Object class diagram
+image::img38.png[]
+
+NOTE: If a class diagram of a package shows classes or types of
+another package it will be shown with a grey background. In this
+case not all details of this class are shown; the full details
+are described in the class diagram of the package where the class
+belongs.
+
+==== S100_IO_IdentifiedObject
+
+Each class in this part is intended to have a mechanism to be
+identifiable and/or to identify an external source that is
+derived from the class S100_IO_IdentifiedObject.
+
+Different from ISO 19111 this class is not derived from an
+external document but uses members defined by external standards.
+In addition, no other class in this part is derived from external
+standards. Where in ISO 19111 those classes inherit essential
+members, those members will be introduced here in the appropriate
+package diagram. This should improve the readability of this
+component and also avoids multiple inheritance where it is not
+absolutely needed.
+
+==== Class details
+
+[[tab-6-2]]
+.Properties of the class IO_IdentifiedObject
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| name | RS_Identifier | 1 | The primary name by which the object can be identified
+| identifier | RS_Identifier | 0..1 | An identifier that references the (external) definition of the object
+| alias | GenericName | 0..* | An alternative name of the object
+| remarks | CharacterString | 0..1 | Comments on or information about the object
+|===
+
+The type RS_Identifier (from <<ISO19115>>) has three parts:
+
+. authority : CI_Citation [0..1];
+. code : CharacterString;
+. codeSpace: CharacterString [0..1];
+. version: CharacterString [0..1].
+
+The type CI_Citation is also defined in ISO 19115, for more
+details refer there.
+
+=== The Coordinate Reference Systems package
+
+[[fig-6-3]]
+.The Coordinate Reference Systems class diagram
+image::img39.png[]
+
+This package describes the base class used for all coordinate
+reference systems and all derived subclasses supported by this
+component. The diagram also shows the relation to classes in
+other packages.
+
+A coordinate reference system is a coordinate system that is
+related to the real world by a datum. Generally, the real world
+will be the Earth although the principles are not restricted to
+the Earth. A coordinate reference system (CRS) is either a single
+CRS or a compound CRS.
+
+=== Single CRS
+
+A single CRS is defined by a coordinate system and an associated
+datum. The following types of single CRSs are supported by S-100:
+
+. Geodetic CRS;
+. Projected CRS;
+. Vertical CRS;
+. ImageCRS.
+
+A geodetic CRS is associated with a geodetic datum. It usually
+uses an ellipsoidal coordinate system (geodetic latitude,
+geodetic longitude and ellipsoidal height if 3D). A geodetic CRS
+can also use a Cartesian coordinate system (3D, fixed to the
+earth). Coordinates referenced to a Cartesian system are rarely
+used in data sets but are used as intermediate coordinates during
+certain coordinate transformations.
+
+A projected CRS is a derived CRS with a geodetic CRS as its base
+and using a map projection for coordinate conversion. The
+underlying coordinate system is always a Cartesian coordinate
+system. Projected CRS are frequently used for national coordinate
+systems.
+
+A vertical CRS is a 1D CRS for reporting depth or heights and
+associated with a vertical datum. The ellipsoidal height cannot
+be captured with a vertical CRS. Ellipsoidal heights are an
+integral part of a 3D coordinate tuple of a geodetic CRS and
+cannot exist independently.
+
+An image CRS is associated with an image datum that describes how
+the image coordinate system is related to the image. This
+relation is independent of whether or not the image is
+georeferenced. Georeferencing is performed through a
+transformation of the image CRS to a geodetic or a projected CRS.
+
+==== Compound CRS
+
+A compound CRS is a combination of two or more single CRSs
+although the use of more than two components is very unlikely.
+The components of a compound CRS must be independent. Two CRSs
+are independent if coordinates conforming to them cannot be
+changed from one CRS to the other by some coordinate operation. A
+horizontal and vertical CRS, for example, are independent while
+two vertical CRSs are not. Nesting of compound CRSs is not
+permitted, meaning all components must be single CRSs.
+
+Each position in a data set, given with the class DirectPosition,
+must be bound to a CRS. If in a data set different vertical
+datums are used for each, a vertical coordinate system has to be
+defined. Those vertical coordinate systems can then be used as a
+component in a compound coordinate system to describe a
+three-dimensional coordinate.
+
+If a data Product Specification allows a choice of geodetic
+datums, even if only one is allowed in a given dataset,
+transformation methods must be specified that enable the datasets
+to be used together in an application.
+
+==== Class details
+
+[[tab-6-3]]
+.Properties of the class SC_CRS
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| scope | CharacterString | 1..* | Description of usage, or limitations of usage, for which this CRS is valid
+| domainOfValidity | EX_Extend | 0..1 | Area or region in which this CRS is valid
+|===
+
+[[tab-6-4]]
+.Properties of the class SC_SingleCRS
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| datum | CD_Datum | 0..1 | The datum with which the CRS is associated. The datum must be of an appropriate type (vertical or horizontal) for the CRS. Mandatory except for projected CRS, for which it must not be specified -- the projected CRS uses the datum of its base CRS
+| coordinateSystem | CS_CoordinateSystem | 1 | Coordinate system used by the CRS
+|===
+
+[[tab-6-5]]
+.Properties of the class SC_GeneralDerivedCRS
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| conversion | CC_Operation | 1 | The coordinate conversion method to convert the coordinates from the base to the derived CRS (for example a map projection)
+|===
+
+[[tab-6-6]]
+.Properties of the class SC_Projected CRS
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| baseCRS | SC_GeodeticCRS | 1 | The geodetic CRS on which the CRS is based. In particular the datum of the base CRS is also used for the derived CRS
+|===
+
+=== The Coordinate System package
+
+[[fig-6-4]]
+.The "Coordinate System" class diagram
+image::img40.png[]
+
+A coordinate system comprises a non-repeating, ordered sequence
+of coordinate axes. The number of axes shall be equal to the
+number of dimensions of the space which geometry the CRS
+describes. The order of the coordinate axes is identical to the
+order of the coordinates in each coordinate tuple described by a
+CRS using this coordinate system.
+
+This component defines four types of coordinate systems:
+
+. Cartesian coordinate system;
+. Affine coordinate system;
+. Ellipsoidal coordinate system;
+. Vertical coordinate system.
+
+Each axis is defined by the direction, the value range and the
+unit of measure used.
+
+A Cartesian coordinate system is a two- or three-dimensional
+coordinate system with orthogonal straight axes. All axes shall
+have the same length unit.
+
+An affine coordinate system is a two- or three-dimensional
+coordinate system with straight axes that are not necessarily
+orthogonal. All axes shall have the same length unit.
+
+An ellipsoidal coordinate system is a two- or three-dimensional
+coordinate system which describes coordinates on or nearby the
+surface of an ellipsoid. The coordinates are: geodetic latitude,
+geodetic longitude and (in the three-dimensional case)
+ellipsoidal height.
+
+The geodetic latitude is the angle from the equatorial plane to
+the perpendicular to the ellipsoid through a given point,
+northwards treated as positive.
+
+The geodetic longitude is the angle from the prime meridian plane
+to the meridian plane of a given point, eastward treated as
+positive.
+
+The ellipsoidal height is the distance of a point from the
+ellipsoid measured along the perpendicular from the ellipsoid to
+this point, positive if upwards or outside of the ellipsoid.
+
+A vertical coordinate system is a one-dimensional coordinate
+system used to record the heights or depths of points. Such a
+coordinate system is usually dependent on the Earth's gravity
+field. The following table specifies the type of CRS's that can
+use the specific type of coordinate system.
+
+[[tab-6-7]]
+.Coordinate systems used for different CRS's
+[cols=3,options=header]
+|===
+| Coordinate Reference System | Coordinate System | Dimension
+
+| Geodetic CRS a| Ellipsoidal coordinate system +
+Cartesian coordinate system a| 2, 3 +
+3
+| Projected CRS | Cartesian coordinate system | 2
+| Vertical CRS | Vertical coordinate system | 1
+| Image CRS a| Cartesian coordinate system +
+Affine coordinate system a| 2 +
+2
+|===
+
+==== Class details
+
+[[tab-6-8]]
+.Properties of the class CS_CoordinateSystem
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| axes | CS_CoordinateSystemAxis | 1..3 | The axes of the coordinate system. The order is the same as the order of the coordinates in the corresponding positions. The number equals the dimension of the space for which the coordinate system describes the geometry
+|===
+
+[[tab-6-9]]
+.Properties of the class CS_CoordinateSystemAxis
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| axisSymbol | CharacterString | 1 | Abbreviation used for this coordinate system axis.
+| axisDirection | CS_AxisDirection | 1 | Direction of the coordinate system axis. For an Earth-fixed coordinate system the value is often approximate and intended to provide a human interpretable meaning to the axis
+| minimumValue | double | 0..1 | The minimum value allowed for this axis in the axis' units of measure
+| maximumValue | double | 0..1 | The maximum value allowed for this axis in the axis' units of measure
+| rangeMeaning | CS_RangeMeaning | 0..1 | The meaning of the value range.
+| unit of measure | S100UnitOfMeasure | 1 | The unit of measure for this axis
+|===
+
+[[tab-6-10]]
+.Definitions of the enumeration type CS_AxisOrentation
+[cols=2,options=header]
+|===
+| Name | Description
+
+| north | Axis positive direction is north. In a geodetic or projected CRS, north is defined through the geodetic datum
+| east | Axis positive direction is stem:[90 "unitsml(deg)"] (stem:[pi//2] radians) clockwise from north
+| south | Axis positive direction is stem:[180 "unitsml(deg)"] (stem:[pi] radians) clockwise from north
+| west | Axis positive direction is stem:[270 "unitsml(deg)"] (stem:[3pi//2] radians) clockwise from north
+| up | Axis positive direction is up relative to gravity
+| down | Axis positive direction is down relative to gravity
+| geocentricX | Axis positive direction is in the equatorial plane from the centre of the modelled earth towards the intersection of the equator with the prime meridian
+| geocentricY | Axis positive direction is in the equatorial plane from the centre of the modelled earth towards the intersection of the equator and the meridian stem:[pi//2] radians eastwards from the prime meridian
+| geocentricZ | Axis positive direction is from the centre of the modelled earth parallel to its rotation axis and towards its north pole
+| displayLeft | Axis positive direction is left in display
+| displayRight | Axis positive direction is right in display
+| displayUp | Axis positive direction is up in display
+| displayDown | Axis positive direction is down in display
+|===
+
+[[tab-6-11]]
+.Definitions of the enumeration type CS_RangeMeaning
+[cols=2,options=header]
+|===
+| Name | Description
+
+| exact | Any value between and including minValue and maxValue is valid
+| wrapAround | The axis is continuous with values wrapping around at the minValue and maxValue. Values with the same meaning repeat modulo (maxValue -- minValue). An example for this is the geodetic longitude; the axis is defined as a circle and the values wrap around stem:[pm pi] (stem:[pm 180 "unitsml(deg)"])
+|===
+
+=== The Datum package
+
+[[fig-6-5]]
+.The Datum class diagram
+image::img41.png[]
+
+A datum is a parameter or set of parameters that defines the
+position of the origin, the scale, and the orientation of a
+coordinate system. Three types of datums are described by S-100:
+
+. A geodetic datum;
+. A vertical datum;
+. An image datum.
+
+A geodetic datum fixes the relationship of a two- or
+three-dimensional coordinate system to the Earth. This is done by
+means of an ellipsoid as the model of the Earth and of a prime
+meridian as the point of origin of geodetic longitude.
+
+A vertical datum fixes the relationship between gravity-related
+heights or depths to the Earth. It is used to reference a
+vertical coordinate system. This relationship may be quite
+complex.
+
+Ellipsoidal heights are treated as related to a three-dimensional
+ellipsoidal coordinate system referenced to a geodetic datum.
+They cannot be referenced by a vertical datum.
+
+An image datum fixes the relationship between a coordinate system
+and an image. This is independent of whether the image is
+geo-referenced or not. An image CS is for locating a position
+within the image, not the position of the object in the real world
+
+An ellipsoid in general is a quadratic surface given in Cartesian
+coordinates by:
+
+[stem]
+++++
+x^2/a^2 + y^2/b^2 + z^2/c^2 = 1
+++++
+
+Where stem:[a], stem:[b], stem:[c] are called semi-axes of the
+ellipsoid.
+
+In the context of geodesy two semi-axes are equal (stem:[a=b])
+and stem:[a > c]. This figure is also called an oblate spheroid.
+In S-100 the term ellipsoid is used for this special case and the
+two semi axes are denoted semi-major axis (stem:[a]) and
+semi-minor axis (stem:[b]), with stem:[a > b].
+
+An ellipsoid can be defined either by its two semi-axes or
+alternatively by its semi-major axis and the inverse flattening:
+stem:[f^(-1)=a/(a-b)]
+
+If both semi-axes are equal the ellipsoid is a sphere. In this
+case the inverse flattening is not defined. (The flattening is 0).
+
+To define the origin on the (circular) axis for the geodetic
+longitude the prime meridian is used. It is the meridian from
+which the longitudes of other meridians are quantified.
+
+==== Class details
+
+[[tab-6-12]]
+.Properties of the class CD_Datum
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| scope | CharacterString | 1..* | Description of usage, or limitations of usage, for which this datum is valid
+| anchorDefinition | CharacterString | 0..1 a| A description, possibly including coordinates of an identified point or points, of the relationship used to anchor the coordinate system to the Earth or alternate object
+
+For a geodetic datum this is known as the fundamental point
+
+For an image datum it is usually a corner of the image or its centre
+| realizationEpoch | Date | 0..1 | The time after which this datum definition is valid
+| domainOfValidity | EX_Extent | 0..1 | Area or region in which this datum is valid
+|===
+
+[[tab-6-13]]
+.Properties of the class CD_Ellipsoid
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| semiMajorAxis | Length | 1 | The length of the semi-major axis of the ellipsoid
+| secondParameter | CD_SecondParameter | 1 | The second parameter to define the ellipsoid, either the length of the semi-minor axis or the inverse flattening of the ellipsoid
+|===
+
+[[tab-6-14]]
+.Properties of the union CD_SecondParameter
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| inverseFlattening
+| double
+| 0..1{blank}footnote:[Exactly one member must be defined] | the inverse flattening of the ellipsoid: stem:[f^(-1)=a/(a-b)]
+| semiMinorAxis | Length | 0..1 | The length of the semi-minor axis of the ellipsoid
+| isSphere | boolean | 0..1 | true if the ellipsoid is a sphere
+|===
+
+[[tab-6-15]]
+.Properties of the class CD_PrimeMeridian
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| greenwichLongitude | Angle | 1 | Longitude of the prime meridian measured from the Greenwich meridian, positive eastward
+|===
+
+[[tab-6-16]]
+.Properties of the class CD_GeodeticDatum
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| Ellipsoid | CD_Ellipsoid | 1 | The ellipsoid used as a model of the Earth for this datum
+| primeMeridian | CD_PrimeMeridian | 1 | The prime meridian of this datum
+|===
+
+[[tab-6-17]]
+.Properties of the class CD_ImageDatum
+[cols=4,options=header]
+|===
+| Name | Type | Card. | Description
+
+| pixelInCell | CD_PixelInCell | 1 | Specification of the way the image grid is associated with the image data attributes
+|===
+
+[[tab-6-18]]
+.Definitions of the enumeration CD_PixelInCell
+[cols=2,options=header]
+|===
+| Name | Description
+
+| cellCenter | The origin of the image coordinate system is the centre of a grid cell or image pixel
+| cellCorner | The origin of the image coordinate system is the corner of a grid cell, or half-way between the centres of adjacent image pixels
+|===
+
+=== The Coordinate Operation package
+
+[[fig-6-6]]
+.The Coordinate Operation class diagram
+image::img42.png[]
+
+Coordinate operations convert coordinates which refer to one
+coordinate reference system to coordinates that refer to another
+coordinate reference system. Therefore each coordinate operation
+has a source CRS and a target CRS.
+
+The following types of coordinate operations are defined by S-100:
+
+. Coordinate Transformation;
+. Coordinate Conversion;
+. Pass Through Operation;
+. Concatenated Coordinate Operation.
+
+A coordinate transformation changes coordinates from a coordinate
+reference system based on one datum to a coordinate reference
+system based on a second datum. The parameters of these
+operations are usually derived empirically. The stochastic nature
+of the parameters may result in several different versions of the
+same coordinate transformation. Therefore multiple coordinate
+transformations may exist for a given pair of coordinate
+reference systems, differing in their method, parameter values
+and accuracy characteristics.
+
+A coordinate conversion changes coordinates between two
+coordinate reference systems based on the same datum. This type
+of coordinate operation includes map projections. +
+A pass through operation specifies what subset of a coordinate
+tuple is subject to a requested coordinate operation. It takes
+the form of referencing another coordinate operation and
+specifying a sequence of numbers defining the positions in the
+coordinate tuple of the coordinates affected by that coordinate
+operation.
+
+[example]
+For a coordinate operation on the height coordinate of a tuple
+defined by a compound reference system the pass through operation
+filters the height coordinate prior to passing it to the relevant
+coordinate operation.
+
+A concatenated coordinate operation is a non-repeating sequence
+of coordinate operations. This sequence of coordinate operations
+is constrained by the requirement that the target coordinate
+reference system of each step shall be the same as the source
+coordinate reference system of the next step. The source
+coordinate reference system of the first step and the target
+coordinate reference system of the last step are the source and
+target coordinate reference systems specified for the
+concatenated coordinate operation. Concatenated coordinate
+operation may contain coordinate conversions and coordinate
+transformations. If the datums of the source and target
+coordinate reference system are different the entire operation is
+a coordinate transformation.
+
+An example of concatenation is the "Position vector 7-parameter
+transformation" (EPSG 9606), which is internally a concatenation
+of:
+
+. A "Geographic/Geocentric conversion" (EPSG9602);
+. A Helmert transformation on the geocentric coordinates; and
+. The inverse case of the "Geographical/Geocentrical conversion".
+
+Although the first and the last step are conversions that are not
+changing the datum, the second step does, and therefore the
+entire operation is a transformation.
+
+Coordinate transformation and conversions are single coordinate
+operations that use similar mathematical concepts. Those concepts
+(algorithms or procedures) are defined by an operation method.
+Each operation method is fully defined by a mathematical formula
+and a set of parameters, although this set may be empty.
+
+The mathematical formulas for an operation are specified in text
+form or by referencing a source document.
+
+Each instance of a single coordinate operation defines a value
+for each parameter of the corresponding operation method.
+Parameters and methods are identifiable objects and may be
+defined by referencing.
+
+==== Class details
+
+[[tab-6-19]]
+.Properties of the class CC_CoordinateOperation
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| scope | CharacterString | 1..* | Description of usage, or limitations of usage, for which this coordinate operation is valid
+| operationVersion | CharacterString | 0..1 | Version of the coordinate transformation. Mandatory when describing a coordinate transformation, and should not be supplied for a coordinate conversion
+| domainOfValidity | EX_Extent | 0..1 | Area or region in which this coordinate operation is valid
+| operationAccuracy | DQ_PositionalAccuracy | 0..1 | Estimate of the impact of this coordinate operation on point accuracy
+|===
+
+[[tab-6-20]]
+.Properties of the class CC_SingleOperation
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| method | CC_OperationMethod | 1 | The method (algorithm or procedure) used to perform the coordinate operation
+| parameterValue | CC_OperationParameterValue | 0..* | A value for each parameter of the associated method
+|===
+
+[[tab-6-21]]
+.Properties of the class CC_ConcatenatedOperation
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| subOperation | CC_CoordinateOperation | 2..* | The ordered sequence of operations that are concatenated
+|===
+
+[[tab-6-22]]
+.Properties of the class CC_PassThroughOperation
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| modifiedCoordinate | integer | 1..* | Ordered sequence of positive integers defining the positions in a coordinate tuple of the coordinates affected by this pass-through operation
+| operation | CC_CoordinateOperation | 1 | The coordinate operation for which this pass through operation specifies the subset of coordinates
+|===
+
+[[tab-6-23]]
+.Properties of the class CC_OperationMethod
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| formula | CharacterString | 1 | Formula(s) or procedure used by this operation method
+| parameter | CC_OperationParameter | 0..* | A set of parameters used by this coordinate operation method
+|===
+
+[[tab-6-24]]
+.Properties of the class CC_OperationParameterValue
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| value | CC_ParameterValue | 1 | Value of the coordinate operation parameter value. Most parameter values are numeric, but other types of parameter values are possible
+| parameter | CC_OperationParameter | 1 | Parameter for which the value is defined
+|===
+
+[[tab-6-25]]
+.Properties of the union CC_ParameterValue
+[options=header,cols=4]
+|===
+| Name | Type | Card. | Description
+
+| measure | S100_Measure | 0..1{blank}footnote:[Exactly one member must be defined] | A numeric value of the coordinate operation parameter with its associated unit of measure
+| stringValue | CharacterString | 0..1 | A string value of the coordinate operation parameter
+| integerValue | integer | 0..1 | An integer value of the coordinate operation parameter. Usually used for a count or index
+| booleanValue | boolean | 0..1 | A Boolean value of the coordinate operation parameter
+| valueFile | CharacterString | 0..1 | Reference to a file containing one or more parameter values. This can be a filename or an URL or some other method to reference a file
+|===
