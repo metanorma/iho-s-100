@@ -1,0 +1,31 @@
+[[cls-9-9]]
+== Feature objects
+
+Feature objects are abstractions of real world phenomena. This Schema
+defines the abstract base type for any feature type. The type Feature is
+derived from Object and adds a sequence of spatial relations and a geometric
+primitive attribute to the properties from the base class, as well as
+optional associations to other features.
+
+When an association is present, the code of an feature association defined
+in the Feature Catalogue should be used as the element name in place of
+_associatedFeature_ - see <<app-9-A>> for more information.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Feature" abstract="true">
+  <xs:complexContent>
+    <xs:extension base="Object">
+      <xs:sequence>
+        <xs:group ref="SpatialRelations" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="associatedFeature" type="FeatureAssociation" minOccurs="0"
+        maxOccurs="unbounded"/>
+        <!--When generating input XML the base schema should be extended to provide a substitution group for each feature association defined in the Feature Catalogue. For example, if the Feature Catalogue defines a feature association having a code of StructureEquipment, the base schema should be extended with:
+        <xs:element name="StructureEquipment" substitutionGroup="associatedFeature"/>
+        -->
+      </xs:sequence>
+      <xs:attribute name="primitive" type="GeometricPrimitive" use="required"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----

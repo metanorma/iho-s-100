@@ -1,0 +1,20 @@
+== Portrayal Catalogue
+
+This part of the standard describes a Portrayal Catalogue and its contents.
+The concept in this standard is that feature data is modelled with a focus
+on content and portrayal of a feature is accomplished using rules or
+functions that map the content to the appropriate symbols and display
+characteristics. This concept allows the same content to be displayed in
+different ways and allows the display mapping rules to be maintained without
+having to modify all the content data.
+
+The Portrayal Catalogue contains portrayal functions that map the features
+to symbology it also contains symbol definitions, colour definitions,
+portrayal parameters and portrayal management concepts such as viewing
+groups. The goal in S-100 is to provide a mechanism where, for a given
+product, the Portrayal Catalogue can be delivered as data in a machine
+readable form such that a compliant implementation can display the product
+feature data using the given Portrayal Catalogue.
+
+For the purposes of this Part, the S-100 and ISO type "CharacterString" and
+the XML schema type "string" are to be treated as equivalent.

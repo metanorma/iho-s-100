@@ -1,0 +1,170 @@
+[[cls-9-10]]
+== Portrayal processing
+
+This specification is referencing XSLT 1.0 which is a W3C recommendation,
+http://www.w3.org/TR/xslt
+
+XSLT uses XPath 1.0 to address components of a document.
+http://www.w3.org/TR/xpath/
+
+XSLT (XSL Transformations) is a language expressed as a well formed XML
+document. The intended purpose of using XSLT in portrayal is to transform
+the data into drawing instructions. Since XSLT is expressed in XML it is
+useful for interchange as a machine readable transformation language. XSLT
+is widely used across many domains but is perhaps most commonly used to
+transform XML documents into HTML for web page displays. There are many
+tutorials, books and reference material available for XSLT. There are also
+several web sites where questions can be posted and examples can be found.
+
+XSLT uses templates to process nodes in the input XML tree and generate
+nodes as output XML, other SGML formats or even plain text. There are two
+types of templates a matching template and a named template.
+
+Matching templates use a matching expression using XPATH to specify what
+elements in the input document should be processed by that template. XPATH
+(XML Path Language) is an expression language used to address or find
+components in an XML document. The path capability makes it especially
+useful when dealing with a hierarchy of content such as nested complex
+attributes. Only one matching template can match an element from the input
+document. Matching templates have a built in priority calculation and
+conflict resolution method that is used to determine which one to use in the
+case where multiple templates match the same element. Priority numbers can
+be explicitly assigned as an attribute of a matching template in order to
+override the default conflict resolution behaviour.
+
+Named templates are called by another template along with the data to be
+processed. Named templates can also have parameters. These are useful for
+formatting or other operations that are commonly used in a transformation. A
+named template can even call itself (recursion), which can be useful for
+operations such as string token parsing.
+
+A template can loop over a set of nodes that match an XPath expression using
+an "xsl:apply-templates " or "xsl:for-each" instruction element. The nodes
+can also be sorted before being processed. Conditional processing is
+available by using a simple "xsl:if" instruction or an "xsl:choose"
+instruction. The choose instruction allows a set of expressions to be tested
+such that only the first one matching is processed and if no match is found
+an optional otherwise statement is used to handle a default. This is useful
+for testing enumerated data such that a different output is generated
+depending upon the enumeration value.
+
+XSLT also includes the ability to have parameters passed at the top level
+and accessed within any of the templates. These parameters can be useful to
+provide contextual information to the transformation. There are also
+variables in XSLT but they can only be assigned data as part of their
+definition, unlike other languages where variables can be reassigned.
+Variables are useful to collect data or decision results that can be passed
+as parameters to another template or used in conditional statements.
+
+XSLT can include or import other XSLT documents. This capability can be
+useful for management of templates and reuse of templates by multiple top
+level XLST documents.
+
+[example]
+====
+Given the example XML below
+
+[source%unnumbered,xml]
+----
+<BeaconCardinal id="2">
+  <s100:Point ref="3"/>
+  <categoryOfCardinalMark>3</categoryOfCardinalMark>
+</BeaconCardinal>
+<BeaconCardinal id="3">
+  <s100:Point ref="3"/>
+  <categoryOfCardinalMark>2</categoryOfCardinalMark>
+</BeaconCardinal>
+----
+
+A simple matching XSLT template used as a portrayal function
+
+[source%unnumbered,xml]
+----
+<xsl:template match="BeaconCardinal">
+      <!--This is a comment. This template matches a BeaconCardinal node and the body of the template can examine data and output results -->
+</xsl:template>
+----
+
+The above template will be used to process all of the BeaconCardinal objects.
+
+The choose instruction can be used to do conditional processing within the
+template.
+
+[source%unnumbered,xml]
+----
+<xsl:template match="BeaconCardinal">
+
+    <xsl:choose>
+      <xsl:when test="categoryOfCardinalMark = '2'">
+                <!-- Output symbol for BeaconCardinal categoryOfCardinalMark =2 here -->
+      </xsl:when>
+      <xsl:when test="categoryOfCardinalMark = '3'">
+                <!-- Output symbol for BeaconCardinal categoryOfCardinalMark =3 here -->
+      </xsl:when>
+      <xsl:otherwise>
+                <!-- Output default symbol here -->
+      </xsl:otherwise>
+    </xsl:choose>
+
+</xsl:template>
+----
+
+A more advanced XPath expression can be used to refine the match.
+
+[source%unnumbered,xml]
+----
+<xsl:template match="BeaconCardinal[categoryOfCardinalMark=2] ">
+      <!--This is a comment. Output symbol for BeaconCardinal categoryOfCardinalMark =2 here -->
+</xsl:template>
+----
+====
+
+[[cls-9-10.1]]
+=== Portrayal input validation
+
+The Portrayal Catalogue describes each valid portrayal input parameter
+(context parameter) and may provide associated validation rules and value
+constraints. The validation rules are XPath 1.0 Boolean expressions; or W3C
+XML Standard -- Part 2, Appendix F regular expressions. The rules support
+validation of the user input to portrayal, and the constraints support
+eliminating free-form input while supporting a machine-readable user
+interface (UI).
+
+To ensure user-entered values are reasonable prior to use as portrayal
+input, the validation rules may:
+
+* Ensure input values are within the expected value domain;
+* Ensure input values conform to an expected pattern (for example,
+\#\##-\####); and
+* Ensure input values are logically consistent with respect to one another.
+
+Additionally, context parameters and validation rules can be enabled or
+disabled based on XPath 1.0 Boolean expressions, supporting conditional
+validation and a machine-readable UI. For instance, validation of the S-101
+Shallow Contour parameter may be disabled when the value of the Two Shades
+parameter is true.
+
+Context parameters with an associated constraint are restricted to a set of
+enumerated values. This allows applications to eliminate free-form input
+for these parameters; and enhances the machine-readable UI by associating a
+label with each enumerated value (for example, "On" associated with the
+value "1").
+
+Applications support portrayal input validation by:
+
+. Using the constraints to restrict user input.
+. On each change to a context parameter value:
+.. Generate a simple XML document encoding the context parameter values:
++
+--
+`<TwoShades>true</TwoShades> <!-- etc.-->`
+--
+.. For each enabled validation of each enabled context parameter:
+... Ensure XPath rules evaluate to true;
+... Ensure regular expressions match.
+
+XPath validations should all evaluate to true, and regex validations should
+all match prior to processing the portrayal rules. If an enabled validation
+evaluates to false or doesn't match then no further portrayal processing
+should be performed and error messages associated with failed validation
+rules should be activated.

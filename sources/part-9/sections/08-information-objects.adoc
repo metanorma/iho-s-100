@@ -1,0 +1,16 @@
+[[cls-9-8]]
+== Information objects
+
+Information object are identifiable and sharable pieces of information
+within a data set. In the model an abstract type `Information` is derived
+from the type `Object`. Although no additional properties are added, this
+type is useful for semantic reasons.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Information" abstract="true">
+  <xs:complexContent>
+    <xs:extension base="Object"/>
+  </xs:complexContent>
+</xs:complexType>
+----

@@ -1,0 +1,1223 @@
+---
+# Point
+- table: Point
+  rows:
+    - role_name: Class
+      name: Point
+      description: A zero-dimensional geometric object in a two-dimensional coordinate space. The coordinate will refer to a coordinate reference system
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: x
+      description: The x-coordinate of the point. In case the CRS is a geographic CRS this refers to the longitude
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: y
+      description: The y-coordinate of the point. In case the CRS is a geographic CRS this refers to the latitude
+      mult: 1
+      type: double
+
+# Vector
+- table: Vector
+  rows:
+    - role_name: Class
+      name: Vector
+      description: A geometric object that has both a magnitude and a direction. It is limited to Cartesian coordinate reference systems
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: x
+      description: The x-coordinate of the vector
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: y
+      description: The y-coordinate of the vector
+      mult: 1
+      type: double
+
+# Color
+- table: Color
+  rows:
+    - role_name: Class
+      name: Color
+      description: Representing a colour according to the colour model
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: token
+      description: The token specifies either an element in a colour table or a colour definition in the RGB space
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: transparency
+      description: The value specifies the transparency; between 0 (opaque) and 1 (full transparent)
+      mult: 1
+      type: double
+
+# Pen
+- table: Pen
+  rows:
+    - role_name: Class
+      name: Pen
+      description: A tool for drawing lines
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: width
+      description: The width of the pen in mm
+      mult: 1
+      type: double
+    - role_name: Role
+      name: color
+      description: The colour of the pen comprises the actual colour and the transparency
+      mult: 1
+      type: Color
+
+# Pixmap
+- table: Pixmap
+  rows:
+    - role_name: Class
+      name: Pixmap
+      description: A two dimensional array of pixels defining an image
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: A reference to an external definition of the pixmap. This string is a unique identifier within the pixmap section of the Portrayal Catalogue
+      mult: 1
+      type: string
+    - role_name: Role
+      name: overrideAll
+      description: A colour that override all none fully transparent colours used within the pixmap
+      mult: 0..1
+      type: Color
+    - role_name: Association
+      name: override
+      description: A colour to be replaced by another colour
+      mult: 0..*
+      type: OverrideColor
+
+# OverrideColor
+- table: OverrideColor
+  rows:
+    - role_name: Class
+      name: OverrideColor
+      description: Association class for the replacement of an existing colour in the pixmap with another colour
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: color
+      description: The colour that is used to replace the existing colour in the pixmap
+      mult: 1
+      type: Color
+
+# CRSType
+- table: CRSType
+  rows:
+    - role_name: Type
+      name: CRSType
+      description: "The value describes the type of a CRS. This includes the axes definitions, base line for angle measurement and units for distances"
+    - role_name: Enumeration
+      name: geographicCRS
+      description: "A geographic CRS with axis latitude and longitude measured in degrees. Angles are defined clockwise from the true north direction. Distances will be measured in metres"
+    - role_name: Enumeration
+      name: portrayalCRS
+      description: |
+        A Cartesian coordinate system with the stem:[y]-axis pointing upwards. Units on the axes and for distances are millimetres. Angles are measured in degrees clockwise from the positive stem:[y]-axis.
+
+        Note that the actual output device may have a different orientation of the stem:[y]-axis
+    - role_name: Enumeration
+      name: localCRS
+      description: |
+        A Cartesian coordinate system originated at a local geometry. Units on the axes and for distances are millimetres. Angles are measured in degrees clockwise from the positive stem:[y]-axis.
+
+        See explanations for details
+    - role_name: Enumeration
+      name: lineCRS
+      description: |
+        A none-Cartesian coordinate system where the stem:[x]-axis is following the geometry of a curve and the stem:[y]-axis is perpendicular to the stem:[x]-axis (positive to the left of the stem:[x]-axis). Units on the axes and for distances are millimetres. Angles are measured in degrees clockwise from the positive stem:[y]-axis
+
+# Sector
+- table: Sector
+  rows:
+    - role_name: Class
+      name: Sector
+      description: Region of the Cartesian plane enclosed by two radii
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: rotationCRS
+      description: If present, specifies the CRS for startAngle
+      mult: 0..1
+      type: CRSType
+    - role_name: Attribute
+      name: startAngle
+      description: The direction of the radius that defines the beginning of the sector
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: angularDistance
+      description: The angular distance of the sector measured in degrees. Positive values means clockwise, negative values means anti-clockwise
+      mult: 1
+      type: double
+
+# Path
+- table: Path
+  rows:
+    - role_name: Class
+      name: Path
+      description: The definition of linear geometry by a composition of segments
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: segment
+      description: The segments that build up the path
+      mult: 1..*
+      type: PathSegment
+  note: Paths can be closed or not closed. A closed path has coinciding start and end points. Segments are connected until a path is closed. In that case the next segment is not connected and the path contains multiple sub-paths.
+
+# PathSegment
+- table: PathSegment
+  rows:
+    - role_name: Class
+      name: PathSegment
+      description: Abstract base class for all segments that can be used within a path
+      mult: "-"
+      type: "-"
+
+# Polyline
+- table: Polyline
+  rows:
+    - role_name: Class
+      name: Polyline
+      description: A segment defining its geometry by a series of points
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: point
+      description: The segments the build up the path
+      mult: 2..*
+      type: Point
+
+# Arc
+- table: Arc
+  rows:
+    - role_name: Class
+      name: Arc
+      description: Abstract base class for segments describing arcs of a circle
+      mult: "-"
+      type: "-"
+
+# Arc3Points
+- table: Arc3Points
+  rows:
+    - role_name: Class
+      name: Arc3Points
+      description: A segment describing an arc of a circle that is defined by 3 points. The points must not be colinear
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: startPoint
+      description: The point where the arc starts
+      mult: 1
+      type: Point
+    - role_name: Attribute
+      name: medianPoint
+      description: An arbitrary point on the arc
+      mult: 1
+      type: Point
+    - role_name: Attribute
+      name: endPoint
+      description: The point where the arc ends
+      mult: 1
+      type: Point
+
+# ArcByRadius
+- table: ArcByRadius
+  rows:
+    - role_name: Class
+      name: ArcByRadius
+      description: A segment describing an arc of a circle that is defined by the centre of the arc and a radius. Optional the arc can be restricted by a sector
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: center
+      description: The centre of the arc
+      mult: 1
+      type: Point
+    - role_name: Attribute
+      name: sector
+      description: The sector defining where the arc starts and end. If not present the arc is a full circle
+      mult: 0..1
+      type: Sector
+    - role_name: Attribute
+      name: radius
+      description: The radius of the circle
+      mult: 1
+      type: double
+
+# Annulus
+- table: Annulus
+  rows:
+    - role_name: Class
+      name: Annulus
+      description: A ring-shaped region bounded by two concentric circles. Optionally it can be enclosed by two radii of the circle
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: center
+      description: The centre of the arc
+      mult: 1
+      type: Point
+    - role_name: Attribute
+      name: innerRadius
+      description: The radius of the smaller circle. If not present the segment describes a sector of a circle
+      mult: 0..1
+      type: double
+    - role_name: Attribute
+      name: outerRadius
+      description: The radius of the larger circle
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: sector
+      description: The sector of an annulus segment
+      mult: 0..1
+      type: Sector
+
+# Symbol
+- table: Symbol
+  rows:
+    - role_name: Class
+      name: Symbol
+      description: A two dimensional graphical element
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: A reference to an external definition of the symbol graphic. This is an unique identifier in the symbol section of the Portrayal Catalogue
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: rotation
+      description: The rotation angle of the symbol. The default value is 0
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: rotationCRS
+      description: Specifies the coordinate reference system for the rotation
+      mult: 1
+      type: GraphicsBase::CRSType
+    - role_name: Attribute
+      name: scaleFactor
+      description: The factor by which the original symbol graphic is scaled. The default value is 1
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: offset
+      description: The shift of the symbols position from the position of the geometry. The default value is the vector with length equals to 0
+      mult: 1
+      type: GraphicsBase::Vector
+    - role_name: Role
+      name: overrideAll
+      description: A colour that override all none fully transparent colours used within the symbol
+      mult: 0..1
+      type: GraphicsBase::Color
+    - role_name: Association
+      name: override
+      description: A colour to be replaced by another colour
+      mult: 0..*
+      type: OverrideColor
+    - role_name: Role
+      name: linePlacement
+      description: Information where on a line the symbol should be placed
+      mult: 0..1
+      type: LineSymbolPlacement
+    - role_name: Role
+      name: areaPlacement
+      description: Defines the placement of a symbol within an area
+      mult: 0..1
+      type: AreaSymbolPlacement
+
+# OverrideColor
+- table: OverrideColor
+  rows:
+    - role_name: Class
+      name: OverrideColor
+      description: Association class for the replacement of an existing colour in the symbol
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: color
+      description: The colour that is used to replace an existing colour in the symbol
+      mult: 1
+      type: Color
+
+# LineSymbolPlacement
+- table: LineSymbolPlacement
+  rows:
+    - role_name: Class
+      name: LineSymbolPlacement
+      description: Defines the placement of a symbol along a line
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: offset
+      description: The offset from the start of the curve
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: placementMode
+      description: The mode that defines how the offset is to be interpreted
+      mult: 1
+      type: LinePlacementMode
+    - role_name: Attribute
+      name: visibleParts
+      description: When true, indicates the placement applies to each visible part of the curve. Default = false
+      mult: 0..1
+      type: boolean
+
+# AreaSymbolPlacement
+- table: AreaSymbolPlacement
+  rows:
+    - role_name: Class
+      name: AreaSymbolPlacement
+      description: Defines the placement of a symbol within an area
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: placementMode
+      description: The mode that defines how the symbol has to placed.
+      mult: 1
+      type: AreaPlacementMode
+
+# LinePlacementMode
+- table: LinePlacementMode
+  rows:
+    - role_name: Type
+      name: LinePlacementMode
+      description: "Defines the type of placement of a symbol along a line"
+    - role_name: Enumeration
+      name: relative
+      description: "The offset has to be interpreted as homogenous coordinates, 0 for the start and 1 for the end of the curve"
+    - role_name: Enumeration
+      name: absolute
+      description: "The offset is the distance from the start of the curve"
+
+# AreaPlacementMode
+- table: AreaPlacementMode
+  rows:
+    - role_name: Type
+      name: AreaPlacementMode
+      description: "Defines the type of placement of a symbol within an area"
+    - role_name: Enumeration
+      name: visibleParts
+      description: "The symbol has to be placed at a representative position in each visible part of the surface"
+    - role_name: Enumeration
+      name: geographic
+      description: "The symbol has to be placed at a representative position of the geographic object"
+
+# AbstractLineStyle
+- table: AbstractLineStyle
+  rows:
+    - role_name: Class
+      name: AbstractLineStyle
+      description: Abstract base class for graphics to depict line geometry
+      mult: "-"
+      type: "-"
+
+# LineStyle
+- table: LineStyle
+  rows:
+    - role_name: Class
+      name: LineStyle
+      description: A style for line geometry
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: offset
+      description: An offset perpendicular to the direction of the line. The value refers to the y-axis of the line CRS (positive to the left, mm)
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: capStyle
+      description: The decoration that is applied where a line segment ends
+      mult: 1
+      type: CapStyle
+    - role_name: Attribute
+      name: joinStyle
+      description: The decoration that is applied where two line segments meet
+      mult: 1
+      type: JoinStyle
+    - role_name: Attribute
+      name: intervalLength
+      description: The length of a repeating interval of the line style along the x-axis of the line CRS (units in mm) If not defined, the line style describes a solid line and/or a line represented by symbols
+      mult: 0..1
+      type: double
+    - role_name: Role
+      name: dash
+      description: The dashes of a dashed line style. If not defined the line style describes a line represented only by symbols; the pen is not used
+      mult: 0..*
+      type: Dash
+    - role_name: Role
+      name: pen
+      description: The pen used for drawing the line
+      mult: 1
+      type: Pen
+    - role_name: Role
+      name: symbol
+      description: Symbols placed along the line
+      mult: 0..*
+      type: LineSymbol
+# Dash
+- table: Dash
+  rows:
+    - role_name: Class
+      name: Dash
+      description: A single dash in a repeating line pattern
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: start
+      description: The start of the dash measured from the start of the repeating interval,along the x-axis of the line CRS (units in mm)
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: length
+      description: The length of the dash along the x-axis of the line CRS (units in mm)
+      mult: 1
+      type: double
+
+# LineSymbol
+- table: LineSymbol
+  rows:
+    - role_name: Class
+      name: LineSymbol
+      description: A symbol placed along a line in a repeating pattern
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: A reference to an external definition of the symbol graphic. This refers to an identifier of a Catalogue item
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: rotation
+      description: The rotation angle of the symbol. The default value is 0
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: scaleFactor
+      description: The scale factor of the symbol. The default is 1.0
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: crsType
+      description: The type of the CRS where the symbol has to be transformed to. Possible values are localCRS, lineCRS and portrayalCRS
+      mult: 1
+      type: CRSType
+    - role_name: Attribute
+      name: position
+      description: The position of the symbol measured from the start of the repeating interval,along the x-axis of the line CRS (units in mm)
+      mult: 1
+      type: double
+
+# CompositeLineStyle
+- table: CompositeLineStyle
+  rows:
+    - role_name: Class
+      name: CompositeLineStyle
+      description: A line style made with an aggregation of other line styles
+      mult: ""
+      type: ""
+    - role_name: Role
+      name: component
+      description: The components of the composite line style
+      mult: 1..
+      type: AbstractLineStyle
+
+# LineStyleReference
+- table: LineStyleReference
+  rows:
+    - role_name: Class
+      name: LineStyleReference
+      description: A line style defined in an external file
+      mult: ""
+      type: ""
+    - role_name: Attribute
+      name: reference
+      description: The reference to the external definition of the line style. This is an unique identifier in the line style section of the Portrayal Catalogue
+      mult: 1
+      type: string
+
+# JoinStyle
+- table: JoinStyle
+  rows:
+    - role_name: Type
+      name: JoinStyle
+      description: "The decoration that is applied where two line segments meet"
+    - role_name: Enumeration
+      name: bevel
+      description: ""
+    - role_name: Enumeration
+      name: miter
+      description: | 
+        [%unnumbered]
+        image::img106.png[]
+    - role_name: Enumeration
+      name: round
+      description: |
+        [%unnumbered]
+        image::img107.png[]
+
+# CapStyle
+- table: CapStyle
+  rows:
+    - role_name: Type
+      name: CapStyle
+      description: "The decoration that is applied where a line segment ends."
+    - role_name: Enumeration
+      name: butt
+      description: |
+        [%unnumbered]
+        image::img108.png[]
+    - role_name: Enumeration
+      name: square
+      description: |
+        [%unnumbered]
+        image::img109.png[]
+    - role_name: Enumeration
+      name: round
+      description: |
+        [%unnumbered]
+        image::img110.png[]
+
+# AbstractAreaFill
+- table: AbstractAreaFill
+  rows:
+    - role_name: Class
+      name: AbstractAreaFill
+      description: Abstract base class for graphics that are designed to fill an area
+      mult: "-"
+      type: "-"
+
+# PatternFill
+- table: PatternFill
+  rows:
+    - role_name: Class
+      name: PatternFill
+      description: Abstract base class for pattern area fills
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: areaCRS
+      description: Coordinate reference system which defines the origin of the pattern
+      mult: 1
+      type: AreaCRSType
+
+# AreaFillReference
+- table: AreaFillReference
+  rows:
+    - role_name: Class
+      name: AreaFillReference
+      description: An area fill defined in an external file
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: The reference to the external definition. This is an unique identifier in the area fill section of the Portrayal Catalogue
+      mult: 1
+      type: string
+
+# ColorFill
+- table: ColorFill
+  rows:
+    - role_name: Class
+      name: ColorFill
+      description: Class defining a solid colour fill for an area
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: color
+      description: References the colour and transparency for the colour fill
+      mult: 1
+      type: Color
+
+# PixmapFill
+- table: PixmapFill
+  rows:
+    - role_name: Class
+      name: PixmapFill
+      description: Pattern fill where the pattern is defined by a pixmap
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: pixmap
+      description: The pixmap defining the pattern
+      mult: 1
+      type: Pixmap
+
+# SymbolFill
+- table: SymbolFill
+  rows:
+    - role_name: Class
+      name: SymbolFill
+      description: Pattern fill where the pattern is defined by repeated symbols
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: symbol
+      description: The symbol used for the pattern
+      mult: 1
+      type: Symbol
+    - role_name: Attribute
+      name: v1
+      description: Defines the offset of the next symbol in the first dimension of the pattern according to the local CRS
+      mult: 1
+      type: Vector
+    - role_name: Attribute
+      name: v2
+      description: Defines the offset of the next symbol in the second dimension of the pattern according to the local CRS
+      mult: 1
+      type: Vector
+    - role_name: Attribute
+      name: clipSymbols
+      description: "Indicates whether the symbols in the pattern are to be clipped by the area (when they are part in/out of the area) or whether the symbol is not drawn at all unless it is completely contained in the area"
+      mult: 1
+      type: |
+        boolean
+
+        _True_: Fill symbols are clipped at area boundaries
+
+        _False_: Fill symbols extending over the area boundaries are not drawn at all"
+
+# HatchFill
+- table: HatchFill
+  rows:
+    - role_name: Class
+      name: HatchFill
+      description: Defining a pattern made of one or two sets of parallel lines
+      mult: "-"
+      type: "-"
+    - role_name: Association
+      name: hatch
+      description: A set of parallel lines
+      mult: 1
+      type: Hatch
+
+# Hatch
+- table: Hatch
+  rows:
+    - role_name: Class
+      name: Hatch
+      description: A set of parallel lines used for an area fill pattern
+      mult: ""
+      type: ""
+    - role_name: Attribute
+      name: direction
+      description: The vector defining the direction of the set of lines
+      mult: 1
+      type: Vector
+    - role_name: Attribute
+      name: distance
+      description: The distance between the lines measured perpendicular to the direction
+      mult: 1
+      type: double
+    - role_name: Role
+      name: line
+      description: The line style used for each hatch line
+      mult: 1..2
+      type: "LineStyles::AbstractLineStyle"
+
+# AreaCRSType
+- table: AreaCRSType
+  rows:
+    - role_name: Type
+      name: PatternCRS
+      description: "Describes how a fill patter is referenced"
+    - role_name: Enumeration
+      name: global
+      description: "Anchor point is consistent with a location on the drawing device for, example starting with the corner of the screen. As screen pans the pattern will appear to shift/move through the object on screen"
+    - role_name: Enumeration
+      name: localGeometry
+      description: "Anchor point is consistent with the local geometry of the object being depicted, for example the upper left corner of the object. Patterns of adjacent objects may not match"
+    - role_name: Enumeration
+      name: globalGeometry
+      description: "The anchor point of the fill pattern is defined at a common location such that patterns remain consistent relative to all area objects"
+
+# Font
+- table: Font
+  rows:
+    - role_name: Class
+      name: Font
+      description: Abstract base class for fonts
+      mult: "-"
+      type: "-"
+
+# FontCharacteristics
+- table: FontCharacteristics
+  rows:
+    - role_name: Class
+      name: FontCharacteristics
+      description: Class describing the main characteristics of a font
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: serifs
+      description: Describes whether the typefaces contain serifs or not
+      mult: 1
+      type: boolean
+    - role_name: Attribute
+      name: weight
+      description: Describes the thickness of the typefaces
+      mult: 1
+      type: FontWeight
+    - role_name: Attribute
+      name: slant
+      description: Describes the slant of the typefaces
+      mult: 1
+      type: FontSlant
+    - role_name: Attribute
+      name: proportion
+      description: Describes whether all typefaces in the font have an individual width or a fixed width
+      mult: 1
+      type: FontProportion
+
+# FontReference
+- table: FontReference
+  rows:
+    - role_name: Class
+      name: FontReference
+      description: Class referencing a font from an external source
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: The identifier for the external file within the Portrayal Catalogue
+      mult: 1
+      type: string
+
+# Text
+- table: Text
+  rows:
+    - role_name: Class
+      name: Text
+      description: The abstract base class of graphic elements for depicting text. The text is composed of elements
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: horizontalAlignment
+      description: Specifies how the text is horizontally aligned relative to the anchor point. Default = start
+      mult: 1
+      type: HorizontalAlignment
+    - role_name: Attribute
+      name: verticalAlignment
+      description: Specifies how the text is vertically aligned relative to the anchor point. Default = bottom
+      mult: 1
+      type: VerticalAlignment
+    - role_name: Role
+      name: element
+      description: The ordered list of text elements
+      mult: 1..*
+      type: TextElement
+
+# TextPoint
+- table: TextPoint
+  rows:
+    - role_name: Class
+      name: TextPoint
+      description: A graphic element for depicting text relative to a point
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: offset
+      description: Specifies the offset from the anchor point with respect to the portrayal CRS
+      mult: 0..1
+      type: GraphicsBase::Vector
+    - role_name: Attribute
+      name: rotation
+      description: Specifies the rotation angle relative to the portrayal CRS. Default = 0
+      mult: 1
+      type: double
+    - role_name: Role
+      name: linePlacement
+      description: Describes the placement of the text when the geometry is a curve
+      mult: 0..1
+      type: "Symbol::LineSymbolPlacement"
+    - role_name: Role
+      name: areaPlacement
+      description: Describes the placement of the text when the geometry is a surface
+      mult: 0..1
+      type: "Symbol::AreaSymbolPlacement"
+
+# TextLine
+- table: TextLine
+  rows:
+    - role_name: Class
+      name: TextLine
+      description: A graphic element for depicting text along linear geometry
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: startOffset
+      description: This offset specifies the anchor point on the line
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: endOffset
+      description: This offset specifies the stop point of the text at the line. If present the startOffset does not specifies an anchor point but the start point of the text. The text will evenly be spaced between the two positions. Horizontal alignment has no effect in this case
+      mult: 0..1
+      type: double
+    - role_name: Attribute
+      name: placementMode
+      description: Specifies how the offsets have to be interpreted
+      mult: 1
+      type: "Symbol::LinePlacementMode"
+
+# TextFlags
+- table: TextFlags
+  rows:
+    - role_name: Class
+      name: TextFlags
+      description: A container for text flags
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: flag
+      description: A text flag
+      mult: 1..*
+      type: TextFlag
+
+# TextElement
+- table: TextElement
+  rows:
+    - role_name: Class
+      name: TextElement
+      description: A sub element of a graphic text
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: text
+      description: The text to be depicted
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: bodySize
+      description: This property describes the size with which the text will be depicted
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: verticalOffset
+      description: |
+        The vertical offset in mm between the base line of the text element and the base line of the text. This can be used to generate sub- or superscripts. +
+        Default = 0
+      mult: 1
+      type: double
+    - role_name: Role
+      name: flags
+      description: Flags describe special properties of the text element like underline etc.
+      mult: 0..1
+      type: TextFlags
+    - role_name: Role
+      name: font
+      description: The font used for the depiction of the text element.
+      mult: 1
+      type: Font
+    - role_name: Role
+      name: foreground
+      description: The colour used to depict the glyphs
+      mult: 1
+      type: Color
+    - role_name: Role
+      name: background
+      description: The colour to fill the rectangle surrounding the text element before the text is depicted. If not given there is no fill (transparent)
+      mult: 0..1
+      type: Color
+
+# FontSlant
+- table: FontSlant
+  rows:
+    - role_name: Type
+      name: FontSlant
+      description: "The slant used within a font"
+    - role_name: Enumeration
+      name: upright
+      description: "Typefaces are upright"
+    - role_name: Enumeration
+      name: italics
+      description: "Typefaces are cursive"
+
+# FontWeight
+- table: FontWeight
+  rows:
+    - role_name: Type
+      name: FontWeigth
+      description: "The thickness used for the typefaces in a font"
+    - role_name: Enumeration
+      name: light
+      description: "Typefaces are depicted as thin (standard)"
+    - role_name: Enumeration
+      name: medium
+      description: "Typefaces are depicted thicker as 'Light' but not as thin as 'Bold'"
+    - role_name: Enumeration
+      name: bold
+      description: "Typefaces are depicted more prominent (*Bold*)"
+
+# FontProportion
+- table: FontProportion
+  rows:
+    - role_name: Type
+      name: FontProportion
+      description: "The values describe how the width of the typefaces in a font is defined"
+    - role_name: Enumeration
+      name: monoSpaces
+      description: "All typefaces in a font have the same width, also known as 'typewriter' fonts"
+    - role_name: Enumeration
+      name: proportional
+      description: "Any typeface in the font as its individual width"
+
+# TextFlag
+- table: TextFlag
+  rows:
+    - role_name: Type
+      name: TextFlag
+      description: "The values describe some effects used when the text will be depicted. The values can be combined"
+    - role_name: Enumeration
+      name: underLine
+      description: "Text is depicted with a line under the text"
+    - role_name: Enumeration
+      name: strikeThrough
+      description: "Text is depicted struck through, a line goes through the text"
+    - role_name: Enumeration
+      name: upperLine
+      description: "Text is depicted with a line above the text"
+
+# VerticalAlignment
+- table: VerticalAlignment
+  rows:
+    - role_name: Type
+      name: VerticalAlignment
+      description: "Describes the text placement relative to the anchor point in vertical direction"
+    - role_name: Enumeration
+      name: top
+      description: "The anchor point is at the top of the text"
+    - role_name: Enumeration
+      name: bottom
+      description: "The anchor point is at the bottom of the text"
+    - role_name: Enumeration
+      name: center
+      description: "The anchor point is at the (vertical) centre of the text"
+
+# HorizontalAlignment
+- table: HorizontalAlignment
+  rows:
+    - role_name: Type
+      name: HorizontalAlignment
+      description: "Describes the text placement relative to the anchor point in horizontal direction"
+    - role_name: Enumeration
+      name: start
+      description: "The anchor point is at the start of the text"
+    - role_name: Enumeration
+      name: end
+      description: "The anchor point is at the end of the text"
+    - role_name: Enumeration
+      name: center
+      description: "The anchor point is at the (horizontal) centre of the text"
+
+# CoverageFill
+- table: CoverageFill
+  rows:
+    - role_name: Class
+      name: CoverageFill
+      description: A class to fill a Coverage with using a lookup table to match a value or range of values and assign colour, numeric or symbol annotations
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: attributeCode
+      description: Code of coverage attribute value to match
+      mult: 1
+      type: CharacterString
+    - role_name: Attribute
+      name: uom
+      description: Unit of measure. If not given the values in the range are assumed to be same units as the coverage attribute values
+      mult: 0..1
+      type: S100_UnitOfMeasure
+    - role_name: Attribute
+      name: placement
+      description: |
+        Designation of anchor point for placement of text or symbol annotation.
+
+        Mandatory if and only if portrayal requires text or symbol annotation; otherwise omitted.
+
+        This attribute is valid only for continuous coverages (for discrete coverages, the anchor point is the direct position).
+      mult: 0..1
+      type: CoveragePlacement
+    - role_name: Role
+      name: lookup
+      description: Lookup table. The entries are ordered and processed on a first match basis
+      mult: 1..*
+      type: LookupEntry
+
+# LookupEntry
+- table: LookupEntry
+  rows:
+    - role_name: Class
+      name: LookupEntry
+      description: An entry in a lookup table used to assign portrayal to coverage elements.
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: label
+      description: String used as a display label or legend field.
+      mult: 1
+      type: CharacterString
+    - role_name: Attribute
+      name: range
+      description: Value range definition. Can be a single value, open or closed range etc. See S-100 Part 1 Conceptual Schema Language for details.
+      mult: 1
+      type: S100_NumericRange
+    - role_name: Role
+      name: color
+      description: The colour to assign to the matching range. Can be a single colour or a colour ramp.
+      mult: 0..1
+      type: CoverageColor
+    - role_name: Role
+      name: digits
+      description: Display the value as numeric digits.
+      mult: 0..1
+      type: NumericAnnotation
+    - role_name: Role
+      name: symbol
+      description: Display a symbol.
+      mult: 0..1
+      type: SymbolAnnotation
+
+# CoverageColor
+- table: CoverageColor
+  rows:
+    - role_name: Class
+      name: CoverageColor
+      description: A class to fill a Coverage with colour
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: penWidth
+      description: Optional pen width to apply for dot colour used for discrete points
+      mult: 0..1
+      type: double
+    - role_name: Role
+      name: startColor
+      description: The colour to assign to the matching range or to use as the start point in a colour ramp when 'endColor' is defined
+      mult: 1
+      type: GraphicsBase::Color
+    - role_name: Role
+      name: endColor
+      description: |
+        The colour to use as stop point in a colour ramp. The range of values is spread linearly across the range of colours from 'startColor' to 'endColor' to produce a gradient effect.
+
+        The start and end colours shall be converted to the CIE xyL colour space and each component (that is x, y, L and transparancy) shall be interpolated individually before converting back to sRGB for display
+      mult: 0..1
+      type: GraphicsBase::Color
+
+# NumericAnnotation
+- table: NumericAnnotation
+  rows:
+    - role_name: Class
+      name: NumericAnnotation
+      description: A class for numeric textual annotations of values in a Coverage
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: decimals
+      description: Number of decimal digits to show in subscript
+      mult: 1
+      type: integer
+    - role_name: Attribute
+      name: bodySize
+      description: This property describes the size with which the text will be depicted
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: buffer
+      description: Buffer to apply for collision detection in presentation units. Default=0
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: champion
+      description: Enumeration to indicate which value to display in the event of a collision
+      mult: 1
+      type: ChampionChoice
+    - role_name: Role
+      name: font
+      description: Font information to use for display of numeric values across a coverage. Text::Font is a choice of either FontCharacteristics or FontReference
+      mult: 1
+      type: Text::Font
+    - role_name: Role
+      name: color
+      description: Colour to draw the numeric annotation
+      mult: 1
+      type: GraphicsBase::Color
+
+# SymbolAnnotation
+- table: SymbolAnnotation
+  rows:
+    - role_name: Class
+      name: SymbolAnnotation
+      description: A class for symbol annotations of values in a coverage.
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: symbolRef
+      description: Reference to the symbol to apply. Catalogue id.
+      mult: 1
+      type: IDString
+    - role_name: Attribute
+      name: defaultRotation
+      description: A default symbol rotation. Applies when rotation attribute not defined. Default=0
+      mult: 0..1
+      type: double
+    - role_name: Attribute
+      name: rotationCRS
+      description: Specifies the coordinate reference system for the rotation. Default=PortrayalCRS
+      mult: 1
+      type: GraphicsBase::CRSType
+    - role_name: Attribute
+      name: defaultScale
+      description: A default symbol scale factor. Applies when scale attribute not defined. Default=1
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: rotationAttribute
+      description: The attribute code of the Coverage Attribute to use for the symbol rotation value.
+      mult: 0..1
+      type: CharacterString
+    - role_name: Attribute
+      name: rotationFactor
+      description: Used to adjust the 'rotationAttribute' value by multiplication before applying. Default 1.0
+      mult: 0..1
+      type: double
+    - role_name: Attribute
+      name: scaleAttribute
+      description: The attribute code of the Coverage attribute to use for scaling the symbol size.
+      mult: 0..1
+      type: CharacterString
+    - role_name: Attribute
+      name: scaleFactor
+      description: Used to adjust the ' scaleAttribute' value by multiplication before applying. Default 1.0
+      mult: 0..1
+      type: double
+
+# CoveragePlacement
+- table: CoveragePlacement
+  rows:
+    - role_name: Type
+      name: CoveragePlacement
+      description: "Defines the type of placement of a symbol or text annotations for a coverage"
+    - role_name: Enumeration
+      name: centre
+      description: "The anchor point for annotations is the centre of the cell"
+    - role_name: Enumeration
+      name: directPosition
+      description: "The anchor point for annotations is the direct position associated with each value of the attribute designated by the attributeCode parameter of the CoverageFill in which the placement is encoded"

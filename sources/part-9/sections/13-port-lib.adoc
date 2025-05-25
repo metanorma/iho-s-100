@@ -1,0 +1,263 @@
+[[cls-9-13]]
+== The portrayal library
+
+[[cls-9-13.1]]
+=== Overview
+
+* Machine readable.
+* A file/directory structure with a Catalogue file.
+* Files for pixmaps, symbols, complex line styles, areafills, fonts and colour profiles.
+* Alert information in a separate file.
+* Portrayal rules in separate files.
+* Model and Schema for the Catalogue included.
+
+[[cls-9-13.2]]
+=== Structure
+
+[pseudocode%unnumbered]
+====
+`Root ----` (contains the Catalogue named "**`portrayal_catalogue.xml`**", and optionally an Alert Catalogue file)
+     `|`
+     `|-- Pixmaps` (contains XML files describing pixmaps)
+     `|`
+     `|-- ColorProfiles` (contains XML files with colour profiles)
+     `|`
+     `|-- Symbols` (contains SVG files with symbols and CSS2 style sheets)
+     `|`
+     `|-- LineStyles` (contains XML files with line styles)
+     `|`
+     `|-- AreaFills` (contains XML files area fills)
+     `|`
+     `|-- Fonts` (contains TrueType font files)
+     `|`
+     `|-- Rules` (contains files with rules which map features to drawing instructions)
+====
+
+[[cls-9-13.3]]
+=== Model of the Catalogue
+
+[[fig-9-24]]
+.Catalogue
+image::img114.png[]
+
+[yaml2text,sections/tables/13-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:0 limit:33 %}
+[[cls-9-13.3.{{start_index | plus: forloop.index}}]]
+==== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-13.4]]
+=== Model of the Alert Catalogue
+
+[[fig-9-25]]
+.Alert Catalogue
+image::img115.png[]
+
+[yaml2text,sections/tables/13-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:33 limit:14 %}
+[[cls-9-13.4.{{start_index | plus: forloop.index}}]]
+==== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-13.5]]
+=== Schema for pixmap files
+
+A pixmap is a two dimensional array of pixels defining an image. This Schema allows to encode pixmaps that can be then be referenced, for example from pixmap area fills. The coordinate system for the pixmap is different than other coordinate systems in this standard. The stem:[y]-axis is directed downwards and the origin is in the upper left corner of the pixmap.
+
+[[fig-9-26]]
+.Coordinate system for pixmap
+image::img116.png[]
+
+The graphic above shows a simple pixmap with width 10 pixel and height 9 pixel. Most of the pixels are transparent (here white) some pixels are coloured.
+
+The style defines a simple type for the colour identifier:
+
+[source%unnumbered,xml]
+----
+<xs:simpleType name="ColorId">
+  <xs:restriction base="xs:string">
+    <xs:minLength value="1"></xs:minLength>
+    <xs:maxLength value="3"></xs:maxLength>
+    <xs:pattern value="[a-zA-Z0-9_]+"></xs:pattern>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+This describes a token 1 to 3 characters long that can contain digits, alpha characters or the underscore. It is used to identifiy a colour in the colour map.
+
+The next type is a complex type for a pixel:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Pixel">
+  <xs:simpleContent>
+    <xs:extension base="ColorId">
+      <xs:attribute name="x" type="xs:nonNegativeInteger" use="required"/>
+      <xs:attribute name="y" type="xs:nonNegativeInteger" use="required"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+----
+
+It extends the colour identifier and adds two attributes for the coordinate of the pixel according to the pixmap coordinate system.
+
+Each pixmap contains a colour map; a list of colour definitions bundled with a colour identifier. Two types are defined in the Schema one for the colour map item and one for the colour map.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="ColorMapItem">
+  <xs:complexContent>
+    <xs:extension base="s100Symbol:Color">
+      <xs:attribute name="id" type="ColorId" use="required"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="ColorMap">
+  <xs:sequence>
+    <xs:element name="color" type="ColorMapItem" minOccurs="1" maxOccurs="unbounded"/>
+  </xs:sequence>
+</xs:complexType>
+----
+
+NOTE: The colour definition is taken from the S-100 symbol definition Schema. That allows using colour token from a colour profile or direct sRGB colour definitions. Transparency can be defined here as well.
+
+The last type defined is the complex type for the pixmap itself.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Pixmap">
+  <xs:sequence>
+    <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    <xs:element name="width" type="xs:positiveInteger"/>
+    <xs:element name="height" type="xs:positiveInteger"/>
+    <xs:element name="colorMap" type="ColorMap">
+      <xs:key name="colorKey">
+        <xs:selector xpath="color"/>
+        <xs:field xpath="@id"/>
+      </xs:key>
+    </xs:element>
+    <xs:element name="background" type="ColorId"/>
+    <xs:element name="pixel" type="Pixel" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+</xs:complexType>
+----
+
+It defines an optional description element and mandatory elements for width and height. Furthermore it defines an element for the colour map, an element for the background colour and the any number of pixel elements. The background colour is implicitly used for all pixels that are not defined by a pixel element. Note that there is a key element to ensure that colour identifiers are unique.
+
+Finally the root element is defined:
+
+[source%unnumbered,xml]
+----
+<xs:element name="pixmap" type="Pixmap">
+  <xs:keyref refer="colorKey" name="pixelRef">
+    <xs:selector xpath="pixel"/>
+    <xs:field xpath="."/>
+  </xs:keyref>
+  <xs:keyref refer="colorKey" name="backgroundRef">
+    <xs:selector xpath="background"/>
+    <xs:field xpath="."/>
+  </xs:keyref>
+  <xs:unique name="positionUnique">
+    <xs:selector xpath="pixel"/>
+    <xs:field xpath="@x"/>
+    <xs:field xpath="@y"/>
+  </xs:unique>
+</xs:element>
+----
+
+The keyref element are there for ensure the referential integrity of the colour identifier used in the pixel and background element. The unique element ensures that no pixel is defined more than ones.
+
+A complete pixmap file for the example above looks like:
+
+[source%unnumbered,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<pixmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" +
+        xsi:noNamespaceSchemaLocation="S100Pixmap.xsd">
+  <description>Test pixmap showing a capital H in faint magenta.</description>
+  <width>10</width>
+  <height>9</height>
+  <colorMap>
+    <color id="_" transparency="1.0">#000000</color>
+    <color id="M">#8F83B6</color>
+  </colorMap>
+  <background>_</background>
+  <pixel x="3" y="2">M</pixel>
+  <pixel x="3" y="3">M</pixel>
+  <pixel x="3" y="4">M</pixel>
+  <pixel x="3" y="5">M</pixel>
+  <pixel x="3" y="6">M</pixel>
+  <pixel x="4" y="4">M</pixel>
+  <pixel x="5" y="4">M</pixel>
+  <pixel x="6" y="2">M</pixel>
+  <pixel x="6" y="3">M</pixel>
+  <pixel x="6" y="4">M</pixel>
+  <pixel x="6" y="5">M</pixel>
+  <pixel x="6" y="6">M</pixel>
+</pixmap>
+----
