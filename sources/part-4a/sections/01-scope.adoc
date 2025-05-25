@@ -1,0 +1,39 @@
+== Scope
+
+The S-100 metadata profile described in Parts 4a, 4b and 4c provides a specification for
+describing, validating and exchanging metadata about geographic datasets commonly
+produced by hydrographic organizations. Its purpose is the creation of metadata records
+that provide information about the identification, spatial and temporal extent, quality,
+Application Schema, spatial reference system, and distribution of digital geographic
+data. It is applicable to the cataloguing of datasets, clearinghouse activities, and the
+full description of geographic and non-geographic resources. Although it is primarily
+intended to describe digital geographic data, it may also be used to describe other
+resources such as charts, maps, images, textual documents and non-geographic resources.
+It makes provision for the description of; _attributes_, _attributeTypes_, _features_,
+_featureTypes_, _collectionHardware_, _collectionSession_, _datasets_, _dataset series_,
+_nonGeographicDatasets_, _propertyTypes_, _fieldSession_, _software and services_. It
+should be noted that this profile is not limited to the resources listed in the ISO
+19115-1 codelist _MD_ScopeCode &laquo;Codelist&gaquo;_ (<<ISO19115-1,clause="B.3.28">>),
+and can be extended to include additional resources if required.
+
+This profile is based on ISO 19115-1 Metadata and 19115 Part 2 - Metadata for imagery
+and gridded data. It also takes account of ISO/TS 19115-3 Metadata -- XML Schema
+implementation for Fundamental Concepts.
+
+ISO 19115-1 provides an abstract structure for describing digital geographic information
+by defining metadata elements and establishing a common set of metadata terminology,
+definitions, and extension procedures. ISO/TS 19115-3 provides an eXtensible Markup
+Language (XML) implementation of ISO 19115-1, and guidance for developing profiles and
+extensions.
+
+This document is intended for developers and implementers of metadata applications, and
+provides a basic understanding of the principles and the overall requirements for
+standardisation of geographic information. It should be used in conjunction with the
+standards listed under <<cls-4a-4>>.
+
+Further information concerning S-100 metadata implementation, encoding and quality
+principles are included in the following associated documents:
+
+. S-100 Part 4b -- Metadata Extensions for Imagery and gridded data;
+. S-100 Part 4c -- Metadata Quality Principles;
+. Appendix 4a--C - Metadata Implementation.

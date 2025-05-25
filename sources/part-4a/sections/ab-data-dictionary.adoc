@@ -1,0 +1,33 @@
+[[app-4a-B]]
+[appendix,obligation=normative]
+== Data Dictionary
+
+The data dictionary in <<ISO19115-1,appendix="B">> (and further modified by ISO
+19115-1:2014/Amdt1:2018) describes the characteristics of the metadata identified in the
+UML package diagrams included in ISO 19115-1.
+
+Modifications to the data dictionary, required to recognise the extension to the
+metadata element _metadataIdentifier_ that was introduced in this Profile, are included
+at <<tab-4a-B-1>>. The information contained in the table replaces, or is in addition to,
+that provided at <<ISO19115-1,clause="B.2">> and ISO 19115-1:2014/Amdt1:2018.
+
+[[tab-4a-B-1]]
+.Modifications to the data dictionary <<ISO19115-1>>
+[options=header,cols=7]
+|===
+|
+| Name / Role name
+| Definition
+| Ob
+| Max Occ
+| Data type
+| Comment
+
+| 1 | MD_Metadata | root entity which defines metadata about a resource or resources | M | 1 | Class | See <<ISO19115-1,clause="B.2">>
+| 1.1 | S100_Metadata | root entity which defines metadata about a resource or resources | M | 1 | Class | Specialises _MD_Metadata_ class
+| 2 | metadataIdentifier | unique identifier for this metadata file | M | 1 | CharacterString | Free text (changed obligation from optional to mandatory)
+|===
+
+[%key]
+Ob:: Obligation / Condition;
+Max Occ:: Maximum occurrence

@@ -1,0 +1,721 @@
+== Requirements
+
+=== Business purpose and Intended use
+
+Metadata can satisfy a number of uses:
+
+. Data Discovery - summary descriptions of content and quality, contact details,
+off-line distribution and on-line references (URL) for on-line viewing.
+. Data use - more extensive information on data coverage, maintenance, content and
+details of data creation. It includes additional contact, distribution and quality
+details.
+. Data Fitness -- additional detail about use, limitations, format, age, and extents.
+This level of metadata assists the user to determine the data's suitability for use.
+. Data Sharing -- further detail relating to data content, transfer formats, and spatial
+representation.
+. Data Management -- the most detailed level of metadata, which includes information on
+the data quality regimes and data quality test results. This type of information is
+sometimes important when data is exchanged between organizations.
+
+[[fig-4a-1]]
+.Business Purpose
+image::img29.png[]
+
+<<fig-4a-1>> above illustrates the relationship between the types of metadata required
+by different user communities, and the scope of this profile. Each S-100 based Product
+Specification will describe the source and feature-level metadata that will be required
+to support data use, data sharing, and data management. The more demanding requirements
+for comprehensive metadata (as illustrated by "Doers" in <<fig-4a-1>>), require further
+attribution to allow source selection and feature analysis.
+
+ISO 19115-1 does not provide all the metadata necessary to describe imagery. This has
+been included in Part 2 to ISO 19115, which incorporates elements that are needed for
+the description of imagery and gridded data. ISO 19130 -- "Sensor and data model for
+imagery and gridded data", is an important standard associated with ISO 19115 Part 2, as
+it specifies the information required to support the geolocation of georeferenceable
+imagery, including a sensor description and associated physical information defined by a
+sensor model, fitting functions, and ground control points. It describes how the sensor
+measurements and the geolocation information are logically associated. In particular,
+ISO 19130 describes the sensor and data model for hydrographic sonar requirements, and
+the associated metadata. This will be described in relevant Product Specifications.
+
+An XML implementation of the ISO 19115-1 which describes how the abstract UML models in
+ISO 19115-1 are converted into XML is documented in ISO publication ISO/TS 19115-3.
+
+Although this profile is largely based on the above mentioned standards, reference to
+additional standards will need to be made. (See <<cls-4a-4>>).
+
+This Profile defines:
+
+. Mandatory and conditional metadata sections, metadata entities, and metadata elements;
+. The minimum set of metadata elements for any resource in order to conform to this
+Profile;
+. The core metadata for geographic datasets;
+. Optional metadata elements that allow for a more extensive standard description of
+resources; and
+. The option to extend the Profile to cater for specialised needs.
+
+Implementation of the Profile is based on ISO/TS 19115-3:2016, and includes:
+
+. The use of the ISO/TS 19115-3:2016 XSDs;
+. XML documents containing dictionaries to implement the ISO 19115-1:2014 codelists (XML
+data dictionaries of the ISO 19115-1:2014 codelists in GML format); and
+. XML data dictionaries of the S-100 Geographic Extent identifier
+codelists{blank}footnote:[Reference to codelists of geographic identifiers to be
+provided. They do not appear in the ISO 19115 codelists.].
+
+While the UML class _S100_Metadata_ specialises the class _MD_Metadata_, the
+specialisation only involves restrictions of the parent class. Hence, for the purpose of
+XML implementation, the _MD_Metadata_ element shall be used to support interoperability
+with other ISO 19100 standards for geographic information.
+
+=== Metadata for describing geographic data and other resources
+
+The Profile identifies the metadata required to describe digital geographic data and
+resources, and is applicable to independent datasets, dataset aggregations, geographic
+features, feature classes and attributes. Metadata is documented via the creation of XML
+document instances, which are validated against the S-100 Metadata Profile XSDs, and
+relevant codelists and enumerations{blank}footnote:[Enumeration: A fixed list of valid
+identifiers of named literal values. Attributes of an enumerated type may only take
+values from this list (source: <<ISO19136>>.].
+
+If a Product Specification extends the metadata of this profile, the rules in
+<<app-4a-D>> must be followed, and the Product Specification must provide a metadata
+Schema to validate metadata against.
+
+Metadata records must contain a minimum set of core elements (see <<cls-4a-5.3>>) which
+are necessary for conformance with this Profile. A number of additional elements
+required for discovery purposes have also been identified and are described in the
+<<app-4a-C>>.
+
+Quality information is important for assessing whether datasets or resources are fit for
+use, and quality metadata have therefore been documented in Part 4c.
+
+[[cls-4a-5.3]]
+=== Obligations/conditions
+
+Obligation descriptors have been included to provide an indication of whether a metadata
+entity or element must be documented or may be conditionally or unconditionally left to
+the discretion of the metadata encoder. This descriptor may have the following values: M
+(mandatory), C (conditional) or O (optional). The following definitions form
+<<ISO19115-1,clause="B.1.4">> are included below.
+
+A *mandatory (M)* obligation means the metadata class or metadata element shall be
+documented.
+
+A *conditional (C)* obligation specifies an electronically manageable condition under
+which at least one metadata class or a metadata element is mandatory. 'Conditional' is
+used for one of the three following possibilities:
+
+. Expressing a choice between two or more options. At least one option is mandatory and
+must be documented.
+. Documenting a metadata class or a metadata element if another element has been
+documented.
+. Documenting a metadata element if a specific value for another metadata element has
+been documented.
+
+If the answer to the condition is positive, then the metadata entity or the metadata
+element shall be mandatory.
+
+An *optional (O)* obligation means that the metadata class or the metadata element may
+be documented or may not be documented. Optional metadata classes and optional metadata
+elements have been defined to provide a guide to those looking to fully document their
+data. (Use of this common set of defined elements will help promote interoperability
+among geographic data users and producers world-wide.) If an optional class is not used,
+the elements contained within that class (including mandatory elements) will also not be
+used. Optional classes may have mandatory elements; those elements only become mandatory
+if the optional entity is used.
+
+=== Minimum metadata requirements
+
+The minimum requirements for recording metadata include a number of elements that must
+be completed in order to conform to this Profile. It should be noted that the obligation
+is not mandatory for all elements, however some conditional elements may become
+mandatory under certain conditions (for example _resourceType_).
+
+<<tab-4a-1>> identifies the minimum set of metadata elements that should be completed
+for datasets and other resources. These elements also form part of the minimum metadata
+for geographic datasets listed in <<tab-4a-2>>.
+
+[%landscape]
+<<<
+
+[[tab-4a-1]]
+.Minimum metadata for geographic datasets and other resources
+[options=header,cols=4]
+|===
+| Name | Path | Datasets | Other resources
+
+| Metadata file identifier | MD_Metadata.metadataIdentifier > MD_Identifier.code | *M* | *M*
+
+| Metadata language
+| MD_Metadata.defaultLocale > PT_Locale.language
+a| *C* +
+_(documented if not defined by the encoding process)_
+a| *C* +
+_(same as for dataset)_
+
+| Metadata character set
+| MD_Metadata.defaultLocale > PT_Locale.characterEncoding
+a| *C* +
+_(documented if ISO 10646-1, is not used and not defined by the encoding process)_
+a| *C* +
+_(same as for dataset)_
+
+| Metadata file parent identifier
+| MD_Metadata.parentMetadata > CI_Citation.identifier
+a| *C* +
+_(documented if the hierarchy of a higher level exists)_
+a| *C* +
+_(same as for dataset)_
+
+| Party responsible for the metadata information
+| MD_Metadata.contact > CI_Responsibility.CI_Individual (table 4a-2)orMD_Metadata.contact > CI_Responsibility.CI_Organisation (table 4a-3)
+a| *M* +
+_(either organization or individual must be documented)_
+a| *M* +
+_(same as for dataset)_
+
+| Date(s) associated with the metadata
+| MD_Metadata.dateInfo > CI_Date
+a| *M* +
+_(creation date required, other dates may be provided)_
+a| *M* +
+_(same as for dataset)_
+
+| Resource title
+| MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.title
+| *M*
+a| *M* +
+(See <<note2>>)
+
+| Resource reference date
+| MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.date > CI_Date.date
+| *M*
+a| *M* +
+(See <<note2>>)
+
+| Resource reference date type
+| MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.date > CI_Date.dateType > CI_DateTypeCode
+| *M*
+| *M*(See <<note2>>)
+
+| Abstract describing the resource
+| MD_Metadata.identificationInfo > MD_DataIdentification.abstract
+| *M*
+a| *M* +
+(See <<note2>>)
+
+| Resource default language
+| MD_Metadata.identificationInfo > MD_DataIdentification.defaultLocale > PT_Locale.language
+| *M*
+a| *C* +
+_(only used if MD_DataIdentification has been used)_
+
+| Resource default character set
+| MD_Metadata.identificationInfo > MD_DataIdentification.defaultLocale > PT_Local.characterEncoding
+a| *C* +
+_(documented if UTF-8 is not used)_
+a| *C* +
+_(documented if UTF-8 is not used)_
+
+| Topic category
+| MD_Metadata.identificationInfo > MD_DataIdentification.topicCategory
+| *M*
+a| *C* +
+_(if resourceType = 'series' topicCategory is mandatory)_
+
+| Geographic location of the resource (by description)
+| MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent > EX_GeographicDescription.geographicIdentifier > MD_Identifier.code
+a| *C* +
+(See <<note3;and!note4>>)
+a| *O* +
+(See <<note4>>)
+
+| West longitude
+| MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent > EX_GeographicBoundingBox.westBoundLongitude
+a| *C* +
+(See <<note3;and!note4>>)
+a| *O* +
+(See <<note4>>)
+
+| East longitude
+| MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent > EX_GeographicBoundingBox.eastBoundLongitude
+a| *C* +
+(See <<note3;and!note4>>)
+a| *O* +
+(See <<note4>>)
+
+| South latitude
+| MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent > EX_GeographicBoundingBox.southBoundLatitude
+a| *C* +
+(See <<note3;and!note4>>)
+a| *O* +
+(See <<note4>>)
+
+| North latitude
+| MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent > EX_GeographicBoundingBox.northBoundLatitude
+a| *C* +
+(See <<note3;and!note4>>)
+a| *O* +
+(See <<note4>>)
+
+| Name of the scope/type of resource for which the metadata is provided
+| MD_Metadata.metadataScope > MD_MetadataScope.resourceScope > MD_ScopeCode (codelist -- ISO 19115-1)
+a| *M* +
+_(default = "dataset")_
+| *M*
+
+| Description of scope of resource for which the metadata is provided
+| MD_Metadata.metadataScope > MD_MetadataScope.name
+| *O*
+| *O*
+|===
+
+[[note1]]
+[NOTE]
+====
+ISO 10646-1 - Information technology -- Universal Multiple-Octet Coded Character Set
+(UCS).
+====
+
+[[note2]]
+[NOTE]
+====
+MD_ServiceIdentification may be used instead of MD_DataIdentification if hierarchyLevel
+= 'service'.
+====
+
+[[note3]]
+[NOTE]
+====
+For a geographic dataset, include metadata for the geographic bounding box (West
+longitude, East longitude, South latitude and North latitude) or the geographic
+description identifier (The use of geographic bounding box is recommended - see
+<<cls-4a-5.7.3>>).
+====
+
+[[note4]]
+[NOTE]
+====
+If any one of west longitude, east longitude, south latitude or north latitude exists,
+then the remaining three must also be completed.
+====
+
+[[tab-4a-2]]
+.Individuals
+[options=header,cols=4]
+|===
+| Name | Path | Datasets | Other resources
+
+| Name of the individual
+| CI_Individual.name
+a| *C +
+_(documented if 'positionName'_ and _'partyIdentifier' not documented)_
+a| *C* +
+_(same as for dataset)_
+
+| Position of the individual in an organization
+| CI_Individual.positionName
+a| *C* +
+_(documented if 'name' and 'partyIdentifier' not documented)_
+a| *C* +
+_(same as for dataset)_
+
+| Contact information for the individual
+| CI_Individual > contactInfo > CI_Contact
+a| *M* +
+(see <<note6>>)
+a| *M* +
+(see <<note6>>)
+
+| Identifier for the party
+| CI_Individual.partyIdentifier
+a| *C* +
+_(documented if 'name' and 'positionName' not documented_
+a| *C* +
+_(same as for dataset)_
+|===
+
+[[tab-4a-3]]
+.Organisations
+[options=header,cols=4]
+|===
+| Name | Path | Datasets | Other resources
+
+| Name of the organisation
+| CI_Organisation.name
+a| *C +
+*_(documented if 'positionName' not documented_ -- see <<note5>>__)__
+a| *C* +
+_(same as for dataset)_
+
+| Position of an individual in the organisation
+| CI_Organisation.positionName
+a| *C* +
+_(documented if 'name' not documented_ -- see <<note5>>__)__
+a| *C* +
+_(same as for dataset)_
+
+| Contact information for the organisation
+| CI_Organisation.contactInfo > CI_Contact
+a| *M* +
+(see <<note6>>)
+a| *M* +
+(see <<note6>>)
+
+| An individual in the named organisation
+| CI_Organisation.individual > CI_Individual
+| *M*
+| *M*
+
+| Identifier for the party
+| CI_Organisation.partyIdentifier
+a| *C* +
+_(documented if 'name' and 'positionName' not documented_
+a| *C* +
+_(same as for dataset)_
+|===
+
+[[note5]]
+[NOTE]
+====
+S-100 restricts ISO 19115-1 in that documenting the 'logo' attribute of CI_Organisation
+is not sufficient to allow omission of both 'name' and 'positionName'.
+====
+
+[[note6]]
+[NOTE]
+====
+At least one of CI_Contact attributes phone / address / onlineResource /
+contactInstructions must be documented.
+====
+
+=== S-100 compliancy categories
+
+When implementing S-100 support, different systems may have different requirements to
+S-100 based products and their adherence to the S-100 framework. ECDIS may require a
+very high degree of compliance; while a reporting system may require a lower degree of
+compliance by, for example, not needing an S-100 based exchange method. To facilitate a
+means of communicating the intent of a Product Specification and resulting products an
+S-100 compliance category can be declared. Four categories are defined.
+
+==== Category 1 - IHO S-100 object model compliant
+
+The Product Specification contains an object model which is available as a Feature
+Catalogue from the IHO S-100 GI Registry and is compliant with the S-100 spatial model
+(S-100 Parts 7 and 8).
+
+==== Category 2 - IHO S-100 compliant with non-standard encoding
+
+The Product Specification adheres to the minimum requirements of S-100 Part 11. The
+Product Specification specifies which of the S-100 Part 10 encoding methods is used; or
+it specifies another encoding, including how it maps to the S-100 GFM. Metadata is
+according to S-100 Part 4, a profile of Part 4 or an extension according to Part 4 rules.
+
+==== Category 3 - IHO S-100 compliant with standard encoding
+
+As Level 2 with the following restrictions:
+
+* The Product Specification uses only an encoding method defined in S-100 Part 10.
+
+==== Category 4 - - IHO S-100 and IMO harmonized display compliant
+
+As Level 3 with the following restrictions:
+
+* Metadata is according to S-100 Part 4 or a profile of Part 4 metadata;
+* The Product Specification includes a Portrayal Catalogue available from the IHO S-100
+GI Registry;
+* The Product Specification includes defined methods for the S-100 defined cyber
+security scheme (at a minimum including digital signature and, if applicable, the method
+of encryption);
+* Test material is embedded into the Product Specification or test material is available
+in a separate package. The test cases and related material is at a minimum comparable to
+IHO Publication S-64 for S-52/S-57/S62/S-63);
+* The Product Specification uses a CRS from the EPSG Geodetic Parameter Registry. EPSG
+CRSs which do not comply with the requirements of S-100 Part 6 or the selected encoding
+method defined in S-100 Part 10 should not be used;
+* If appropriate, the Product Specification includes an Alerts and Indications Catalogue
+available from the IHO S-100 GI Registry; and
+* If appropriate, the Product Specification is compliant with the Interoperability
+Catalogue available from the IHO S-100 GI Registry.
+
+=== Recommended metadata for geographic datasets
+
+Although ISO 19115-1 defines an extensive set of metadata elements, only a subset of
+these are used. It is essential however that a minimum number of metadata elements be
+maintained for a dataset (as listed in <<tab-4a-1>>). When describing geographic
+datasets however, it is recommended that additional metadata elements (in addition to
+the minimum requirements for geographic datasets) be used. This set of metadata, which
+includes the minimum set of metadata and some additional optional elements, is referred
+to as *recommended metadata*. <<tab-4a-4>> lists the recommended metadata required to
+describe a _dataset_, typically for catalogue purposes. This list contains metadata
+answering the following questions:
+
+. 'Does a dataset on a specific topic exist ("what")?'
+. 'For a specific place ("where")?'
+. 'For a specific date or period ("when")?'
+. 'A point of contact to learn more about or order the dataset ("who")?'
+
+By using the core metadata described below, interoperability will be enhanced, and
+potential users should be able to understand without ambiguity the characteristics of
+geographic datasets or resources.
+
+[[tab-4a-4]]
+.Recommended metadata for geographic datasets
+[options=header,cols=3]
+|===
+| Name | Path | Obligation
+
+| Unique identifier for this metadata record | MD_Metadata.metadataIdentifier > MD_Identifier.code | M{blank}footnote:a[The Profile imposes a mandatory obligation on the metadata element metadataIdentifier]
+
+| Metadata language | MD_Metadata.defaultLocale > PT_Locale.language | C{blank}footnote:b[Language: documented if not defined by the encoding process.]
+
+| Metadata character set | MD_Metadata.defaultLocale > PT_Locale.characterEncoding | C{blank}footnote:c[characterEncoding: Documented if UTF-8 is not used and not defined by the encoding process.]
+
+| Metadata file parent identifier | MD_Metadata.parentMetadata > CI_Citation.identifier | C{blank}footnote:d[Documented if a higher level of hierarchy level exists (for example if the geographic 'dataset' is part of a 'series').]
+
+| Party responsible for the metadata information
+a| MD_Metadata.contact > CI_Responsibility.CI_Individual +
+or +
+MD_Metadata.contact > CI_Responsibility.CI_Organization | M
+
+| Date(s) associated with the metadata | MD_Metadata.dateInfo > CI_Date | M
+
+| Metadata standard name | MD_Metadata.metadataStandard > CI_Citation.title | O
+
+| Metadata standard version | MD_Metadata.metadataStandardVersion | O
+
+| Dataset title | MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.title | M
+
+| Dataset reference date | MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.date | M
+
+| Resource identifier | MD_Metadata.identificationInfo > MD_DataIdentification.citation > CI_Citation.identifier > MD_Identifier.code | O
+
+| Abstract describing the data | MD_Metadata.identificationInfo > MD_DataIdentification.abstract | M
+
+| Resource point of contact | MD_Metadata.identificationInfo > MD_DataIdentification.pointOfContact > CI_Responsibility | O
+
+| Spatial representation type | MD_Metadata.identificationInfo > MD_DataIdentification.spatialRepresentationType | O
+
+| Spatial resolution of the dataset a| MD_Metadata.identificationInfo > MD_DataIdentification.spatialResolution > MD_Resolution.distance or MD_Resolution.equivalentScale or +
+MD_Resolution.vertical or +
+MD_Resolution.angularDistance or +
+MD_Resolution.levelOfDetail | O{blank}footnote:e[Distance is preferred over equivalentScale because the scale will change when presented at different sizes on a screen. distance or equivalentScale must be documented if available.]
+
+| Dataset language | MD_Metadata.identificationInfo > MD_DataIdentification.language | M
+
+| Dataset character set | MD_Metadata.identificationInfo > MD_DataIdentification.defaultLocale > PT_Locale.characterEncoding | C{blank}footnote:f[characterSet: Documented if ISO 10646-1 is not used.]
+
+| Dataset topic category | MD_Metadata.identificationInfo > MD_Identification.topicCategory | M
+
+a| Geographic location of the dataset (by four coordinates or by description) | MD_Metadata.identificationInfo > MD_Identification.extent > EX_Extent > EX_GeographicBoundingBox or +
+EX_GeographicDescription | C{blank}footnote:g[Include either the geographic bounding box (extents) or the geographic description (It is recommended that geographic bounding box should be used - see <<cls-4a-5.7.3>>).]{blank}footnote:h[If any one of west longitude, east longitude, south latitude or north latitude exists, then the remaining three must also be completed.]
+
+| Temporal extent information for the dataset | MD_Metadata.identificationInfo > MD_Identification.extent > EX_Extent.temporalElement | O
+
+| Vertical extent information for the dataset | MD_Metadata.identificationInfo > MD_DataIdentification.extent > EX_Extent.verticalElement > EX_VerticalExtent | O
+
+| Lineage | MD_Metadata.resourceLineage > LI_Lineage | O
+
+| Reference system | MD_Metadata.referenceSystemInfo > MD_ReferenceSystem.referenceSystemIdentifier > RS_Identifier | O
+
+| Distribution Format | MD_Metadata.distributionInfo > MD_Distribution > MD_Format | O
+
+| On-line link to resource | MD_Metadata.distributionInfo > MD_Distribution > MD_DigitalTransferOption.onLine > CI_OnlineResource | O
+
+| Constraints on resource access and use a| MD_Metadata.identificationInfo > MD_DataIdentification > MD_Constraints.useLimitations and/or +
+MD_LegalConstraints and/or MD_SecurityConstraints | O
+
+| Name of the scope/type of resource for which the metadata is provided | MD_Metadata.metadataScope > MD_MetadataScope.resourceScope | C{blank}footnote:i[Name is mandatory if resourceScope not equal to "dataset".]
+|===
+
+Source: Adapted from <<ISO19115,table=3>>.
+
+Mandatory attributes are nillable.
+
+=== Variations and preferences
+
+==== Metadata element metadataIdentifier
+
+The obligation for the metadata element _metadataIdentifier_ is 'optional' in ISO
+19115-1, however this profile applies a more stringent obligation and defines an
+extension to make the obligation '*mandatory*'. Each Product Specification will provide
+rules for creating file identifiers.
+
+For example, this could support linkage between parent and child metadata records. The
+identifier code of the child's _parentMetadata/CI_Citation.identifier_ element is the
+same as the identifier code of the parent's _metadataIdentifier_ element, thus
+supporting the hierarchical relationship between metadata records.
+
+==== Metadata element parentMetadata
+
+The metadata element _parentMetadata_ (conditional obligation) is included as a
+recommended metadata element for describing geographic datasets in the profile. Under
+certain conditions this metadata element is mandatory. For instance, in some cases
+dataset metadata may be part of a dataset series. In these circumstances
+_parentMetadata_ shall be populated.
+
+The concept of metadata scope allows a dataset to be described in more than one metadata
+record. A dataset may be part of a collection, and in this instance, the dataset may be
+described in two metadata records: as a dataset in its own right and as part of a
+collection. The dataset may also be more discrete. For example, a chart may be described
+individually and as part of a collection or (chart series). An organization may choose
+to produce a metadata record for each chart and a metadata record for the collection
+(chart series). Further information on metadata scope and their implementation is
+available in <<ISO19115-1,annex="D">> and <<ISO19115-1,annex="E">>.
+
+[[cls-4a-5.7.3]]
+==== Geographic extent of the dataset
+
+The ISO 19115-1 condition for spatial extent determines that if the _resourceScope_ is
+'dataset' then either the _geographic bounding box_ or the _geographic description_ is
+mandatory (<<ISO19115-1,table="B.3">>). To make spatial searches more effective, it is
+recommended that the extent be described as a geographic bounding box in preference to a
+geographic description. Completing only the geographic description code may not satisfy
+the needs of spatial searches as an extent could be ambiguous (for example, 'France'
+could mean the mainland only or it may include all external territories). However, in
+other circumstances, the geographic descriptions are clearly defined, and can present a
+more efficient means of description. Therefore, Product Specifications shall specify how
+geographic extent of a dataset is described.
+
+==== Data and Date Time information
+
+Dates for both the metadata and the actual data must be provided. In MD_Metadata, there
+is a date stamp for the metadata. In the citation, provided as part of
+MD_Identification, there is a production, publication, or revision date for the dataset.
+These dates are not necessarily the same. In some cases, one set of metadata may be
+provided for multiple sets of data, which may have been produced, published or revised
+at different times. The need for an associated date of origin is not restricted to
+digital or geographic data. Users who derive results from reprocessed data need to know
+the version of the data they are using.
+
+==== Metadata extension information
+
+The _S100_Metadata_ class specialises the _MD_Metadata_ class, restricting the
+obligation of _metadataIdentifier_ from optional to mandatory. <<tab-4a-5;and!tab-4a-6>>
+provide relevant information about the extension for _S100_Metadata._ A modified UML
+diagram is provided at <<app-4a-A>>, the modified values for the data dictionary are
+provided at <<app-4a-B>> (<<tab-4a-B-1>>).
+
+[[tab-4a-5]]
+.Metadata extension for_ S100_Metadata
+[options=header,headerrows=2,cols=3]
+|===
+3+| MD_MetadataExtensionInformation
+3+| MD_ExtendedElementInformation
+
+| name 2+| S100_Metadata
+| definition 2+| S-100 Metadata Profile of MD_Metadata
+| obligation 2+| Mandatory
+| condition 2+|
+| dataType 2+| specifiedClass
+| maximumOccurrence 2+| 1
+| domainValue 2+|
+| parentEntity 2+| MD_Metadata
+| rule 2+| New class
+| Rationale 2+| Extension of MD_Metadata to include change of obligation to _fileIdentifier_
+.2+| Source | organisationName | International Hydrographic Organization
+| role | owner
+| conceptName 2+| the name of the item (in the IHO GI Registry)
+| code 2+| language neutral identifier (code in the IHO GI Registry)
+|===
+
+[[tab-4a-6]]
+.Metadata extension for_ S100_Metadata
+[options=header,headerrows=2,cols=3]
+|===
+3+| MD_MetadataExtensionInformation
+3+| MD_MetadataElementInformation
+
+| name 2+| metadataIdentifier
+| definition 2+| <<ISO19115-1,table="B.2">>
+| obligation 2+| mandatory
+| condition 2+|
+| dataType 2+| Class
+| maximumOccurrence 2+| 1
+| domainValue 2+| MD_Identifier
+| parentEntity 2+| S100_Metadata
+| rule 2+| Change obligation to mandatory
+| Rationale 2+| To ensure a file identifier is always entered
+.2+| Source | organisationName | International Hydrographic Organization
+| role | owner
+| conceptName 2+| the name of the item (in the IHO GI Registry)
+| code 2+| language neutral identifier (code in the IHO GI Registry)
+|===
+
+=== Metadata for services
+
+The elements to be used for discovery of services are listed in <<tab-4a-7>>. The
+elements are similar to those used for datasets except that SV_ServiceIdentification
+replaces MD_DataIdentification and two conditional elements are added to document the
+coupling (if any) between the service and a dataset.
+
+This edition of the S-100 profile of metadata for services does not document the
+operations proffered by services. Accordingly, the profile omits the optional metadata
+elements and attributes related to operation information that are defined in ISO 19115-1.
+
+[[tab-4a-7]]
+.Metadata for the discovery of services
+[options=header,cols=3]
+|===
+| Name | Path | Obligation
+
+| Unique identifier for this metadata record | MD_Metadata.metadataIdentifier > MD_Identifier.code | M{blank}footnote:a1[the Profile imposes a mandatory obligation on the metadata element metadataIdentifier]
+
+| Metadata language | MD_Metadata.defaultLocale > PT_Locale.language | C{blank}footnote:b1[language: documented if not defined by the encoding process.]
+
+| Metadata character set | MD_Metadata.defaultLocale > PT_Locale.characterEncoding | C{blank}footnote:c1[characterEncoding: documented if UTF-8, is not used and not defined by the encoding process.]
+
+| Metadata parent identifier | MD_Metadata.parentMetadata > CI_Citation.identifier | C{blank}footnote:d1[documented if a higher level of hierarchy level exists (for example, if the geographic 'dataset' is part of a 'series').]
+
+| Party responsible for the metadata information | MD_Metadata.contact > CI_Responsibility.CI_IndividualorMD_Metadata.contact > CI_Responsibility.CI_Organization | M
+
+| Date(s) associated with the metadata (creation date) | MD_Metadata.dateInfo > CI_Date | M
+
+| Metadata standard name | MD_Metadata.metadataStandard > CI_Citation.title | O
+
+| Metadata standard version | MD_Metadata.metadataStandard > CI_Citation.edition | O
+
+| Service title | MD_Metadata.identificationInfo > SV_ServiceIdentification.citation > CI_Citation.title | M
+
+| Date used to identify the service | MD_Metadata.identificationInfo > SV_ServiceIdentification.citation > CI_Citation.date | M
+
+| Resource identifier | MD_Metadata.identificationInfo > SV_ServiceIdentification.citation > CI_Citation.identifier > MD_Identifier | O
+
+| Resource abstract | MD_Metadata.identificationInfo > SV_ServiceIdentification.abstract | M
+
+| Responsible party | MD_Metadata.identificationInfo > SV_ServiceIdentification.pointOfContact > CI_Responsibility | O
+
+| Spatial representation type | MD_Metadata.identificationInfo > MD_DataIdentification.spatialRepresentationType | O
+
+| Spatial resolution of the dataset | MD_Metadata.identificationInfo > MD_Identification.spatialResolution > MD_Resolution.distance or MD_Resolution.equivalentScale or MD_resolution.vertical or MD_Resolution.angularDistance or MD_Resolution.levelOfDetail | O {blank}footnote:e1[distance is preferred over equivalentScale because the scale will change when presented at different sizes on a screen. distance or equivalentScale must be documented if available.]
+
+| Dataset language | MD_Metadata.identificationInfo > MD_DataIdentification.defaultLocale > PT_Locale.language | M
+
+| Dataset character set | MD_Metadata.identificationInfo > MD_DataIdentification.defaultLocale > PT_Locale.characterEncoding | C{blank}footnote:f1[characterSet: documented if UTF-8 is not used.]
+
+| Service topic category | MD_Metadata.identificationInfo > SV_ServiceIdentification.topicCategory | M
+
+| Geographic location of the service (by four coordinates or by description) | MD_Metadata.identificationInfo > SV_ServiceIdentification.extent > EX_Extent.geographicElement > EX_GeographicExtent > EX_GeographicBoundingBox or EX_GeographicDescription | C{blank}footnote:g1[include either the geographic bounding box (extents) or the geographic description (It is recommended that geographic bounding box should be used - see <<cls-4a-5.7.3>>).]{blank}footnote:h1[if any one of west longitude, east longitude, south latitude or north latitude exists, then the remaining three must also be completed.]
+
+| Temporal extent information for the service | MD_Metadata.identificationInfo > SV_ServiceIdentification.extent > EX_Extent.temporalElement | O
+
+| Vertical extent information for the dataset | MD_Metadata.identificationInfo > SV_ServiceIdentification.extent > EX_Extent.verticalElement > EX_VerticalExtent | O
+
+| Lineage | MD_Metadata.resourceLineage > LI_Lineage | O
+
+| Reference system | MD_Metadata.referenceSystemInfo > MD_ReferenceSystem.referenceSystemIdentifier > RS_Identifier | O
+
+| Distribution Format | MD_Metadata.distributionInfo > MD_Distribution > MD_Format | O
+
+| On-line link | MD_Metadata.identificationInfo > SV_ServiceIdentification.citation > CI_Citation.onlineResource > CI_OnlineResource | O
+
+| Constraints on resource access and use | MD_Metadata.identificationInfo > SV_ServiceIdentification > MD_Constraints.useLimitations and/or MD_LegalConstraints and/or MD_SecurityConstraints | O
+
+| Resource scope | MD_Metadata.metadataScope > MD_Scope.resourceScope | C{blank}footnote:i1[Mandatory for resources that are not datasets.]
+
+| Operated dataset | MD_Metadata > SV_ServiceIdentification.operatedDataset > CI_Citation | C{blank}footnote:j1[Reference to the resource on which the service operates. For any one resource, either 'operated dataset' or 'operates on' is used (that is, both must not be used for the same resource).]
+
+| Operates on | MD_Metadata > SV_ServiceIdentification.operatesOn > MD_Identifier | C{blank}footnote:j1[]
+|===

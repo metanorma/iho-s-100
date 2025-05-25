@@ -1,0 +1,34 @@
+[[cls-4a-4]]
+== Normative references
+
+The following referenced documents are required for the application of this document.
+For dated references, only the edition cited applies. For undated references, the latest
+edition of the referenced document (including amendments) applies.
+
+[bibliography]
+=== Profile definition
+
+The following documents were the references used to define the S-100 Metadata Profile:
+
+* [[[ISO19115-1,ISO 19115-1:2014]]]
+
+* [[[ISO19115-1amd,ISO 19115-1/Amd 1:2018]]]
+
+* [[[ISO19115-2,ISO 19115-2:2009]]]
+
+* [[[ISO19119,ISO 19119:2016]]]
+
+* [[[ISO19115-3,ISO/TS 19115-3:2016]]]
+
+[bibliography]
+=== Informative references
+
+* [[[ISO19115,ISO 19115:2003]]]
+
+* [[[ISO19115cor,ISO 19115:2003/Cor.1:2006]]]
+
+* [[[ISO19139,ISO/TS 19139:2007]]]
+
+* [[[ISO19106,hidden(ISO 19106)]]]
+
+* [[[ISO19136,hidden(ISO 19136)]]]
