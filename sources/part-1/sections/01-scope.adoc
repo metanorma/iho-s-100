@@ -1,0 +1,16 @@
+== Scope
+
+This Part defines the Conceptual Schema language and basic data types for use within
+the IHO community. It identifies the combination of the Unified Modelling Language
+(UML) static structure diagram, and a set of basic data type definitions as the
+Conceptual Schema language for specification of geographic information. (UML is a
+standardized general-purpose modelling language in the field of software engineering.
+It includes a set of graphical notation techniques to create abstract models of
+specific systems. UML combines the best practice from data modelling concepts such as
+entity relationship diagrams, work flow, object modelling and component modelling).
+
+Secondly, this Part provides guidelines on how UML should be used to create
+standardized geographic information and service models that are a basis for achieving
+the goal of interoperability. Since it deals with the UML, a section with specific
+UML terms and definitions is provided, in addition to these terms being included in
+S-100 Annex A (Terms and Definitions).

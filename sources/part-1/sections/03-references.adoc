@@ -1,0 +1,37 @@
+[bibliography]
+== Normative references
+
+The following referenced documents are required for the application of this document.
+For dated references, only the edition cited applies. For undated references, the
+latest edition of the referenced document (including amendments) applies.
+
+* [[[ISO19103,ISO 19103]]]
+
+* [[[ISO8601,ISO 8601:2004]]]
+
+* [[[ISO19136,ISO 19136]]]
+
+* [[[ISO25964-1,ISO 25964-1]]]
+
+* [[[ISO25964-2,ISO 25964-2]]]
+
+* [[[OGC10-129r1,OGC 10-129r1]]]
+
+* [[[OMG,OMG UML]]],
+span:organization[OMG Unified Modelling Language (OMG UML)],
+span:title[Superstructure],
+span:volume[V2.1.2]
+
+* [[[RFC3986,IETF RFC 3986]]]
+
+* [[[RFC2141,IETF RFC 2141]]]
+
+* [[[RFC8089,IETF RFC 8089]]]
+
+* [[[SKOS,SKOS]]],
+span:title[_SKOS -- Simple Knowledge Organization System -- Reference_].
+span:classification[W3C Recommendation],
+span:date[2009].
+span:uri[http://www.w3.org/TR/2009/REC-skos-reference-20090818/]
+
+* [[[ISO19108,hidden(ISO 19108)]]]
