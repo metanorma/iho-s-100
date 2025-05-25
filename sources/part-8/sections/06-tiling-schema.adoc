@@ -1,0 +1,26 @@
+[[cls-8-6]]
+== Tiling Scheme
+
+Tiling is one method of reducing the volume of data in a dataset to manageable
+proportions. In a dataset there must be information both describing the tiling scheme
+and also about the instance of a tile or tiles carried in that particular dataset. The
+class S100_TilingScheme carries information about the tiling scheme as a whole. There
+may only be one tiling scheme defined for a particular data collection. Within a data
+warehouse (database) there may be several overlapping tiling schemes defined where any
+of the tiling schemes may be used as the basis of data extraction from the data warehouse.
+
+A tiling scheme is itself a discrete coverage. It is normally a simple rectangular
+grid with tiles of equal density. Such a grid coverage may also be defined with tiles
+of variable density. A more complex tiling scheme may also be defined as a discrete
+polygon coverage. An example is a data collection consisting of elevation cut along
+political boundaries. These types of tiling schemes are illustrated in <<fig-8-20>>.
+Other tiling schemes are also possible. In fact, any type of discrete coverage may be
+used to establish a tiling scheme.
+
+[[fig-8-20]]
+.Tiling scheme types
+image::img75.png[]
+
+Any tiling scheme used must be completely described as part of the Product
+Specification for a particular data product. This includes the dimensions, location
+and data density of tiles as well as a tile identification mechanism (tileID).

@@ -1,0 +1,39 @@
+[[cls-8-13]]
+== Feature Oriented Image
+
+All gridded datasets are feature oriented, in that a coverage is a subtype of a
+feature. That is an entire gridded dataset can be considered to be a single feature.
+A feature structure can be applied to gridded data in two different ways. First, a
+discrete coverage can carry a feature code as an attribute. For example, a coverage
+corresponding to the postal code system will have discrete values for each postal
+code, yet still cover the country completely. The only difference in the Application
+Schema is a relationship between the discrete coverage and the feature. This is shown
+in <<fig-8-28>>.
+
+[[fig-8-28]]
+.Feature oriented discrete coverage
+image::img83.png[]
+
+The second method of establishing a feature structure is to develop a composite
+dataset that contains many separate but adjoining coverages. The coverages may be
+continuous or discrete. This is very much like the way a "vector" data set is
+composed where each feature has its own geometry and attributes. In fact vector data
+may be mixed with coverage data in the same dataset. The Application Schema simply
+allows multiple instances of features.
+
+Geometric elements such as grids may be shared between multiple features, and
+features may be related by composition or other relationships as allowed in the
+general feature model of <<ISO19109>>. A complex feature may include both a
+continuous grid coverage and vector data such as a polygonal boundary. A feature
+oriented dataset may contain both a continuous coverage of the ocean as collected by
+sonar, and point and line features corresponding to navigational aids. Topological
+primitives may relate all of the features. This allows for some interesting and
+useful structures.
+
+A Raster Nautical Chart may include additional vector data describing the
+navigational aids, hazards and danger zones, which is not "visible" in that it is not
+portrayed, but which is active in the use of the Raster Nautical Chart, so a ship can
+determine whether it is within a danger zone, or perform some other ECDIS-like
+functions.
+
+See <<app-8-E>> for additional information about Feature Oriented Gridded Data.

@@ -1,0 +1,647 @@
+[[cls-8-5]]
+== Imagery and Gridded Data Spatial Schema
+
+[[cls-8-5.1]]
+=== Coverages
+
+[[cls-8-5.1.1]]
+==== General overview of coverages
+
+A coverage associates positions within a bounded space to attribute values. A coverage
+is a subtype of feature; that is, it associates positions within a bounded space to
+the attribute values of the feature. A continuous coverage function associates a value
+to every position within the spatial temporal domain of the function. A discrete
+coverage function is only valid at specific positions within the domain. Geometric
+objects within the spatiotemporal domain drive the coverage function. A coverage
+function effectively acts as an interpolation function for the geometric objects
+within the spatiotemporal domain, which establishes a value within the range of the
+function for every position within the domain.
+
+The geometric objects within the spatiotemporal domain are described in terms of
+direct positions. The geometric objects may exhaustively partition the spatiotemporal
+domain, and thereby form a tessellation such as a grid or a TIN. Point sets and other
+sets of non-continuous geometric objects do not form tessellations.
+
+<<ISO19107>> defines a number of geometric objects (subtypes of the UML class
+GM_Object) to be used for the description of features. Some of these geometric objects
+can be used to define spatiotemporal domains for coverages. <<ISO19123>> defines
+additional subtypes of GM_Object that are specialised for the description of
+spatiotemporal domains. In addition, <<ISO19108>> defines TM_GeometricPrimitives that
+may also be used to define spatiotemporal domains of coverages.
+
+The range of a coverage is a set of feature attribute values. The value set is
+represented as a collection of records with a common Schema. For example, a value set
+might consist of temperature and depth measured at a given time over a bounded area of
+ocean. A coverage function may be used to evaluate a depth and temperature anywhere
+within the bounded area.
+
+The concept of coverages is described in this document to relate coverage functions to
+the set of geometric objects and the direct positions that drive the coverage
+functions. It is through the concept of coverages that one may relate the concept of
+features to a grid, a set of TIN triangles or a point set. This description has been
+adapted from <<ISO19123>>. S-100 only addresses grids, TINs and point sets.
+
+[[cls-8-5.1.2]]
+==== Discrete coverages
+
+A discrete coverage has a spatiotemporal domain that consists of a finite collection
+of geometric objects and the direct positions contained in those geometric objects. A
+discrete coverage maps each geometric object to a single record of feature attribute
+values. A discrete coverage is thus a discrete or step function as opposed to a
+continuous coverage. For example assigning a feature code to each cell in a grid cell
+tessellation is a discrete coverage. Each grid cell is either associated or not
+associated with a particular feature. Point set coverages in hydrodynamic data, such
+as observations from distributed sensors, are also frequently discrete coverages in
+that the data values at any single point in the point set apply only in the vicinity
+of the point.
+
+[[cls-8.5.1.3]]
+==== Continuous coverages
+
+A continuous coverage has a spatiotemporal domain that consists of a set of direct
+positions in a coordinate space. A continuous coverage maps direct positions to value
+records. In principle, a continuous coverage could consist of no more than a spatially
+bounded, but transfinite set of direct positions, and a mathematical function that
+relates direct position to feature attribute value.
+
+[[cls-8-5.2]]
+=== Point sets, grids and TINs
+
+S-100 addresses only imagery and gridded data associated with grids, TINs and point
+sets. These constructs establish the basic geometry elements used in this component of
+S-100.
+
+[[cls-8-5.2.1]]
+==== Point sets
+
+A point set is a set of GM_Point objects in a bounded area. These point objects might
+each be associated with one or more features. They may also be used to form a coverage
+and serve to drive a coverage function. Hydrographic soundings may be considered as a
+point set. For each point set value it is necessary to know the position of the point
+as well as any associated attribute value and associated feature reference. Attributes
+may be assigned to an entire point set as an aggregate as well as to individual
+points. This is common practice for hydrographic soundings where metadata may be
+associated with a sounding object that consists of a point set of individual
+soundings. Several point sets may be aggregated into one coverage. A simple point set
+with associated metadata is illustrated in <<fig-8-5>>.
+
+[[fig-8-5]]
+.Point Set with associated metadata
+image::img59.png[]
+
+A Point Set is a set of 1, 2, 3 or stem:[n] dimensional points in space. A Point Set
+Coverage is a coverage function associated with point value pairs in 2 dimensions.
+That is, a coverage function is driven by a set of points (with stem:[X], stem:[Y]
+position) together with a record of one or more values at that position.
+
+[[cls-8-5.2.2]]
+==== Grid types
+
+A grid is a regular tessellation of a bounded space where two or more sets of curves
+in which the members of each set intersect the members of the other sets in a
+systematic way. The curves are called grid lines; the points at which they intersect
+are grid points, and the interstices between the grid lines are grid cells. A grid
+covers the entire bounded space. Grids form the basic geometry for a gridded data
+coverage. There are several different regular tessellations of a space that are all
+subtypes of the general concept of grid. Common to all grids is an implicit sequence
+or traversal order. There also exist a number of possible traversal orders for grids,
+some more useful than others in different situations. The location of a grid cell is
+defined implicitly by the regular grid organization and the traversal order. For
+example, in a rectangular grid each grid cell can be addressed by the row and column
+order of the grid. It is therefore not necessary to maintain the direct position of
+each grid cell. More complex grids require more complex traversal orders, however
+regularity still permits the position within the grid to be determined from the grid
+structure and the traversal order. The attribute values for a particular grid form a
+Grid Value Matrix where the matrix entries correspond to the grid cells.
+
+S-100 addresses only a small subset of the possible grids and traversal orders. It
+makes use of the CV_DiscreteGridPointCoverage and
+CV_ContinuousQuadrilateralGridCoverage described in clauses 6 and 8 respectively of
+<<ISO19123>>. It makes use of:
+
+. Rectangular grids and irregularly shaped grids;
+. Simple and tiled grids;
+. Grid with a regular cell size and variable cell sizes; and
+. Grids in 2 or 3 dimensions.
+
+Traversal orders for grids are defined in <<ISO19123,annex=D>>. The types of most
+interest to S-100 are: Linear Scan; and Morton Order. <<fig-8-6>> shows a linear scan
+traversal order and a Morton traversal order for a grid. The Morton ordering can
+easily accommodate irregular shaped grids, and variable cell size grids. The Morton
+Order corresponds to a quad tree in two dimensions but is extendable to higher
+dimensions.
+
+[[fig-8-6]]
+.Linear Scan Row Column (X,Y) Traversal Order and Morton (X,Y) Order
+====
+.Linear Scan Traversal Order in 2 dimensions
+image::img60.png[]
+
+.Morton Order in 2 dimensions with regular size
+image::img61.png[]
+====
+
+These two types of grids and traversal orders have applications for hydrographic data
+(for example <<cls-8-5.2.5>> -- Morton Order).
+
+Other traversal orders defined in the ISO standard 19123 are also permitted in S-100
+(see <<cls-8-7.7.2>>).
+
+[[cls-8-5.2.3]]
+==== Rectangular grids and irregularly shaped grids
+
+The most common type of grid is a rectangular grid. Most images are defined on such a
+grid. A rectangular grid is a subtype of quadrilateral grid as defined in
+<<ISO19123>>. A quadrilateral grid is a grid in which the curves are straight lines,
+and there is one set of grid lines for each dimension of the grid space. In this case
+the grid cells are parallelograms or parallelepipeds. A parallelepiped is a
+three-dimensional figure like a cube, except that its faces are not squares but
+parallelograms.
+
+[[fig-8-7]]
+.Rectangular grid
+image::img62.png[]
+
+A grid may also have a non-rectangular or quadrilateral boundary. Such grids sometimes
+occur when scanning paper charts that include "insets" or "outsets" that change the
+boundary of the grid, however the grid can have any shape, as long as it can be
+traversed in a sequence that gives order to the cells. <<fig-8-7>> shows a Rectangular
+Grid. <<fig-8-8>> shows a quadrilateral grid with an outset, as might occur in a
+scanning operation.
+
+[[fig-8-8]]
+.Quadrilateral grid with outset
+image::img63.png[]
+
+Very irregular shaped grids may be defined but require a more complex traversal rule
+than simple linear scanning.
+
+[[cls-8-5.2.4]]
+==== Simple and tiled grids
+
+A tiled grid is a combination of two or more grid tessellations for one set of data.
+The tiling scheme is essentially a second grid that is superimposed on the first
+simple grid. Each cell of the tiling scheme grid is itself a grid. A tiling scheme
+grid may also be used with vector data where each cell defines the boundaries of a
+particular vector data set. Tiling schemes are of particular value when data is
+sparse. For example, a raster image map of the United States might be tiled so that it
+is not necessary to include data over Canada or over the ocean to include Alaska and
+Hawaii. <<fig-8-9>> illustrates a tiled grid.
+
+[[fig-8-9]]
+.Tiled grid
+image::img64.png[]
+
+[[cls-8-5.2.5]]
+==== Regular and variable cell sizes
+
+Traditional grids are fixed 'resolution', most commonly composed of perpendicularly
+crossing lines of equal spacing on each dimension, creating square or rectangular
+cells. Gridding is a standard way of generalizing point datasets, by imposing a
+resolution or grid spacing, and calculating individual grid cell values based on a
+single attribute of the group of points contained within each cell. As well, image
+data is primarily gridded, based on the resolution of the sensor or uniform arbitrary
+pixel spacing.
+
+Grids may also be established where the cell size varies within the grid. A common
+example is the "quad tree" that is commonly used in some Geographic Information
+Systems. Having a variable size grid cell allows variable resolution throughout the
+gridded surface, which is exhibited by the unequal spacing of parallel lines that form
+the grid, localized to given grid cells. This requires the normalization of data on
+each dimension, and the binary subdivision of each dimension in order to localize any
+given cell. When applied to point or image data, areas of high variability can be
+represented by small grid cells. Areas of low variability can be represented by large
+grid cells. Of course if the cell size varies in a grid, it must do so in a regular
+way so that the grid tessellation still covers the bounded area, and the traversal
+method must be able to sequence the cells in an order. In addition it is necessary to
+include information that describes the size of each cell with the cell.
+
+[[fig-8-10]]
+.Riemann Hyperspatial grid coverage (showing depth from hydrographic sonar)
+image::img65.png[]
+
+Data in a grid of variable cell size where adjacent like cells have been aggregated
+into larger cells, maintains the integrity of the original uniformly spaced data,
+while minimizing storage size. A grid with variable cell size supports null values, so
+incomplete data -- that containing holes -- can exist without the need to assign
+arbitrary values to regions of no data. This allows for a considerable amount of
+compaction over traditional grids because nothing is stored for cells with no data --
+they do not exist.
+
+<<fig-8-10>> above illustrates some variable size cells. If four adjacent cells (in
+two dimensions) have the same attribute value in the grid value matrix, then they may
+aggregated into one larger cell. In two dimensions this is known as a "QuadTree". This
+is of particular use in applications where resolution varies, or where data values
+tend to cluster.
+
+[[fig-8-11]]
+.Variable cell sizes
+image::img66.png[]
+
+Variable size cells, as illustrated in <<fig-8-11>>, are particularly useful for
+hydrographic data. Instead of representing bottom cover as soundings (point sets) it
+can be represented as a set of variable size cells. Each cell can carry several
+attribute values. Adjacent cells aggregate so the data volume is greatly diminished.
+Small cells exist where there is a rapid change in attribute value from cell to cell.
+Shoals, shore line and obstructions result in a number of small cells, where large
+relatively constant, or flat areas, such as the bottom of a channel result in a number
+of aggregated cells.
+
+The Morton traversal order can handle variable size cells. The traversal progresses as
+shown in <<fig-8-12>>. Morton order proceeds from left to right bottom to top cell by
+cell regardless of cell size. It increments in the stem:[X] coordinate then the
+stem:[Y]. This also extends to multiple dimensions where the increment is in stem:[X],
+then stem:[Y] then stem:[Z] then each additional dimension. <<fig-8-13>> shows Morton
+ordering in irregular grids and variable size grids. In this example stem:[Y],
+stem:[X] ordering is used.
+
+[[fig-8-12]]
+.Morton Order (stem:[X],stem:[Y])
+image::img67.png[]
+
+Any space filling curve gives order to a bounded space, but the order imparted by the
+Morton order preserves nearness. This is a very important property. It means that two
+points that are close together in the grid are also close together in traversal order
+of the grid. This property derives from Riemann's extension of the Pythagorean Theorem
+into multiple dimensions into what is known as Riemann hyperspace.
+
+[[fig-8-13]]
+.Morton Order in irregular and variable size grids
+image::img68.png[]
+
+[[cls-8-5.2.6]]
+==== Grids in 2 or 3 dimensions
+
+Grids may exist in 2 or 3 dimensions. Not all traversal orders will work on higher
+dimensional grids, but both the linear scan traversal and Morton order traversal can
+be extended to 3 dimensions. Each dimension in an stem:[n]-dimensional grid is
+orthogonal to all other dimensions. Thus, in a 3-dimensional grid or equal cell
+spacing, there are a set of perpendicularly crossing lines of equal spacing in each
+dimension, creating cubic cells. These can be thought of as volume elements -- _voxels_.
+
+A quadrilateral grid can easily be extended to 3 dimensions by repeating the grid for
+each cell "layer" in the third dimension. This is commonly done to support multiple
+bands of data for the same cell structure, however for true 3 dimensions where the
+number of cells in the third dimension is large the data volume can become enormous.
+<<fig-8-14>> shows a rectangular grid that is extended into the third dimension by
+repeating the grid for four different bands of data. <<fig-8-15>> shows a rectangular
+grid extended to cover a volume.
+
+[[fig-8-14]]
+.Banding to extend attribute space in a rectangular grid
+image::img69.png[]
+
+[[fig-8-15]]
+.A rectangular grid extended to cover three dimensional volume
+image::img70.png[]
+
+Multidimensional Complex Grids exist in stem:[n]-dimensions and will follow the rules
+of both these structures, allowing the creation for multidimensional,
+multi-resolution, aggregate structures. In hydrographic applications one is usually
+not interested in three dimensional solids but rather the three dimensional
+representation of the sea bottom and material, including floating material within the
+water volume related to the sea bottom. Such datasets are sparse, where most of the
+volume cells (voxels) are empty. If one allows three dimensional cells to aggregate
+into larger cells when they are the same (within a pre-defined tolerance), then most
+of the empty cells disappear into a few larger aggregations. The use of variable size
+cells is useful in handling three and higher dimension data. A variable size cell grid
+in three dimensions is illustrated in <<fig-8-16>>.
+
+[[fig-8-16]]
+.A variable size cell grid in three dimensions
+image::img71.png[]
+
+[[cls-8-5.2.7]]
+==== TIN
+
+The Triangular Irregular Network is a method of describing variable density coverage
+data based on a set of triangles. The TIN structure is very flexible for analysis.
+Since each triangle is a locally flat surface it is straight forward to calculate the
+intersection of an arbitrary curve with a surface represented as a TIN. Attributes can
+be applied to each triangular face, and it is easy, but computationally intensive, to
+process the faces geometrically, in order to calculate contour lines. In a dynamic
+navigation system one could easily calculate the potential intersection of a ship's
+hull with the bottom surface represented as a TIN, and therefore easily determine a
+dynamic safe contour. The calculation of the intersection of a vector with the surface
+of a TIN triangle is the simple calculation of the intersection of a line and a plane.
+An example TIN showing variable size TIN triangles and the TIN vertex points is shown
+in <<fig-8-17>>.
+
+[[fig-8-17]]
+.An example coverage composed of TIN triangles
+image::img72.png[]
+
+A TIN is composed of a set of triangles. The vertices at the corners of each triangle
+are shared with the adjacent triangle. These vertices form the control points of the
+coverage function. There is an inherent overhead involved in a TIN since one must
+store both the triangles and the vertices. Attribute values are attached to the
+triangles, whereas the geometry is derived from the position of the vertices. A TIN
+may be described either by having the triangles reference the shared vertices at their
+corners, or by having the vertices indicate which triangles they are attached to.
+Having the triangles reference the vertices is the simpler structure since each
+triangle has exactly 3 vertices, whereas a vertex may be shared between a variable
+number of triangles.
+
+A TIN is useful in representing variable density data, since the triangles may be
+larger where the data is locally smooth, and more dense to represent data with more
+rapidly changing values. If the points of the TIN are carefully chosen to represent
+ridges, valleys and other significant features, then the TIN can result in a
+significant data compaction; however, if a TIN is automatically generated from an
+arbitrary set of data points the data volume can increase over the original source
+data, or significant information can be lost, Since a TIN coverage can be of any shape
+it can be fitted to cover an area of interest.
+
+S-100 uses the CV_TINCoverage class described in <<ISO19123>>. TIN coverages in S-100
+are continuous coverages.
+
+[[cls-8-5.2.8]]
+==== Grid cell structure
+
+The feature attribute values associated with a grid point represent characteristics of
+the real world measured or observed within a small space surrounding a sample point
+represented by the grid point. The grid lines connecting these points form a set of
+grid cells.
+
+[example]
+In <<fig-8-18>> below, the grid points are (stem:[a], stem:[b], stem:[c], stem:[d]),
+located at the intersections of the solid lines. The cells (stem:[A], stem:[B],
+stem:[C], stem:[D]) bounded by dashed lines represent the sample spaces associated
+with these grid points. These sample spaces are grid cells in an offset grid
+(represented by the dashed lines) relative to the data grid (represented by the solid
+lines). Evaluation at any direct position stem:[X] within the grid cell stem:[G]
+(bounded by the solid lines) will be based on interpolation from stem:[a], stem:[b],
+stem:[c] and stem:[d] (and possibly involve additional grid points outside the cell).
+
+[[fig-8-18]]
+.Grid cell structure (after <<ISO19123,figure=15>>)
+image::img73.png[]
+
+S-100 utilizes the same view of grid cell structure as <<ISO19123,section=8.2.2>>. The
+grid data in S-100 grid coverages are nominally situated exactly at the grid points
+defined by the grid coordinates. The grid points are therefore the "sample points."
+Data values at a sample point represent measurements over a neighbourhood of the
+sample point. This neighbourhood is assumed to extend a half-cell in each dimension.
+The effect is that the sample space corresponding to each grid point is a cell centred
+at the grid point. S-100 refines the <<ISO19123>> view by adding optional attributes
+to indicate the location of the data values relative to the grid cell corners as
+encoded in the grid dataset. These optional attributes can be used to effectively
+avoid offset grids or subdivision of grid cells during evaluation and portrayal, or
+for more complex representations of gridded data.
+
+Note that applying interpolation methods to a coverage means that the value of a data
+characteristic at a location between grid points may be different from that at any or
+all of the grid points which are its nearest neighbours. Such differentiation may be
+avoided by means of the additional S-100 attributes mentioned above.
+
+[[cls-8-5.3]]
+=== Dataset structure
+
+A dataset consists of a collection of one or more coverages together with associated
+metadata. Metadata may be associated with the dataset as a whole, or with individual
+coverages. Metadata may also be associated with particular data elements where needed.
+More detailed metadata at a lower level overrides general metadata for an entire
+coverage or collection. Metadata may also be associated with particular regions of a
+dataset or other grouping of dataset elements.
+
+The description of metadata may be organized in several different ways. In this
+Standard the metadata is organized into modules. The S100_DatasetDiscoveryMetadata
+module relates to the dataset as a whole, and is described in S-100 Part 17. The
+S100_IF_CollectionMetadata module refers to the S100_IF_StructuralMetadata module, the
+S100_IF_AcquisitionMetadata module and the S100_IF_QualityMetadata module as
+sub-components. S100_IF_CollectionMetadata may be encoded within the dataset file or
+externally. Structural, acquisition, and quality metadata are optional except for
+required elements defining the coverage format, which are specified in S-100 Part 10c.
+
+Coverages or Point Set data may also be organized into tiles. Metadata may also be
+associated with a tile. The overall structure of a dataset is illustrated in
+<<fig-8-19>>.
+
+[[fig-8-19]]
+.Data Set Structure (adapted from <<ISO19129,figure=7>> - IGCD Structure and Metadata)
+image::img74.png[]
+
+[[cls-8-5.3.1]]
+==== S100_Dataset
+
+A dataset is an identifiable collection of data that can be represented in an exchange
+format or stored on a storage media. A dataset can represent all or a part of a
+logical data collection and may include one or many tiles of data. The content of a
+dataset is defined by the Product Specification for that particular type of data and
+is normally suited to the use of that data. A Product Specification for a particular
+data type needs to have a plan that indicates the organization of that data product.
+For example, a simple gridded bathymetry model based product may have only one
+bathymetry grid coverage, and a tiling scheme that indicates that every dataset
+contains one tile. More complex products may include several collocated coverages and
+more complex tiling schemes such as a quad tree based variable size tiling scheme,
+where one dataset may, at times contain more than one tile. The dataset is the logical
+entity that can be identified by the associated discovery metadata, not the physical
+entity of exchange.
+
+[[cls-8-5.3.2]]
+==== S100_DatasetDiscoveryMetadata
+
+Associated with a dataset is a set of discovery metadata that describes the dataset so
+that it can be accessed. It consists of the dataset discovery metadata defined in
+S-100 Part 17.
+
+[[cls-8-5.3.3]]
+==== S100_ExchangeSet
+
+The nominal transmittal for S-100 datasets is via Exchange Sets. An Exchange Set
+represents the physical entity of exchange. The transmittal is dependent upon the
+encoding format and the exchange media. A transmittal on a physical media such as a
+DVD may carry a number of datasets, whereas a transmittal over a low bandwidth
+telecommunications line may carry only a small part of a dataset. Any metadata carried
+with a transmittal is integral to the transmittal and may be changed by the exchange
+mechanism to other exchange metadata as required for the routing and delivery of the
+transmittal. A common exchange mechanism would be to carry a whole dataset on one
+physical media such as a CD-ROM. Transmittal metadata is not shown because any
+transmittal metadata, exclusive of the information in the
+S100_DatasetDiscoveryMetadata module, is dependent upon the mechanism used for
+exchange, and may differ from one exchange media or encoding format to another. An
+example oftransmittal metadata would be counts of the number of data bytes in a unit
+of exchange.
+
+[[cls-8-5.3.4]]
+==== S100_IF_Collection
+
+An S100_IF_Collection represents a collection of data. A collection may include
+multiple different data types over a particular area, or multiple coverages of data of
+the same coverage type, but representing different surfaces. For example a collection
+may consist of a grid coverage and a point set over the same area, where the grid
+coverage represents a bathymetry surface and the point set a number of sounding points.
+
+[[tab-8-1]]
+.S100_IF_Collection
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_Collection
+| Collection of data
+| -
+| -
+|
+
+| Attribute
+| extent
+| Spatiotemporal extent of the collection
+| 1
+| EX_Extent
+|
+
+| Attribute
+| metadata
+| Link to metadata in external file
+| 0..1
+| CharacterString
+|
+
+| Role
+| component
+| Coverages in the collection
+| 1..*
+| S100_IF_Coverage
+|
+
+| Role
+| has
+| Metadata for the collection
+| 1
+| S100_IF_CollectionMetadata
+|
+
+| Role
+| tiling
+| Tiling scheme for the collection
+| 0..1
+| S100_IF_Tiling
+|
+|===
+
+[[cls-8-5.3.5]]
+==== S100_IF_CollectionMetadata
+
+Associated with an S100_IF_Collection is a set of collection metadata that describes
+the data product as represented in the collection. It consists of a number of
+sub-components that include S100_IF_StructuralMetadata, S100_IF_AcquisitionMetadata
+and S100_IF_QualityMetadata, as well as identification, coordinate reference system
+information, and dataset content. These metadata classes are descriptive metadata
+defined in <<ISO19115-1>>, <<ISO19115-2>> and <<ISO19157>>.
+
+[[tab-8-2]]
+.S100_IF_CollectionMetadata
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_CollectionMetadata
+| Metadata for all coverages in the dataset
+| -
+| -
+|
+
+| Role
+| (component)
+| Identification information about the dataset
+| 1
+| S100_IF_IdentificationMetadata
+| Product Specification, dataset issue date, etc
+
+| Role
+| (component)
+| Metadata about dataset content
+| 1
+| S100_IF_ContentMetadata
+| Domain features and attributes
+
+| Role
+| (component)
+| Metadata about structure
+| 0..1
+| S100_IF_StructuralMetadata
+|
+
+| Role
+| (component)
+| Metadata about acquisition
+| 0..1
+| S100_IF_AcquisitionMetadata
+|
+
+| Role
+| (component)
+| Data quality information
+| 0..1
+| S100_IF_QualityMetadata
+|
+
+| Role
+| (component)
+| CRS information
+| 1
+| SC_CRS
+| Attributes to identify the CRS
+|===
+
+[[cls-8-5.3.6]]
+==== S100_IF_StructuralMetadata
+
+Associated with a coverage data type is a set of structure metadata that describes the
+structure of the coverage or point set. This is an abstract class realized by S-100
+Part 10c, where the structural metadata elements which are essential for S-100
+coverage types are specified.
+
+[[cls-8-5.3.7]]
+==== S100_IF_AcquisitionMetadata
+
+Associated with a coverage data type is optionally one or many sets of acquisition
+metadata that describes the source of the data. This is an abstract class which may be
+realized by individual Product Specifications.
+
+[[cls-8-5.3.8]]
+==== S100_IF_QualityMetadata
+
+Associated with a coverage data type is optionally one or many sets of quality
+metadata that describes the quality of the data. This is an abstract class partially
+realized by S-100 Part 10c (as the _uncertainty_ dataset in Table 10c-11) and
+partially in individual Product Specifications.
+
+[[cls-8-5.3.9]]
+==== S100_IF_Coverage
+
+This is an abstract class used to represent all of the types of coverage data that may
+occur in an S100_IF_Collection.
+
+The subclasses of S100_IF_Coverage correspond to the types of coverages permitted for
+S-100 datasets. These classes are described in <<cls-8-7>>.
+
+[[cls-8-5.3.10]]
+==== S100_IF_Tiling
+
+This class is an abstract class used to describe the tiling scheme used with the
+S100_IF_Collection. Metadata identifying a particular instance of a tile is included
+in the S100_IF_StructuralMetadata module. Typical tiling schemes are described in
+<<cls-8-6>>.
+
+[[cls-8.5.3.11]]
+==== S100_IF_IdentificationMetadata
+
+Identification metadata for S-100 coverage datasets includes information about the
+Product Specification, issue data and time, geographic location identifier, etc. This is an abstract class realized in S-100 Part 10c.
+
+[[cls-8-5.3.12]]
+==== S100_IF_ContentMetadata
+
+This is an abstract class representing metadata about dataset content, in particular
+features and attributes as defined in the Feature Catalogue. It is realized in S-100
+Part 10c.
+
+[[cls-8-5.3.13]]
+==== SC_CRS
+
+This class represents information about the coordinate reference system and datums
+(horizontal and vertical) used by the coverages. It is realized by attributes defined
+in S-100 Part 10c.

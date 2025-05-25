@@ -1,0 +1,72 @@
+== References
+
+[bibliography]
+=== Normative references
+
+The following referenced documents are required for the application of this document.
+For dated references, only the cited edition applies. For undated references, the
+latest edition of the referenced document (including any amendments) applies.
+
+* [[[S97,IHO S-97]]]
+
+* [[[ISO19103,ISO/TS 19103:2005]]]
+
+* [[[ISO19107,ISO 19107:2003]]]
+
+* [[[ISO19111,ISO 19111:2007]]]
+
+* [[[ISO19115-1,ISO 19115-1]]]
+
+* [[[ISO19115-2,ISO 19115-2:2009]]]
+
+* [[[ISO19123,ISO 19123:2005]]]
+
+* [[[ISO19129,ISO/TS 19129:2009]]]
+
+* [[[ISO19157,ISO 19157]]]
+
+[bibliography]
+=== Informative references
+
+The following references have been superseded by later editions or are otherwise
+useful though not normative.
+
+* [[[ANSI523,ANSI T1.523-2001]]],
+_span:title[Telecommunications Glossary 2000]_,
+_span:organization[American National Standard]_
+_span:docid.ANSI[T1.523-2001]_.
+span:note[(Defines the term "data compaction" which is used in this Part and defined in S-100 Annex A -- Terms and Definitions.)]
+
+* [[[S52,IHO S-52]]]
+
+* [[[S61,IHO S-61]]]
+
+* [[[S98,IHO S-98]]], _Data Product Interoperability in S-100 Navigation Systems_, Edition 1.0.0, May 2022
+
+* [[[ISO19108,ISO 19108]]]
+
+* [[[ISO19113,ISO 19113]]]
+
+* [[[ISO19114,ISO 19114:2003]]]
+
+* [[[ISO19117,ISO 19117]]]
+
+* [[[ISO19118,ISO 19118]]]
+
+* [[[ISO19130,ISO/TS 19130:2010]]]
+
+* [[[ISO12087-5,ISO/IEC 12087-5:1998]]]
+
+* [[[ISO15444-1,ISO/IEC 15444-1:2004]]]
+
+* [[[ISO19115-3,hidden(ISO 19115-3)]]]
+
+* [[[ISO19109,hidden(ISO 19109)]]]
+
+* [[[ISO19138,hidden(ISO/TS 19138)]]]
+
+* [[[ISO19115,hidden(ISO 19115)]]]
+
+* [[[S57,hidden(IHO S-57)]]]
+
+* [[[ISO19112,hidden(ISO 19112)]]]

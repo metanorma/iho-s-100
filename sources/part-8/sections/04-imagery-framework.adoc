@@ -1,0 +1,213 @@
+[[cls-8-4]]
+== Imagery and Gridded Data Framework
+
+[[cls-8-4.1]]
+=== Framework structure
+
+The framework for Imagery, Gridded and Coverage data used in this Part of S-100 is
+derived from <<ISO19129>> Imagery, Gridded and Coverage data Framework. Only a subset
+of the framework defined in the ISO standard is required in
+S-100{blank}footnote:[There is a commonality between the text in portions of this  standard and in the ISO standard 19129 because sections of this document have been  contributed to ISO as input in the development of <<ISO19129>> and have thus been  incorporated into the ISO document.]
+The framework as described in ISO can support
+both georeferenced and georeferenceable data. This component of S100 is limited to
+georeferenced data although it can easily be extended in the future to address
+georeferenceable data such as sensor data.
+
+The framework identifies how the various elements of a coverage dataset fit together.
+The framework provides a common structure that establishes an underlying compatibility
+between different sets of coverage data. The common framework established in
+<<ISO19129>> fosters a convergence at the "Content Model" level between different sets
+of imagery and gridded data expressed using different standards and also between the
+information holdings expressed using these standards. An underlying compatibility at
+the content model level for a broad range of imagery and gridded data allows for
+backward compatibility with existing standards. The content model describes
+information independent of the way in which it is stored, communicated or portrayed.
+This permits multiple encodings for the same content.
+
+Gridded data, including imagery data, is fundamentally simple. It consists of a set of
+attribute values organized in a grid together with metadata to describe the meaning of
+the attribute values and spatial referencing information to position the data. Other
+coverage data is also simple. It also defines a set of points or triangles that drive
+a coverage function together with metadata. The metadata may contain identification
+information, quality information, such as the sensor from which the data was
+collected. The spatial referencing information contains information about how the set
+of attribute values is referenced to the earth. The spatial referencing information
+itself is expressed as metadata.
+
+Auxiliary information, also expressed as metadata, may assist in portrayal or
+encoding, however the basic content may be portrayed in different ways or carried
+using different encoding mechanisms, so such auxiliary information is not a part of an
+imagery and gridded data content model. <<fig-8-1>> illustrates the simple structure
+of gridded data.
+
+[[fig-8-1]]
+.Simple structure of gridded data (Showing the Relationship of Metadata to a set of Gridded Data Represented in a Grid Value Matrix)
+image::img55.png[]
+
+The <<ISO19129>> framework standard allows Imagery, Gridded and Coverage data to be
+described at several levels. These are an abstract level as addressed in <<ISO19123>>
+Geographic information - Schema for coverage geometry and functions, a content model
+level and an encoding level. The encoding level is independent from the content level.
+Multiple different encodings may carry the same content.
+
+Most of the existing standards relating to imagery and gridded data describe data
+content in terms of its representation in an exchange format. The format defines data
+fields and describes the contents and meaning of these data fields. This implicitly
+defines the information content that can be carried by the exchange format. Defining
+the content in terms of its encoding binds the content to that single encoding format
+and makes data conversion very difficult.
+
+The ISO 19100 suite of standards defines geographic information content in terms of
+an object oriented data model expressed in the Unified Modeling Language (UML), which
+allows the content to be encoded using different exchange formats or stored in a
+database irrespective of the exchange encoding. The following figure, corresponding to
+<<ISO19129>>, presents the overall relationship between the elements of the
+framework{blank}footnote:[References to superseded ISO 191xx standards have been removed or updated.].
+
+[[fig-8-2]]
+.Overall relationship between the elements of the framework
+image::img56.png[]
+
+S-100 requires certain discovery metadata elements to be provided in an Exchange
+Catalogue (S-100 Part 17), and permits the use of additional files conforming to the
+<<ISO19115-3>> format to encode additional metadata, including structural,
+acquisition, and quality metadata.
+
+[[cls-8-4.2]]
+=== Abstract level
+
+The abstract level provides a generic structure for all types of coverage geometries
+including gridded data geometries and point set and TIN geometries. This abstract
+structure is defined in <<ISO19123>> -- Geographic information -- Schema for coverage
+geometry and functions. S-100 takes from <<ISO19123>> various types of grid structures
+including a rectangular grid, an irregularly shaped grid, a grid with variable cell
+sizes and a multi-dimensional grid. A tiled grid is actually a set of grids. S-100
+also includes a point coverage and a TIN coverage derived from <<ISO19123>>.
+
+[[cls-8-4.3]]
+=== Content model level
+
+The content model level describes the information content of a set of geographic
+information consisting of: the Spatial Schema, feature identification and associated
+metadata, where other aspects such as quality, geo-referencing, etc, is represented in
+the metadata. The content model does not include portrayal or encoding or the
+organization of the data to accommodate various storage or exchange media. Exchange
+metadata that describes the information about a data exchange is not part of the
+information defined by the content model.
+
+The content model level consists of a set of predefined content structures, which
+serve as the core for various Application Schemas to be developed for imagery,
+coverage and gridded data. This Part defines a small set of grid structures, with
+associated traversal orders. These provide a set of spatial organizations for gridded
+data. A point set structure and a TIN structure are also defined.
+
+The feature model defined in <<ISO19109>> "Geographic information - Rules for
+Application Schema" as profiled in S-100 Part 3 applies to imagery and gridded data.
+The Application Schema defines one or more geographic feature types whose attributes
+are the elements of the respective value record. For example, a bathymetry grid may
+define a geographic feature type with attributes for depth and uncertainty. The
+geometric component for each feature type may be modelled by one of the spatial types
+described in this Part.
+
+Although the conventional approach is to consider an image as a unique entity on its
+own, and to not consider a feature structure, it is proper to consider imagery,
+gridded and coverage data as feature oriented data. In the simplest form, an image or
+any set of gridded data can be considered as a single feature. For example, an entire
+satellite image could be considered as a single feature -- the image. However, it is
+also possible to do feature extraction on an image, where sets of pixels are the
+geometric representation of a feature. Certain selected pixels could correspond to a
+bridge, and other pixels correspond to a rock. An Application Schema can contain a
+feature model, where the geometric component of the feature model consists of sets of
+geometric points corresponding to the picture elements (pixels) in a grid structure of
+an image. However, if a feature structure is associated with an image it is necessary
+to provide a method of linking feature IDs to individual pixels in the image. This can
+be done by carrying additional attributes in the grid value matrix, or by a pointer
+structure. For example, an image may be represented as a simple grid consisting of a
+set or rows and columns providing organization to a set of pixels. Each pixel contains
+attributional data such as the colour and light intensity seen at that point. Each
+pixel may also contain an additional attribute that indicates the feature ID
+associated with the pixel, so that the pixels corresponding to the image of a bridge
+are marked as the feature bridge, and those corresponding to a rock are marked as
+rock. Other more efficient structures may be defined to identify sets of pixels as
+corresponding to a given feature. This capability is particularly useful for adding
+intelligence to raster scanned image paper chart products, and for fusing S-100 vector
+data products with imagery and gridded data products.
+
+<<fig-8-3>> below depicts the overall structure for imagery, gridded, or coverage
+data. The Content Model includes the spatial structure and the metadata. The encoding
+structure is separate but related. Systemic compression which allows for data
+compaction is part of the content model whereas stochastic compression which allows
+for data compression is not. An example of systemic compression is the removal of
+information that is known by the application to be not necessary. This would include
+areas over which there is no data (sub-tiling), and the removal of lower order bits of
+numeric data for lower precision numbers. A tiled grid exhibits systemic compression
+when tiles are only defined for areas where there is data. Systemic compression also
+exists in a variable size pixel structure where adjacent pixels of the same attribute
+value can be aggregated into a single larger pixel. Stochastic (statistical)
+compression removes redundant information that occurs randomly. For example, repeated
+bit patterns that can be compressed by an algorithm. The ZIP algorithm often used to
+compress files is an example of stochastic compression. Systemic compression relates
+to a particular type of image, whereas stochastic compression relates to a particular
+instance of an image. Both types of compression may be applied, but the stochastic
+compression is part of the encoding structure, whereas the systemic compression is
+part of the content model.
+
+[[fig-8-3]]
+.Image and gridded data structure
+image::img57.png[]
+
+<<fig-8-4>> below presents the elements contained in a general content model for
+imagery gridded and coverage data. This is a subset of <<fig-8-3>> above, with the
+representational structure not shown, since it is not part of the content model. The
+mechanism for systemic compression is not directly shown because it relates to the
+structure of the Grid Value Matrix.
+
+[[fig-8-4]]
+.General imagery and gridded data content description
+image::img58.png[]
+
+[[cls-8-4.3.1]]
+==== Metadata
+
+Typical metadata elements for geographic datasets are defined in
+<<ISO19115-1>>/<<ISO19115-2>>, with additional elements relating to data quality in
+<<ISO19157>>. <<app-8-D>> lists a selection of these elements typically used for
+imagery, gridded, and coverage data. Product Specifications are not required to define
+metadata corresponding to the elements listed in <<ISO19115-1>>/<<ISO19115-2>> or
+<<app-8-D>>, but [underline]#must# include the mandatory metadata elements described in S-100, and
+[underline]#may# include the optional metadata elements described in S-100 as well as requiring
+additional product-specific metadata.
+
+Depending on the requirements of the data product, Product Specifications may provide
+metadata using any combination of the following methods:
+
+* Externally to the dataset, in the Exchange Catalogue or additional metadata files.
+* Within dataset files using one or both of the following methods:
+
+** As attributes of the dataset, of a feature type, or individual feature instances.
+** By defining additional feature types which are also encoded in datasets as coverage
+features.
+
+If the metadata are encoded as additional feature types, the Application Schema should
+define feature or information types defining the attributes and, for feature types, a
+spatial representation which must be one of the spatial types defined in this Part.
+
+In determining whether metadata is encoded in the Exchange Catalogue or within dataset
+files, Product Specifications must conform to S-100 Parts 10c and 17. Unnecessary
+duplication of metadata in both external and internal forms is possible but
+discouraged.
+
+[[cls-8-4.3.2]]
+==== Encoding
+
+The content model defines the structure to which an encoding rule may be applied.
+There are a large number of different encodings used for imagery, gridded and coverage
+data that provide encoding services for this class of information. Many of these
+encodings are well used standardized exchange formats. S-100 provides a common content
+model structure that can be encoded or stored using different encoding formats (for
+example <<fig-8-2>>, GeoTIF).
+
+For the coverage encoding format, S-100 uses the Hierarchical Data Format (HDF version
+5), which is object oriented and suitable for all types of coverage data, including
+point sets and TIN triangles. The S-100-mandated profile of HDF5 is described in S-100
+Part 10c.

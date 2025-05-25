@@ -1,0 +1,796 @@
+[[cls-8-7]]
+== Spatial Schema
+
+Each of the S100_IF_Coverage subclasses has a specific Spatial Schema that describes
+the structure of that data type. The data types identified in <<cls-8-5.3>> are:
+
+. S100_IF_PointCoverage:
+. S100_IF_TINCoverage; and
+. S100_IF_GridCoverage.
+
+The conceptual models of these coverage subclasses make use of point sets and
+geometry/value pairs, which are described by the classes S100_IF_PointSet and
+CV_GeometryValuePair and its subclasses.
+
+[[cls-8-7.1]]
+=== S100_IF_PointSet spatial model
+
+An S100_Point is a single point referenced to a 3-D coordinate reference system. Its
+value is carried as a coordinate rather than an attribute. Such points are generated
+by certain types of sensors. An S100_IF_PointSet is not a coverage. A Point Set can
+be used to generate a Point Coverage. The class S100_IF_PointSet is illustrated in
+<<fig-8-21>>.
+
+[[fig-8-21]]
+.S100_IF_PointSet
+image::img76.png[]
+
+The attribute _geometry_ contains an instance of GM_Point.
+
+[[cls-8-7.2]]
+=== CV_GeometryValuePair and subclasses
+
+The class CV_GeometryValuePair describes an element of a set that defines the
+relationships of a discrete coverage. Each member of this class consists of two
+parts: a domain object from the domain of the coverage to which it belongs; and a
+record of feature attribute values from the range of the coverage to which it
+belongs. CV_GeometryValuePair may be generated in the execution of an evaluate
+operation; and need not be persistent. CV_GeometryValuePair is subclassed (see
+<<cls-8-5>>) to restrict the pairing of a feature attribute value record to a
+specific subtype of domain object.
+
+[[tab-8-3]]
+.CV_GeometryValuePair
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class | CV_GeometryValuePair | (S-100) 2-tuple of coverage spatial element and value record for that element | - | - | In S-100 this is an abstract model of the pairing between elements of a coverage and the associated values
+
+| Attribute | geometry | Spatial primitive | 1 | GM_Point ORCV_GridPoint | S-100 uses only points (including TIN vertices) or grid points as spatial elements of coverages
+
+| Attribute | value | Record of feature attribute values associated with this spatial object | 1 | RecordType |
+|===
+
+S-100 uses only two of the subclasses of CV_GeometryValuePair defined in <<ISO19123>>:
+
+* CV_PointValuePair, the subclass of CV_GeometryValuePair that has geometry =
+GM_Point and represents values at single points.
+* CV_GridPointValuePair, the subclass of CV_GeometryValuePair that has geometry =
+CV_GridPoint and represents values at the grid points.
+
+[[tab-8-4]]
+.CV_PointValuePair
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| CV_PointValuePair
+| CV_PointValuePair is the subtype of CV_GeometryValuePair that has a GM_Point as the value of its geometry attribute
+| -
+| CV_GeometryValuePair
+|
+
+| Attribute
+| geometry
+| Spatial primitive
+| 1
+| GM_Point
+|
+
+| Attribute
+| value
+| Value record
+| 1
+| RecordType
+a| Inherited from CV_GeometryValuePair
+
+Must conform to rangeType
+|===
+
+[[tab-8-5]]
+.CV_GridPointValuePair
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| CV_GridPointValuePair
+| CV_GridPointValuePair is the subtype of CV_GeometryValuePair that has a CV_GridPoint as the value of its geometry attribute
+| -
+| CV_GeometryValuePair
+| Applies only to grid coverages
+
+| Attribute
+| geometry
+| Spatial primitive
+| 1
+| CV_GridPoint
+|
+
+| Attribute
+| value
+| Value record
+| 1
+| RecordType
+a| Inherited from CV_GeometryValuePair
+
+Must conform to rangeType
+|===
+
+[[cls-8-7.3]]
+=== S100_IF_PointCoverage spatial model
+
+An S100_IF_PointCoverage is a type of CV_DiscretePointCoverage from <<ISO19123>>. The
+attribute values in the value record for each CV_GeometryValuePair represent values
+of the coverage, such as bathymetric soundings.
+
+The class S100_IF_PointCoverage (<<fig-8-22>>) represents a set of values, such as
+bathymetric depth values, assigned to a set of arbitrary stem:[X], stem:[Y] points.
+Each point is identified by a horizontal coordinate geometry pair stem:[(X,Y)] and
+assigned one or more values as attribute values. These values are organized in a
+record for each point.
+
+[[fig-8-22]]
+.S100_IF_PointCoverage
+image::img77.png[]
+
+[[tab-8-6]]
+.S100_IF_PointCoverage
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_PointCoverage
+| Spatial type for point coverages
+| -
+| -
+|
+
+| Attribute
+| domainExtent
+| The spatiotemporal extent of the domain of the coverage
+| 0..1
+| EX_Extent
+a| Required only if the extent is different from the extent of the owning dataset
+
+See <<note1>>
+
+| Attribute
+| rangeType
+| Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
+| 1
+| RecordType
+| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c)
+
+| Attribute
+| commonPointRule
+| Procedure used for evaluating the coverage at a position that falls on the boundary or in an area of overlap between geometric objects in the domain of the coverage
+| 1
+| CV_CommonPointRule
+a| The ISO values "start" and "end" are not used
+
+See <<note2>>
+
+| Role
+| element
+| Spatial element
+| 1..*
+| S100_IF_PointSet
+|
+|===
+
+[[note1]]
+[NOTE]
+====
+domainExtent_ may be implemented as a geographic bounding box or bounding polygon
+with the temporal extent being implemented using separate attributes.
+====
+
+[[note2]]
+[NOTE]
+====
+The rule defined by attribute _commonPointRule_ shall be applied to the set of values
+that results from evaluating the coverage with respect to each of the geometric
+objects that share a boundary. Appropriate values of the CV_CommonPointRule include
+'all', 'average', 'high', and 'low'. For example, data used for bathymetric purposes
+may make use of the 'high' value (depending on the stem:[Z] axis direction) to ensure
+that obstructions such as rocks or shoals are emphasised. In the case of discrete
+point coverages, _commonPointRule_ is relevant only if a spatial query returns more
+than one point element of the coverage within the tolerance of the query.
+====
+
+[[cls-8-7.4]]
+=== S100_IF_TINCoverage spatial model
+
+A TIN coverage is a type of CV_ContinousCoverage as described in <<ISO19123>>. The
+attribute values in the value record for each CV_GeometryValuePair represent values
+for each of the vertex corners of the triangle. Any additional attributes related to
+a TIN triangle may be described as attributes of CV_ValueTriangle.
+
+A TIN covers an area with a unique set of non-overlapping triangles where each
+triangle is formed by three points. The geometry for a TIN is described in
+<<ISO19107>> and a TIN coverage is described in <<ISO19123>>. TIN coverages are
+particularly useful for representing elevation or bathymetry in some applications. It
+is easier to calculate an intersection with a coverage surface when it is represented
+as a TIN. The class S100_IF_TINCoverage is illustrated in <<fig-8-23>>.
+
+[[fig-8-23]]
+.S100_IF_TINCoverage
+image::img78.png[]
+
+[[tab-8-7]]
+.S100_IF_TINCoverage
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_TINCoverage
+| Spatial type for TIN coverages
+| -
+| -
+|
+
+| Attribute
+| domainExtent
+| The spatiotemporal extent of the domain of the coverage
+| 0..1
+| EX_Extent
+a| Required only if the extent is different from the extent of the owning dataset
+
+See <<note3>>
+
+| Attribute
+| rangeType
+| Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
+| 1
+| RecordType
+| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c)
+
+| Attribute
+| commonPointRule
+| Procedure used for evaluating the coverage at a position that falls on the boundary or in an area of overlap between geometric objects in the domain of the coverage
+| 1
+| CV_CommonPointRule
+a| The ISO values "start" and "end" are not used.
+
+See <<note4>>
+
+| Attribute
+| interpolationType
+| The interpolation method to be used in evaluating the coverage
+| 1
+| CV_InterpolationMethod
+| See <<note5>>
+
+| Attribute
+| geometry
+| Describes the network of triangles that form the basis of the TIN
+| 1
+| GM_Tin
+| See <<note6>>
+|===
+
+[[note3]]
+[NOTE]
+====
+_domainExtent_ may be implemented as a geographic bounding box or bounding polygon
+with the temporal extent being implemented using separate attributes.
+====
+
+[[note4]]
+[NOTE]
+====
+The rule defined by attribute _commonPointRule_ shall be applied to the set of values
+that results from evaluating the coverage with respect to each of the geometric
+objects that share a boundary. Appropriate values of the CV_CommonPointRule include
+'all', 'average', 'high', and 'low'. For example, data used for bathymetric purposes
+may make use of the 'high' value (depending on the stem:[Z] axis direction) to ensure
+that obstructions such as rocks or shoals are emphasised. The use of the
+_commonPointRule_ occurs where a set of geometric objects are involved, such as the
+triangles in a TIN.
+====
+
+[[note5]]
+[NOTE]
+====
+The attribute _interpolationType_ specifies the interpolation method recommended for
+the evaluation of the S100_IF_TINCoverage where the value is taken from the codelist
+CV_InterpolationMethod with the value "barycentric". The barycentric position S
+within a value triangle composed of the CV_PointValuePairs stem:[(P1, V1)],
+stem:[(P2, V2)], and stem:[(P3, V3)], is stem:[(i, j, k)], where
+stem:[S = iP1 + jP2 + kP3] and the interpolated attribute value at stem:[S] is
+stem:[V = iV1 + jV2 +kV3].
+====
+
+[[note6]]
+[NOTE]
+====
+The triangles lie on a 2 dimensional manifold with the stem:[X], stem:[Y] coordinates
+of the points at the vertices of the triangles representing the position on the
+manifold and the attribute. Three vertex points define a triangle. The attribute
+_geometry_ for a TIN vertex is an instance of GM_Point. The attribute value contains
+a record restricted to one entry that defines the coverage value at the vertex (for
+example depth for a bathymetric TIN vertex point).
+====
+
+[[cls-8-7.5]]
+=== S100_IF_GridCoverage spatial model
+
+The class S100_IF_GridCoverage (<<fig-8-24>> below) represents a set of values
+assigned to the points in a 2D grid. Several organizations of grids are available
+from <<ISO19123>> with different grid traversal orders, and variable or fixed grid
+cell sizes. S-100 makes use of two types of grid organizations, the simple
+quadrilateral grid with equal cell sizes traversed by a linear sequence rule, and the
+variable cell size quadrilateral grid traversed by a Morton Order sequence rule. This
+variable cell size grid organization is known as the Quad Tree for a two dimensional
+grid.
+
+[[fig-8-24]]
+.S100_IF_GridCoverage
+image::img79.png[]
+
+[[tab-8-8]]
+.S100_IF_GridCoverage
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_GridCoverage
+| Coverage type for grid coverages
+| -
+| -
+| Subclasses both continuous and discrete grids
+
+| Attribute
+| domainExtent
+| The spatiotemporal extent of the domain of the coverage
+| 0..1
+| EX_Extent
+a| Required only if the extent is different from the extent of the owning dataset
+
+See <<note7>>
+
+| Attribute
+| rangeType
+| Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
+| 1
+| RecordType
+| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c).
+
+| Attribute
+| commonPointRule
+| Procedure used for evaluating the coverage at a position that falls on the boundary or in an area of overlap between geometric objects in the domain of the coverage
+| 1
+| CV_CommonPointRule
+a| The ISO values "start" and "end" are not used
+
+See <<note8>>
+
+| Attribute
+| interpolationType
+| The interpolation method to be used in evaluating the coverage
+| 1
+| S100_CV_InterpolationMethod
+| See <<note9>>
+
+| Attribute
+| interpolationParameters
+| Holds the values of the parameters required to execute the interpolate operation specified by interpolationType
+| 0..1
+| Record
+a| Conditional in S-100 to interpolation methods 'biquadratic' and 'bicubic' only
+
+Substitutes for <<ISO19123>> attribute interpolationParametersType
+
+| Composition
+| grid
+| The grid parameters, geometry, and values
+| 1
+| S100_IF_Grid
+| A grid coverage must have grid geometry and values
+|===
+
+[[note7]]
+[NOTE]
+====
+_domainExtent_ may be implemented as a geographic bounding box or bounding polygon
+with the temporal extent being implemented using separate attributes. This attribute
+overrides the mandatory _domainExtent_ inherited from CV_Coverage.
+====
+
+[[note8]]
+[NOTE]
+====
+The rule defined by attribute _commonPointRule_ shall be applied to the set of values
+that results from evaluating the coverage with respect to each of the geometric
+objects that share a boundary. Appropriate values of the CV_CommonPointRule include
+'all', 'average', 'high', and 'low'. For example, data used for bathymetric purposes
+may make use of the 'high' value (depending on the stem:[Z] axis direction) to ensure
+that obstructions such as rocks or shoals are emphasised. The use of the
+_commonPointRule_ occurs where a set of geometric objects are involved, such as the
+triangles in a TIN.
+====
+
+[[note9]]
+[NOTE]
+====
+The attribute _interpolationType_ describes the interpolation method recommended for
+evaluation of the S100_IF_GridCoverage. The interpolation methods available are:
+Bilinear interpolation, Bicubic interpolation, Nearest-neighbour, and Biquadratic
+interpolation. These methods are defined in <<ISO19123>>. Discrete point grids must
+use the special value for "no interpolation" added by S-100 (see
+S100_CV_InterpolationMethod).
+====
+
+The class S100_IF_Grid is a realization of CV_RectifiedGrid and CV_GridValuesMatrix
+from <<ISO19123>>. The attributes inherit from the classes in <<ISO19123>>.
+
+[[tab-8-9]]
+.S100_IF_Grid
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_Grid
+| Type for grid geometry and values
+| -
+| -
+|
+
+| Attribute
+| axisNames
+| Names of the grid axes
+|
+| <Sequence>CharacterString
+| Must be as in the EPSG Registry
+
+| Attribute
+| dimension
+| The dimension of the grid
+| 1
+| Integer
+| Number of spatial dimensions, for example 2 for 2D grids
+
+| Attribute
+| extent
+| Area of the grid for which data are provided
+| 1
+| CV_GridEnvelope
+| See <<note10>>
+
+| Attribute
+| offsetVectors
+| The spacing between grid points and the orientation of the grid axis with respect to the external coordinate reference system identified through the attribute origin
+| 1
+| <Sequence>Vector
+|
+
+| Attribute
+| origin
+| Coordinates of the grid origin with respect to an external coordinate system
+| 1
+| DirectPosition
+|
+
+| Attribute
+| sequencingRule
+| Method to be used to assign values from the sequence of values to the grid coordinates
+| 1
+| CV_SequenceRule
+| See <<note11>>, <<note12>>, <<note13>>
+
+| Attribute
+| startSequence
+| CV_GridCoordinate to specify the grid coordinates of the grid point to which the first in the sequence of values is to be assigned
+| 1
+| CV_GridCoordinate
+| The choice of a valid point for the start sequence is determined by the sequencing rule
+
+| Composition
+| values
+| Sequence of Records each containing one or more values to be assigned to a single grid point
+| 1..*
+| S100_IF_GridValues OR CV_GeometryValuePair
+| See <<note14>>
+|===
+
+[[note10]]
+[NOTE]
+====
+Grid coordinates of the corner of the area having the lowest grid coordinate values
+and the corner having the highest grid coordinate values. CV_GridCoordinate is
+specified in 19123 as a sequence of Integer values which identify a grid point, there
+being one integer value for each dimension of the grid. The ordering shall be the
+same as that of the elements of _axisNames_. The value of a single coordinate shall
+be the number of offsets from the origin of the grid in the direction of a specific
+axis.
+====
+
+[[note11]]
+[NOTE]
+====
+For simple grids with equal cell sizes, if data is not available for the whole area
+within this rectangle, then padding with null values shall be used to represent areas
+where no data is available. For variable cell size grids (Quad Tree grids) a
+characteristic of the Morton Order traversal is that nonrectangular areas may be
+represented. In this case the attribute _extent_ is a bounding rectangle that
+encloses the area of the grid for which data are provided.
+====
+
+[[note12]]
+[NOTE]
+====
+Only the values "linear" (for a simple regular cell size grid) and "Morton" (for a
+Quad Tree Grid) shall be used for data that conforms to this standard. The sequence
+rule for a regular cell size grid is simple. When the cells are all of the same size,
+the cell index can be derived from the position of the Record within the sequence of
+Records. For a variable cell size grid the sequence order is more complex. The cell
+index either needs to be carried with each of the associated record values or it can
+be calculated based on each cell size.
+====
+
+[[note13]]
+[NOTE]
+====
+For simple grids with equal cell sizes the _sequencingRule_ attribute of an
+S100_IF_Grid equals "linear" and the offset vector establishes the cell size. The
+attribute extent specifies the area of the grid for which data is provided. For
+variable cell size grids (Quad Tree grids) the _sequencingRule_ attribute equals
+Morton and the offset vector establishes the minimum cell size. The actual cell size
+is included as an attribute in the data record that describes the level of
+aggregation of the quad structure. The attribute _extent_ specifies a bounding
+rectangle within which data is provided. Which cells are included in the dataset is
+determined from the Morton ordered sequence of cells.
+====
+
+[[note14]]
+[NOTE]
+====
+Geometry (point coordinates in the form of an ordered point set) is provided only for
+grid types other than regular grid or variable cell size grids.
+====
+
+[[tab-8-10]]
+.S100_IF_GridValues
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult | Data Type | Remarks
+
+| Class
+| S100_IF_GridValues
+| Type for grid values
+| -
+| -
+|
+
+| Attribute
+| values
+| Ordered list of values for the feature attributes as specified in the feature catalogue
+| 1
+| Record
+| See <<note15;and!note16>>
+|===
+
+[[note15]]
+[NOTE]
+====
+Must conform to the RecordType specified by the _rangeType_ attribute. If the value
+of an attribute is missing or unknown, a fill value must be used in its place.
+====
+
+[[note16]]
+[NOTE]
+====
+For simple grids with equal cell sizes the attribute values may be only data values,
+but for the variable cell size Quad Tree grid the record type shall include an index
+number and the cell size (aggregation level) for the cell.
+====
+
+[[cls-8-7.6]]
+=== Rectified or georeferenceable grids
+
+The S100_IF_Grid model described in <<cls-8-7.5>> is capable of representing
+rectified grids as well as referenceable grids. The model given below in <<fig-8-25>>
+below shows that a Grid can be of two types Rectified or Georeferenceable; and that
+the GridValuesMatrix is a subtype of the general grid object. The referenceable grid
+type is a subclass of CV_Grid and does not add attributes. The difference between
+georectified and georeferenceable grids lies in the operations for coordinate
+conversion:
+
+* For georectified grids, the operation to map grid coordinates to direct positions
+uses the values of the attributes _origin_ and _offsetVectors_ in an affine
+transformation.
+* For georeferenceable grids, the operation to map grid coordinates to direct
+positions is not defined in terms of _origin_ and _offset verctor_. It there is no
+predefined association between one cell's location and that of another; each cell's
+location might be independently calculated.
+
+[[fig-8-25]]
+.Rectified or georeferenceable grids
+image::img80.png[]
+
+A Rectified Grid is related to the Coordinate Reference System through the attribute
+_origin_, the orientation of the grid axes, and the spacing between the grid lines.
+For Rectified Grids, there is an affine relationship between the grid and the
+external coordinate system.
+
+A Referenceable Grid may be related to a Coordinate Reference System through a
+Transform operation that allows the location of all points in the grid to be
+determined in the Coordinate Reference System, but the location of the points is not
+directly available from the grid coordinates; as opposed to a rectified grid where
+the location of the points in the Coordinate Reference System is derivable from the
+properties of the grid itself.
+
+The S-100 model does not use coordinate transformations for georeferenceable grids.
+Instead, the Direct Positions of the grid points are encoded along with the value
+record for each grid point.
+
+[[cls-8-7.7]]
+=== Common enumerations
+
+[[cls-8-7.7.1]]
+==== CV_CommonPointRule
+
+<<ISO19123>> states that "CV_CommonPointRule is a list of codes that identify methods
+for handling cases where the DirectPosition input to the evaluate operation falls
+within two or more of the geometric objects. The interpretation of these rules
+differs between discrete and continuous coverages. In the case of a discrete
+coverage, each CV_GeometryValuePair provides one value for each attribute. The rule
+is applied to the set of values associated with the set of CV_GeometryValuePairs that
+contain the DirectPosition. In the case of a continuous coverage, a value for each
+attribute shall be interpolated for each CV_ValueObject that contains the
+DirectPosition. The rule shall then be applied to the set of interpolated values for
+each attribute."
+
+[[tab-8-11]]
+.CV_CommonPointRule enumeration
+[cols=5,options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| CV_CommonPointRule
+| Codes that identify methods for evaluating the coverage at positions that fall on the boundary or in an area of overlap between geometric objects in the domain of the coverage
+| -
+| <<ISO19123>> CV_CommonPointRule
+
+| Literal
+| average
+| Return the mean of the attribute values
+| 1
+|
+
+| Literal
+| low
+| Use the least of the attribute values
+| 2
+|
+
+| Literal
+| high
+| Use the greatest of the attribute values
+| 3
+|
+
+| Literal
+| all
+| Return all the attribute values that can be determined for the position
+| 4
+|
+|===
+
+NOTE: Use of 'start' and 'end' is prohibited for Product Specifications conforming to
+this edition of S-100, since segmented curves are not included among the coverages
+defined in Part 8 of this Edition.
+
+[[cls-8-7.7.2]]
+==== CV_SequenceType
+
+The scan methods are described in detail in <<ISO19123>>. The order in which scanning
+takes place is the same as the order of axes in the attribute _scanDirection_. The
+starting location of the scan is given in the attribute _startSequence_.
+
+NOTE: Product Specification authors and producers should take care that the start
+location is compatible with the sequence rule and scan direction; for example, linear
+sequencing would be incompatible with a start location at the upper bound of the grid
+bounding box and forward scan order in _scanDirection_.
+
+[[tab-8-12]]
+.CV_SequenceType enumeration
+[cols=5,options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| CV_SequenceType
+| Codes that identify the method of ordering grid points or value records
+| -
+| <<ISO19123>> CV_ SequenceType
+
+| Literal
+| linear
+| Sequencing is consecutive along grid lines, starting with the first grid axis listed in scanDirection
+| 1
+| For example, for 2-D grids with scan direction=(x,y), scanning will be in row-major order
+
+| Literal
+| boustrophedonic
+| Variant of linear sequencing in which the direction of the scan is reversed on alternating grid lines. For grids of dimension > 2, it is also reversed on alternating planes
+| 2
+|
+
+| Literal
+| CantorDiagonal
+| Sequencing in alternating directions along parallel diagonals of the grid. For dimension > 2, it is repeated in successive planes
+| 3
+|
+
+| Literal
+| spiral
+| Sequencing in spiral order
+| 4
+|
+
+| Literal
+| Morton
+| Sequencing along a Morton curve
+| 5
+|
+
+| Literal
+| Hilbert
+| Sequencing along a Hilbert curve
+| 6
+|
+|===
+
+Morton curves are generated by converting the grid coordinates (axial indexes) of
+each grid point to binary numbers and interleaving the binary digits of the results
+to produce the Morton code of the grid point. The method is documented in computer
+science textbooks as well as <<ISO19123>> and other accessible articles. Hilbert
+curves are more complex but descriptions are available in computer science and other
+reference texts (for example, the non-normative references in S-100 Part 10c).
+
+[[cls-8-7.7.3]]
+==== S100_CV_InterpolationMethod
+
+S100_CV_InterpolationMethod extends the <<ISO19123>> codelist CV_InterpolationMethod
+with the 'discrete' literal. The <<ISO19123>> CodeList CV_InterpolationMethod
+includes nine interpolation methods. Each is used in the context of specified grid
+types, indicated in the Remarks column. S-100 adds a 'discrete' literal for use when
+there is no interpolation.
+
+[[tab-8-13]]
+.S100_CV_InterpolationMethod enumeration
+[cols=5,options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration | S100_CV_InterpolationMethod | Codes for interpolation methods between known feature attribute values associated with geometric objects in the domain of the discrete coverage | - | Extension of <<ISO19123>> CV_InterpolationMethod
+
+| Literal | nearestneighbor | Assign the feature attribute value associated with the nearest domain object in the domain of the coverage | 1 | Any type of coverage
+
+| Literal | bilinear | Assign a value computed by using a bilinear function of position within the grid cell | 5 | Only quadrilateral grids
+
+| Literal | biquadratic | Assign a value computed by using a biquadratic function of position within the grid cell | 6 | Only quadrilateral grids
+
+| Literal | bicubic | Assign a value computed by using a bicubic function of position within the grid cell | 7 | Only quadrilateral grids
+
+| Literal | barycentric | Assign a value computed by using the barycentric method described in <<ISO19123>> | 9 | Only TIN
+
+| Literal | discrete | No interpolation method applies to the coverage | 10 | Value added by S-100 to CV_InterpolationMethod
+|===
+
+NOTE: The literals __linear__, __quadratic__, and _cubic_ are prohibited since this
+Edition of S-100 does not include segmented curve coverages. The _lostarea_ method is
+also omitted since this applies to Thiessen polygons which are not used in this
+Edition of S-100.
+
+NOTE: Interpolation parameters, if needed, must be encoded in the
+_interpolationParameters_ (see <<tab-8-8>> in <<cls-8-7.5>>).
