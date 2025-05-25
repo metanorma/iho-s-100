@@ -1,0 +1,55 @@
+[[app-4a-C]]
+[appendix,obligation=normative]
+== Metadata Implementation
+
+=== Background
+
+<<ISO19115-1>> defines the content of a set of metadata elements, their definitions,
+data types and inherent dependencies. The logical model of the metadata specifies the
+content and not the form of implementation or the form of presentation. A primary goal
+in the management of metadata for resources is the ability to access the metadata and
+the related resource it describes. This requires software implementations using common
+encoding methods to achieve operational use of the metadata.
+
+It is necessary to implement the Profile in order to prove compliance. <<ISO19115-3>> is
+an XML Schema implementation of <<ISO19115-1>> and can be used to prove partial
+compliance to <<ISO19115-1>> and the S-100 metadata profile. IHO has developed
+additional Schematron rules to enforce the additional restriction for the
+metadataIdentifier element. Proof of compliance to this profile be via validation of the
+XML document instances against the <<ISO19115-3>> XML Schema Definition (XSDs) and the
+S-100 Schematron Metadata Rules.
+
+While the S100_Metadata class specializes the MD_Metadata class, the specialization only
+involves restricting metadataIdentifier from optional to mandatory. Therefore the
+MD_Metadata root element must be used instead of the S100_Metadata for XML instances of
+S-100 metadata in order to ensure interoperability with ISO standards and software tool.
+
+Granularity of geographic data supported: The notion of cataloguing a set of related
+documents together in a discoverable series is common practice for map Catalogues. With
+digital spatial data, the definition of what constitutes a dataset is more problematic
+and reflects the institutional and software environments of the originating
+organisation. Common metadata can be derived for a series of related geographic
+datasets, and such metadata is generally relevant or can be inherited by each of the
+dataset instances. Software to support this inheritance of metadata for geographic data
+within a cataloguing system can simplify data entry, update and reporting.
+
+There is a potential hierarchy of reusable metadata that can be employed in implementing
+a metadata collection. By creating several levels of abstraction, a linked hierarchy can
+assist in filtering or targeting user queries to the requested level of detail. The
+hierarchy should not necessarily be interpreted to require multiple copies of metadata
+being managed online. Conversely, the definition of general metadata can be supplemented
+by spatially specific metadata that, when queried, either inherits or overrides the
+general case.
+
+Through the use of pointers this method can reduce the redundancy of metadata managed at
+a site and provide for different views of the holdings by users. These 'pointers' are
+implemented in the XSDs by XLink attributes.
+
+Dependencies between metadata document elements and elements in other metadata documents
+may exist, allowing inheritance of metadata between hierarchy levels. Dependencies
+between metadata document elements and resources from standard registers may exist,
+allowing re-use of standard resources without copying the content. For either purpose
+the dependency may be made explicit through use of the XLink attributes which are
+available on most property elements in the XML representation. XLink:href is used to
+point to the re-used resource. XLink:arcrole is used to indicate the kind of re-use.
+XLink:role is used to indicate the nature of the reused resource.

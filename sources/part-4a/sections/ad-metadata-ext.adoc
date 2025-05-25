@@ -1,0 +1,62 @@
+[[app-4a-D]]
+[appendix,obligation=normative]
+== Metadata Extensions
+
+These rules are an adaptation of the Metadata extension rules provided in
+<<ISO19115-1,appendix="C">>. These rules are meant to be used as a common rule set for
+how to extend S-100 metadata, and aims to create a common process that gives
+predictability for implementers.
+
+=== Types of extensions
+
+The following types of extensions shall be allowed:
+
+. adding a new metadata package;
+. creating a new metadata codelist to replace the domain of an existing metadata element
+that has "free text" listed as its domain value;
+. creating new metadata codelist elements (expanding a codelist);
+. adding a new metadata element;
+. adding a new metadata class;
+. imposing a more stringent obligation on an existing metadata element; and
+. imposing a more restrictive domain on an existing metadata element.
+
+=== When creating an extension
+
+Prior to the creation of extended metadata, a careful review of the existing metadata
+within ISO 19115-1 must be performed to confirm that suitable metadata does not already
+exist. If suitable metadata exist within ISO 19115-1, then it must be used. For each
+extended metadata package, class, and/or element, the name, definition, obligation,
+condition, maximum occurrence, data type, and domain values shall be defined.
+Relationships shall be defined so that a structure and Schema can be determined. The
+relationships should be defined well enough that it is clear how extended metadata
+relates to the various components of S-100, including existing metadata, used to create
+the product where the extended metadata is used.
+
+=== Rules for creating an extension
+
+. Extended metadata elements shall not be used to change the name, definition or data
+type of an existing element.
+. Extended metadata may be defined as classes and may include extended and existing
+metadata elements as components.
+. An extension is permitted to impose more stringent obligations on existing metadata
+elements than the standard requires. (Metadata elements that are optional in the
+standard may be mandatory in an extension.)
+. An extension is permitted to contain metadata elements with domains that are more
+restrictive than the standard. (Metadata elements whose domains have free text in the
+standard may have a closed list of appropriate values in the profile.)
+. An extension is permitted to restrict the use of domain values allowed by the
+standard. (If the standard contains five values in the domain of an existing metadata
+element, the extension may specify that its domain consists of three domain values. The
+extension shall require that the user select a value from the three domain values.)
+. An extension is permitted to expand the number of values in codelists or enumerated
+lists. Extending codelists or enumerated lists are discouraged, even in profiles. When
+they must be extended care should be taken to minimize the number of additional
+entries. Also, the extended codelist or enumerated list should be published or
+otherwise made available.
+. An extension shall not permit anything not allowed by S-100.
+. References to files shall be of type URI following the formatting.
+
+NOTE: For Product Specifications to be used in S-100 ECDIS, covered by S-98, these
+extension rules do not apply to the Exchange Catalogue profile as described in S-100
+part 17, as Part 17 for those products can only be restricted at the Product
+Specification level.
