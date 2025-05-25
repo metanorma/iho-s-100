@@ -1,0 +1,271 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: published
+    value:  2010-01
+  edition: 1.0.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 83/2009 +
+                   04 December 2009
+- date:
+  - type: updated
+    value:  2015-06
+  edition: 2.0.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 39/2015 +
+                   05 June 2015
+- date:
+  - type: updated
+    value:  2017-06
+  edition: 3.0.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 32/2017 +
+                   17 December 2018
+- date:
+  - type: updated
+    value:  2018-12
+  edition: 4.0.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 60/2018 +
+                   17 December 2018
+- date:
+  - type: updated
+    value:  2022-12
+  edition: 5.0.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 45/2022 +
+                   12 December 2022
+- date:
+  - type: updated
+    value:  2023-10
+  edition: 5.1.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 36/2023 +
+                   31 October 2023
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: |
+                   IHO Circular Letter +
+                   No 27/2024 +
+                   07 June 2024
+    - description: Add note stating that there has been only limited implementation of spatial attributes so far in S-100.
+      location:
+        - part=3,clause=3-5.3.5
+    - description: Add new clause specifying the use of interoperabilityIdentifier to allow for the discovery of instances of the same "thing" within the same dataset or between different datasets, including different product Specifications.
+      location:
+        - part=3,clause=3-10.1
+    - description: Amended incorrect cross-reference from Appendix 4a-E to Appendix 4a-D.
+      location:
+        - part=4a,clause=4a-5.2
+    - description: Amended incorrect cross-reference from clause 4a-5.6.3 to clause 4a-5.7.3.
+      location:
+        - part=4a,clause=4a-5.4
+        - part=4a,clause=4a-5.6
+    - description: Added note stating that for Product Specifications to be used in S-100 ECDIS the metadata extension rules described in the Appendix do not apply to the Exchange Catalogue profile as described in S-100 part 17.
+      location:
+        - part=4a,annex=4a-D
+    - description: Corrected Figure 5-A-1 and Table 5-A-16, and added new Table 5-A-21, to allow for the capability to define the display visibility level of attributes in end user systems.
+      location:
+        - part=5,annex=5-A
+    - description: Corrected multiplicity for Class S100_FC_FeatureAssociation, Role subType from [0..] to [0..*].
+      location:
+        - part=5,annex=5-A,table=5-A-10
+    - description: |
+                   Removed Table 8-1 and replaced with text referencing ISO 19115-1/2 (Table moved to Appendix 8-D).
+
+                   [All following Table numbers amended accordingly.]
+
+                   Added paragraph clarifying requirement for metadata to conform to S-100 parts 10c and 17.
+      location:
+        - part=8,clause=8-4.3.1
+    - description: |
+                   Amended paragraph to remove language about S100_IF_Collection metadata being optional.
+
+                   Sentence added clarifying that structural, acquisition, and quality metadata are optional except for elements required to describe the coverage format.
+
+                   Amended Figure 8-19 to remove overlapping role names for the association S100_IF_Collection / S100_IF_CollectionMetadata.
+      location:
+        - part=8,clause=8-5.3
+    - description: |
+                   Applied corrections for clarity and grammar.
+
+                   Sentences added to clarify where these abstract classes are realized.
+      location:
+        - part=8,clause=8-5.3.6
+        - part=8,clause=8-5.3.7
+        - part=8,clause=8-5.3.8
+    - description: Removed reference to point set data.
+      location:
+        - part=8,clause=8-5.3.9
+    - description: |
+                   Clause heading amended from "Imagery and Gridded Data Metadata" to "Metadata" and clause condensed to avoid duplication of Figure (former Figure 8-28) and accompanying text content in clause 8-5.3.
+
+                   [All following Figure numbers amended accordingly.]
+
+                   Multiple revisions to remove duplicative language, remove digressions and introduce a reference to quality metadata. Sentence added mentioning the new location of suggested metadata supporting scanned paper charts.
+      location:
+        - part=8,clause=8-9
+    - description: The former clause 8-13 (Metadata for scanned image) moved to Appendix 8-D.
+      location:
+        - part=8,clause=8-13 (Edition 5.1.0)
+    - description: New clause "Typical metadata" (metadata-related content moved from clause 8-4.3.1).
+      location:
+        - part=8,clause=8-D-1
+    - description: New clause heading "Derivation of S-100 metadata and ISO metadata" inserted and Table number for the pre-existing table "Relationship between packages of metadata and metadata classes" added.
+      location:
+        - part=8,clause=8-D-2
+    - description: New clause "Metadata for scanned image" added (content moved from the former clause 8-13).
+      location:
+        - part=8,clause=8-D-3
+    - description: |
+                   Inserted enhanced guidance for the implementation of the text drawing instruction.
+
+                   NOTE: All Table numbers, and all Figure numbers from Figure 9-9, amended as a result of these changes.
+      location:
+        - part=9,clause=9-11.1.11
+    - description: Clarified LineStyle Class table to indicate that, even though a pen must be provided, it is not used when drawing symbolized lines without a dash component.
+      location:
+        - part=9,clause=9-12.1.4.2
+    - description: Corrected the syntax of the hatch association for Class HatchFill.
+      location:
+        - part=9,clause=9-12.5.1.7
+    - description: Revised entire Appendix 9-B to more fully define the SVG Profile in S-100.
+      location:
+        - part=9,clause=9-B
+    - description: |
+                   Removed incorrect requirement that _crsDirection_ and _crsLength_ must match for _AugmentedRay_.
+      location:
+        - part=9a,clause=9a-11.2.2.6
+    - description: Corrected field description syntax (amend "{}" to "()").
+      location:
+        - part=10a,clause=10a-4.8.5
+        - part=10a,clause=10a-5.2.2
+        - part=10a,clause=10a-6.1.2.1
+        - part=10a,clause=10a-7.2.1.8
+        - part=10a,clause=10a-7.2.1.10
+        - part=10a,clause=10a-7.3.2.4
+    - description: Added Note regarding interpretation of the syntax used in the format control section of the Data Descriptive Field in previous versions of S-100.
+      location:
+        - part=10a,clause=10a-5.2.2
+        - part=10a,clause=10a-6.1.2.1
+        - part=10a,clause=10a-7.2.1.8
+        - part=10a,clause=10a-7.2.1.10
+        - part=10a,clause=10a-7.3.2.4
+    - description: Corrected syntax for the Data Descriptive Field for the Vertical Datum field structure.
+      location:
+        - part=10a,clause=10a-6.2.2.6
+    - description: Corrected format descriptor for the Data Descriptive Field for the 3-D Floating point Coordinate List field structure – 3b24 amended to 3b48.
+      location:
+        - part=10a,clause=10a-7.2.1.10
+    - description: Corrected syntax for the Data Descriptive Field for the Derivatives fields (DRVF and DRVI) to remove extraneous character "!" (from "DRVO!") and add grouping; and corrected curve record structure accordingly.
+      location:
+        - part=10a,clause=10a-7.2.1.12
+        - part=10a,clause=10a-7.2.4.2
+    - description: Corrected format descriptor for the Data Descriptive Field for the Polynomial Spline Parameter field structure to remove redundant KNUM subfield and corrected curve record structure accordingly.
+      location:
+        - part=10a,clause=10a-7.2.4.2
+        - part=10a,clause=10a-7.2.4.2.8
+    - description: Corrected curve record structure, entry Spline Parameter (SPLI) field to conform with the field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.2
+    - description: Corrected syntax for the Data Descriptive Field for the Segment Header field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.2.4
+    - description: Corrected the subfield content and specification for subfield Degree in the polynomial spline parameter field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.8
+    - description: Added new clause to clarify array and cell indexing.
+      location:
+        - part=10c,clause=10c-9.1.1
+    - description: Corrected remark in Table 10c-6, row 1 (Product Specification number and version) to read "productIdentifier and version fields".
+      location:
+        - part=10c,clause=10c-9.4
+    - description: |
+                   Corrected Table 10c-6, row 23 (Metadata) to amend multiplicity from [1] to [0..1].
+
+                   Added clarification to Remarks.
+      location:
+        - part=10c,clause=10c-9.4
+    - description: Inserted a new paragraph at the end of the clause specifying the location for TIN coverages.
+      location:
+        - part=10c,clause=10c-9.6.1
+    - description: Amended Table 10c-12 to allow for northings/eastings from a Projected CRS in the bounding box fields in addition to currently allowed Geographic reference coordinates.
+      location:
+        - part=10c,clause=10c-9.7
+    - description: Added guidance on implementation of new attribute interoperabilityIdentifier.
+      location:
+        - part=11,annex=11-E
+    - description: Amended specification to allow Permit files to have multiple pairs of header/products elements relating to different end user systems.
+      location:
+        - part=15
+    - description: |
+                   Updated 2^nd^ paragraph to ensure S-100 is aligned with S-63 in terms of permitting duplicate HW_ID and therefore shared / duplicated UPN.
+      location:
+        - part=15,clause=15-4.4
+    - description: Updated Figure 15-5 and associated guidance to allow Permit files to have multiple pairs of header/products elements relating to different end user systems.
+      location:
+        - part=15,clause=15-7.4.1
+        - part=15,clause=15-7.4.3
+    - description: Corrected Table 15-6, entry for XML element issueDate to be consistent with Figure 15-5 and the Part 15 Schema.
+      location:
+        - part=15,clause=15-7.4.2
+    - description: Replaced example PERMIT.XML file with a corrected version.
+      location:
+        - part=15,clause=15-7.4.6
+    - description: Updated clause to clarify the length of the q parameter in keys generated for digital signatures; and amended setup specifications and examples accordingly.
+      location:
+        - part=15,clause=15-8.4
+        - part=15,clause=15-8.5
+        - part=15,clause=15-8.6
+        - part=15,clause=15-8.7
+        - part=15,clause=15-8.10
+        - part=15,clause=15-8.11
+    - description: Corrected incorrect clause numbers (15-8.4.1.and 15-8.4.2 in S-100 Edition 5.1.0).
+      location:
+        - part=15,clause=15-8.5.1
+        - part=15,clause=15-8.5.2
+    - description: Clarified that the IHO will have both a Scheme Administrator certificate to create scheme Data Server certificates, and an IHO Data Server certificate used to digitally sign and distribute, for example, S-100 Portrayal/Feature/Interoperability catalogues.
+      location:
+        - part=15,clause=15-8.5.1
+    - description: Updated the examples of digital signatures to use XML examples conforming to the Part 17 Exchange Catalogue model.
+      location:
+        - part=15,clause=15-8.8
+    - description: Updated Figure 15-8 to change S100_SE_DigitalSignatureReference enumeration value to ECDSA-384-SHA2 (value 8).
+      location:
+        - part=15,clause=15-8.11
+    - description: Clarified the character string to be populated for attribute schemeAdministrator on class S100_SE_CertificateContainerType where IHO is the Scheme Administrator.
+      location:
+        - part=15,clause=15-8.11.1
+    - description: Added clarification regarding fileless dataset cancellation.
+      location:
+        - part=17,clause=17-4.4.1
+    - description: Updated Figure 17-7 to change S100_SE_DigitalSignatureReference enumeration value to ECDSA-384-SHA2 (value 8).
+      location:
+        - part=17,clause=17-4.4.1
+    - description: Added clarification that the S-100 Exchange Catalogue profile cannot be extended at the Product Specification level.
+      location:
+        - part=17,clause=17-4.5
+    - description: Added new note for Class table S100_DataCoverage specifying the method by which the boundingPolygon is to be represented in GML encoding.
+      location:
+        - part=17,clause=17-4.5
+----
