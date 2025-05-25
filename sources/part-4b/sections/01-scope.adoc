@@ -1,0 +1,22 @@
+== Scope
+
+The general scope of parts 4a, 4b and 4c has been described at the
+beginning of part 4a. This part concerns itself specifically with the
+growing requirement to manage large volumes of imagery and gridded data
+which most hydrographic organizations have in addition to handling the
+vector data. There are many different imagery and gridded data formats
+and these types of datasets are often stored on distributed systems
+leading to problems of data discovery, management and exchange.
+
+The production of imagery and gridded data follows the processes that
+usually begin with the collection of data, scanning of charts and
+reference documents, and other sensing methods. These types of datasets
+are often used for the production of paper charts, Electronic
+Navigational Charts (ENCs), Raster Navigational Charts, and nautical
+publications. Their production processes need to be documented in order
+to maintain quality control over the end products. Furthermore, metadata
+about the geometry of the measuring process and the properties of the
+measuring equipment needs to be retained with the raw data in order to
+support the production and maintenance processes.
+
+This metadata Part of S-100 is based on <<ISO19115-2>>.

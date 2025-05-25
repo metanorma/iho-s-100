@@ -1,0 +1,41 @@
+== References
+
+[bibliography,obligation=normative]
+=== Normative references
+
+The following referenced documents are indispensable for the application
+of this document. For dated references, only the edition cited applies.
+For undated references, the latest edition of the referenced document
+(including any amendments) applies.
+
+* [[[ISO19103,ISO/TS 19103]]]
+
+* [[[ISO19107,ISO 19107:2003]]]
+
+* [[[ISO19115-1,ISO 19115-1]]]
+
+* [[[ISO19115-2,ISO 19115-2:2009]]]
+
+* [[[ISO19119-16,ISO 19119:2016]]]
+
+* [[[ISO19115-3,ISO/TS 19115-3:2016]]]
+
+* [[[ISO19157,ISO 19157]]]
+
+* [[[S61,IHO S-61]]]
+
+[bibliography,obligation=informative]
+=== Informative references
+
+The following references have been superseded by later editions or are
+otherwise useful though not normative:
+
+* [[[ISO19115,ISO 19115]]]
+
+* [[[ISO19139,ISO/TS 19139]]]
+
+* [[[ISO19119-05,ISO 19119:2005]]]
+
+* [[[ISO19130,hidden(ISO/TS 19130)]]]
+
+* [[[ISO19111,hidden(ISO 19111)]]]

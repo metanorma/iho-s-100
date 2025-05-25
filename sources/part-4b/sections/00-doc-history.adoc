@@ -1,0 +1,14 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description:
+----
