@@ -1,0 +1,23 @@
+== Context
+
+=== Objects
+
+The data content of a geographic application is defined in accordance with a view
+of real world features and in the context of the requirements of a particular
+application. The content is structured in terms of objects. This document considers
+two types of object:
+
+. Features -- features are defined together with their properties.
+. Information Types -- information types are used to share information among
+features and other information types. Information types have only thematic
+attribute properties.
+
+The GFM provides a conceptual model for these objects. The definitions for object
+types are held in a Feature Catalogue. The GFM also acts as a conceptual model for
+the Feature Catalogue.
+
+=== Derivation of the General Feature Model
+
+A conceptual model of types that shall be used in S-100 products is presented in
+this document. It is known as the GFM and is derived from the ISO 19109 General
+Feature Model by realization of its classes (<<fig-3-1>>).

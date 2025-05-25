@@ -1,0 +1,573 @@
+== Principles for defining features and information types
+
+=== Identifiable objects
+
+==== Features
+
+A feature is an abstract representation of real world phenomenon. Features have two
+aspects -- feature type and feature instance. A feature type is a class and is
+defined in a Feature Catalogue. A feature instance is a single occurrence of the
+feature type and represented as an object in a data set.
+
+==== Information types
+
+An information type is a class of object which is defined in a Feature Catalogue.
+An instance of an information type is an identifiable unit of information in a data
+set. Information types have only thematic attribute properties. An instance of an
+information type may be associated with one or more feature instances or other
+instances of information type.
+
+[example]
+A chart note may be modelled as an information type
+
+=== The General Feature Model
+
+==== Introduction
+
+This sub-clause identifies and describes the concepts used to define features and
+information types and their relationships. These concepts are expressed in a
+conceptual model called the GFM.
+
+[[fig-3-1]]
+.The General Feature Model
+image::img23.png[]
+
+==== The purpose of the GFM
+
+The GFM is a basis for the classification of features and information types and
+their properties. The GFM also acts as the basis for the structure of Feature
+Catalogues.
+
+==== The main structure of the GFM
+
+<<fig-3-1>> shows a UML model of the S-100 GFM.
+
+The following clauses define the elements of the GFM.
+
+==== S100_GF_NamedType
+
+The class S100_GF_NamedType is not realized from ISO 19109 but is introduced
+specifically for the S-100 GFM. It is an abstract super-class of the classes
+S100_GF_ObjectType and S100_GF_AssociationType. The intention in introducing this
+class is to show the commonality between object types and association types within
+S-100. Both types are core identifiable objects of S-100 data Schemas.
+
+[[tab-3-1]]
+.S100_GF_NamedType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_NamedType | Abstract base class for object types and association types within the GFM | - | -
+| Attribute | typeName | Name of the named type. The name shall be unique within a namespace | 1 | CharacterString
+| Attribute | definition | Definition that describes the named type | 1 | CharacterString
+| Attribute | isAbstract | If true, the named type acts as an abstract supertype. It is not possible to create an instance of an abstract type | 1 | Boolean
+| Role | constrainedBy | The role specifies that a constraint is made on the named type | 0..* | S100_GF_Constraint
+|===
+
+==== S100_GF_ObjectType
+
+The class S100_GF_ObjectType is not realized from ISO 19109 but is introduced
+specifically for the S-100 GFM. It is an abstract super-class of the classes
+S100_GF_FeatureType and S100_GF_InformationType. The intention in introducing this
+class is to show the commonality between feature types and information types in
+particular the ability of these classes to be linked to information types by means
+of an information association.
+
+[[tab-3-2]]
+.S100_GF_ObjectType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+| Class | S100_GF_ObjectType | Abstract base class for object types within the GFM | - | -
+| Role | informationLink | Link to an information association that describes the relationship to an instance of an information type | 0..* | S100_GF_Information_AssociationType
+|===
+
+==== S100_GF_FeatureType
+
+The class S100_GF_FeatureType is a realization of the ISO 19109 class
+GF_FeatureType. It differs from the ISO class in the following ways:
+
+* It is a sub-type of the class S100_GF_NamedType;
+* It does not realize the Generalization and Specialization associations with the
+class GF_InheritanceRelation. Instead, the class has an association with itself
+with the roles subType and superType. GF_InheritanceRelation is not realized in the
+S-100 GFM;
+* The multiplicity of the superType is 0..1 to represent the concept that a feature
+may have a maximum of one superType. This is in order to prevent
+multiple-inheritance in S-100;
+* The multiplicity of the role carrierOfCharacteristics with S100_GF_PropertyType
+(the S-100 realization of GF_PropertyType) is changed from 0..\* to 1..*. An S-100
+feature must have properties.
+
+[[tab-3-3]]
+.S100_GF_FeatureType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_FeatureType | A type for an abstract representation of a real world phenomenon | - | -
+| Role | superType | The more generic feature type from which this feature type is derived | 0..1 | S100_GF_FeatureType
+| Role | subType | The more specific feature types which are derived from this feature type | 0..* | S100_GF_FeatureType
+| Role | linkBetween | A link to a feature association that specify the relationship between one feature type and the same or another feature type | 0..* | S100_GF_FeatureAssociationType
+| Role | carrierOfCharacteristics | Attributes and roles that describe the characteristics of a feature type | 1..* | S100_GF_PropertyType
+|===
+
+==== S100_GF_PropertyType
+
+The class S100_GF_PropertyType is a realization of the ISO 19109 class
+GF_PropertyType. It differs from the ISO class in the following ways:
+
+. The multiplicity of the association with S100_GF_FeatureType is changed from 1 to
+1..*. This change represents the way that features and properties are described in
+the S-100 Feature Catalogue. Property type definitions can be used in one or more
+feature type definitions;
+. The association type of the association with S100_GF_FeatureType is changed from
+composition to aggregation as a result of the change in multiplicity described
+above.
+
+[[tab-3-4]]
+.S100_GF_PropertyType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_PropertyType | Abstract base class for all properties of a feature type. These are attributes and roles | - | -
+| Attribute | memberName | Name of the attribute or role | 1 | CharacterString
+| Attribute | definition | Description of the attribute or role of the feature type | 1 | CharacterString
+| Role | constrainedBy | The role specifies that a constraint is made on the property | 0..* | S100_GF_Constraint
+|===
+
+==== S100_GF_AttributeType
+
+The class S100_GF_AttributeType is the S-100 realization of GF_AttributeType. It is
+largely identical to the ISO 19109 class but differs in the following way:
+
+. The association attributeOfAttribute is not realized in the S-100 GFM. S-100
+introduces, instead, the concept of complex attributes. Complex attributes are
+described further in <<ISO19109,clause="7.4">>.
+
+[[tab-3-5]]
+.S100_GF_AttributeType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_AttributeType | Abstract base class for all attributes of feature types. In this model are two sub classes: thematic attributes and spatial attributes | - | -
+| Attribute | valueType | The data type of the attribute value | 1 | CharacterString
+| Attribute | domainOfValues | Description of a set of values. For codelist types this may be a URI identifying a dictionary or "vocabulary" | 1 | CharacterString
+| Attribute | multiplicity | The number of instances of the attribute that may be associated with a single instance of a feature type | 1 | S100_Multiplicity
+|===
+
+==== S100_GF_AssociationRole
+
+The class S100_GF_AssociationRole is the S-100 realization of the ISO 19109 class
+GF_AssociationRole.
+
+[[tab-3-6]]
+.S100_GF_AssociationRole
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_AssociationRole | A role used in an association | - | -
+| Attribute | multiplicity | The number of objects that may be associated within the association | 1 | S100_Multiplicity
+|===
+
+==== GF_Operation
+
+The class GF_Operation is not realized in the S-100 GFM because S-100 supports only
+the data transfer model. Datasets cannot contain operations.
+
+==== S100_GF_AssociationType
+
+The class S100_GF_AssociationType is the S-100 realization of the ISO 19109 class
+GF_AssociationType. It differs from the ISO 19109 class in the following way:
+
+. The ISO 19109 GFM models GF_AssociationType as a subtype of the class
+GF_FeatureType. This is done for reasons which are set out in Note 1 of <<ISO19109,clause="7.3.9">>
+The S-100 model does not model the class as a subtype of
+S100_GF_FeatureType. Within S-100 associations between feature types are not
+considered abstractions of real world phenomena. The result of this approach to
+modelling the GFM is that the only properties associations can have are thematic
+attributes.
+. The multiplicity of roleName is 0..2 instead of 1..*. The lower bound of 0 means
+the role is one of the default roles "source" or "target" and this is obvious from
+the Application Schema's semantics of the association type's name and the names of
+the participating feature or information classes. The upper bound expresses the
+constraint that S-100 does not allow associations with more than two participating
+classes.
+
+[[tab-3-7]]
+.S100_GF_AssociationType
+[cols=5,options=header]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_AssociationType | Abstract base class for feature associations and information associations | - | -
+| Role | carrierOfCharacteristics | The thematic attributes that describes the association | 0..* | S100_GF_ThematicAttributeType
+| Role | roleName | The roles that describes the ends of the association | 0..2 | S100_GF_AssociationRole
+|===
+
+==== S100_GF_InformationType
+
+S100_GF_InformationType is the class for information types within S-100. An
+information type is an identifiable object that can be associated with features in
+order to carry information particular to the associated features. An example of an
+information type might be a Chart Note. Information types can also be associated
+with each other. This could be done where there is further supplementary
+information that is relevant to the information type or where there is a need to
+translate the information. For example a primary information object carrying a
+Chart Note may contain text in English and an associated supplementary information
+object may carry the same text in German.
+
+The characteristics of information types shall be carried by thematic attribute
+types only. Therefore, S100_GF_InformationType is associated with only
+S100_GF_ThematicAttributeType rather than the more generic class
+S100_GF_PropertyType. The associations to information types are modelled by means
+of the type S100_InformationAssociationType.
+
+[[tab-3-8]]
+.S100_GF_InformationType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_InformationType | A type for an identifiable object carrying supplementary information for other objects | - | -
+| Role | superType | The more generic information type from which this information type is derived | 0..1 | S100_GF_ InformationType
+| Role | subType | The more specific information types which are derived from this information type | 0..* | S100_GF_ InformationType
+| Role | linkBetween | A link to an information association that specifies the relationship between one object type and this information type | 0..* | S100_GF_InformationAssociationType
+| Role | carrierOfCharacteristics | Thematic attributes that describe the characteristics of an information type | 1..* | S100_GF_ThematicAttributeType
+| Role | roles | Roles for associations to other information type that supplying supplementary information | 0..* | S100_GF_AssociationRole
+|===
+
+==== S100_GF_FeatureAssociationType
+
+The class S100_GF_FeatureAssociationType is not realized from ISO 19109 but is
+introduced specifically for the S-100 GFM. The reason for this is that in S-100 two
+types of associations are distinguished: feature associations and information
+associations. They are both semantically different and different in the model. This
+class describes the feature association. A feature association is the description
+of the relationship between two instances of feature types. It can be characterized
+by thematic attributes and has normally two roles. The roles describe the ends of
+the relationship since such relationship is usually not symmetric.
+
+[[tab-3-9]]
+.S100_GF_FeatureAssociationType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_FeatureAssociationType | A class for the description of a relationship between two feature types | - | -
+| Role | superType | The more generic feature association from which this feature association is derived | 0..1 | S100_GF_FeatureAssociationType
+| Role | subType | The more specific feature associations which are derived from this feature association | 0..* | S100_GF_FeatureAssociationType
+| Role | includes | The feature types which are included in this relationship | 1..* | S100_GF_FeatureType
+|===
+
+==== S100_GF_InformationAssociationType
+
+The class S100_GF_InformationAssociationType is not realized from ISO 19109 but is
+introduced specifically for the S-100 GFM. The reason for this is that in S-100 two
+types of associations are distinguished: feature associations and information
+associations. They are both semantically different and different in the model. This
+class describes the information association. An information association is the
+description of the relationship between an arbitrary object and an information type
+that supplies additional information for that object. The relationship can be
+characterized by thematic attributes and a role.
+
+[[tab-3-10]]
+.S100_GF_InformationAssociationType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_InformationAssociationType | A class for the description of a relationship between an object and an information type | - | -
+| Role | superType | The more generic information association from which this information association is derived | 0..1 | S100_GF_InformationAssociationType
+| Role | subType | The more specific feature associations which are derived from this feature association | 0..* | S100_GF_InformationAssociationType
+| Role | includes | The information type that is included in the relationship | 1..* | S100_GF_InformationType
+| Role | informationClient | The object types that act as client in the information association | 1..* | S100_GF_ObjectType
+|===
+
+==== S100_GF_Constraint
+
+The class S100_GF_Constraint is a realization of the ISO 19109 class GF_Constraint
+with an association to S100_GF_NamedType instead of the ISO 19109 association to
+GF_Feature_Type.
+
+[[tab-3-11]]
+.S100_GF_Constraint
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_ Constraint | Class for constraints that may be associated with named types or their properties | - | -
+| Attribute | description | The constraint described in natural language and/or in formal notation | 1 | CharacterString
+|===
+
+=== Attributes of feature types
+
+==== Introduction
+
+This clause describes in more detail the role of attributes of features and
+information types.
+
+[[fig-3-2]]
+.Attributes
+image::img24.png[]
+
+==== S100_GF_ThematicAttributeType
+
+The class S100_GF_ThematicAttributeType is a realization of the ISO 19109 class
+GF_ThematicAttributeType. Thematic attribute types carry descriptive
+characteristics of objects other than those specified in
+<<ISO19109,clause="7.4.3">> -- <<ISO19109,clause="7.4.7">>. This class differs from
+the ISO 19109 class in the following ways:
+
+. GF_ThematicAttributeType is defined in ISO 19109 as a concrete class. The S-100
+GFM realization is an abstract class with two concrete subclasses --
+S100_GF_SimpleAttributeType and S100_GF_ComplexAttributeType.
+. Temporal information shall have their value type defined by the types Date, Time,
+DateTime, S100_TruncatedDate or complex structures using combinations of the
+primitive temporal types.
+
+[[tab-3-12]]
+.S100_GF_ThematicAttributeType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_ ThematicAttributeType | Abstract base class for all attributes other than spatial attributes | - | -
+|===
+
+==== S100_GF_ComplexAttributeType
+
+The class S100_GF_ComplexAttributeType is introduced in the S-100 GFM. Complex
+attributes are a composition of other attributes either simple or complex.
+
+==== S100_GF_SimpleAttributeType
+
+The class S100_GF_SimpleAttributeType is introduced in the S-100 GFM. A simple
+attribute type carries a descriptive characteristic of a named type.
+
+==== S100_GF_SpatialAttributeType
+
+The class S100_GF_SpatialAttributeType is a realization of the ISO 19109 class
+GF_SpatialAttributeType. A spatial attribute type shall have a GM_Object as its
+value type. GM_Object and its sub-types are defined in the Spatial Schema, S-100
+Part 7.
+
+NOTE: The class S100_GF_SpatialAttributeType is only partially implemented in the
+Feature Catalogue described in S-100 Part 5 and in the encodings described in Part
+10.
+
+[[tab-3-13]]
+.S100_GF_SpatialAttributeType
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_ SpatialAttributeType | Class representing a spatial attribute, which shall be used to express spatial characteristics of a feature type | - | -
+| Attribute | scaleMinimum | The denominator of the smallest scale for which the referenced geometry can be used for the instance of the feature type (for example, for depiction) | 0..1 | PositiveInteger
+| Attribute | scaleMaximum | The denominator of the largest scale for which the referenced geometry can be used for the instance of the feature type (for example, for depiction) | 0..1 | PositiveInteger
+| Attribute | geometry | The object that describes the geometry of an instance of a feature type | 1 | GM_Object
+| Attribute | maskReference | Reference indicating masked or truncated spatial primitives or objects | 0..* | S100_MaskReference
+|===
+
+Masking or truncation shall be indicated by providing the identifiers of the masked
+or truncated primitives and an indicator of whether the referenced primitive is
+masked or truncated in _maskReference_ attributes. The structure of the
+_maskReference_ attribute is defined by the type __S100_GF_MaskReference__, shown
+in <<tab-3-14>> below.
+
+The implementation of mask references in different S-100 formats is specified in
+the respective data format specifications (Part 10a for the ISO 8211 data format
+and Part 10b for the GML format) and may use constructs built into the core
+specification. For example, the S-100 GML format uses the GML type _ReferenceType_
+with restrictions on allowed values of the _xlink:href_ and _xlink:role_
+attributes; the ISO 8211 format uses unsigned integers containing the record
+identifier of a spatial object and the numeric code of the mask indicator value.
+
+The spatial objects referenced in the masking attribute must be among the
+components of the GM_Object that constitutes the spatial object referenced by the
+same instance of the spatial attribute. They may be components at any level, for
+example, components of components, etc. (In other words, the masked or truncated
+geometry must be part of the geometry of that particular instance of the spatial
+attribute.)
+
+Product Specifications should restrict the use of masking to specific spatial types
+if needed, for example, to curves.
+
+[[tab-3-14]]
+.S100_GF_MaskReference
+[options=header,cols=5]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+| Class | S100_GF_MaskReference | Reference to a masked or truncated spatial primitive. Model is based on gml:Reference but limits the allowed attributes and makes the identifier and role mandatory | - | -
+| Attribute | spatialRef(alias xlink:href) | Identifier of a spatial primitive | 1 | <(reference>GM_Object
+| Attribute
+| maskIndicator(alias xlink:role)
+| Indicates whether a spatial primitive is masked or truncated by the dataset limit
+| 1
+| Enumeration _S100_GF_MaskIndicatorType_
+|===
+
+[[tab-3-15]]
+.S100_GF_MaskIndicatorType
+[options=header,cols=5]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration | S100_GF_MaskIndicatorType | Indicates masking or truncation at the dataset limit | - | -
+| Literal
+| truncated
+| The spatial primitive is truncated at the dataset limit
+| 1
+|
+
+| Literal
+| suppressed
+| Portrayal of the spatial primitive is suppressed
+| 2
+|
+|===
+
+==== GF_TemporalAttributeType
+
+The ISO 19109 class GF_TemporalAttributeType is not realized explicitly in the
+S-100 GFM. Temporal information shall be modelled using the thematic attribute type
+S100_GF_ThematicAttributeType (see <<cls-3-6.4.4>> for more details).
+
+==== GF_MetadataAttributeType
+
+The ISO 19109 class GF_MetadataAttributeType is not realized explicitly in the
+S-100 GFM. Metadata types shall be modelled using complex thematic attributes which
+realize types from the S-100 Part 4a metadata component. The complex thematic
+attributes shall be defined in a Feature Catalogue.
+
+==== GF_QualityAttributeType
+
+The ISO 19109 class GF_QualityAttributeType is not realized explicitly in the S-100
+GFM. Quality metadata types shall be modelled using complex thematic attributes
+which realize types from the S-100 Part 4c Appendix 4c-A Data Quality. The complex
+thematic attributes shall be defined in a Feature Catalogue.
+
+==== GF_LocationAttributeType
+
+The ISO 19109 class GF_LocationAttributeType is not realized in the S-100 GFM.
+
+==== S100_TruncatedDateAttributeType
+
+The class S100_TruncatedDateAttributeType is intended for modelling date values
+with one or more of the more significant components omitted. This allows partial
+dates to be used, for example, for recurring periods.
+
+==== S100_GF_CodelistAttributeType
+
+The class S100_GF_CodelistAttributeType is introduced in the S-100 GFM for
+modelling S-100 codelists. Codelist attributes must be associated to either an
+enumeration (for open enumeration codelists) or a dictionary (for open and closed
+dictionary codelists) but not both. The structure of the dictionary is defined by
+an external specification.
+
+[[tab-3-16]]
+.S100_GF_CodelistAttributeType
+[cols=6,options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+| Class | S100_GF_ CodelistAttributeType | Abstract base class for S100_Codelist attributes | - | - | -
+| Tag | codelistType | Type of codelist | 1 | CharacterString | Must be one of:open enumerationopen dictionaryclosed dictionary
+| Tag | URI | Identifies the dictionary for open or closed dictionary codelists | 0..1 | CharacterString | Only for open or closed dictionary codelists
+| Tag | encoding | Encoding hint for extra values | 0..1 | CharacterString | Only for open enumeration or open dictionary codelists
+|===
+
+==== S100_GF_EnumerationType
+
+S100_GF_EnumerationType and S100_GF_EnumerantClass together model the enumerations
+defining the allowed values for an enumeration attribute and their semantics. An
+instance of an enumeration type may define the set of allowed values for an
+enumeration or codelist attribute, or both.
+
+=== Relationships between named types
+
+==== Introduction
+
+This subclause describes relationships between object types in more detail.
+Relationships are classified as follows:
+
+. Generalisation / Specialisation of feature types and information types.
+. Associations between feature types and information types.
+
+==== GF_InheritanceRelation
+
+The class GF_InheritanceRelation is not realized in the S-100 GFM but object
+inheritance is allowed through the use of an identical association on the class
+S100_GF_FeatureType and the class S100_GF_InformationType (see <<fig-3-3>>). The
+multiplicity of the superType end of the association is such that a subtype may
+have only one supertype. This is to prevent the modelling of multiple inheritance.
+The inheritance relation association is modelled at the level of the concrete class
+rather than on the abstract class S100_GF_NamedType. This prevents a feature type
+inheriting from an information type and vice versa.
+
+Inheritance associations exist only between named types (classes) and not between
+named type instances (that is entities occurring in a dataset).
+
+[[fig-3-3]]
+.Specialisation and Generalisation Associations
+image::img25.png[]
+
+==== S100_GF_AssociationType
+
+Associations are defined by the class S100_GF_AssociationType with two roles and a
+definition. The ISO 19109 classes GF_AggregationType, GF_SpatialAssociationType,
+and GF_TemporalAssociationType are not realized explicitly in the S-100 GFM. These
+classes can be used only if an association is allowed to carry properties. The ISO
+19109 GFM allows this because GF_AssociationType is a sub-type of GF_FeatureType.
+However, S100_GF_AssociationType is not a sub-type of S100_GF_FeatureType.
+
+==== Associations to information types
+
+An association between S100_GF_ObjectType and S100_GF_InformationType is introduced
+in the S-100 GFM. The role additionalInformation is the default for this
+association in the S-100 GFM and means that additional information is available for
+a named type.
+
+==== Default names for association ends
+
+Application Schemas may specify names for association ends (role names). If names
+are not explicitly provided, the following defaults shall be used.
+
+. If only one end of an association is given an explicit name "`<rolename>`", the
+other end shall have the default name "`inv_<rolename>`".
+. If neither end of the association is given an explicit name, the default role
+name is "`the<target class name>`" in which the target class is referenced from the
+source class.
+. The above rules may not result in a distinct name for each association end in an
+Application Schema, so Product Specifications may define different or additional
+rules if needed.
+. If standard names are desired, the following defaults may be used instead of
+those listed above.
+.. The role "additionalInformation" is a default role name for associations from
+feature to information types.
+.. Feature/feature or information/information associations navigable in only one
+direction may use the default end names "source" and "target". The name
+"associatedWith" may be used at both ends of a bidirectional association.
+
+Product Specifications may mix individual and standard defaults but must be
+unambiguous about which name applies to any particular association end.
+
+=== Behaviour of feature types
+
+The behaviour of feature types is described by operations that may be performed
+upon or by instances of a feature type. Operations apply only to the
+interoperability model and do not apply to the data transfer model.
+
+=== Constraints
+
+Constraints may be introduced to ensure the integrity of the data. Constraints
+restrict the freedom in an application to prevent creation of erroneous data by
+specifying combinations of data that are either allowable or not allowable. An
+Application Schema shall identify constraints in an unambiguous manner.
+
+Only named types and properties may have constraints.

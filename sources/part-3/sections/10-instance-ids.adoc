@@ -1,0 +1,61 @@
+== Instance Identifiers
+
+Identifiers of instances should utilize the Maritime Resource Name (MRN) concept
+and namespace. The MRN namespace is administered by the International Association
+of Lighthouse Authorities (IALA) through the website http://mrnregistry.org, which
+also contains references to the full set of rules that apply to the MRN concept.
+The topmost namespace urn:mrn remains fixed, with subsequent name spaces separated
+by colons, and available through the application process explained on the website.
+Any organization wishing to issue MRN conformant identifiers should apply for a
+name space from IALA, or from an organization that already has a namespace
+registered.
+
+For example, IHO applies for a namespace, and subsequently gives all member states
+a sub-namespace under the urn:mrn:iho namespace; for NOAA this could be
+urn:mrn:iho:us and for CHS this could be urn:mrn:iho:ca. NOAA and CHS would then
+administer their respective namespaces as needed and within the MRN rules.
+
+The following rules apply to the MRN namespace.
+
+The Namespace Specific String (NSS) of all URNs that use the "mrn" NID shall have
+the following structure:
+
+`<URN> ::= "urn:mrn:" <OID> ":" <OSS>` +
+`<OID> ::= 1*(ALPHA / DIGIT) ; Organizational ID` +
+`<OSS> ::= <OSNID> ":" <OSNS> ; Organizational specific string` +
+`<OSNID> ::= 1*(ALPHA / DIGIT / "-") ; Organizational specific namespace ID` +
+`<OSNS> ::= 1*<URN chars> ; Organizational specific namespace string`
+
+DIGIT ::= %x30-39 ; 0-9 +
+ALPHA ::= %x61-7A ; a-z
+
+Basics of the ABNF notation used:
+
+" ":: literals (terminal character strings); terms not in quotes are non-terminals
+
+/:: alternatives
+
+():: indicates a sequence group, used as a single alternative or as a single
+repeating group
+
+`<a>*<b>`:: indicates that the following term or group can repeat at least `<a>` and
+at most `<b>` times; default values are 0 and infinity, respectively
+
+;:: comment
+
+The entire URN is case-insensitive.
+
+`<URN chars>`:: As defined in RFC2141
+
+The process for assigning unique organizational IDs is managed by IALA. Details
+and application process can be found at
+<http://www.mrnregistry.org/[http://www.mrnregistry.org]>.
+
+=== Making use of instance identifiers
+
+When it is required to enable the discovery of instances of the same thing between
+products, whether of the same Product Specification or between different Product
+Specifications, a minimum use of an instance identifier is needed. This instance
+identifier must be an attribute in all class instances of feature type or
+information type that need to be co-identified. The attribute must be called
+interoperabilityIdentifier and must be of data type URN.

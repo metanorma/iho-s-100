@@ -1,0 +1,26 @@
+== Scope
+
+This Part introduces a General Feature Model (GFM) which is a conceptual model of
+features, their characteristics and associations. It also describes the rules for
+developing an Application Schema which is a basic part of any S-100 based Product
+Specification.
+
+The scope of this Part includes:
+
+. Conceptual modelling of features and their properties from a reality;
+. Conceptual modelling of information types and their attributes;
+. Definition of Application Schema;
+. Rules for Application Schema;
+
+The following is outside scope:
+
+. Representation of feature types and their properties and information types and
+their properties in a Catalogue;
+. Representation of metadata;
+. Rules for mapping one Application Schema to another;
+. Implementation of the Application Schema in a computer environment;
+. Computer system and Application Schema software design;
+. Programming.
+
+Computer systems, software design and programming are not addressed in this
+document.

@@ -1,0 +1,305 @@
+== Rules for Application Schema (<<ISO19109,clause=8>>)
+
+=== The application modelling process (<<ISO19109,clause="8.1">>)
+
+The Application Schema serves two purposes:
+
+. It achieves a common and correct understanding of the content and structure of
+data within a particular application field.
+. Secondly, it may provide a computer readable Schema for applying automated
+mechanisms for data management.
+
+The two roles imply a stepwise process for creating an Application Schema. The
+steps can be briefly described as:
+
+. Surveying the requirements from the intended field of application (Universe of
+Discourse)
+. Making a conceptual model of the application with concepts defined in the GFM.
+This task consists of identifying feature types, their properties and constraints.
+. Describing elements of the Application Schema in a formal modelling language
+where necessary. S-100 Application Schemas shall be described using the UML
+according to rules defined in this part of S-100.
+. Integrating the formal Application Schema with other standardized Schemas,
+(Spatial Schema, Quality Schema, etc.) into a complete Application Schema.
+
+=== The Application Schema (<<ISO19109,clause="8.2">>)
+
+==== Conceptual Schema language for Application Schemas
+
+If a conceptual language is used to design a S-100 Application Schema, then this
+must be UML.
+
+==== Main rules
+
+The data structures of the Application Schema shall be modelled in the Application
+Schema.
+
+All classes used within an Application Schema for data transfer shall be
+instantiable. This implies that the integrated class must not be stereotyped
+&laquo;interface&raquo;.
+
+==== Identification of Application Schemas
+
+. The identification of each Application Schema shall include a name and a version.
+The inclusion of a version ensures that a supplier and a user agree on which
+version ofthe Application Schema describes the contents of a particular dataset. A
+system of defining unique names and versions for S-100 Application Schemas shall be
+defined.
+. In UML, an Application Schema shall be described within a PACKAGE, which shall
+carry the name of the Application Schema and the version stated in the
+documentation of the PACKAGE.
+
+==== Documentation of an Application Schema
+
+. An Application Schema shall be documented. A means of documenting Application
+Schemas for S-100 shall be defined in order to ensure consistency across S-100
+Product Specifications.
+. The documentation of an Application Schema in UML may utilise the documentation
+facilities in the software tool that is used to create the Application Schema, if
+this information can be exported.
+. If a CLASS or other UML component corresponds to information in a Feature
+Catalogue, the reference to the Catalogue shall be documented.
+. Documentation of feature types in an Application Schema shall be in a Catalogue
+with a structure derived from the GFM, such as in a Catalogue in accordance with
+S-100 Part 5. This could be in text format or XML accompanied by a style sheet
+(XSLT) used to create a text version.
+
+=== Rules for Application Schema in UML (<<ISO19109,clause="8.3">>)
+
+==== Main rules (<<ISO19109,clause="8.3.1">>)
+
+The main rules for Application Schemas in UML are:
+
+. An instance of S100_GF_NamedType shall be implemented as a CLASS.
+. An instance of S100_GF_ObjectType shall be implemented as a CLASS.
+. An instance of S100_GF_FeatureType shall be implemented as a CLASS.
+. An instance of S100_GF_InformationType shall be implemented as a CLASS
+. An instance of S100_GF_FeatureAssociationType has the role of linkBetween in
+association to instances of S100_GF_FeatureType being implemented as CLASSes. It
+shall be implemented as one of the following cases:
+.. Case 1: An instance of S100_FeatureAssociationType that is not associated with
+any instances of S100_GF_ThematicAttributeType shall be implemented as an
+ASSOCIATION between these CLASSes.
+.. Case 2: An instance of S100_FeatureAssociationType that is associated with one
+or more instances of S100_GF_ThematicAttributeType shall be implemented as an
+ASSOCIATION CLASS; the associated instances of S100_GF_ThematicAttributeType shall
+be implemented as ATTRIBUTES of the ASSOCIATION CLASS.
+. An instance of S100_GF_InformationAssociationType has the role of informationLink
+in association to instances of S100_GF_FeatureType or S100_GF_InformationType being
+implemented as CLASSES. It shall be implemented one of the following cases:
+.. Case 1: An instance of S100_InformationAssociationType that is not associated
+with any instances of S100_GF_ThematicAttributeType shall be implemented as an
+ASSOCIATION between these CLASSes.
+.. Case 2: An instance of S100_InformationAssociationType that is associated with
+one or more instances of S100_GF_ThematicAttributeType shall be implemented as an
+ASSOCIATION CLASS; the associated instances of S100_GF_ThematicAttributeType shall
+be implemented as ATTRIBUTES of the ASSOCIATION CLASS.
+. An instance of S100_GF_AttributeType shall be implemented as an ATTRIBUTE.
+. An instance of S100_GF_SimpleAttributeType shall be implemented as an ATTRIBUTE.
+. An instance of S100_GF_ComplexAttributeType shall be implemented as a CLASS. The
+instantiated CLASS shall have one or more instances of S100_GF_SimpleAttributeType
+and/or S-100_GF_ComplexAttributeType as its ATTRIBUTE(s).
+. An instance of the association inheritanceRelation shall be represented by a UML
+GENERALISATION relationship.
+
+=== Domain profiles of standard Schemas in UML (<<ISO19109,clause="8.4">>)
+
+==== Rules for adding information to a standard Schema
+
+Standard Schemas shall not be extended within Application Schemas. Standard Schemas
+are those that are documented in S-100, for example the Spatial Schema, Feature
+Catalogue Schema etc.
+
+==== Restricted use of standard Schemas
+
+For some standard Schemas, for example S-100 Part 7 (Spatial Schema), it is
+possible to redefine the Schema in such a way that only selected parts of the
+Schema will be used, and only some of the definitions of classes and relationships
+will be used.
+
+. Specification of a restricted profile of a standard Schema shall be described in
+a new UML package by copying the actual definitions (classes and relationships)
+from the standard Schema. Attributes and operations within classes may be omitted.
+. Reduction of a standard Schema shall be in accordance of the conformance clause
+given for the actual standard.
+
+==== Rules for use of metadata Schema (<<ISO19109,clause="8.5">>)
+
+The metadata Schema defined in S100 Part 4 is an application Schema for metadata
+data sets. Metadata are data describing and documenting data. Metadata for
+geographic data typically provides information about their identification, extent,
+quality, spatial and temporal aspects, spatial reference and distribution.
+
+Metadata types shall be implemented as complex attributes that realize elements
+from S100 Part 4. Thus metadata attributes shall be thematic attribute types.
+
+[[cls-3-6.4.4]]
+==== Temporal rules (<<ISO19109,clause="8.6">>)
+
+S-100 does not include a profile of ISO 19108. Temporal attributes shall be
+modelled using the types Date, Time or DateTime, S100_TruncatedDate, or complex
+attributes using combinations of these temporal types. Use of these types makes the
+attribute an instance of S100_GF_SimpleAttributeType or
+S100_GF_ComplexAttributeType, as appropriate.
+
+=== Spatial rules (<<ISO19109,clause="8.7">>)
+
+==== General spatial rules (<<ISO19109,clause="8.7.1">>)
+
+The value domain of spatial attribute types shall be in accordance with the
+specifications given by S-100 Part 7, which provides conceptual Schemas for
+describing the spatial characteristics of features and a set of spatial operators
+consistent with these Schemas.
+
+S-100 Part 7 explicitly excludes topological primitives and consequently any
+topology rules set out in clause 8.7 of ISO 19109 are not relevant in this profile.
+
+==== Spatial attributes
+
+. Spatial characteristics of a feature shall be described by one or more spatial
+attributes. In an Application Schema, a spatial attribute is a subtype of a feature
+attribute (see 5.3), and the taxonomy of its values is defined in the S-100 Part 7.
+. A spatial attribute shall be represented in an Application Schema in either of
+two ways:
+
+.. Case 1: as an ATTRIBUTE of a UML CLASS that represents a feature, in which case
+the ATTRIBUTE shall take one of the spatial objects defined in the Spatial Schema,
+ISO 19107, as the data type for its value; or
+.. Case 2: as a UML ASSOCIATION between the class that represents a feature and one
+of the spatial objects defined in the Spatial Schema, ISO 19107.
+
+. A spatial attribute shall take a spatial object as its value. Spatial objects are
+classified as geometric objects, which are sub-classed as primitives, complexes or
+aggregates (for geometric objects). The value types of spatial attributes must be
+the types described in Part 7, or their subtypes.
+
+==== Spatial Quality
+
+The positional quality of a spatial object shall be described by a one way
+association to a S100_GF_InformationType which is associated with a
+S100_GF_ThematicAttributeType carrying positional accuracy.
+
+==== Geometric aggregates and complexes to represent spatial attributes of features
+
+===== Introduction
+
+The spatial configuration of many features cannot be represented by a single
+geometric primitive. The types GM_Aggregate and GM_Complex support the
+representation of such features as collections of geometric objects.
+
+===== Geometric aggregates
+
+The spatial profile of S-100 only supports the GM_Multipoint geometric aggregate
+type. GM_Multipoint shall be used as the value of a spatial attribute that
+represents a feature as a set of points.
+
+===== Geometric complexes
+
+Geometric complexes are used to represent the spatial characteristics of a feature
+as a set of connected geometric primitives. In addition, instances of GM_Complex
+allow geometric primitives to be shared by the spatial attributes of different
+features. There are no explicit links between the GM_Primitives in a GM_Complex;
+the connectivity between the GM_Primitives can be derived from the coordinate data.
+
+. A GM_Complex shall be used as the value for a spatial attribute that represents a
+feature as a collection of connected GM_Objects, which are disjoint except at their
+boundaries. Subclasses of GM_Complex may be specified to constrain the structure of
+the GM_Complex used to represent a particular spatial configuration.
+. Features that share elements of their geometry shall be represented as
+GM_Complexes that are subcomplexes within a larger GM_Complex.
+
+===== Geometric composites
+
+A geometric composite is a geometric complex that has all the properties of a
+geometric primitive except that it is composed of smaller geometric primitives of
+the same kind. Geometric composites are used to represent complex features that are
+composed of smaller geometric objects that have the same kind of geometry. A
+GM_Composite shall be used to represent a complex feature that has the geometric
+properties of a geometric primitive.
+
+===== Features sharing geometry
+
+Different features can share, partly or completely, the same geometry when they
+appear to occupy the same position. To share a common geometry, spatial feature
+attributes must share one or more GM_Objects.
+
+There are two ways to share geometry. Complete sharing occurs when two feature
+instances both take the same instance of a GM_Object as the value of a spatial
+attribute. This can be required, or precluded, by stating a constraint in the
+Application Schema. In the absence of such constraints, it may be done whenever
+necessary.
+
+. An Application Schema may require instances of two or more feature types to share
+their geometry completely by including a constraint that the GM_Objects
+representing the features must be equal.
+. An Application Schema may preclude instances of two or more feature types from
+sharing their geometry completely by including a constraint that the GM_Objects
+representing the features are not equal.
+
+=== Cataloguing rules (<<ISO19109,clause="8.8">>)
+
+==== Introduction (<<ISO19109,clause="8.8.1">>)
+
+A Feature Catalogue is a repository that describes real world phenomena of
+significance to a particular domain. A feature cataloguing methodology provides the
+details about the organisation of the data that represents these phenomena in
+categories so that the resulting information is as unambiguous, comprehensible and
+useful as possible.
+
+==== Application Schema based on a Feature Catalogue (<<ISO19109,clause="8.8.2">>)
+
+An S-100 Application Schema shall be completely constructed by the definitions
+provided by a Feature Catalogue implementing the S-100 Feature Catalogue profile.
+
+==== Character encoding
+
+The character encoding used in a dataset shall be defined in the Application
+Schema. Where more than one character encoding is used the Application Schema shall
+document how they are used in the dataset.
+
+=== Codelists
+
+Application Schemas which use an attribute of codelist type shall include a CLASS
+with tags as specified in <<tab-3-17>> below. The codelist types are described in
+Part 1.
+
+[[tab-3-17]]
+.Tags for codelist types
+[options=header,cols=2]
+|===
+| Codelist type | Tags and values
+
+| open enumeration | codelistType=open enumerationencoding=other: [something]
+| closed dictionary | codelistType=closed dictionaryURI=<dictionary URL>
+| open dictionary | codelistType=open dictionaryURI=<dictionary URL>encoding=other: [something]
+|===
+
+The normative form of the "other: [something]"encodingshall be a character string
+in the format specified below:
+
+The word 'other' followed by a colon and a single space character (that is
+'other:&nbsp;' without quotes), followed by one or more alphanumeric strings
+separated by single spaces.
+
+The normative pattern specifying the portion following 'other:&nbsp;' is specified
+as (using XML Schema 1.0/1.1 patterns):
+
+`[a-zA-Z0-9]+( [a-zA-Z0-9]+)*`
+
+Note that the left parenthesis is followed by a single space and the pattern ends
+with the asterisk.
+
+*Examples:*
+
+[[tab-3-18]]
+.Examples of "extra" values for codelist attributes
+[cols=2,options=header]
+|===
+| `other: loxodromic` | allowed
+| `other: Seeschifffahrtsstraßen Ordnung` | not allowed (contains the character ß which is not in the allowed set)
+| `other: German Shipping Regulations` | allowed
+| `other: German Shipping Regulations` | not allowed (2 consecutive spaces)
+| `German Shipping Regulations` | not allowed (does not begin with "other: ")
+| `other: 287` | allowed
+| `other: 1,3,5-Trinitroperhydro-1,3,5-triazine` | not allowed (hyphen and comma characters are not in the allowed set)
+|===
