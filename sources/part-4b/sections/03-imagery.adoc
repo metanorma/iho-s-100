@@ -1,0 +1,186 @@
+== Imagery and gridded data metadata
+
+ISO 19115-1 identifies the metadata required to describe digital
+geographic data, and the extensions described in this section identify
+the metadata required to describe digital geospatial imagery and gridded
+data. Digital geospatial imagery and gridded metadata may also be
+provided for aggregations of datasets.
+
+=== Associated ISO standards
+
+ISO 19115-1 is designed to be the general metadata standard applicable
+to all geographic data sets. It identifies a set of core metadata
+derived from the many metadata elements and also specifies the
+conditions under which they should be used (that is mandatory,
+conditional, or optional). Although there is some service metadata in
+ISO 19115-1, (particularly in the area of identification), much of the
+service metadata is defined in ISO 19119 (Services). ISO 19115 makes
+provision for limited metadata describing spatial and temporal Schemas.
+
+ISO 19115-2 extends the metadata defined in ISO 19115 and identifies
+additional metadata (such as data quality, spatial representation,
+content, and acquisition information), required to describe imagery and
+gridded data. It provides information about the properties of the
+measuring equipment used to acquire data, geometry of the measuring
+processes employed by the equipment, and production processes used to
+digitize the raw data.
+
+Geolocation information is a very important metadata component required
+for imagery. ISO 19115-1 and 19115-2 may not include sufficient
+geolocation metadata for imagery and gridded data. It may therefore be
+necessary to reference ISO 19130. This standard specifies additional
+information required to support geolocation and also defines how sensor
+measurements and geolocation information are logically associated. The
+georeferencing information in ISO 19130 is a subset of that described in
+<<ISO19115-2>>. In order to develop a full set of imagery metadata, it may
+be necessary to combine the relevant sections from <<ISO19115-1>> and
+<<ISO19115-2>>, with the geolocation information or sensor properties from
+<<ISO19130>>.
+
+<<ISO19115-3>> - XML Schema implementation for fundamental concepts,
+expands <<ISO19115-1;and!ISO19115-2>> by defining new constraint types that
+further refine the metadata elements for implementation. It also defines
+the rules used for deriving an XML Schema from the ISO abstract UML
+models.
+
+=== Metadata packages
+
+The relationships between the packages contained in <<ISO19115-1>> and the
+extensions for geospatial imagery and gridded data are illustrated in
+<<fig-4b-1>> below. Dependencies on other packages are also shown in the
+figure. <<ISO19115-2>> packages are shown with no fill, <<ISO19115-1>>
+packages with grey fill, and the others (ISO 19107 (Geometry), ISO 19157
+(Data quality) and ISO 19103 (Conceptual Schema language)) in other
+colours. These metadata extensions have been fully documented using both
+UML models and a data dictionary, in ISO/TC211 19115-2 - Annex A and
+Annex B respectively.
+
+[[fig-4b-1]]
+.Metadata packages (from <<ISO19115-2>>)
+image::img31.png[]
+
+It should also be noted that, to ensure global uniqueness, <<ISO19103>>
+requires that all class names must be defined by a bi-alpha prefix that
+identifies the package to which a class belongs. The ISO 19115 series
+uses the prefixes MD (Metadata), CI (Citation), DQ (Data quality), EX
+(Extent), and LI (Lineage). To differentiate between classes used in
+<<ISO19115-1>> and those used in ISO 19115-2 (Extensions for imagery and
+gridded data), the MI prefix is used for imagery and gridded metadata,
+and LE and QE are used for extended Lineage and Data quality classes
+respectively. (Data quality classes are now defined in ISO 19157.)
+<<tab-4b-1>> contains the list of package identifiers for the classes
+used for metadata.
+
+[[tab-4b-1]]
+.UML Package Identifiers
+[options=header,cols=3]
+|===
+| Identifier | Information Type | Standard
+
+| MD | Metadata | <<ISO19115-1>>
+| MI | Metadata for Imagery | <<ISO19115-2>>
+| DQ | Data Quality | <<ISO19157>>
+| QE | Data quality Extended | <<ISO19115-2>>
+| CI | Citation | <<ISO19115-1>>
+| LI | Lineage | <<ISO19115-1>>
+| LE | Lineage Extended for Imagery | <<ISO19115-2>>
+| EX | Extent | <<ISO19115-1>>
+| GM | Geometry | <<ISO19107>>
+| MX | Metadata - XML Schema | <<ISO19139>>
+| PT | Polylinguistic Text | <<ISO19103>>
+| RS | Reference System | <<ISO19115-1>>
+| SC | Spatial Coordinates | <<ISO19111>>
+| SV | Metadata for services | <<ISO19115-1>>
+|===
+
+==== Metadata Entity Set for Imagery
+
+MI_Metadata is a subclass of MD_Metadata which aggregates the optional
+entity MI_AcquisitionInformation. See <<ISO19115-2,clause="A.2.1">> and
+<<ISO19115-2,clause="B.2.1">> for additional descriptive information and
+the data dictionary respectively.
+
+==== Data quality information for Imagery
+
+Information about the sources and production processes used in producing
+an imagery or gridded dataset has been included in an additional Data
+Quality for Imagery package, as ISO 19115-1 only makes provision for a
+general assessment of the quality. The following additional classes are
+listed below. A more detailed description of the classes and associated
+data dictionary are provided in <<ISO19115-2,clause="A.2.2">> and
+<<ISO19115-2,clause="B.2.2">> respectively, and <<ISO19157>>.
+
+. QE_CoverageResult is a specified subclass of DQ_Result and aggregates
+information required to report data quality for a coverage. It is based
+on concepts from ISO 19115 and ISO 19139.
+. QE_Usability is a specified subclass of DQ_Element. It is intended to
+provide user specific.
+. Quality information about a dataset's suitability for a particular
+application.
+. LE_ProcessStep is a specified subclass of LI_ProcessStep and contains
+additional information on the history of the algorithms used and
+processing performed to produce the data. LE_ProcessStep aggregates the
+following entities:
+.. LE_Processing, describes the procedure (such as software used,
+parameters, and processing documentation) by which the algorithm was
+applied to generate the data from the source data. LE_Processing
+aggregates LE_Algorithm, which describes the methodology used to derive
+the data from the source data;
+.. LE_ProcessStepReport identifies external information describing the
+processing of the data;
+.. LE_Source is a specified subclass of LI_Source and describes the
+output of a process step.
+
+==== Spatial representation information for Imagery
+
+This package contains information concerning the mechanisms used to
+represent spatial information. This package defines the following
+entities:
+
+. MI_Georectified contains check point information to further specify
+georectification details of the imagery or gridded data. It aggregates
+MI_GCP;
+. MI_Georeferenceable makes provision for the inclusion of additional
+information that can be used to geolocate the data. It aggregates
+MI_GeolocationInformation.
+
+==== Content information for Imagery
+
+Although this package is part of ISO 19115-1, the following entities
+have been included to better cater for imagery and gridded data:
+
+. MI_Band (subclass of MD_Band) - defines additional attributes for
+specifying properties of individual wavelength bands in an imagery and
+gridded dataset;
+. MI_ImageDescription (subclass of MD_ImageDescription) - used to
+aggregate MI_RangeElementDescription;
+. MI_CoverageDescription (subclass of MD_CoverageDescription) - used to
+aggregate MI_RangeElementDescription;
+. MI_RangeElementDescription - used to provide range elements used in a
+coverage dataset.
+
+==== Acquisition Information for Imagery
+
+MI_AcquisitionInformation is an aggregate of the following entities:
+
+. MI_Instrument (the measuring instruments used to acquire the data);
+. MI_Operation,(the overall data gathering program to which the data
+contribute);
+. MI_Platform (the platform from which the data were taken);
+. MI_Objective (the characteristics and geometry of the intended object
+to be observed);
+. MI_Requirement (the user requirements used to derive the acquisition
+plan);
+. MI_Plan (the acquisition plan that was implemented to acquire the
+data).
+
+Two additional classes are required to provide information on the
+acquisition of the data. These are:
+
+. MI_Event describes a significant event that occurred during data
+acquisition. An event can be associated with an operation, objective, or
+platform pass; and
+. MI_PlatformPass identifies a particular pass made by the platform
+during data acquisition. A platform pass is used to provide supporting
+identifying information for an event and for data acquisition of a
+particular objective.
