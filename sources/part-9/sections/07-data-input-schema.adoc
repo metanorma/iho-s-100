@@ -1,0 +1,625 @@
+[[cls-9-7]]
+== Data input Schema
+
+[[cls-9-7.1]]
+=== Introduction
+
+The data input Schema describes how data should be presented to the XSLT
+processor. Encoded data can be transformed to an XML document or a
+presentation of such a document, for example a DOM-tree. It is also possible
+to model the data to look like XML and use a special software interface to
+present such data to the XSLT processor.
+
+Whichever method is used, this Schema describes how the data must be
+organized. In this standard only the base types are described. These types
+should be used along with a product's Feature Catalogue to generate the
+input XML for portrayal processing, as described in <<app-9-A>>.
+
+NOTE: It is assumed for the examples in this section that types of this
+Schema are in the namespace s100.
+
+[[cls-9-7.2]]
+=== Enumerations
+
+For the use in this Schema the following enumeration types are defined:
+
+[[fig-9-4]]
+.Input Schema Enumerations
+image::img89.png[]
+
+==== GeometricPrimitive
+
+This enumeration describes the type of geometric primitive that is used by a
+feature object. If the feature object uses different geometric primitives
+the value `Complex` has to be used.
+
+[source,xml]
+----
+<xs:simpleType name="GeometricPrimitive">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="None"/>
+    <xs:enumeration value="Point"/>
+    <xs:enumeration value="MultiPoint"/>
+    <xs:enumeration value="Curve"/>
+    <xs:enumeration value="Surface"/>
+    <xs:enumeration value="Coverage"/>
+    <xs:enumeration value="Complex"/>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+==== Orientation
+
+The enumeration `Orientation` is used to specify the orientation of a
+referenced geometry that is used by a feature object or by a complex curve.
+
+[source,xml]
+----
+<xs:simpleType name="Orientation">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="Forward"/>
+    <xs:enumeration value="Reverse"/>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+==== BoundaryType
+
+This enumeration describes the type of a topologic boundary.
+
+[source,xml]
+----
+<xs:simpleType name="BoundaryType">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="Begin"/>
+    <xs:enumeration value="End"/>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+==== InterpolationType
+
+This enumeration describes the mathematical interpolation method between two
+control points in a line segment. Note that the methods depend on the
+underlying coordinate reference system and not all of them are valid for all
+types of CRS. The Product Specification should specify the details of the
+use of interpolation.
+
+[source,xml]
+----
+<xs:simpleType name="InterpolationType">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="None"/>
+    <xs:enumeration value="Linear"/>
+    <xs:enumeration value="Loxodromic"/>
+    <xs:enumeration value="CircularArc3Points"/>
+    <xs:enumeration value="Geodesic"/>
+    <xs:enumeration value="CircularArcCenterPointWithRadius"/>
+    <xs:enumeration value="Elliptical"/>
+    <xs:enumeration value="Conic"/>
+    <xs:enumeration value="PolynomialSpline"/>
+    <xs:enumeration value="BezierSpline "/>
+    <xs:enumeration value="BSpline"/>
+    <xs:enumeration value="BlendedParabolic"/>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+[[cls-9-7.3]]
+=== Coordinates
+
+In case that coordinates have to be presented to the XSLT processor the
+following types have to be used.
+
+[[fig-9-5]]
+.Input Schema Coordinates
+image::img90.png[]
+
+The types Coordinate2D and Coordinate3D are for a simple coordinate tuple.
+They are defined as:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Coordinate2D">
+  <xs:sequence>
+    <xs:element name="x" type="xs:double"/>
+    <xs:element name="y" type="xs:double"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Coordinate3D">
+  <xs:complexContent>
+    <xs:extension base="Coordinate2D">
+      <xs:sequence>
+        <xs:element name="z" type="xs:double"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+Note that the type Coordinate3D is an extension of the type Coordinate2D.
+
+[example%unnumbered]
+====
+[source%unnumbered,xml]
+----
+<s100:Coordinate2D>
+  <s100:x>9.12345</s100:x>
+  <s100:y>52.56789</s100:y>
+</s100:Coordinate2D>
+----
+
+And
+
+[source%unnumbered,xml]
+----
+<s100:Coordinate2D>
+  <s100:x>9.12345</s100:x>
+  <s100:y>52.56789</s100:y>
+  <s100:z>12.5</s100:z>
+</s100:Coordinate2D>
+----
+====
+
+A group Coordinate is defined where coordinate tuples can be used. The use
+of 2D or 3D tuples is mutually exclusive.
+
+[source%unnumbered,xml]
+----
+<xs:group name="Coordinate">
+  <xs:choice>
+    <xs:element name="Coordinate2D" type="Coordinate2D"/>
+    <xs:element name="Coordinate3D" type="Coordinate3D"/>
+  </xs:choice>
+</xs:group>
+----
+
+[[cls-9-7.4]]
+=== Associations
+
+According to the general feature model there are two types of associations:
+
+[[fig-9-6]]
+.Input Schema Associations
+image::img91.png[]
+
+For each association a separate type is defined in the Schema:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="InformationAssociation">
+  <xs:attribute name="informationRef" type="IDString" use="required"/>
+  <xs:attribute name="role" type="xs:string" use="required"/>
+</xs:complexType>
+
+<xs:complexType name="FeatureAssociation">
+  <xs:attribute name="featureRef" type=" IDString " use="required"/>
+  <xs:attribute name="role" type="xs:string" use="required"/>
+</xs:complexType>
+----
+
+The attributes informationRef and featureRef correspond to the attribute id
+of the referenced information respective feature object. See the section on
+objects for more details.
+
+Each S100_FC_InformationAssociation and S100_FC_FeatureAssociation defined
+in a Feature Catalogue describes a subtype of InformationAssociation and
+FeatureAssociation respectively. These subtypes may define additional
+attributes of the association; these attributes should be included in the
+input XML as described in <<app-9-A>>.
+
+[[cls-9-7.5]]
+=== Spatial relations
+
+In the general feature model different relations are modelled between
+feature types and spatial types but also between spatial types. For such
+relations the following types are defined by this Schema.
+
+[[fig-9-7]]
+.Input Schema Spatial Relations
+image::img92.png[]
+
+The type SpatialRelation is the base type for all relations to spatial
+objects. The ref attribute corresponds to the attribute id of the spatial
+object.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="SpatialRelation">
+  <xs:attribute name="ref" type=" IDString " use="required"/>
+  <xs:attribute name="scaleMinimum" type="xs:positiveInteger" use="required"/>
+  <xs:attribute name=" scaleMaximum " type="xs:positiveInteger" use="required"/>
+</xs:complexType>
+----
+
+The other relation types are derived from this type and add information
+according to the specific use of that relation. The type MaskedRelation adds
+an attribute mask that specifies if a referenced spatial object should not
+be used for portrayal.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="MaskedRelation">
+  <xs:complexContent>
+    <xs:extension base="SpatialRelation">
+      <xs:attribute name="mask" type="xs:boolean" default="false"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+Note that the attribute mask is not mandatory but has a default value for
+the case of its absence.
+
+The type BoundaryRelation adds a boundary type to the relation and is used
+when the relation describes a topological relation, for example the relation
+to a bounding node of a curve.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="BoundaryRelation">
+  <xs:complexContent>
+    <xs:extension base="SpatialRelation">
+      <xs:attribute name="boundaryType" type="BoundaryType" use="required"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+The type CurveRelation is used whenever a curve is referenced by a spatial
+relation since it is necessary to specify if the curve is used in the same
+direction as it is defined or in the reverse order. The type is derived from
+MaskedRelation since each curve can be a subject of masking.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="CurveRelation">
+  <xs:complexContent>
+    <xs:extension base="MaskedRelation">
+      <xs:attribute name="orientation" type="Orientation" use="required"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+Two groups are defined for Spatial relations. One group defines the possible
+relations to curves; the other defines all possible spatial relations.
+
+[source%unnumbered,xml]
+----
+<xs:group name="CurveRelations">
+  <xs:choice>
+    <xs:element name="Curve" type="CurveRelation"/>
+    <xs:element name="CompositeCurve" type="CurveRelation"/>
+  </xs:choice>
+</xs:group>
+
+<xs:group name="SpatialRelations">
+  <xs:choice>
+    <xs:element name="Point" type="MaskedRelation"/>
+    <xs:element name="PointSet" type="MaskedRelation"/>
+    <xs:element name="Surface" type="MaskedRelation"/>
+    <xs:group ref="CurveRelations"/>
+  </xs:choice>
+</xs:group>
+----
+
+How these groups are used is demonstrated in <<app-9-A>>.
+
+[[cls-9-7.6]]
+=== Objects
+
+All objects in a data set are based on the type Object which carries the
+common properties of all objects. Each object needs to be uniquely
+identifiable within a data set. This is done by the attribute id.
+
+An optional association to `Information` is provided. When an information
+association is present, the code of an information association defined in
+the Feature Catalogue should be used as the element name in place of
+_associatedInformation_ - see <<app-9-A>> for more information
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Object" abstract="true">
+  <xs:sequence>
+    <xs:element name="associatedInformation" type="InformationAssociation" minOccurs="0"
+     maxOccurs="unbounded"/>
+    <!--When generating input XML the base schema should be extended to provide a substitution group for each information association defined in the Feature Catalogue. For example, if the Feature Catalogue defines an information association having a code of SpatialAssociation, the base schema should be extended with:
+    <xs:element name="SpatialAssociation" substitutionGroup="associatedInformation"/>
+    -->
+  </xs:sequence><xs:attribute name="id" type="IDString" use="required"/>
+</xs:complexType>
+----
+
+Note that the type of the identifier is `IDString` to be as general as
+possible with respect to different methods used for identification. The
+characters allowed in this string are 0-9a-zA-Z.
+
+[source%unnumbered,xml]
+----
+<xs:simpleTypename="IDString">
+  <xs:restrictionbase="xs:string">
+    <xs:minLengthvalue="1"/>
+    <xs:patternvalue="[0-9a-zA-Z_]*"/>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+The model of all objects is given in <<fig-9-8>> below.
+
+[[fig-9-8]]
+.Input Schema Objects
+image::img93.png[]
+
+[[cls-7.7]]
+=== Spatial objects
+
+[[cls-9-7.7.1]]
+==== Preface
+
+Spatial objects in a data set carry the geometric location of a feature
+object. The following types are supported by this standard:
+
+* Point
+* MultiPoint
+* Curve
+* Composite curve
+* Surface
+
+Attributes are not permitted for spatial objects by the GFM. All types are
+derived from the type Object, meaning they have an identifier and may have
+associated information such as spatial quality.
+
+[[cls-9-7.7.2]]
+==== SpatialObject
+
+SpatialObject is an abstract class which serves as the base class for all
+spatial objects.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="SpatialObject" abstract="true">
+  <xs:complexContent>
+    <xs:extension base="Object">
+  </xs:complexContent>
+</xs:complexType>
+----
+
+[[cls-9-7.7.3]]
+==== Point
+
+A point carries a single coordinate tuple, 2D or 3D. The definition looks
+like.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Point">
+  <xs:complexContent>
+    <xs:extension base="SpatialObject">
+      <xs:sequence>
+        <xs:group ref="Coordinate"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+Note that the group Coordinate is used within the definition to allow both
+Coordinate2D and Coordinate3D elements
+
+[[cls-9-7.7.4]]
+==== MultiPoint
+
+Similar to Point this type defines point geometry for a feature object. The
+difference is that a set of tuples can be defined. Therefore maxOccurs is
+set to unbounded.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="MultiPoint">
+  <xs:complexContent>
+    <xs:extension base="SpatialObject">
+      <xs:sequence>
+        <xs:group ref="Coordinate" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+[[cls-9-7.7.5]]
+==== Curve
+
+Curves describe the line geometry of a feature object. They are made of
+segments where each segment has a sequence of control points and an
+interpolation method. The latter defines the geometry between the control
+points according to the used coordinate reference system. There are two
+special types of segments:
+
+. ArcByCenterPoint
++
+--
+A circular arc defined by a center point and a radius. The beginning of the
+arc is defined by the start angle and the length of the arc is defined by
+the angular length. This length is a signed quantity defining the direction
+of the arc: positive means clockwise.
+--
+. CircleByCenterPoint
++
+--
+A circle defined by a center point and a radius.
+--
+
+The abstract type SegmentBase defines a sequence of control points and the
+attribute for the interpolation type:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="SegmentBase" abstract="true">
+  <xs:sequence>
+    <xs:element name="ControlPoint" type="Coordinate2D" minOccurs="1" maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:attribute name="interpolation" type="InterpolationType" use="required"/>
+</xs:complexType>
+----
+
+From this type the type Segment is derived by restricting the number of
+control points to at least two:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Segment">
+  <xs:complexContent>
+    <xs:restriction base="SegmentBase">
+      <xs:sequence>
+        <xs:element name="ControlPoint" type="Coordinate2D" minOccurs="2" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:restriction>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+For the "by center point" segments the abstract base type is also derived
+from SegmentBase restricting the number of control points to exact 1 and
+fixes the value of the attribute interpolation.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="ArcByCenterPointBase" abstract="true">
+  <xs:complexContent>
+    <xs:restriction base="SegmentBase">
+      <xs:sequence>
+        <xs:element name="ControlPoint" type="Coordinate2D" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="interpolation" type="InterpolationType" use="required" +
+                    fixed="CircularArcCenterPointWithRadius"/>
+    </xs:restriction>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+The ArcByCenterPoint is then an extension of this type adding attributes for
+radius, start angle and angular length.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="ArcByCenterPoint">
+  <xs:complexContent>
+    <xs:extension base="ArcByCenterPointBase">
+      <xs:attribute name="radius" type="xs:double" use="required"/>
+      <xs:attribute name="startAngle" type="xs:double" use="required"/>
+      <xs:attribute name="angularDistance" type="xs:double" use="required"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+The CircleByCenterPoint type is very similar. The attribute start angle is
+not defined since it is meaningless. The direction is here defined by the
+attribute direction which has values '+' or '-'.
+
+[source%unnumbered,xml]
+----
+<xs:simpleType name="Direction">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="+"/>
+    <xs:enumeration value="-"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="CircleByCenterPoint">
+  <xs:complexContent>
+    <xs:extension base="ArcByCenterPointBase">
+      <xs:attribute name="radius" type="xs:double" use="required"/>
+      <xs:attribute name="direction" type="Direction" default="+"/>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+A group is defined that allows the use of the different type of segments.
+
+[source%unnumbered,xml]
+----
+<xs:group name="Segments">
+  <xs:choice>
+    <xs:element name="Segment" type="Segment"/>
+    <xs:element name="ArcByCenterPoint" type="ArcByCenterPoint"/>
+    <xs:element name="CircleByCenterPoint" type="CircleByCenterPoint"/>
+  </xs:choice>
+</xs:group>
+----
+
+The type Curve finally combines a sequence of segments with the topological
+boundary. The topological boundary of a curve is the beginning and end node
+implemented by a Point object.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Curve">
+  <xs:complexContent>
+    <xs:extension base="SpatialObject">
+      <xs:sequence>
+        <xs:element name="Boundary" type="BoundaryRelation" minOccurs="0" maxOccurs="2"/>
+        <xs:group ref="Segments" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+[[cls-9-7.7.6]]
+==== CompositeCurve
+
+A composite curve describes the line geometry of a feature object just like
+a 'simple' curve. But instead of using coordinates to define the geometry it
+is using a sequence of other curves, including other composite curves. With
+other words it is a sequence of relations to other curves.
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="CompositeCurve">
+  <xs:complexContent>
+    <xs:extension base="SpatialObject">
+      <xs:sequence>
+        <xs:group ref="CurveRelations" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+[[cls-9-7.7.7]]
+==== Surface
+
+Surfaces describe the area geometry of a feature object. The surface itself
+is defined by its boundary. The boundary consists of an outer ring and
+optionally a number of inner rings. The inner rings describe holes in the
+area. Each ring is a closed polygon made from one or many curves. That means
+that a ring is very similar to a composite curve but unlike the composite
+curve it is not derived from `SpatialObject` because it does not need to be
+identifiable. The definition of a ring simply looks like:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Ring">
+  <xs:group ref="CurveRelations" minOccurs="1" maxOccurs="unbounded"/>
+</xs:complexType>
+----
+
+And the definition of a surface finally is:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="Surface">
+  <xs:complexContent>
+    <xs:extension base="SpatialObject">
+      <xs:sequence>
+        <xs:element name="OuterRing" type="Ring"/>
+        <xs:element name="InnerRing" type="Ring" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----

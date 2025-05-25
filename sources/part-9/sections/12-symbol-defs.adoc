@@ -1,0 +1,472 @@
+[[cls-9-12]]
+== Symbol Definitions
+
+[[cls-9-12.1]]
+=== Overview
+
+The SymbolDefinition package describes the graphic primitives used for the portrayal. Parts of the primitives are defined externally by using SVG definitions. Those external parts will be referenced from the types in this model. The package diagram is shown in the <<fig-9-15>> below.
+
+[[fig-9-15]]
+.Symbol Definition Packages
+image::img100.png[]
+
+[[cls-9-12.2]]
+=== The GraphicBase package
+
+[[cls-9-12.2.1]]
+==== Overview
+
+This package contains graphic base types for the use in other packages.
+
+[[cls-9-12.2.2]]
+==== Model
+
+[[fig-9-16]]
+.Graphics Base
+image::img101.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:0 limit:7 %}
+[[cls-9-12.2.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+<<fig-9-17>> below shows how the local CRS are defined for the different types of geometry.
+
+From left to right:
+
+* Local CRS for point geometry
++
+NOTE: for multi points the local CRS is repeated at each point.
+* Local CRS for curve geometry. The origin of the coordinate system can be any point of the line. This point can be defined by the absolute or relative distance from the start of the line. The stem:[x]-axis is directed in the direction of the tangent at the tangency point and the stem:[y]-axis is oriented perpendicular to this direction.
+* Local CRS for surface geometry. For the boundary the same rules apply as for curve geometry. For the interior of the surface a coordinate system is used that has axes parallel to the Portrayal CRS. The origin can be an arbitrary point that is constant relative to the surface. This point can be outside the surface.
+
+[[fig-9-17]]
+.Local CRS
+image::img102.png[]
+
+[[fig-9-18]]
+.Line CRS
+image::img103.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 7 %}
+{% for item in data offset:7 limit:8 %}
+[[cls-9-12.2.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.3]]
+=== The Symbol package
+
+[[cls-9-12.3.1]]
+==== Model
+
+This package contains the model of a symbol. Note that the definition of the symbol graphic itself is not the subject of this model. This will be defined in external files according to the SVG 1.1 recommendation.
+
+[[fig-9-19]]
+.Symbol Package
+image::img104.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:15 limit:6 %}
+[[cls-9-12.3.1.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.4]]
+=== The LineStyles package
+
+[[cls-9-12.4.1]]
+==== Model
+
+[[fig-9-20]]
+.Line Styles Package
+image::img105.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:21 limit:8 %}
+[[cls-9-12.4.1.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.5]]
+=== The AreaFills package
+
+[[cls-9-12.5.1]]
+==== Model
+
+[[fig-9-21]]
+.Area Fills Package
+image::img111.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:29 limit:9 %}
+[[cls-9-12.5.1.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.6]]
+=== The Text package
+
+[[cls-9-12.6.1]]
+==== Overview
+
+The text package contains the types necessary for the depiction of text. This includes fonts. In this model fonts may be described by characteristics or referenced by name. Two types of text instructions are supported:
+
+* Text relative to a point
+* Text that will be drawn along a linear geometry
+
+[[cls-9-12.6.2]]
+==== Fonts
+
+A font is a set of typefaces. A typeface is the artistic representation or interpretation of characters; it is the way the type looks.
+
+This standard supports two methods of defining fonts, the first describes a font by four attributes and let the system find a best match to an actual font available on the graphic system. The second method is referencing an external font file. The format of this file must conform to the 'True Type Font' standard and must be included in the the Portrayal Catalogue.
+
+[[cls-9-12.6.3]]
+==== Model
+
+[[fig-9-22]]
+.Text Package
+image::img112.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:38 limit:14 %}
+[[cls-9-12.6.3.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.7]]
+=== The Coverage package
+
+[[cls-9-12.7.1]]
+==== Overview
+
+The coverage package contains the types for the depiction of a Coverage. This portrayal is applicable to the portrayal of numeric Coverage values. Three types of coverage portrayals are supported:
+
+* Colour;
+* Numeric Annotation; and
+* Symbol Annotation.
+
+[[cls-9-12.7.2]]
+==== Ranges
+
+Ranges are used to control how portrayal is assigned to the values in a Coverage. These make use of the S-100_NumericRange complex type which is defined in S-100 Part 1 Conceptual Schema Language. The Numeric Range type allows for various range definitions with different closure options.
+
+[[cls-9-12.7.3]]
+==== Lookup Table
+
+The CoverageFill class carries an ordered list of lookup entries. Each of these entries carries a range used to evaluate a match by testing if the coverage value matches the range. The first lookup entry with a matching range is used to apply up to one of each type of portrayal (colour, numeric annotation or a symbol) to the coverage element. This allows for example to fill a cell in a grid with a colour and assign a numeric or symbol annotation to the cell as well.
+
+The lookup table can also associate an alert specified in the drawing instruction with a range of coverage values. When associating alerts with coverage values there may or may not be portrayal elements (colour, numeric annotation or a symbol) present.
+
+[[cls-9-12.7.4]]
+==== Model
+
+[[fig-9-23]]
+.Coverage Package
+image::img113.png[]
+
+[yaml2text,sections/tables/12-tables.yaml,data]
+----
+{% assign start_index = 0 %}
+{% for item in data offset:52 limit:6 %}
+[[cls-9-12.7.4.{{start_index | plus: forloop.index}}]]
+===== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Role Name | Name | Description | Mult. | Type
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a",options="header"]
+|===
+| Role Name | Name | Description
+
+{% for row in item.rows %}
+| {{row.role_name}} | {{row.name}} | {{row.description}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-9-12.7.4.7]]
+===== Coverages and placement
+
+[[tab-9-2]]
+.Coverages and placement
+[cols="a,a,a,a",options=header]
+|===
+| Coverage spatial type (attribute dataCodingFormat). See clause 10c-10.1 Data coding format
+| Interpolation (attribute interpolationType). See clause 8-7.7.3 S100_CV_InterpolationMethod
+| placement See <<cls-9-12.7.4.1>> CoverageFill and <<cls-9-12.7.4.6>> CoveragePlacement
+| Resulting symbol/text placement
+
+| fixedStations +
+movingPlatform +
+stationwiseFixed +
+Feature oriented Regular Grid +
+(DCF 1, 4, 8, 9)
+| (not allowed)
+| (Not used. Ignore if encoded)
+| each direct position
+
+.4+| regularGrid +
+ungeorectifiedGrid +
+irregularGrid +
+(DCF 2, 3, 5)
+.2+| discrete
+| directPositionOR(not present)
+| each direct position
+| centre
+| ERROR - ignore placement attribute and portray at each direct position
+.2+| (other)
+| directPosition
+| each direct position
+| centreOR +
+(not present)
+| centre of each cell
+
+.4+| variableCellSize +
+(DCF 6)
+.2+| discrete
+| directPosition +
+OR +
+(not present)
+| each direct position for each unit grid cell
+| centre
+| ERROR - ignore placement attribute and portray at each direct position
+.2+| (other)
+| directPosition
+| each direct position for each unit grid cell
+| centre +
+OR +
+(not present)
+| centre of each unit grid cell
+
+.4+| TIN +
+(DCF 7)
+.2+| discrete
+| directPosition +
+OR +
+(not present)
+| each direct position (triangle vertex)
+
+| centre
+| ERROR - ignore placement attribute and portray at each direct position (triangle vertex)
+
+.2+| (other)
+| directPosition
+| each direct position (triangle vertex)
+| centre +
+OR +
+(not present)
+| barycentre (centroid) of each triangle
+|===

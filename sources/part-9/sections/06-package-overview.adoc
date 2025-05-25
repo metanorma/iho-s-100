@@ -1,0 +1,20 @@
+[[cls-9-6]]
+== Package overview
+
+The following diagram shows the packages for implementing this standard.
+
+The InputSchema describes how data is presented to the portrayal engine
+(XSLT processor). The Presentation package includes two subpackages one
+describing the Portrayal Catalogue structure the other describing the
+drawing instructions. Drawing instructions are the output of the portrayal
+engine (XSLT processor).
+
+The SymbolDefinitions package describes the graphic primitives used for
+portrayal.
+
+The portrayal engine is using standard XSLT. There is no package describing
+this part of the portrayal.
+
+[[fig-9-3]]
+.Packages
+image::img88.png[]

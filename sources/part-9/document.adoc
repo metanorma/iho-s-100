@@ -1,0 +1,50 @@
+= Universal Hydrographic Data Model -- Part 9: Portrayal
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-conformance.adoc[]
+
+include::sections/03-norm-refs.adoc[]
+
+include::sections/04-port-catalogue.adoc[]
+
+include::sections/05-general-port-model.adoc[]
+
+include::sections/06-package-overview.adoc[]
+
+include::sections/07-data-input-schema.adoc[]
+
+include::sections/08-information-objects.adoc[]
+
+include::sections/09-feature-objects.adoc[]
+
+include::sections/10-port-processing.adoc[]
+
+include::sections/11-drawing-instructions.adoc[]
+
+include::sections/12-symbol-defs.adoc[]
+
+include::sections/13-port-lib.adoc[]
+
+include::sections/aa-port-input-xml.adoc[]
+
+include::sections/ab-svg-profile.adoc[]

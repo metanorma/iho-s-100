@@ -1,0 +1,21 @@
+== Scope
+
+This part of the standard defines the models, structures and formats for a
+machine readable Portrayal Catalogue. The intent is for a Portrayal
+Catalogue to be delivered separately from product datasets such that it can
+be imported and interpreted to map Feature objects defined according to the
+Part 3 General Feature Model (GFM) into Drawing Instructions and
+symbolization.
+
+The actual contents of a Portrayal Catalogue need to be defined as part of a
+Product Specification using the mechanism and structures defined in this
+part. For example a Product Specification would include a set of mapping
+rules, a set of symbols, linestyles, colours etc and make it available for
+use with product datasets.
+
+This part includes mechanisms for portrayal of 2D vector data according to
+the GFM as well as Coverage data. It does not include drawing instructions
+and symbol structures intended for 3D portrayal. It does not include the
+generation of pick reports or textual reports however the approach of
+exposing the content to mapping rules could be implemented to generate
+textual or html formatted output.

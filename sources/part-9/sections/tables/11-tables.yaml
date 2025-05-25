@@ -1,0 +1,344 @@
+---
+# DisplayList
+- table: DisplayList
+  rows:
+    - role_name: Class
+      name: DisplayList
+      description: A ordered set of Drawing Instructions
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: instruction
+      description: An instruction of this list
+      mult: 0..*
+      type: DrawingInstruction
+
+# DrawingInstruction
+- table: DrawingInstruction
+  rows:
+    - role_name: Class
+      name: DrawingInstruction
+      description: Abstract base class for all drawing instructions
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: id
+      description: An identifier for the drawing instruction
+      mult: 0..1
+      type: string
+    - role_name: Attribute
+      name: parentId
+      description: |
+        Instruction is dependent on parent drawing instruction(s). If no referenced instructions are executed during rendering then this instruction should not be executed.
+
+        Execution of referenced (parent) instructions can be affected by many aspects of the visualization process including viewing group settings, display plane visibility, line suppression, scale minimum/maximum, date dependency, hover status, and dependencies of the parent instruction
+      mult: 0..1
+      type: string
+    - role_name: Attribute
+      name: hover
+      description: |
+         Specifies whether the instruction is shown only on hover-over.
+
+         OEM support for this feature is optional
+      mult: 0..1
+      type: boolean
+    - role_name: Attribute
+      name: viewingGroup
+      description: "The Viewing Group(s) the instruction is assigned to. Instruction is disabled if any Viewing Group is disabled"
+      mult: 1..
+      type: string
+    - role_name: Attribute
+      name: displayPlane
+      description: The display plane the instruction is assigned to
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: drawingPriority
+      description: The priority that defines the order of drawing
+      mult: 1
+      type: integer
+    - role_name: Attribute
+      name: scaleMinimum
+      description: Scale denominator to define the minimum scale for which the instruction will be shown. If not given there is no minimum scale
+      mult: 0..1
+      type: integer
+    - role_name: Attribute
+      name: scaleMaximum
+      description: Scale denominator to define the maximum scale for which the instruction will be shown. If not given there is no maximum scale
+      mult: 0..1
+      type: integer
+    - role_name: Role
+      name: featureReference
+      description: The reference to the feature type that will be depicted by the instruction
+      mult: 1
+      type: FeatureReference
+    - role_name: Role
+      name: spatialReference
+      description: The reference(s) to the spatial type components of the feature that defines the geometry used for the depiction. Not used when the entire geometry of the feature should be depicted
+      mult: 0..*
+      type: SpatialReference
+    - role_name: Role
+      name: timeValid
+      description: The drawing instruction is valid during the specified time interval(s)
+      mult: 0..*
+      type: S100_TM_Period
+    - role_name: Role
+      name: alertReference
+      description: The reference to the alert in the Alert Catalogue that is triggered by the geometry of the instruction
+      mult: 0..1
+      type: AlertReference
+
+# FeatureReference
+- table: FeatureReference
+  rows:
+    - role_name: Class
+      name: FeatureReference
+      description: A reference to a feature type
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: The identifier of the feature type
+      mult: 1
+      type: string
+
+# SpatialReference
+- table: SpatialReference
+  rows:
+    - role_name: Class
+      name: SpatialReference
+      description: A reference to a spatial type
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: The identifier of the spatial type
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: forward
+      description: |
+        If true the spatial object is used in the direction in which it is stored in the data.
+
+        Only applies to curves
+      mult: 1
+      type: boolean
+
+# AlertReference
+- table: AlertReference
+  rows:
+    - role_name: Class
+      name: AlertReference
+      description: A reference to an alert in the Alert Catalogue
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: reference
+      description: The identifier of the Alert Catalogue entry
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: plan
+      description: The viewing group the alert highlight is assigned to when active in route planning
+      mult: 0..1
+      type: string
+    - role_name: Attribute
+      name: monitor
+      description: The viewing group the alert highlight is assigned to when active in route monitoring
+      mult: 0..1
+      type: string
+
+# NullInstruction
+- table: NullInstruction
+  rows:
+    - role_name: Class
+      name: NullInstruction
+      description: An instruction that indicates that no portrayal is required for the referenced feature
+      mult: "-"
+      type: "-"
+
+# PointInstruction
+- table: PointInstruction
+  rows:
+    - role_name: Class
+      name: PointInstruction
+      description: A drawing instruction for point symbol
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: symbol
+      description: The symbol to be depicted
+      mult: 1
+      type: Symbol::Symbol
+
+# LineInstruction
+- table: LineInstruction
+  rows:
+    - role_name: Class
+      name: LineInstruction
+      description: A drawing instruction for line geometry
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: suppression
+      description: Whether another line instruction of higher priority can suppress the drawing of this line instruction
+      mult: 1
+      type: boolean = _True_
+    - role_name: Role
+      name: lineStyle
+      description: The line style used for the depiction
+      mult: 1
+      type: LineStyles::AbstractLineStyle
+
+# AreaInstruction
+- table: AreaInstruction
+  rows:
+    - role_name: Class
+      name: AreaInstruction
+      description: A drawing instruction for area geometry
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: areaFill
+      description: The area fill used for the depiction
+      mult: 1
+      type: AreaFills::AbstractAreaFill
+
+# TextInstruction
+- table: TextInstruction
+  rows:
+    - role_name: Class
+      name: TextInstruction
+      description: A drawing instruction for depicting text
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: text
+      description: The text to be depicted
+      mult: 1
+      type: Text::Text
+
+# CoverageInstruction
+- table: CoverageInstruction
+  rows:
+    - role_name: Class
+      name: CoverageInstruction
+      description: A drawing instruction for depicting coverages of data
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: coverageFill
+      description: The coverage fill used for depiction
+      mult: 1
+      type: Coverages::CoverageFill
+
+# AugmentedGeometry
+- table: AugmentedGeometry
+  rows:
+    - role_name: Class
+      name: AugmentedGeometry
+      description: A base class for drawing instructions that uses geometry not available in the dataset. The geometry is generated by the portrayal functions according to a defined CRS
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: crs
+      description: |
+        The coordinate reference system of the generated geometry. One of
+
+        * Geographic CRS,
+        * Portrayal CRS,
+        * Local CRS.
+
+        For detailed description see the documentation of the GraphicsBase package
+      mult: 1
+      type: GraphicBase::CRSType
+    - role_name: Role
+      name: text
+      description: A text to be depicted by the instruction. The rules for text apply depending on the type of geometry used by the instruction
+      mult: 0..1
+      type: Text::Text
+
+# AugmentedPoint
+- table: AugmentedPoint
+  rows:
+    - role_name: Class
+      name: AugmentedPoint
+      description: A drawing instruction for a point symbol where the position is not given by the feature type
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: position
+      description: The position of the symbol
+      mult: 1
+      type: GraphicBase::Point
+    - role_name: Role
+      name: symbol
+      description: The symbol to be depicted
+      mult: 0..1
+      type: Symbol::Symbol
+
+# AugmentedLineOrArea
+- table: AugmentedLineOrArea
+  rows:
+    - role_name: Class
+      name: AugmentedLineOrArea
+      description: A base class for linear augmented geometry
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: lineStyle
+      description: The line style to be depicted
+      mult: 0..1
+      type: LineStyles::LineStyle
+
+# AugmentedRay
+- table: AugmentedRay
+  rows:
+    - role_name: Class
+      name: AugmentedRay
+      description: A drawing instruction that defines a line from the position of a point feature to another position. The position is defined by the direction and the length attributes. It can be used for drawing line styles or line texts
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: rotationCRS
+      description: If present, specifies the CRS for _direction_
+      mult: 0..1
+      type: GraphicsBase::CRSType
+    - role_name: Attribute
+      name: direction
+      description: The direction of the ray relative to the used CRS
+      mult: 1
+      type: double
+    - role_name: Attribute
+      name: length
+      description: The length of the ray. The units depending on the used CRS
+      mult: 1
+      type: double
+
+# AugmentedPath
+- table: AugmentedPath
+  rows:
+    - role_name: Class
+      name: AugmentedPath
+      description: A drawing instruction for a line. It can be used for drawing line styles or line texts
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: path
+      description: The path defining the line geometry
+      mult: 1
+      type: GraphicsBase::Path
+
+# AugmentedArea
+- table: AugmentedArea
+  rows:
+    - role_name: Class
+      name: AugmentedArea
+      description: A drawing instruction for an area. It can be used for drawing line styles, area fills, or area texts. The used path must be closed
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: areaFill
+      description: The area fill to be depicted
+      mult: 0..1
+      type: AreaFills::AreaFill

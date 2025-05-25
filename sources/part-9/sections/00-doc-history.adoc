@@ -1,0 +1,50 @@
+[.preface]
+== metanorma-extension
+
+=== user-css
+
+[source]
+----
+.highlight { background-color: yellow}
+----
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: |
+         Inserted enhanced guidance for the implementation of the text drawing instruction.
+
+         NOTE: All Table numbers, and all Figure numbers from Figure 9-9, amended as a result of these changes.
+      location:
+        - part=9,clause=9-11.1.11
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Clarified LineStyle Class table to indicate that, even though a pen must be provided, it is not used when drawing symbolized lines without a dash component.
+      location:
+        - part=9,clause=9-12.1.4.2
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected the syntax of the hatch association for Class HatchFill.
+      location:
+        - part=9,clause=9-12.5.1.7
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Revised entire Appendix 9-B to more fully define the SVG Profile in S-100.
+      location:
+        - part=9,annex=9-B
+----

@@ -1,0 +1,984 @@
+---
+# PortrayalCatalog
+- table: PortrayalCatalog
+  rows:
+    - role_name: Class
+      name: PortrayalCatalog
+      description: A container of all the Catalogue items
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: productId
+      description: The ID of the product for which the Catalogue is intended
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: version
+      description: The version of the product the Catalogue is defined for
+      mult: 1
+      type: string
+    - role_name: Role
+      name: alertCatalog
+      description: A file reference to an Alert Catalogue
+      mult: 0..1
+      type: ExternalFile
+    - role_name: Role
+      name: pixmaps
+      description: Container of XML Pixmap file references
+      mult: 1
+      type: Pixmaps
+    - role_name: Role
+      name: colorProfiles
+      description: Container of XML Colour Profile file references
+      mult: 1
+      type: ColorProfiles
+    - role_name: Role
+      name: symbols
+      description: Container of SVG Symbol file references
+      mult: 1
+      type: Symbols
+    - role_name: Role
+      name: styleSheets
+      description: Container of CSS file references
+      mult: 1
+      type: StyleSheets
+    - role_name: Role
+      name: lineStyles
+      description: Container of XML Line Style file references
+      mult: 1
+      type: LineStyles
+    - role_name: Role
+      name: areaFills
+      description: Container of XML Area Fill file references
+      mult: 1
+      type: AreaFills
+    - role_name: Role
+      name: fonts
+      description: Container of True Type font references
+      mult: 1
+      type: Fonts
+    - role_name: Role
+      name: viewingGroups
+      description: Container of viewing group definitions
+      mult: 1
+      type: ViewingGroups
+    - role_name: Role
+      name: foundationMode
+      description: The definition of the foundation of the portrayal
+      mult: 1
+      type: FoundationMode
+    - role_name: Role
+      name: viewingGroupLayers
+      description: Container of viewing group layers.
+      mult: 1
+      type: ViewingGroupLayers
+    - role_name: Role
+      name: displayModes
+      description: Container of display mode definitions
+      mult: 1
+      type: DisplayModes
+    - role_name: Role
+      name: displayPlanes
+      description: Container of display plane definitions
+      mult: 1
+      type: DisplayPlanes
+    - role_name: Role
+      name: context
+      description: Container of context parameter definitions
+      mult: 1
+      type: Context
+    - role_name: Role
+      name: rules
+      description: Container of rule file references
+      mult: 1
+      type: Rules
+
+# CatalogItem
+- table: CatalogItem
+  rows:
+    - role_name: Class
+      name: CatalogItem
+      description: An abstract base class for components of the Catalogue
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: id
+      description: A unique identifier of the Catalogue item
+      mult: 1
+      type: string
+    - role_name: Role
+      name: description
+      description: Meta Data common to each Catalogue Item. There can be descriptions in different languages
+      mult: 0..*
+      type: Description
+
+# ExternalFile
+- table: ExternalFile
+  rows:
+    - role_name: Class
+      name: ExternalFile
+      description: A Catalogue item that defines the reference to an external file
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: fileName
+      description: The name of the file
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: fileType
+      description: The type of the file
+      mult: 1
+      type: FileType
+    - role_name: Attribute
+      name: fileFormat
+      description: The format of the file
+      mult: 1
+      type: FileFormat
+
+# Description
+- table: Description
+  rows:
+    - role_name: Class
+      name: Description
+      description: Language specific information about an item
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: language
+      description: |
+        A language identifier code. <<ISO639-2>>/T alpha-3 code (eng -- English, fra -- French, deu - German)
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: name
+      description: An optional name of an item in the identified language
+      mult: 0..1
+      type: string
+    - role_name: Attribute
+      name: description
+      description: The language specific description of the item
+      mult: 1
+      type: string
+
+# Pixmaps
+- table: Pixmaps
+  rows:
+    - role_name: Class
+      name: Pixmaps
+      description: A container of pixmap file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: pixmap
+      description: The file reference. The type is XML
+      mult: 0..*
+      type: ExternalFile
+
+# ColorProfiles
+- table: ColorProfiles
+  rows:
+    - role_name: Class
+      name: ColorProfiles
+      description: A container of colour profile file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: colorProfile
+      description: The file reference. The type is XML
+      mult: 0..*
+      type: ExternalFile
+
+# Symbols
+- table: Symbols
+  rows:
+    - role_name: Class
+      name: Symbols
+      description: A container of Symbol file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: symbol
+      description: The file reference. The type is SVG
+      mult: 0..*
+      type: ExternalFile
+
+# StyleSheets
+- table: StyleSheets
+  rows:
+    - role_name: Class
+      name: StyleSheets
+      description: A container of CSS file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: styleSheet
+      description: The file reference
+      mult: 0..*
+      type: ExternalFile
+
+# LineStyles
+- table: LineStyles
+  rows:
+    - role_name: Class
+      name: LineStyles
+      description: A container of Line Style file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: lineStyle
+      description: The file reference. The type is XML
+      mult: 0..*
+      type: ExternalFile
+
+# AreaFills
+- table: AreaFills
+  rows:
+    - role_name: Class
+      name: AreaFills
+      description: A container of Area Fill file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: areaFill
+      description: The file reference. The type is XML.
+      mult: 0..*
+      type: ExternalFile
+
+# Fonts
+- table: Fonts
+  rows:
+    - role_name: Class
+      name: Fonts
+      description: A container for fonts
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: font
+      description: The file reference. For true type fonts the type is ttf.
+      mult: 0..*
+      type: ExternalFile
+
+# ViewingGroups
+- table: ViewingGroups
+  rows:
+    - role_name: Class
+      name: ViewingGroups
+      description: A container of Viewing Group definitions
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: viewingGroup
+      description: Definition of a specific Viewing Group
+      mult: 1..*
+      type: ViewingGroup
+
+# ViewingGroup
+- table: ViewingGroup
+  rows:
+    - role_name: Class
+      name: ViewingGroup
+      description: A Viewing Group name and definition
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+
+# FoundationMode
+- table: FoundationMode
+  rows:
+    - role_name: Class
+      name: FoundationMode
+      description: A set of viewing groups that forms the foundation of the portrayal and cannot be removed from the display
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: viewingGroup
+      description: Viewing group of the foundation mode
+      mult: 0..*
+      type: ViewingGroup
+
+# ViewingGroupLayers
+- table: ViewingGroupLayers
+  rows:
+    - role_name: Class
+      name: ViewingGroupLayers
+      description: A container of Viewing Group Layers
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: layer
+      description: Definition of a specific Viewing Group layer
+      mult: 0..*
+      type: ViewingGroupLayer
+
+# ViewingGroupLayer
+- table: ViewingGroupLayer
+  rows:
+    - role_name: Class
+      name: ViewingGroupLayer
+      description: A set of Viewing groups which are intended to switch on or off in an application
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: viewingGroup
+      description: Viewing Group of the layer
+      mult: 1..*
+      type: ViewingGroup
+
+# DisplayModes
+- table: DisplayModes
+  rows:
+    - role_name: Class
+      name: DisplayModes
+      description: A container of Display Mode definitions
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: displayMode
+      description: Definition of a Display Mode
+      mult: 0..*
+      type: DisplayMode
+
+# DisplayMode
+- table: DisplayMode
+  rows:
+    - role_name: Class
+      name: DisplayMode
+      description: A set of Viewing Layers to switch on or off in an application
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: viewingGroupLayer
+      description: Viewing Group Layer included in this Display Mode
+      mult: 0..*
+      type: ViewingGroupLayer
+
+# DisplayPlanes
+- table: DisplayPlanes
+  rows:
+    - role_name: Class
+      name: DisplayPlanes
+      description: A container of Display Plane definitions
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: displayPlane
+      description: Definition of a Display Plane
+      mult: 1..*
+      type: DisplayPlane
+
+# DisplayPlane
+- table: DisplayPlane
+  rows:
+    - role_name: Class
+      name: DisplayPlane
+      description: A Display Plane name and definition
+      mult: "-" 
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: order
+      description: |
+        Used to sort the drawing order of display planes. Display planes with larger values are drawn above those with lower values
+
+        Positive: Above RADAR +
+        Zero: Reserved for RADAR +
+        Negative: Below RADAR
+      mult: 1
+      type: integer
+
+# Context
+- table: Context
+  rows:
+    - role_name: Class
+      name: Context
+      description: A container of Context Parameters
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: parameter
+      description: Context Parameter
+      mult: 0..*
+      type: ContextParameter
+
+# ContextParameter
+- table: ContextParameter
+  rows:
+    - role_name: Class
+      name: ContextParameter
+      description: A Context Parameter name and definition
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: type
+      description: The data type of the Parameter
+      mult: 1
+      type: ParameterType
+    - role_name: Attribute
+      name: default
+      description: A default value for the Parameter
+      mult: 1
+      type: string
+    - role_name: Role
+      name: constrain
+      description: Constrains the value domain of the parameter
+      mult: 0..1
+      type: ConstraintType
+    - role_name: Role
+      name: validate
+      description: The validation rules for this parameter
+      mult: 0..*
+      type: ValidationType
+    - role_name: Attribute
+      name: enable
+      description:   |
+        XPath 1.0 Boolean expression. Used to indicate conditional parameters (for example, ShallowContour is conditional on TwoShades: "//TwoShades=false")
+      mult: 0..1
+      type: string
+
+# ConstraintType
+- table: ConstraintType
+  rows:
+    - role_name: Class
+      name: ConstraintType
+      description: Constrains the allowed values of a context parameter and provides meaningful names for enumerations
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: enumeration
+      description: Valid values and labels of the constraint
+      mult: 1..*
+      type: EnumerationType
+
+# EnumerationType
+- table: EnumerationType
+  rows:
+    - role_name: Class
+      name: EnumerationType
+      description: Represents an enumerated value
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: label
+      description: A label for the value (for example, "Enabled")
+      mult: 1..*
+      type: TextType
+    - role_name: Attribute
+      name: value
+      description: The value of the enumeration (for example, "1")
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: icon
+      description: An icon representing the value. Reference to a catalog symbol
+      mult: 0..1
+      type: string
+
+# TextType
+- table: TextType
+  rows:
+    - role_name: Class
+      name: TextType
+      description: Represents an enumerated value
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: "-"
+      description: String value in a national language
+      mult: 1
+      type: string
+    - role_name: Attribute
+      name: language
+      description: An ISO 639-2/T alpha-3 language identifier code indicating the national language of the encoded string. Default is "eng"
+      mult: 0..1
+      type: string
+
+# ValidationType
+- table: ValidationType
+  rows:
+    - role_name: Class
+      name: ValidationType
+      description: Class for a validation rule. Either xpath or regex must be present, but not both
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: xpath
+      description: An XPath 1.0 Boolean expression
+      mult: 0..1
+      type: string
+    - role_name: Attribute
+      name: regex
+      description: A regular expression per W3C XML Standard -- Part 2, Appendix F (Regular Expressions)
+      mult: 0..1
+      type: string
+    - role_name: Role
+      name: errorMessage
+      description: An error message for the validation
+      mult: 1
+      type: ValidationErrorType
+    - role_name: Attribute
+      name: enable
+      description: |
+        XPath 1.0 Boolean expression. Indicates conditional validation (for example, validate NationalLanguage only when populated: ''//NationalLanguage[.!=]'').
+      mult: 0..1
+      type: string
+
+# ValidationErrorType
+- table: ValidationErrorType
+  rows:
+    - role_name: Class
+      name: ValidationErrorType
+      description: Class for a validation error
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: text
+      description: Text of an error message in one or more national languages
+      mult: 1..*
+      type: TextType
+    - role_name: Attribute
+      name: icon
+      description: An icon representing the error. Reference to a catalog symbol
+      mult: 0..1
+      type: string
+
+# Rules
+- table: Rules
+  rows:
+    - role_name: Class
+      name: Rules
+      description: A container of XSLT rule file references
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: ruleFile
+      description: Reference to a file containing rules
+      mult: 1..*
+      type: RuleFile
+
+# RuleFile
+- table: RuleFile
+  rows:
+    - role_name: Class
+      name: RuleFile
+      description: Rule file reference
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: ExternalFile
+      description: See ExternalFile
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: ruleType
+      description: The type of the templates within the rule file. There can be more than one top level rule which can be selected in an application to allow different portrayal of the data
+      mult: 1
+      type: RuleType
+
+# ParameterType
+- table: ParameterType
+  rows:
+    - role_name: Type
+      name: ParameterType
+      description: Choice of Parameter Types
+    - role_name: Enumeration
+      name: boolean
+      description: A Boolean value
+    - role_name: Enumeration
+      name: integer
+      description: An integer number
+    - role_name: Enumeration
+      name: double
+      description: A floating point number
+    - role_name: Enumeration
+      name: string
+      description: A character string
+    - role_name: Enumeration
+      name: date
+      description: A date according to the gregorian calendar
+
+# FileFormat
+- table: FileFormat
+  rows:
+    - role_name: Type
+      name: FileFormat
+      description: The format of an external file
+    - role_name: Enumeration
+      name: xml
+      description: ""
+    - role_name: Enumeration
+      name: svg
+      description: ""
+    - role_name: Enumeration
+      name: xslt
+      description: ""
+    - role_name: Enumeration
+      name: ttf
+      description: ""
+    - role_name: Enumeration
+      name: lua
+      description: ""
+    - role_name: Enumeration
+      name: css
+      description: ""
+
+# FileType
+- table: FileType
+  rows:
+    - role_name: Type
+      name: FileType
+      description: The type of an external file
+    - role_name: Enumeration
+      name: font
+      description: A font file
+    - role_name: Enumeration
+      name: areaFill
+      description: A file describing an area fill
+    - role_name: Enumeration
+      name: lineStyle
+      description: A file describing a line style
+    - role_name: Enumeration
+      name: symbol
+      description: A file describing a symbol
+    - role_name: Enumeration
+      name: colorProfile
+      description: A file describing a colour profile
+    - role_name: Enumeration
+      name: pixmap
+      description: A file describing a pixmap
+    - role_name: Enumeration
+      name: rules
+      description: A file containing portrayal rules
+    - role_name: Enumeration
+      name: styleSheet
+      description: A file containing styles for symbols
+    - role_name: Enumeration
+      name: alertCatalog
+      description: A file containing an Alert Catalogue
+
+# RuleType
+- table: RuleType
+  rows:
+    - role_name: Type
+      name: RuleType
+      description: The type of templates within a rule file
+    - role_name: Enumeration
+      name: topLevelTemplate
+      description: The rule file contains a top level template
+    - role_name: Enumeration
+      name: subTemplate
+      description: The rule file contains templates that are used or called by other templates
+
+# AlertCatalog
+- table: AlertCatalog
+  rows:
+    - role_name: Class
+      name: AlertCatalog
+      description: A container of all the Catalogue items
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: version
+      description: The version of the Catalogue
+      mult: 1
+      type: string
+    - role_name: Role
+      name: messages
+      description: Container of messages
+      mult: 1
+      type: Messages
+    - role_name: Role
+      name: highlights
+      description: Container of highlights
+      mult: 1
+      type: Highlights
+    - role_name: Role
+      name: alerts
+      description: Container of alerts
+      mult: 1
+      type: Alerts
+
+# Messages
+- table: Messages
+  rows:
+    - role_name: Class
+      name: Messages
+      description: A container of MessageItems
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: message
+      description: Definition of a message
+      mult: 0..*
+      type: MessageItem
+
+# MessageItem
+- table: MessageItem
+  rows:
+    - role_name: Class
+      name: MessageItem
+      description: Defines a language independent message
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: icon
+      description: Reference to a symbol in the Portrayal Catalogue
+      mult: 0..1
+      type: string
+    - role_name: Role
+      name: text
+      description: Language specific text
+      mult: 1..*
+      type: Text
+
+# Text
+- table: Text
+  rows:
+    - role_name: Class
+      name: Text
+      description: Language specific string
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: string
+      description: 
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: language
+      description: Identifies a language, default is eng. <<ISO639-2>>/T alpha-3 code (eng -- English, deu -- German)
+      mult: 0..1
+      type: string
+
+# Highlights
+- table: Highlights
+  rows:
+    - role_name: Class
+      name: Highlights
+      description: A container of GraphicalHighlighting items
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: highlight
+      description: Definition of a highlight
+      mult: 0..*
+      type: GraphicalHighlighting
+
+# GraphicalHighlighting
+- table: GraphicalHighlighting
+  rows:
+    - role_name: Class
+      name: GraphicalHighlighting
+      description: Associates display parameters with alert information
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: style
+      description: |
+        Overrides the style of graphical highlight shown in the chart area. When empty, style is inferred from the alert priority
+
+        * Alarm: AlarmHighlight
+        * Others: CautionHighlight
+      mult: 0..1
+      type: HighlightStyle
+    - role_name: Attribute
+      name: optional
+      description: Allowing the highlight to be turned off is not required. Default is false
+      mult: 0..1
+      type: boolean
+    - role_name: Attribute
+      name: msg
+      description: A reference to a message to be displayed while any of the viewing groups are disabled
+      mult: 0..1
+      type: string
+    - role_name: Role
+      name: viewingGroup
+      description: References viewing groups used to control graphical highlighting
+      mult: 1..*
+      type: ViewingGroupReference
+
+# ViewingGroupReference
+- table: ViewingGroupReference
+  rows:
+    - role_name: Class
+      name: ViewingGroupReference
+      description: A reference to a viewing group
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: ref
+      description: The identifier of the viewing group
+      mult: 1
+      type: string
+
+# Alerts
+- table: Alerts
+  rows:
+    - role_name: Class
+      name: Alerts
+      description: A container of AlertItems
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: alert
+      description: Definition of an alert
+      mult: 0..*
+      type: AlertItem
+
+# AlertItem
+- table: AlertItem
+  rows:
+    - role_name: Class
+      name: AlertItem
+      description: Describes a single alert
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: CatalogItem
+      description: See CatalogItem
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: routeMonitor
+      description: The alert behavior in route monitoring
+      mult: 0..1
+      type: AlertInfo
+    - role_name: Role
+      name: routePlan
+      description: The alert behavior in route planning
+      mult: 0..1
+      type: AlertInfo
+  note: The content of AlertItem is implemented in the Schema as either a routeMonitor element optionally followed by a routePlan element, or a routePlan element.
+
+# AlertInfo
+- table: AlertInfo
+  rows:
+    - role_name: Class
+      name: AlertInfo
+      description: The behavior of an alert in a single mode
+      mult: "-"
+      type: "-"
+    - role_name: Role
+      name: priority
+      description: A single alert priority. If present, precludes use of _priorities_
+      mult: 0..1
+      type: AlertPriority
+    - role_name: Role
+      name: priorities
+      description: A set of alert priorities. If present, precludes use of _priority_
+      mult: 0..1
+      type: AlertPriorities
+  note: Exactly one of priority or priorities must be present.
+
+# AlertPriorities
+- table: AlertPriorities
+  rows:
+    - role_name: Class
+      name: AlertPriorities
+      description: A set of alert priorities
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: label
+      description: Reference to a message used to label the UI component which allows selection of the desired alert priority
+      mult: 1
+      type: string
+    - role_name: Role
+      name: priority
+      description: An alert priority
+      mult: 2..*
+      type: AlerPrioritySelection
+
+# AlertPrioritySelection
+- table: AlertPrioritySelection
+  rows:
+    - role_name: Class
+      name: AlertPrioritySelection
+      description: Adds information to an alert priority
+      mult: "-"
+      type: "-"
+    - role_name: Subtype of
+      name: AlertPriority
+      description: See AlertPriority
+      mult: "-"
+      type: "-"
+    - role_name: Attribute
+      name: default
+      description: Identifies the default priority selection. Default is false
+      mult: 0..1
+      type: boolean
+    - role_name: Attribute
+      name: optional
+      description: Indicates allowing the user to choose this priority is optional. Default is false
+      mult: 0..1
+      type: boolean
+
+# AlertPriority
+- table: AlertPriority
+  rows:
+    - role_name: Enumeration
+      name: AlertPriority
+      description: The priority of an alert
+    - role_name: Value
+      name: Alarm
+      description: Indicates conditions requiring immediate attention and action by the bridge team (refer to MSC.252(83) 19.1.2)
+    - role_name: Value
+      name: Warning
+      description: Indicates changed conditions and should be presented for precautionary reasons which are not immediately hazardous but which may become so, if no action is taken (refer to MSC.252(83) 19.1.3)
+    - role_name: Value
+      name: Caution
+      description: Indicates a condition which does not warrant an alarm or warning condition, but still requires attention and out of the ordinary consideration of the situation or of given information (refer to MSC.252(83) 19.1.4)
+    - role_name: Value
+      name: Indication
+      description: Display of regular information and conditions (refer to MSC.252(83) appendix 1)
+
+# HighlightStyle
+- table: HighlightStyle
+  rows:
+    - role_name: Enumeration
+      name: HighlightStyle
+      description: The style of the graphical highlight to be shown in the chart area
+    - role_name: Value
+      name: AlarmHighlight
+      description: <<IEC62288,table="A.3">> Navigation symbols, entry 3.5 b
+    - role_name: Value
+      name: CautionHighlight
+      description: <<IEC62288,table="A.3">> Navigation symbols, entry 3.5 c

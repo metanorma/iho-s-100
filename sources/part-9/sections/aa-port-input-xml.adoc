@@ -1,0 +1,249 @@
+[[app-9-A]]
+[appendix,obligation=informative]
+== Generating Portrayal Input XML
+
+=== Preface
+
+This standard describes a base Schema that contains base types which define
+the expected structure of the XML input to the portrayal processing. The
+XSLT portrayal rules expect the input XML to conform with the base Schema,
+with additional information as defined within a product's Feature Catalogue.
+
+Although the encoded elements of the input XML must conform to the base
+Schema, it is not necessary to fully describe a Schema for each product's
+input XML. It is sufficient that the portrayal rules can consistently parse
+the input XML using XPath 1.0 queries.
+
+The base Schema should be used along with patterns described in this
+Appendix to model a generic pattern for describing all S-100 content;
+essentially providing a mapping from the S-100 general feature model to an
+XML encoding of an instance of the model.
+
+This section describes how the input XML should be generated. Patterns will
+be introduced to map the data model from a Feature Catalogue to an input
+XML for portrayal. Although the input XML can cover the entire data model
+it is sufficient to generate only the part that is relevant for portrayal.
+
+[[cls-9-A-1]]
+=== Input XML structure
+
+The input XML must conform to the following structure, using the indicated
+element names and order.
+
+[source%unnumbered,xml]
+----
+<!--The root element -->
+<Dataset>
+  <InformationTypes>
+  </InformationTypes>
+
+  <!--Spatial Objects -->
+  <Points>
+  </Points>
+  <MultiPoints>
+  </MultiPoints>
+  <Curves>
+  </Curves>
+  <CompositeCurves>
+  </CompositeCurves>
+  <Surfaces>
+  </Surfaces>
+
+  <Features>
+  </Features>
+</Dataset>
+----
+
+[[cls-9-A-2]]
+=== Simple attributes
+
+When encoding simple attributes the element name should match the code of a
+simple attribute defined within the product's Feature Catalogue. For
+enumerations, the code should be passed as the value, the label should not
+be used.
+
+[source%unnumbered,xml]
+----
+<colour>3</colour> <!--don't encode as red -->
+----
+
+[[cls-9-A-3]]
+=== Complex attributes
+
+When encoding complex attributes the element name should match the code of
+a complex attribute defined within the product's Feature Catalogue. Simple
+and/or complex sub attributes should be nested within the element.
+
+An instance of complex attribute "speed" with simple sub attributes
+"speedMaximum" and "speedMinimum":
+
+[source%unnumbered,xml]
+----
+<speed>
+  <speedMaximum>10</speedMaximum>
+  <speedMinimum>0</ speedMinimum>
+</speed>
+----
+
+[[cls-9-A-4]]
+=== Information types
+
+Instances of information types are encoded within the _<InformationTypes>_
+section of the input XML. Information types are referenced by other objects
+encoded in the input XML.
+
+The base Schema defines abstract type _Information_ for encoding of
+information types. The following pattern describes instantiation of the
+abstract type:
+
+* The element name of each information type object must match the code of
+an InformationType defined in the product's Feature Catalogue. The code
+defines the instantiation of the abstract type; in the example below,
+ChartNote is the instantiation of _Information_.
+* The value(s) of the attributes of the information type should be included
+in the encoding, as described in <<cls-9-A-2;and!cls-9-A-3>>. These values
+should be nested within the element described by the preceding bullet (they
+are part of the instantiation).
+
+Notional information type ChartNote, described in the Feature Catalogue as
+having complex attribute __note__, which has simple sub attributes
+_noteText_ and _language_:
+
+[source%unnumbered,xml]
+----
+<ChartNote id="I1">
+  <note>
+    <noteText>Hello world!</noteText>
+    <language>en</language>
+  </note>
+  <note>
+    <noteText>Hallo Welt!</noteText>
+    <language>de</language>
+  </note>
+</ChartNote>
+----
+
+[[cls-9-A-5]]
+=== Spatial objects
+
+The base Schema defines spatial types which describe XML encodings of the
+Part 7 Spatial Schema. These types provide a consistent way to represent
+spatial objects to the portrayal processing. The input XML encoding of
+spatial objects should conform with the base Schema; the spatial model
+cannot be modified by a product's Feature Catalogue.
+
+In most cases the portrayal rules do not attempt to reference the geometry
+coordinates of spatial objects; in these cases the geometry coordinates may
+be omitted from the input XML, potentially providing significant advantages
+to the speed of generating and parsing the input XML. A notable exception
+when the geometry coordinates cannot be omitted is symbolization of
+MultiPoint spatial objects, as geometry coordinates should always be
+provided for MultiPoint spatial objects.
+
+[[cls-9-A-6]]
+=== Features
+
+Instances of feature types are encoded within the _<Features>_ section of
+the input XML.
+
+The base Schema defines abstract type _Feature_ for encoding of feature
+objects. The following pattern describes instantiation of the abstract type:
+
+* The element name of each feature object must match the code of a feature
+type defined in the product's Feature Catalogue. The code defines the
+instantiation of the abstract type; in the example below, BeaconLateral is
+the instantiation of _Feature_.
+* The value(s) of the attributes of the feature object should normally be
+included in the encoding, as described in <<cls-9-A-2;and!cls-9-A-3>>.
+These values should be nested within the element described by the preceding
+bullet (they are part of the instantiation). Attribute values provided via
+Coverages should be omitted from the encoding.
+* All references to spatial objects should be included as described in the
+base Schema.
+* All associations to information type instances and feature instances
+should be included, as described in <<cls-9-A-7>>.
+
+An example encoding of an instance of a BeaconLateral feature. The feature
+references a spatial object of type Point (P23), and has an association to
+a feature instance (F8) which should also be described in the input XML,
+but is not shown in this example. The value of each of the features
+attributes is also encoded.
+
+[source%unnumbered,xml]
+----
+<BeaconLateral id="F4"primitive="Point" >
+  <Pointref="P23"scaleMinimum="4294967295"scaleMaximum="0"/>
+  <beaconShape>1</beaconShape>
+  <categoryOfLateralMark>2</categoryOfLateralMark>
+  <colour>3</colour>
+  <reportedDate>20050124</reportedDate>
+  <status>1</status>
+  <scaleMinimum>89999</scaleMinimum>
+  <StructureEquipmentrole="supports"featureRef="F8"/>
+</BeaconLateral>
+----
+
+[[cls-9-A-7]]
+=== Associations
+
+Associations are named relationships between objects. There are two types
+of associations: information associations for relationships between any
+object and an information type, and feature associations for relationships
+between two feature types.
+
+The base Schema provides element _associatedInformation_ as part of any
+object, and provides element _associatedFeature_ as part of feature
+objects. The pattern for encoding associations is:
+
+* The element name of each association must match the code of an
+association defined in the product's Feature Catalogue. The code describes
+the subtype of the association; in the example below, StructureEquipment
+replaces _associatedFeature_ from the base Schema and describes the
+relationship between the two feature objects.
+* The value of the _role_ attribute should match a role described in the
+Feature Catalogue.
+* The value of _featureRef_ (for feature associations) or _informationRef_
+(for information associations) should match the unique id of a feature
+instance or information type instance encoded within the input XML.
+* Include the values of any simple or complex attributes which are defined
+for the association as described in the Feature Catalogue. These values
+should be nested within the association element.
+
+An example feature association: _StructureEquipment_. The association
+should be nested within the encoding of a feature instance.
+
+[source%unnumbered,xml]
+----
+<Features>
+  <FeatureTypeX id="F1"primitive="Point" >
+  <!-- feature attributes and spatial reference omitted -->
+  <StructureEquipmentrole="supports"featureRef="F2"/>
+</FeatureTypeX>
+<FeatureTypeY id="F2"primitive="Point" >
+  <!-- feature attributes and spatial reference omitted -->
+  <StructureEquipmentrole="supportedBy"featureRef="F1"/>
+</FeatureTypeY>
+</Features>
+----
+
+An example information association: An instance of a _SpatialQuality_
+information type referenced from a spatial object using a
+_SpatialAssociation_ InformationAssociation type:
+
+[source%unnumbered,xml]
+----
+<InformationTypes>
+  <SpatialQuality id="I1">
+    <qualityOfHorizontalMeasurement>4</qualityOfHorizontalMeasurement>
+  </SpatialQuality>
+</InformationTypes>
+<Points>
+  <Point id="P1">
+    <SpatialAssociationrole="defines"informationRef="I1"/>
+    <Coordinate2D>
+      <x>0.0</x>
+      <y>1.0</y>
+    </Coordinate2D>
+  </Point>
+</Points>
+----

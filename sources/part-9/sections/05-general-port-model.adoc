@@ -1,0 +1,66 @@
+== General portrayal model
+
+The general portrayal model is illustrated in <<fig-9-1>>.
+
+[[fig-9-1]]
+.General portrayal model
+image::img86.png[]
+
+This part of S-100 defines a feature-centred function-based portrayal
+mechanism. Instances of features are portrayed based on portrayal functions,
+which make use of geometry and attribute information. The relationship
+between the feature instances, attributes, and the underlying spatial
+geometry is specified in a Product Specification based on the General
+Feature Model of S-100.
+
+Portrayal information is needed to portray a dataset containing geographic
+data. The portrayal information is defined as drawing instructions created
+by specific portrayal functions. The portrayal mechanism makes it possible
+to portray the same dataset in different ways without altering the dataset
+itself.
+
+The drawing instructions are intermediate data used by the rendering engine
+to produce the portayal output. During the rendering process, the rendering
+engine uses the symbol definitions to create the output according to the
+output device.
+
+The symbol definitions contain the details of all graphical elements used
+for the portrayal. The model of the symbol definitions is described in this
+document.
+
+=== The portrayal process
+
+[[fig-9-2]]
+.Portrayal process
+image::img87.png[]
+
+The system has Feature data within its internal database that needs to be
+portrayed. The System Portrayal Engine transforms the Feature data into
+drawing instructions. Drawing instructions include such things as references
+to symbol definitions, priority and filtering information. The drawing
+instructions are further processed by the rendering engine to produce the
+final display.
+
+In this process, feature data needs to be exposed to the XSLT processor as
+XML content. The XSLT processor applies the best matching template or
+portrayal function to each feature. The portrayal function uses the defined
+logic to transform the input feature content along with related context
+information into drawing instructions which are output as XML.
+
+The functionality of the System Portrayal Engine is defined in terms of
+XSLT. XSLT is a declarative language. An XSLT processor transforms XML input
+into XML output. Contextual and user parameters can be fed into the XSLT
+processor for use by the portrayal functions. Portrayal functions in XSLT
+can range from simple lookup or best match templates to complex conditional
+logic. XSLT is defined to work on an XML node tree however there are
+implementations that interface the XSLT processor directly with internal
+structures or relational database tables. Although there are newer versions
+of XSLT, XSLT 1.0 (http://www.w3.org/TR/xslt) has been chosen for this
+portrayal specification as the most commonly supported.
+
+This portrayal specification defines how machine readable portrayal
+transformation functions are implemented as XSLT templates disseminated in
+XSL files. Since XSLT is defined to operate on XML and produce XML the XML
+input and output are described as part of this specification. A conformant
+System Portrayal Engine must operate consistently with XSLT in order to
+process the machine readable XSL files and produce equivalent output.
