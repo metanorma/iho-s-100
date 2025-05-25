@@ -1,0 +1,23 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected Figure 5-A-1 and Table 5-A-16, and added new Table 5-A-21, to allow for the capability to define the display visibility level of attributes in end user systems.
+      location: part=5,annex="5-A"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected multiplicity for Class S100_FC_FeatureAssociation, Role subType from [0..] to [0..*].
+      location: part=5,annex="5-A"
+      location: part=5,table="5-A-10"
+----
