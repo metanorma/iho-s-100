@@ -1,0 +1,33 @@
+[bibliography]
+== References
+
+The following normative documents contain provisions which, through reference in this
+text, constitute provisions of this metadata guidance.
+
+* [[[ISO19104,ISO 19104]]]
+
+* [[[ISO19106,ISO 19106]]]
+
+* [[[ISO19107,ISO 19107]]]
+
+* [[[ISO19108,ISO 19108]]]
+
+* [[[ISO19115,ISO 19115:2003]]]
+
+* [[[ISO19113,ISO 19113]]]
+
+* [[[ISO19114,ISO 19114]]]
+
+* [[[ISO19138,ISO/TS 19138]]]
+
+* [[[ISO19139,ISO/TS 19139]]]
+
+* [[[ISO639,ISO 639]]]
+
+* [[[ISO3166-1,ISO 3166-1]]]
+
+* [[[ISO8601,ISO 8601:2000]]]
+
+* [[[ISO639-1,ISO 639-1:2002]]]
+
+* [[[ISO639-2,ISO 639-2:1998]]]

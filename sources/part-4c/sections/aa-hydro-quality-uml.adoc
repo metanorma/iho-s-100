@@ -1,0 +1,11 @@
+[[app-4c-A]]
+[appendix,obligation=informative]
+== Hydrographic Quality Metadata profile, UML Diagrams
+
+[[fig-4c-A-1]]
+.Data Quality UML (from <<ISO19115>>)
+image::img32.png[]
+
+[[fig-4c-A-2]]
+.Data Quality Measure Registry UML (from <<ISO19138>>)
+image::img33.png[]
