@@ -1,0 +1,149 @@
+== S-100 Temporal Framework
+
+=== Temporal definitions
+
+S-100 does not include a complete profile of ISO 19108. Temporal attributes shall
+be modelled using the primitive types Date; Time or DateTime; S100_TruncatedDate;
+S100_IndeterminateDate; or complex attributes using combinations of these temporal
+types. Use of these types makes the attribute an instance of
+S100_GF_SimpleAttributeType or a component of an instance of
+S100_GF_ComplexAttributeType, as appropriate.
+
+Time instants are usually defined either as UTC or as local time with standardized
+offset to UTC or time zone, using the Gregorian calendar. Therefore S-100 does not
+implement any of the ISO 19108 Section 5.3 Temporal Reference Systems provisions.
+
+* An S-100 "instant", in the ISO 19108 sense (<<ISO19108,clause="5.2.3.2">>), is
+implemented as a single S-100 Date, Time or DateTime (see S-100 Part 1, clause
+1-4.5.3.10 S100_TM_Instant).
+* An S-100 "period" (TM_Period <<ISO19108,clause="5.2.3.3">>) is implemented as a
+continuous interval between two S100_TM_Instants (see S-100 Part 1, clause
+1-4.5.3.11), expressed as an appropriate complex attribute, for example
+_fixedDateRange_.
+* S100_IndeterminateDate is an instant which lies within a defined period.
+* An S100_TM_Instant specified using TruncatedDate can represent an infinite
+number of ISO 19108 instants.
+
+=== Temporal relationships
+
+S-100 does not implement full provision of ISO 19108's temporal topology, nor
+temporal relative positions; however relationships between two S-100 instant
+and/or period values A and B shall be defined and described using the ISO 19108
+TM_RelativePosition values as per <<tab-3-19>> below. Only entries marked with
+(^†^) may be meaningfully defined when the S100_TM_Instant is an
+S100_IndeterminateDate expressed in indeterminate format with a bounded beginning
+or end.
+
+[[tab-3-19]]
+.Relationships between temporal values (from <<ISO19108,clause="5.2.3.5">> TM_Relative Position)
+[cols=3,options=header]
+|===
+| A~B | A (Single S100_TM_Instant) | A (Single S100_TM_Period)
+
+| *B (Single S100_TM_Instant)*
+a| Before (A < B) +
+Equals (A = B) +
+After (A > B)
+a| Before (A~end~< B)^†^ +
+EndedBy (A~end~=B) +
+Contains (A~begin~<B and A~end~>B) +
+BegunBy (A~begin~ = B) +
+After (A~begin~ > B)^†^
+
+| *B (Single S100_TM_Period)*
+a| Before (A<B~start~)^† +
+Ends (A=B~end~) +
+Within (A>B~begin~ and A<B~end~) +
+Begins (B~begin~ = A) +
+After (A > B~end~)^†^
+a| Before (A~end~ < B~begin~)^†^ +
+Meets (A~end~ = B~begin~) +
+Overlaps (A~begin~<B~begin~ and A~end~ > B~begin~ and A~end~ < B~end~) +
+Begins (A~begin~ = B~begin~ and A~end~ < B~end~) +
+BegunBy (A~begin~=B~begin~ and A>B~end~) +
+During (A~begin~ > B~begin~ and A~end~ < B~end~) +
+Contains (A~begin~ < B~begin~ and A~end~ > B~end~) +
+Equals (A~begin~=B~begin~ and A~end~ = B~end~)^†^ +
+OverlappedBy (A~begin~ > B~begin~ and A~begin~ < B~end~ and A~end~ > B~end~) +
+Ends (A~begin~ > B~begin~ and A~end~ = B~end~) +
+EndedBy (A~begin~ < B~begin~ and A~end~ = B~end~) +
+MetBy (A~begin~ = B~end~) +
+After (A~begin~ > B~end~)^†^
+|===
+
+S-100's TruncatedDate enables regular time periods or instants to be defined.
+These are a union of a, potentially infinite, series of non-intersecting periods
+or instants. for example:
+
+"2021---05" = { __2021-01-05__, __2021-02-05__, __2021-03-05__, __2021-04-05__,
+2021-05-05, __2021-06-05__, __2021-07-05__, __2021-08-05__, __2021-09-05__,
+__2021-10-05__,__2021-11-05__,_2021-12-05_}
+
+Truncated dates allow a series of periods to be defined. The relationships
+definable between a single TM_Instant or TM_Period (A) with a set of periods
+defined by a date in Truncated Format (B) (that is, relationship A~B) are defined
+in <<tab-3-20>> below (the quantifier stem:[AA] means "for all" and refers to all
+TM_Periods within B (note some relationships (Before/After) may not be defined
+when B is a set of unbounded regular time periods).
+
+[[tab-3-20]]
+.Relationships between temporal values and truncated date
+[cols=3,options=header]
+|===
+h| A~B | A (Single TM_Instant) | A (Single TM_Period)
+
+| **B**~**n**~ *(Multiple TM_Periods)*
+a| *_Before_* __(A < B~start~)__ stem:[AA] _B_ +
+*_Within_* __(A stem:[>=] B~begin~ and A stem:[<=] B~begin~)__ for some B~i~ +
+*_After_* __(A > B~end~) )__ stem:[AA] B
+a| *_Before_* __(A~end~ < B~begin~)__ stem:[AA] B +
+*_Within_* __(A~begin~ stem:[>=] B~begin~ and A~end~ stem:[<=] B~end~)__ for some B~i~ +
+*_After_* __(A~begin~ > B~end~)__ stem:[AA] B
+|===
+
+=== Interpretation of models of time intervals and period
+
+The start and end instants of periods (and intervals) shall be included in the
+period (or interval) unless a Product Specification specifies a different
+interpretation. This is based on <<ISO8601,clause="2.1.3">> which defines time
+interval as "the part of the time axis delimited by two instants" and provides
+that "A time interval comprises all instants between the two limiting instants
+and, unless otherwise stated, the two limiting instants themselves". Use of
+"before" or "after" attributes for intervals is not permitted.
+
+The start and end instants are defined by the date/time component of smallest
+granularity. For example, if the month is the smallest &nbsp;component given in an
+end instant, the end instant is the whole month and the interval ends at the end
+of the last day of the month.
+
+Examples: Applying this to encoding intervals using the reduced accuracy
+representation or the truncatedDate type, results in the interpretations in
+<<tab-3-21>>. [underline]#The table also indicates how the special case of leap
+years can be handled.#
+
+[[tab-3-21]]
+.Examples of periods
+[cols="a,a,a"]
+|===
+.2+| <S100_TruncatedDateAttributeType> +
+periodStart | `----01--` .4+| 000000 on January 1 through 240000 on the 29th day of February in leap years and the 28thday of February in non-leap years
+| year and day not encoded
+
+.2+| <S100_TruncatedDateAttributeType> +
+periodEnd | `----02--`
+| year and day not encoded
+
+.2+| <S100_TruncatedDateAttributeType> +
+periodStart | `----0101` .4+| 000000 on January 1 through 240000 on the 28th day of February each year
+| year not encoded
+
+.2+| <S100_TruncatedDateAttributeType> +
+periodEnd | `----0228`
+| year not encoded
+
+| <S100_DateAttributeType> +
+dateStart | `20120105` .2+| 000000 on January 5, 2012 through 240000 on June 18, 2012
+
+| <S100_DateAttributeType> +
+dateEnd | `20120618`
+|===

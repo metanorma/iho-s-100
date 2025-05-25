@@ -1,0 +1,90 @@
+== Application Schema for Coverages (informative)
+
+=== Introduction
+
+This rule set for Application Schemas is aimed at Application Schemas for feature
+oriented data. However, Application Schemas may also be defined for coverages.
+
+This section includes examples of how Application Schemas may be defined for
+imagery and gridded data. The components of the Application Schemas are defined in
+ISO 19123 not ISO 19109. However, a coverage may be based on feature type
+geometries and, in such cases, is conceptually similar to a feature collection.
+Such feature oriented coverages are discussed below.
+
+=== Gridded Data
+
+This Application Schema defines a quadrilateral grid coverage with associated
+metadata. The metadata is generically referenced to ISO 19115-1 and 19115-2. A
+specific choice of metadata has not been made in this Schema. This Schema can
+serve for both "matrix" and "raster" data according to the metadata chosen.
+
+The gridded data consists of a single feature - the "image" or "matrix" together
+with associated metadata taken from MD_Metadata (or MI_Metadata). The CV_Coverage
+(that is, its relevant sub-type, for example,
+CV_ContinuousQuadrilateralGridCoverage) serves as the spatial attribute of the
+gridded data set. It defines an area that is "covered" by the coverage function.
+For the continuous coverage defined in this Application Schema, the coverage
+function returns a value for every point in the area covered based on an
+interpolation function. The Grid Value Matrix is a set of values which drives the
+interpolation function. It this case the value matrix is a grid traversed by a
+linear scan (x,y) traversal rule. The spatial referencing is defined by the
+coordinate reference system.
+
+This template Application Schema supports the majority of imagery and gridded data
+applications.
+
+[[fig-3-4]]
+.Template Application Schema for a Quadrilateral Grid Coverage
+image::img26.png[]
+
+=== Variable Cell Size Grid
+
+This Application Schema describes a grid of variable cell size (<<ISO19123>>). The
+traversal order is the Morton order in order to permit support of three (or more)
+dimensions. This is of particular use for hydrographic data where large volumes of
+sonar data result in an extensive bottom cover in a 3D grid, but where the cells
+of similar depth can easily be aggregated.
+
+[[fig-3-5]]
+.Template Application Schema for a Reimann Grid Coverage
+image::img27.png[]
+
+=== Feature Oriented Image
+
+All gridded data sets are feature oriented, in that a coverage is a subtype of a
+feature. This means that an entire gridded data set can be considered to be a
+single feature. A feature structure can be applied to gridded data in two
+different ways. First, a discrete coverage can carry a feature code as an
+attribute. For example, a coverage corresponding to the postal code system will
+have discrete values for each postal code, yet still cover the country completely.
+The only difference in the Application Schema is a relationship between the
+discrete coverage and the feature.
+
+The template Application Schema in <<fig-3-6>> below depicts both the "discrete
+point" and "discrete grid point" coverage classes. The typical Product
+Specification would choose one or the other (or both) depending on the type of
+coverage needed.
+
+[[fig-3-6]]
+.Feature oriented discrete coverage
+image::img28.png[]
+
+The second method of establishing a feature structure is to develop a composite
+data set that contains many separate but adjoining coverages. The coverages may be
+continuous or discrete. This is very much like the way a "vector" data set is
+composed where each feature has its own geometry and attributes. In fact vector
+data may be mixed with coverage data in the same data set. The Application Schema
+simply allows multiple instances of feature.
+
+Geometric elements such as grids may be shared between multiple features, and
+features may be related by composition or other relationships as allowed in the
+general feature model of ISO 19109. A complex feature may include both a
+continuous grid coverage and vector data such as a polygonal boundary. A feature
+oriented data set may contain both a continuous coverage of the ocean as collected
+by sonar, and point and line features corresponding to navigational aids.
+Topological primitives may relate all of the features. This allows for some
+interesting and useful structures. A Raster Nautical Chart may include additional
+vector data describing the navigational aids, hazards and danger zones, which are
+not "visible" in that they are not portrayed, but which are active in the use of
+the Raster Nautical Chart, so the mariner can determine whether a ship is within a
+danger zone, or perform other ECDIS functions.

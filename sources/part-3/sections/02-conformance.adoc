@@ -1,0 +1,49 @@
+== Conformance
+
+This profile conforms to conformance class 2 of ISO 19106:2004. The following is a
+brief description of the specializations and generalizations where the S-100
+General Feature Model differs from ISO 19109.
+
+. A new S100_GF_NamedType is introduced.
+. A new S100_GF_ObjectType is introduced as a specialisation of S100_GF_NamedType.
+. A new S100_GF_InformationType is introduced as a specialisation of
+S100_GF_ObjectType, it is constrained to associations with
+S100_GF_ThematicAttributeType.
+. S100_GF_FeatureType is a specialization of S100_GF_ObjectType.
+. S100_GF_AttributeType is a specialization of GF_AttributeType in that it is
+abstract in S-100.
+. A new abstract S100_GF_SimpleAttributeType is introduced as a specialisation of
+S100_GF_ThematicAttributeType.
+. GF_Operation is not used.
+. GF_InheritanceRelation is not used; feature inheritance is represented by the
+association inheritance.
+. The association attributeOfAttribute is not used. The concept of the complex
+attribute is used in S-100 to perform a similar function.
+. S100_GF_AssociationType does not use the generalization association between
+GF_AssociationType and GF_FeatureType. Instead it is a specialisation of
+S100_GF_NamedType.
+. S100_GF_AssociationType is associated with S100_GF_ThematicAttributeType by a UML
+aggregation relationship. This means associations can have descriptive
+characteristics.
+. New metaclasses S100_GF_FeatureAssociationType and
+S100_GF_InformationAssociationType are introduced as specialisations of
+S100_GF_AssociationType.
+. The association role linkBetween of the GF_FeatureType/GF_AssociationType
+relationship in ISO 19109 is realized as follows:
+.. Role linkBetween of the S100_FeatureType/S100_GF_FeatureAssociationType
+relationship;
+.. Role linkBetween of the S100_InformationType /
+S100_GF_InformationAssociationType relationship;
+.. Role informationLink of the S100_ObjectType / S100_InformationAssociationType
+relationship.
++
+--
+This means that associations that include only feature types have semantics and
+multiplicity constraints that are different from associations that include at least
+one information type.
+--
+. GF_LocationAttributeType, GF_TemporalAttributeType, GF_MetaDataAttributeType and
+GF_QualityAttributeType are not used.
+
+Further reference or explanation of the above changes can be found in the following
+text where appropriate.

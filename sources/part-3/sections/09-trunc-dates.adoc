@@ -1,0 +1,18 @@
+== Use of format-specific types for truncated dates
+
+Data formats may utilise specific types as supported by that format in order to
+incorporate truncated values. Where this occurs the format description must
+specify the mapping between the S100_TruncatedDateAttributeType values and those
+of the format-specific types.
+
+[example]
+====
+An XML based encoding may use the _gMonthDay_ simple attribute type (which is an
+XML Schema built-in type) as an equivalent representation for "December 17 each
+year":
+
+xs:gMonthDay: `--12-17`
+
+This is equivalent to the value `----1217` in a data format which adheres strictly
+to S-100.
+====
