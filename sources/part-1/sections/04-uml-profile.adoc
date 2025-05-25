@@ -1,0 +1,1060 @@
+== The S-100 UML Profile
+
+=== Introduction
+
+This clause provides rules and guidelines on the use of UML within the field of
+geographic information.
+
+The sub-clauses are structured as follows:
+
+. General usage of UML
+. Classes
+. Attributes
+. Basic data types
+. Predefined derived types
+. Enumerated types
+. Codelist types
+. Relationships and associations
+. Stereotypes
+. Optional, conditional and mandatory -- attributes and associations
+. Naming and name spaces
+. Notes
+. Packages
+. Documentation of models in S-100
+
+=== General usage of UML
+
+UML (The Unified Modelling Language) shall be used in a manner that is consistent
+with UML 2. Normative models shall use class diagrams and package diagrams. Other UML
+diagram-types may be used informatively. All normative models shall contain complete
+definitions of attributes, associations, and appropriate data type definitions.
+
+=== Classes
+
+A class is a description of a set of objects that share the same attributes,
+operations, methods, relationships, behaviour and constraints. A class represents a
+concept being modelled. Depending on the kind of model, the concept may be based on
+the real world (for a conceptual model), or it may be based on implementation between
+platform independent system concepts (for specification models) or platform specific
+system concepts (for implementation models).
+
+A classifier is a generalization of a class that includes other class-like elements,
+such as data types, actors and components. A UML class has a name, a set of
+attributes, a set of operations and constraints. In S-100 operations are not used. A
+class may participate in associations.
+
+A class according to the S-100 parts is viewed as a specification and not as an
+implementation.
+
+The use of multiple inheritance shall be minimized, because it tends to increase
+model complexity.
+
+An Abstract class is specified by having the class name in italics.
+
+=== Attributes
+
+UML notation for an attribute has the form:
+
+~opt~visibility~opt~ name : ~opt~package ::~opt opt~type~opt~~opt~[multiplicity] ~
+opt~~opt~= initial value~opt~~opt~{property-string}~opt~
+
+An attribute must be unique within the context of a class and its supertypes, or else
+be a derived attribute, that is an attribute redefined from a supertype.
+
+The visibility of attributes is shown by the symbols in <<tab-1-1>>. Protected and
+private visibility is normally not used in the standard specifications. The
+appropriate visibility symbols shall be used. The same visibility symbols are used
+for associations.
+
+[[tab-1-1]]
+.Visibility of Attributes
+[options=header,cols=2]
+|===
+| Symbol | Description
+| + | Public visibility
+| # | Protected visibility
+| - | Private visibility
+| / | Derived Attribute
+|===
+
+All attributes must be typed and the type must exist, the constructed/defined types.
+A type must always be specified, there is no default type.
+
+If no explicit multiplicity is given, it is assumed to be 1.
+
+An attribute may define a default value, which is used when an object of that type is
+created. Default values are defined by explicit default values in the UML definition
+of the attribute.
+
+The following properties can be used:
+
+* readOnly -- the value of the attribute cannot be changed and must be initialised.
+* ordered -- applies to attributes of a multiplicity of more than one in which the
+order of the elements is meaningful and must be maintained.
+
+[example]
+====
+center: Point = (0,0) {readOnly} +
+origin: Point [0..1] // multiplicity 0..1 means that this is optional +
+controlPoints : Point [2..*] {ordered}
+====
+
+=== Basic data types
+
+==== General considerations
+
+The basic data types are grouped into two categories:
+
+. Primitive types: Fundamental types for representing values, for instance
+CharacterString, Integer, Boolean, Date, Time, etc.
+. Complex types: A combination of types, for instance a combination of measure types
+and units of measurement.
+
+The repertoire of basic data types is described in the following sub-clauses.
+
+S-100 data formats may represent values using appropriate built-in or standard types.
+For example, the ISO 8211 format (Part 10a) represents the values of all thematic
+feature attributes in strings instead of using the ISO 8211 signed integer, unsigned
+integer, or signed floating point representations for thematic attributes of S-100
+type Integer or Real.
+
+==== Primitive types
+
+The following primitive types are supported in the S-100 UML Diagrams.
+
+[[tab-1-2]]
+.Data Types
+[options=header,cols=2]
+|===
+| Name | Description
+
+| Integer a| A signed integer number, the representation of an integer is encapsulation and usage dependent.
+
+[example]
+`29, -65547`
+| PositiveInteger | An unsigned integer number greater than 0.
+| NonNegativeInteger | An unsigned integer number greater than or equal to 0.
+| Real a| A signed real (floating point) number consisting of a mantissa and an exponent, the representation of a real is encapsulation and usage dependent.
+
+[example]
+`23.501, -1.234E-4, -23.0`
+| Boolean | A value representing binary logic. The value can be either true or false.
+| CharacterString | A CharacterString is an arbitrary-length sequence of characters including accents and special characters from repertoire of one of the adopted character sets.
+| Date a| A date gives values for year, month and day according to the Gregorian Calendar. Character encoding of a date is a string which shall follow the calendar date format (complete representation, basic format) for date specified by ISO 8601.
+
+[example]
+`19980918` (YYYYMMDD)
+
+In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+
+[example]
+`1998-09-18`
+| Time | A time is given by an hour, minute and second in the 24-hour clock system. Character encoding of a time shall be a complete representation of the basic format as defined in ISO 8601. Complete representation means that hours, minutes and seconds shall be used. Basic format means that separating characters are omitted.Time is preferably expressed as Universal Time Coordinated (UTC).
+
+[example]
+`183059Z`
+
+Time may be expressed as a Local Time with a given offset to UTC.
+
+[example]
+`183059+0100`
+
+Time may be expressed as a Local Time without a specified offset to UTC.
+
+[example]
+`183059`
+
+The complete representation of the time of 27 minutes and 46 seconds past 15 hours locally in Geneva (in winter one hour ahead of UTC), and in New York (in winter five hours behind UTC), together with the indication of the difference between the time scale of local time and UTC, are used as examples.
+
+Geneva: `152746+0100`
+
+New York: `152746-0500`
+
+The service hours for a service, that is available all year in an area where Daylight Saving Hour affects the offset to UTC could be expressed as Local Time without specified offset.
+
+Opening: `074500`
+
+Closing: `161500`
+
+In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+
+[example]
+`18:30:59Z; 18:30:59+01:00; 18:30:59`
+| DateTime a| A DateTime is a combination of a date and a time type. Character encoding of a DateTime shall follow ISO 8601 (see above).
+
+[example]
+`19850412T101530`
+
+In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+
+[example]
+`1985-04-12T10:15:30; 1985-04-12T10:15:30+01:00;1985-04-12T10:15:30Z`
+| S100_TruncatedDate | A S100_TruncatedDate allows a date or partial date to be given. At least one of the following components must be present with omitted elements replaced by the equivalent number of hyphens as determined by the format.
+
+Components:
+
+YYYY::
+Year::: integer between 0000 and 9999
+MM::
+Month::: integer between 01 -- 12 (inclusive)
+DD::
+Day::: integer between 01 and 28, 29, 30, or 31 (inclusive), consistent with year and month values if these are specified
+
+This type can be used to encode recurring instants (see Part 3, clause 3-8).
+
+[example]
+====
+(ISO 8211, HDF5): YYYYMMDD with the unspecified component(s) replaced with hyphens such that the length of the encoding is always 8 characters:
+
+`----1217` representing 17 December of any year
+====
+
+[example]
+====
+(XML): The appropriate XML Schema type should be used:
+
+`--12-17` representing 17 December of any year (conforming to the XML type *gMonthDay*)
+
+Part 10b provides further details about encoding in GML datasets.
+====
+|===
+
+==== Complex types
+
+===== UnlimitedInteger
+
+[[fig-1-1]]
+.UnlimitedInteger
+image::img01.png[]
+
+A signed integer number whose value may be infinite.
+
+===== Matrix
+
+[[fig-1-2]]
+.Matrix
+image::img02.png[]
+
+A grid of either real or integer elements.
+
+===== S100_Multiplicity
+
+[[fig-1-3]]
+.S100_Multiplicity
+image::img03.png[]
+
+Defines a multiplicity range from lower to upper. The upper boundary may be infinite.
+
+===== S100_NumericRange
+
+[[fig-1-4]]
+.S100_NumericRange
+image::img04.png[]
+
+Specifies a numeric interval by its lower and upper boundary and the closure type of
+the interval.
+
+NOTE: The attribute *lower* must be used for all closures except *ltSemiInterval* or
+*leSemiInterval*. The attribute *upper* must be used for all closures except
+*gtSemiInterval* or *geSemiInterval*.
+
+NOTE: A single-value interval shall be encoded with *upper* = *lower* and set
+*closure* to *closedInterval*.
+
+The closure of the interval is defined by the enumeration S100_IntervalType. The literals have the following meaning:
+
+[[tab-1-3]]
+.Interval Types
+[options=header,cols=4]
+|===
+| Name | Description | Notation | Definition
+| openInterval | The open interval | _(lower,upper)_ | _lower < x < upper_
+| geLtInterval | The right half-open interval | _[lower,upper)_ | _lower stem:[<=] x < upper_
+| gtLeInterval | The left half-open interval | _(lower,upper]_ | _lower < x stem:[<=] upper_
+| closedInterval | The closed interval | _[lower,upper]_ | _lower stem:[<=] x stem:[<=] upper_
+| gtSemiInterval | The left half-open ray | _(lower,stem:[oo])_ | _lower < x_
+| geSemiInterval | The left closed ray | _[lower,stem:[oo])_ | _lower stem:[<=] x_
+| ltSemiInterval | The right half-open ray | _(stem:[-oo],upper)_ | _x < upper_
+| leSemiInterval | The right closed ray | _(stem:[-oo],upper]_ | _x stem:[<=] upper_
+|===
+
+NOTE: Intervals using the round brackets ( or ) as in the general interval
+(lower,upper) or specific examples (-1,3) and (2,4) are called *open intervals* and
+the endpoints are not included in the set. Intervals using the square brackets [or]
+as in the general interval [lower,upper] or specific examples [-1,3] and [2,4] are
+called *closed intervals* and the endpoints are included in the set. Intervals using
+both square and round brackets [and ) or ( and] as in the general intervals
+(lower,upper] and [lower,upper) or specific examples [-1,3) and (2,4] are called
+*half-closed intervals* or *half-open intervals*.
+
+NOTE: Intervals that have one of stem:[+-oo] as an end point are called rays or
+half-lines.
+
+[example]
+The interval "(10,42)" indicates the set of all real numbers between 10 and 42 but
+does _not_ include 10 or 42, the first and last numbers of the interval,
+respectively. The interval "[10,42]" includes every number between 10 and 42 _as well
+as_ 10 and 42.
+
+===== S100_UnitOfMeasure
+
+A unit of measurement is a well defined comparator for a magnitude.
+
+In S-100 a unit of measure is comprised of a name and optionally of a definition and
+a symbol.
+
+[[fig-1-5]]
+.S100_UnitOfMeasure
+image::img05.png[]
+
+===== S100_Measure
+
+A measure is the result of a measurement. A measurement is the estimation of the
+magnitude of some characteristic of an entity, such as its length or weight, relative
+to a unit of measurement. A measure consists of the actual magnitude (the value) and
+the unit of measurement.
+
+===== S100_Length
+
+The measure of distance as an integral, for example the length of curve, or the
+perimeter of a polygon as the length of the boundary.
+
+===== S100_Angle
+
+The amount of rotation needed to bring one line or plane into coincidence with
+another, generally measured in radians or degrees.
+
+===== S100_IndeterminateDate
+
+An indeterminate instant is an instant related by a specified temporal relation to a
+date specified in truncated format. The temporal relations allowed are 'before' and
+'after' and indicate respectively that the instant is before or after the time
+instant specified by the date-time component.
+
+[[fig-1-6]]
+.S100_IndeterminateDate
+image::img06.png[]
+
+[example]
+A mariner report dated at an unknown instant before the year 1950 is dated by an
+attribute _reportDate_ with sub-attributes shown below:
+
+[%unnumbered,options=header]
+|===
+| Sub-attribute | Value | Remark
+| indeterminatePosition | 1 (before) .2+| At an indeterminate time before January 1, 1950.
+| value | 1950----
+
+|===
+
+===== S100_TM_Instant
+
+S100_TM_Instant represents the ISO19108 concepts of temporal instant. A temporal
+instant is a 0-dimensional geometric primitive representing position in time
+<<ISO19108>>.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Multiplicity | Data Type | Remarks
+| Class
+| S100_TM_Instant
+| A point in time. Multiple points may be specified as truncated dates used to represent recurring instants
+| --
+|
+| One of __date__, _time_ or _dateTime_ must be populated
+
+| Attribute
+| date
+| A date or truncated date (see <<tab-1-2>>)
+| 0..1
+| S100_TruncatedDate
+|
+
+| Attribute
+| time
+| A Time (see <<tab-1-2>>)
+| 0..1
+| Time
+|
+
+| Attribute
+| dateTime
+| A DateTime (See <<tab-1-2>>)
+| 0..1
+| DateTime
+|
+|===
+
+===== S100_TM_Period
+
+S100_TM_Period represents the ISO19108 concepts of temporal period. A temporal period
+is a one-dimensional geometric primitive representing extent in time. <<ISO19108>>.
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Multiplicity | Data Type | Remarks
+| Class
+| S100_TM_Period
+| An extent in time.
+| --
+|
+| Single value intervals are encoded with _begin_ = _end_ and _closure_ = _closedInterval_ (or omitted)
+
+| Attribute
+| closure
+| An S100___IntervalType__. Default is _closedInterval_
+| 0..1
+| S100_IntervalType
+|
+
+| Attribute
+| begin
+| Start of the period
+| 0..1
+| S100_TM_Instant
+|
+
+| Attribute
+| end
+| End of the period
+| 0..1
+| S100_TM_Instant
+|
+|===
+
+=== Predefined derived types
+
+Derived types are derived from the basic types or other derived types by restriction
+of the range of allowed values. The following derived types are defined in S-100.
+Product Specifications may define additional derived types.
+
+[[tab-1-4]]
+.Predefined Derived Types
+[cols=3,options=header]
+|===
+| Name | Description | Derived From
+| URI a| A uniform resource identifier as defined in RFC 3986. Character encoding of a URI shall follow the syntax rules defined in RFC 3986.
+
+[example]
+http://registry.iho.int | CharacterString
+| URL a| A uniform resource locator (URL) is a URI that provides a means of locating the resource by describing its primary access mechanism (RFC 3986).
+
+[example]
+http://registry.iho.int | URI
+| URN a| A persistent, location-independent, resource identifier that follows the syntax and semantics for URNs specified in RFC 2141.
+
+[example]
+urn:iho:s101:1:0:0:AnchorageArea | URI
+|===
+
+Attributes holding references to support files should be of URI attribute types and
+comply with the syntax in RFC 8089 for how to construct file references.
+
+[example]
+====
+The minimal representation of a local file with no authority field and an absolute
+path that begins with a slash "/".
+
+* "file:/path/to/file"
+====
+
+[NOTE]
+====
+In the context of Exchange Sets, datasets may reference a support file with an
+attribute value like file:/CABLES01.TXT which can be interpreted as
+
+<ExchangeSetRoot>/SUPPORT_FILES/CABLES01.TXT
+
+and as
+
+/root/installation/folder/some/thing/else/support/files/folder/CABLES01.TXT
+
+on the end-user installation.
+====
+
+=== Enumerated types
+
+An enumerated type declaration defines a list of valid identifiers of mnemonic words.
+Attributes of an enumerated type can only take values from this list.
+
+[example]
+====
+[[fig-1-7]]
+.Enumeration
+image::img07.png[]
+====
+
+Enumerations are modelled as classes that are stereotyped as
+&laquo;enumeration&raquo;. An enumeration class can only contain simple attributes
+which represent the enumeration values. Other information within an enumeration class
+is void. An enumeration is a user-definable data type, whose instances form a list of
+named literal values. Usually, both the enumeration name and its literal values are
+declared. The extension of an enumeration type will imply a Schema modification.
+
+=== Codelist types
+
+Codelist types may be used for open enumerations whose membership cannot be known at
+the level of the Product Specification, for reuse of information model fragments, or
+for more efficient Catalogue management. Specifically, they may be used:
+
+. for enumerations whose members are not all knowable at the level of the Application
+Schema;
+. for lists defined or controlled by external authorities;
+. for lists common to multiple S-100 domains;
+. if the set of allowed values needs to be extended without a major revision of the
+data specification;
+. long lists of potential values which would clutter or bloat Feature Catalogues.
+
+For example, ISO 19115 (Metadata) defines several codelists, because it needs to
+define enumerated types whose membership is determined by domain and circumstances
+(for example distribution media).
+
+A codelist type declaration must be one of the following 3 types:
+
+. An **open enumeration**, which is a list of valid key-value combinations (that is
+code-value mappings) with a provision for allowing user communities to provide
+allowed values in a specified format.
+. A **closed dictionary**, which is a dictionary (vocabulary) of key-value
+combinations in a known format, identifiable by a Uniform Resource Identifier and
+which can be located by the application of standard modern techniques for locating
+resources. Additional values cannot be provided.
+. An **open dictionary**, which is a dictionary (vocabulary) of key-value
+combinations in a known format, identifiable by a Uniform Resource Identifier, as
+defined above, with the additional proviso that additional values conforming to a
+specified format may be provided.
+
+Codelists are modelled as classes that are stereotyped as
+&laquo;S100_Codelist&raquo;. Codelists of the first type must list the known literals
+as attributes. In the second and third types, no attributes are listed but the
+vocabulary is identified by a URI. A Codelist classifier must have tagged values
+which define its representation, extensibility, and anticipated encoding. <<fig-1-8>>
+shows 3 examples of codelists:
+
+. The *VerticalDatum* codelist is an example of a codelist modelled as an extensible
+enumeration (indicated by the tagged value __codelistType="open enumeration"__) which
+can be extended by values of the form "other: ...", indicated by the tagged value
+__encoding="other: [something]".__. The *ENCProducerCodes* codelist is an example of
+a codelist modelled by an external dictionary which can take only the values in that
+dictionary (indicated by tagged value _codelistType="closed dictionary"_). The
+dictionary is identified by the tagged value
+_URI=http://www.iho.int/producers/enc/ver1_5_.
+. The *Agency* codelist is an example of a codelist modelled by an external
+dictionary which can take additional values (indicated by the tagged value
+_codelistType="open dictionary"_). The dictionary is identified by the tagged value
+_URI=http://www.iho.int/agency/ver1_5._ The list can be extended by values of the
+form "other: ...", indicated by the tagged value _encoding="other: [something]"._
+
+[[fig-1-8]]
+.Codelists
+image::img08.png[]
+
+Implementations (and specific encodings) are allowed to depart from _encoding_ hints.
+Different implementations may use different encoding schemes (and translation tables
+to other encoding schemes). For example preparation of a Feature Catalogue for an ISO
+8211 encoding may transform a dictionary into an XML fragment which is merged into
+(or _Xinclude_'d in) the XML Feature Catalogue (obviously an additional procedure is
+needed for maintenance). This allows XML/GML encodings to use the dictionary while
+still allowing other encodings to function within their limitations.
+
+=== Relationships and associations
+
+==== Relationships
+
+[[fig-1-9]]
+.Different kinds of relationships
+image::img09.png[]
+
+A relationship in UML is a concrete semantic connection among model elements. Kinds
+of relationships include association, generalization, aggregation/composition, meta
+relationship, flow, and several kinds grouped under dependency. In ISO 19103 there is
+a clear distinction between the general term "Relationship," and the more specific
+term "Association". Both are defined for class to class linkages, but association is
+reserved for those relationships that are in reality instance to instance linkages.
+"Generalization" and "Dependency" are class to class relationships. "Aggregation",
+and other object to object relationships, are more restrictively called
+"Associations". It is always appropriate to use the most restrictive term in any
+case, so in speaking of instantiable relationships, use the term "Association".
+
+In S-100, generalization, dependency and refinement are used according to the
+standard UML notation and usage. In the following the usage of association,
+aggregation and composition is described further.
+
+==== Association, composition and aggregation
+
+An association in UML is the semantic relationship between two or more classifiers
+(for example class, interface, type, ...) that involves connections among their
+instances.
+
+An association is used to describe a relationship between two or more classes. In
+addition to an ordinary association, UML defines two special types of associations
+called aggregation and composition. The three types have different semantics. An
+ordinary association shall be used to represent a general relationship between two
+classes. The aggregation and composition associations shall be used to create
+part-whole relationships between two classes.
+
+A binary association has a name and two association-ends. An association-end has a
+role name, a multiplicity statement, and an optional aggregation symbol. An
+association-end shall always be connected to a class.
+
+[[fig-1-10]]
+.Association
+image::img10.png[]
+
+<<fig-1-10>> shows an association named "A" with its two respective association-ends.
+The role name is used to identify the end of an association, the role name r1
+identifies the association-end which is connected to the class named class2. The
+multiplicity of an association-end can be one of exactly-one (1), zero-or-one (0..1),
+one-or-more (1..*), zero-or-more (0..*) or an interval (n..m). Viewed from the class,
+the role name of the opposite association-end identifies the role of the target
+class. We say that class2 has an association to class1 that is identified by the role
+r2 and which as a multiplicity of exactly one. The other way around, we can say that
+class1 has an association to class2 that is identified by the role name r1 with
+multiplicity of zero-or-more. In the instance model we say that class1 objects have a
+reference to zero-or-more class2 objects and that class2 objects have a reference to
+exactly one class1 object.
+
+[[fig-1-11]]
+.Specification of multiplicity
+image::img11.png[]
+
+The number of instances that can participate at one end in an association (or
+attribute) is specified in <<fig-1-11>>.
+
+An aggregation association is a relationship between two classes, in which one of the
+classes plays the role of container and the other plays the role of a containee.
+<<fig-1-12>> shows an example of an aggregation. The diamond-shaped aggregation
+symbol at the association-end close to class1 indicates that class1 is an aggregation
+consisting of class3. The meaning of this is that class3 is a part of class1. In the
+instance model, *class1* objects will contain one-or-more *class3* objects. The
+aggregation association shall be used when the containee objects (that represent the
+parts of a container object) can exist without the container object. Aggregation is a
+symbolic short-form for the part-of association but does not have explicit semantics.
+It allows for sharing of the same objects in multiple aggregations. If a stronger
+aggregation semantics is required, composition shall be used as described below. It
+is possible also to define role name and multiplicity at the diamond shaped end as
+well.
+
+[[fig-1-12]]
+.Aggregation
+image::img12.png[]
+
+A composition association is a strong aggregation. In a composition association, if a
+container object is deleted then all of its containee objects are deleted as well.
+The composition association shall be used when the objects representing the parts of
+a container object, cannot exist without the container object. <<fig-1-13>> shows a
+composition association in which the diamond-shaped composition symbol has a solid
+fill. Here *class1* objects consist of one-or-more *class4* objects, and the *class4*
+objects cannot exist unless the *class1* object also exists. The required (implied)
+multiplicity for the owner class is always one. The containees, or parts, cannot be
+shared among multiple owners.
+
+It is possible also to define role name at the diamond shaped end as well, but the
+multiplicity will always be at most one. Composition shall be used to have the
+semantic effect of containment. Composition should be used with care, in particular
+one should consider the different requirements from various application perspectives
+before introducing this constraint. The application of the composition construct
+should be considered within the context of a model, (rather than the scope), where
+context means the application domain within which the application must be consistent.
+This is in order to prevent problems where different applications have different
+requirements for composition.
+
+[[fig-1-13]]
+.Composition (strong aggregation)
+image::img13.png[]
+
+All associations shall have cardinalities defined for both association ends. At least
+one role name shall be defined. If only one role name is defined, the other will by
+default be inv_rolename.
+
+All association ends (roles) representing the direction of a relationship must be
+named or else the association itself must be named. The name of an association end
+(the rolename) must be unique within the context of a class and its supertypes. The
+direction of an association must be specified. If the direction is not specified, it
+is assumed to be a two-way association. If one-way associations are intended, the
+direction of the association can be marked by an arrow at the end of the line. If
+only the association is named, the direction of the association shall be specified.
+
+Every UML association has navigability attributes that indicate which player in the
+association has direct access to the association opposite role. The default logic for
+an unmarked association is that it is two-way. Associations that do not indicate
+navigability are two-way in that both participants have equal access to the opposite
+role. Two-way navigation is not common or necessary in many client-to-server
+operations. The counterexample to this may be notification services, where the server
+often instigates communication on a prescribed event. The use of two-way relations
+that introduce unreasonable package dependencies shall be minimized. One-way
+relations shall be used when that is all that is needed.
+
+If an association is navigable in a particular direction, the model shall supply a
+"role name" that is appropriate for the role of the target object in relation to the
+source object. Thus in a 2-way association, two role names will be supplied. The
+default role name is "the<target class name>" in which the target class is referenced
+from the source class (this is the default name in many UML tools). Association names
+are of secondary importance and actually are more for documentation purposes.
+Sometimes they can, however, be used for generating association-manager objects in
+environments that support associations as a first-class citizen concept.
+
+Multiplicity refers to the number of relationships of a particular kind that an
+object can be involved in. If an association end were not navigable, putting a
+multiplicity constraint on it would require an implementation to track the use of
+association by other objects (or to be able to acquire the multiplicity through
+query). If this is important to the model, the association shall be two-way navigable
+to make enforcement of the constraint more tenable. In other words, a one-way
+relation implies a certain "don't care" attitude towards the non-navigable end.
+
+N-ary relationships, for N > 2 shall be avoided whenever possible, in order to reduce
+complexity. Multiplicity for associations are specified as UML multiplicity
+specifications. An association with role names can be viewed as similar to defining
+attributes for the two classes involved, with the additional constraint that updates
+and deletions are consistently handled for both sides. For one-way associations, it
+thus becomes equivalent to an attribute definition. The recommendation for S-100 is
+to use the association notation for all cases except for those involving attributes
+of basic data types.
+
+=== Stereotypes
+
+==== Use of standard UML stereotypes for class/classifier
+
+In S-100 the following stereotypes are used:
+
+. &laquo;Interface&raquo; a definition of a set of operations that is supported by
+objects having this interface.
+. &laquo;Type&raquo; a stereotyped class used for specification of a domain of
+instances (objects), together with the operations applicable to the objects. A type
+may have attributes and associations.
+. &laquo;Enumeration&raquo; A data type whose instances form a list of named literal
+values. Both the enumeration name and its literal values are declared. Enumeration
+means a short list of well-understood potential values within a class. Classic
+examples are Boolean that has only 2 (or 3) potential values TRUE, FALSE (and NULL).
+Most enumerations will be encoded as a sequential set of Integers, unless specified
+otherwise. The actual encoding is normally only of use to the programming language
+compilers. In S-100 Codelists taken from the ISO 19100 standards are classified as
+enumerations.
+. &laquo;MetaClass&raquo; A class whose instances are classes. Metaclasses are
+typically used in the construction of metamodels. The meaning of metaclass is an
+object class whose primary purpose is to hold metadata about another class. For
+example, "FeatureType" and "AttributeType" are metaclasses for "Feature" and
+"Attribute".'
+. &laquo;DataType&raquo; A descriptor of a set of values that lack identity
+(independent existence and the possibility of side effects). Data types include
+primitive predefined types and user-definable types. A DataType is thus a class with
+few or no operations whose primary purpose is to hold the abstract state of another
+class for transmittal, storage, encoding or persistent storage.
+. &laquo;Codelist&raquo; A data type whose instances form a list of named literals,
+some or all of whose members may not be known. The *Codelist* name is declared in the
+Application Schema. The list members may be described by either (i) a list of codes
+and corresponding literals augmented with a pattern allowing additional values
+conforming to a certain format, or (ii) a pointer to a resource consisting of a list
+of code/literal mappings. The resource is called a vocabulary or dictionary. Tagged
+values attached to the *Codelist* declaration indicate which form is used and the
+location of the resource (generally as a URI). Codelists should be used only when an
+enumeration is either unusable or inefficient (for example, if the full list of
+values is not known to the specification authors or the list of allowed values is
+long, volatile, controlled by another authority, and/or shared by multiple domains).
+
+=== Optional, conditional and mandatory -- attributes and associations
+
+In UML all attributes are per default mandatory. The possibility to show multiplicity
+for attributes and association role names provide a way of describing optional and
+conditional attributes.
+
+The default is mandatory which thus do not need to be specified. Where a multiplicity
+of 0..1 or 0..\* is specified it means that this attribute may be present or may be
+omitted. A conditional attribute shall be shown as an optional attribute with a
+constraint statement in OCL. The condition shall be expressed as an OCL constraint in
+connection with the class declaration. This means that a null value must be
+represented in the instance model, for example a place holder element or a null
+value. An optional or conditional attribute shall never have a default value defined.
+
+An attribute may be defined as conditional, meaning that it is optional depending on
+other attributes. The dependencies may be by existence-dependence of other (optional)
+attributes or by the values of other attributes. A conditional attribute is shown as
+optional with a conditional expression attached. The condition shall be written in a
+note directly associated with the attribute, or with the class and the name of the
+attribute on the first line. A conditional attribute shall never have a default value
+defined.
+
+If unspecified, the default multiplicity for associations is 0..*, and the default
+multiplicity for attributes is 1.
+
+=== Naming and name spaces
+
+All classes shall have unique names. All classes shall be defined within a package.
+Class names shall start with an upper case letter. A class shall not have a name that
+is based on its external usage, since this may limit reuse. A class name shall not
+contain spaces. Separate words in a class name shall be concatenated. Each subword in
+a name shall begin with a capital letter, such as "XnnnYmmm".
+
+To ensure global uniqueness of class names, all class names shall be defined with
+bi-alpha prefixes. Bialpha prefixes allows for the use of _after, such as in
+GM_Object. The geometry model uses bialpha prefixes (GM and TP). Other prefixes
+should be defined for other areas.
+
+The name of an association must be unique within the context of a class and its
+supertypes or else it must be derived.
+
+Attribute names shall start with a lower-case letter.
+
+[example]
+firstName, lastName.
+
+Precise technical names should be used for attributes and operations to avoid
+confusion.
+
+[example]
+alphaCodeIdentifier, dateOfLastChange
+
+Documentation fields should be used extensively to describe element.
+
+Don't reiterate class names inside the attribute names. Keep names short if possible.
+
+[example]
+class S-100_WorkingGroup, attribute workingGroupName.
+
+Naming conventions are used for a variety of reasons, mainly readability, consistency
+and as a protection against case-sensitive binding.
+
+The names of UML elements should:
+
+. Use precise and understandable technical names for classes, attributes.
++
+--
+[example]
+index not i
+--
+
+. For attributes and association roles capitalize only the first letter of each word
+after the first word that is combined in a name. Capitalize the first letter of the
+first word for each name of a class, package, type-specification and association
+names.
++
+--
+[example]
+computePartialDerivatives (not computepartialderivatives or COMPUTEPARTIALDERIVATIVES)
+
+[example]
+CoordinateTransformation (not coordinateTransformation)
+--
+. Keep names as short as practical. Use standard abbreviations if understandable,
+skip prepositions, and drop verbs when they do not significantly add to meaning of
+the name.
++
+--
+* numSegment instead of numberOfSegments
+* Equals instead of IsEqual
+* value() instead of getValue()
+* initObject instead of initializeObject
+* length() instead of computeLength()
+--
+
+The UML naming scope with package::package::className allows for the same className
+to be defined in different packages. However, many UML tools do not currently allow
+for this. Therefore, a more restrictive naming convention is adopted:
+
+. Although the model is case sensitive, all class name should be unique in a case
+insensitive manner.
+. Class name should be unique across the entire model (so as not to create a problem
+with many UML tools).
+. Package names should be unique across the entire model (for the same reason).
+. Every effort should be applied to eliminate multiple classes instantiating the same
+concept.
+
+=== Notes
+
+Note boxes are used to comment on the model in general or on a specific item (that is
+class or association) of the model.
+
+[[fig-1-14]]
+.Example note
+image::img14.png[]
+
+=== Packages
+
+A UML package is a container that is used to group declarations of subpackages,
+classes and their associations. The package structure in UML enables a hierarchical
+structure of subpackages, class declarations, and associations. A package shall be
+used to represent a Schema.
+
+[[fig-1-15]]
+.Example package structure
+image::img15.png[]
+
+The packages, classes and attributes in the Schema model can be identified by a
+qualified name. The form of the qualified names is __name1 : :name2 : :name3__, where
+_name1_ is the name of the outermost package, _name2_ is a name which appears within
+the namespace of __name1__, and _name3_ is a name that appears within the namespace
+of _name2_. The standard UML ": :" symbol shall be used as a name separator. There is
+no limit of the depth of this namespace hierarchy.
+
+[example]
+In the Spatial Schema there is a subpackage named Geometry which defines a class
+named GM_Object. This class has an association with role name SRS (Spatial Reference
+System). The fully qualified name for this association is: Spatial.Geometry :
+:GM_Object.SRS.
+
+=== Documentation of models in S-100
+
+In addition to the diagrams, it is necessary to document the semantics of the model.
+The meaning of attributes, associations, operations and constraints needs to be
+explained. This is done by means of context tables. A context table is defined for
+each class; it has the following columns:
+
+* Role Name
+* Name
+* Description
+* Multiplicity
+* Data Type
+* Remarks
+
+The Role Name column specifies what property of the class is described in this row.
+Possible values are:
+
+* Class -- The class itself
+* Attribute -- An attribute of that class
+* Association -- An association to another class
+* Enumeration -- An enumerated data type
+* Literal -- A value of an enumerated data type
+
+The Name column contains the name of the property. For association this is the role
+name used for the given class. In the Description column the semantics of the
+property are given. The Multiplicity column contains the number of occurrences of
+the property in the class. This also describes which properties are mandatory and
+which are optional. The Data Type column contains the name of the data type of the
+property. In the Remarks column additional information about the property can be
+expressed. This includes constraints or conditions. For the documentation of
+enumerated types the Multiplicity and Data Type column are not used.
+
+The following example illustrates the use of context tables:
+
+[[fig-1-16]]
+.Use of context tables
+image::img15a.png[]
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Multiplicity | Data Type | Remarks
+| Class
+| WorkingGroup
+| A group of experts doing some useful work
+| -
+| -
+|
+
+| Attribute
+| name
+| The name of the working group
+| 1
+| CharacterString
+|
+
+| Attribute
+| organization
+| The organization responsible for the working group
+| 1
+| CI_ResponsibleParty
+|
+
+| Attribute
+| scope
+| The reason why so many people travel around the world
+| 1
+| CharacterString
+|
+
+| Association
+| member
+| A person that is designated to contribute to the group
+| 1..*
+| Person
+|
+|===
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Multiplicity | Data Type | Remarks
+| Class
+| Person
+| A human being
+| -
+| -
+|
+
+| Attribute
+| name
+| The name of the person
+| 1
+| CharacterString
+|
+
+| Attribute
+| firstName
+| The first name of the person
+| 1
+| CharacterString
+|
+
+| Attribute
+| middleInitial
+| The middle initial of the person
+| 0..1
+| Character
+|
+
+| Attribute
+| dateOfBirth
+| The date when the person was born
+| 1
+| Date
+|
+
+| Association
+| workingGroup
+| A working group the person contributes to
+| 0..*
+| WorkingGroup
+|
+
+|===
+
+[%unnumbered,options=header,cols=6]
+|===
+| Role Name | Name | Description | Multiplicity | Data Type | Remarks
+| Class
+| Membership
+| A class describing the membership of a person in a working group
+| -
+| -
+|
+
+| Attribute | role | The role that the person has in the working group | 0..1 | WG_Role | Ordinary member have no role
+
+| Attribute
+| representing
+| The organization which is represented by the person in the working group
+| 1
+| CI_ResponsibleParty
+|
+|===
+
+[%unnumbered,cols=4,options=header]
+|===
+| Role Name | Name | Description | Remarks
+| Enumeration
+| WG_Role
+| The roles people can have in a working group
+|
+
+| Literal
+| chairman
+| The gov'nor
+|
+
+| Literal
+| deputy
+| His best friend
+|
+
+| Literal
+| secretary
+| Poor man (or woman) has to have his (or her) fingers always on the keyboard
+|
+|===
