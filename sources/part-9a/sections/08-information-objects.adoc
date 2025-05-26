@@ -1,0 +1,5 @@
+[[cls-9a-8]]
+== Information objects
+
+Information objects as described in Part 9 are unused in Part 9a. Instead, information
+associated with features to be portrayed is obtained as described in Part 13.

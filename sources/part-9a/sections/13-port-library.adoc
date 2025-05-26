@@ -1,0 +1,7 @@
+[[cls-9a-13]]
+== The Portrayal Library
+
+There is no change to the organization structure of the portrayal library as defined
+in Part 9 clause 9-13.2. The "Rules" folder XSLT contents of Part 9 clause 9-13.2 are
+replaced with Lua script files. __FileType:rules__ described in Part 9 clause
+9-13.3.32 is used to identify each of the Lua script files.

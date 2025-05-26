@@ -1,0 +1,10 @@
+[bibliography]
+== Normative references
+
+The following referenced documents are required for the application of this document.
+For dated references, only the edition cited applies. For undated references, the
+latest edition of the referenced document (including amendments) applies.
+
+* [[[lua,1]]],
+_span:title[Lua 5.1 Reference Manual]_,
+span:uri[https://www.lua.org/manual/5.1/]

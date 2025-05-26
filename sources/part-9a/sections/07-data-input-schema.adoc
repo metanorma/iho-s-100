@@ -1,0 +1,5 @@
+[[cls-9a-7]]
+== Data input schema
+
+This part does not use a data input schema as defined in Part 9 clause 9-7. Data is
+passed between a 9a portrayal and a host as described in Part 13.

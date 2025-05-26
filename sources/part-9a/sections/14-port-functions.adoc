@@ -1,0 +1,179 @@
+[[cls-9a-14]]
+== Portrayal Domain Specific Functions
+
+The Lua portrayal is an instance of a Part 13 scripting domain. The functions
+described below are specific to this scripting domain; they are domain specific
+functions to be used in conjunction with the standard functions detailed in Part 13.
+
+[[cls-9a-14.1]]
+=== Portrayal Domain Specific Catalogue Functions
+
+The functions listed on the following clauses are implemented within the Portrayal
+Catalogue rule files. They can be called by the host, and augment the standard
+catalogue functions described in Part 13.
+
+[[cls-9a-14.1.1]]
+==== Boolean PortrayalMain(String[] featureIDs)
+
+[underline]#*Return Value:*#
+
+true:: Portrayal completed successfully.
+
+false:: Portrayal was terminated by the host (host returned false from
+_HostPortrayalEmit_).
+
+[underline]#*Parameters:*#
+
+_featureIDs_:: String[]
++
+--
+An array containing the IDs of the features for which to generate drawing
+instructions. If this parameter is nil (or missing), the portrayal will generate
+drawing instructions for all feature instances in the dataset.
+--
+
+[underline]#*Remarks:*#
+
+This function is called by the host to start the portrayal process for a dataset
+instance. Subsequently, the portrayal scripts will repeatedly call
+_HostPortrayalEmit_, providing the host with the drawing instructions for each feature
+instance portrayed.
+
+The function returns once the portrayal scripts have run to completion; an error is
+thrown; or the host returns false from _HostPortrayalEmit_.
+
+If using a portrayal cache as outlined in <<cls-9a-5.2.2.1>>, the host only needs to
+pass in uncached featureIDs, or featureIDs associated with context parameters whose
+values have changed.
+
+[[cls-9a-14.1.2]]
+==== void PortrayalInitializeContextParameters(ContextParameter[] __contextParameters__)
+
+[underline]#*Return Value:*#
+
+void
+
+[underline]#*Parameters:*#
+
+_contextParameters_:: ContextParameter[]
++
+--
+An array of ContextParameter objects.
+--
+
+[underline]#*Remarks:*#
+
+Provides the portrayal scripts with the default value for each portrayal context
+parameter defined within the Portrayal Catalogue. _PortrayalCreateContextParameter_
+should be used to create each entry. The host is responsible for retrieving the
+portrayal context parameters from the Portrayal Catalogue.
+
+[[cls-9a-14.1.3]]
+==== ContextParameter PortrayalCreateContextParameter(String __contextParameterId__, String __contextParameterType__, String _defaultValue_)
+
+[underline]#*Return Value:*#
+
+A ContextParameter storing the _defaultValue_ with the _contextParameterId_.
+
+[underline]#*Parameters:*#
+
+_contextParameterId_:: String
++
+--
+The ID of a portrayal context parameter. Valid IDs are defined in the Portrayal
+Catalogue.
+--
+
+_contextParameterType_:: String
++
+--
+The type of the portrayal context parameter. Valid values are _Boolean, Integer, Real,
+Text_ and _Date_.
+--
+
+_defaultValue_:: String
++
+--
+The default value for the portrayal context parameter. This value is encoded as
+described in Part 13 clause 13-8.1.
+--
+
+[underline]#*Remarks:*#
+
+Creates a ContextParameter object for use within the scripting environment.
+
+[[cls-9a-14.1.4]]
+==== void PortrayalSetContextParameter(String __contextParameterId__, String _value_)
+
+[underline]#*Return Value:*#
+
+void
+
+[underline]#*Parameters:*#
+
+_contextParameterId_:: String
++
+--
+The ID of a portrayal context parameter.
+--
+
+_value_:: String
++
+--
+The new value for the portrayal context parameter. This value is encoded as described
+in Part 13 clause 13-8.1.
+--
+
+*Remarks:*
+
+Allows the host to modify the value of a portrayal context parameter. The context
+parameter must be created via _PortrayalInitializeContextParameters_ prior to being
+modified.
+
+[[cls-9a-14.2]]
+=== Portrayal Domain Specific Host Functions
+
+The host must implement the function described in the following clause in order to
+support portrayal. This function is called from the portrayal domain specific
+catalogue functions, and augments the standard host functions described in Part 13.
+
+[[cls-9a-14.2.1]]
+==== Boolean HostPortrayalEmit(String __featureID__, String __drawingInstructions__, String _observedParameters_)
+
+[underline]#*Return Value:*#
+
+True:: Continue script processing. The portrayal engine will continue to process
+feature instances.
+
+False:: Terminate script processing. No additional feature instances will be processed
+by the portrayal engine.
+
+[underline]#*Parameters:*#
+
+_featureID_:: String
++
+--
+Used by the host to uniquely identify a feature instance.
+--
+
+_drawingInstructions_:: String
++
+--
+All of the drawing instructions generated for the feature instance identified by
+_featureID_. This string is in Data Exchange Format (DEF) as described in Part 13.
+--
+
+_observedParameters_:: String
++
+--
+The context parameters that were observed during the generation of the drawing
+instructions for this feature. This string is in DEF.
+--
+
+[underline]#*Remarks:*#
+
+This function is called from the Portrayal Catalogue once per feature instance to
+provide drawing instructions to the host.
+
+The host can optionally use the observed context parameters to perform drawing
+instruction caching.
