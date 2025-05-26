@@ -1,0 +1,5 @@
+[[cls-9a-10]]
+== Portrayal processing
+
+The XSLT processing described in Part 9 clause 9-10 is replaced with Lua as described
+in Part 13.

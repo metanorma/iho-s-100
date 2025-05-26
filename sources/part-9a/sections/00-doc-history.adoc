@@ -1,0 +1,16 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Removed incorrect requirement that _crsDirection_ and _crsLength_ must match for _AugmentedRay_.
+      location:
+        - part=9a,clause=9a-11.2.2.6
+----
