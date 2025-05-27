@@ -1,0 +1,877 @@
+---
+- table-name: "Information Type Record Identifier field structure"
+  field-tag: "IRID"
+  field-name: "Information Type Record Identifier"
+  ddf: "1100;&□□□Information□Type□Record□Identifier▲RCNM!RCID!NITC!RVER!RUIN▲(b11,b14,2b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{150} -- Information Type"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Numeric Information Type Code"
+      label: "NITC"
+      format: "b12"
+      subfield-content: "A valid information type code as defined in the ITCS field of the Dataset General Information Record"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Coordinate Control field structure"
+  field-tag: "COCC [Upd]"
+  field-name: "Coordinate Control"
+  ddf: "1100;&□□□Coordinate□Control▲COUI!COIX!NCOR▲(b11,2b12)▼"
+  subfields:
+    - subfield-name: "Coordinate Update Instruction"
+      label: "COUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Coordinate Index"
+      label: "COIX"
+      format: "b12"
+      subfield-content: "Index (position) of the addressed coordinate tuple within the coordinate field(s) of the target record"
+    - subfield-name: "Number of Coordinates"
+      label: "NCOR"
+      format: "b12"
+      subfield-content: "Number of coordinate tuples in the coordinate field(s) of the update record"
+
+- table-name: "2-D Integer Coordinate Tuple field structure"
+  field-tag: "C2IT"
+  field-name: "2-D Integer Coordinate Tuple"
+  ddf: "1100;&□□□2-D□Integer□Coordinate□Tuple▲YCOO!XCOO▲(2b24)▼"
+  subfields:
+    - subfield-name: "Coordinate in Y axis"
+      label: "YCOO"
+      format: "b24"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b24"
+      subfield-content: "X-coordinate or longitude"
+
+- table-name: "3-D Integer Coordinate Tuple field structure"
+  field-tag: "C3IT"
+  field-name: "3-DInteger Coordinate Tuple"
+  ddf: "1100;&□□□3-D□Integer□Coordinate□Tuple▲VCID!YCOO!XCOO!ZCOO▲(b11,3b24)▼"
+  subfields:
+    - subfield-name: "Vertical CRS Id"
+      label: "VCID"
+      format: "b11"
+      subfield-content: "Internal identifier of the Vertical CRS"
+    - subfield-name: "Coordinate in Y axis"
+      label: "YCOO"
+      format: "b24"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b24"
+      subfield-content: "X-coordinate or longitude"
+    - subfield-name: "Coordinate in Z axis"
+      label: "ZCOO"
+      format: "b24"
+      subfield-content: "Z-coordinate (depth or height)"
+
+- table-name: "2-D Floating Point Coordinate Tuple field structure"
+  field-tag: "C2FT"
+  field-name: "2-D Floating Point Coordinate Tuple"
+  ddf: "1100;&□□□2-D□Floating□Point□Coordinate□Tuple▲YCOO!XCOO▲(2b48)▼"
+  subfields:
+    - subfield-name: "Coordinate in Y axis"
+      label: "YCOO"
+      format: "b48"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b48"
+      subfield-content: "X-coordinate or longitude"
+
+- table-name: "3-D Floating Point Coordinate Tuple field structure"
+  field-tag: "C3FT"
+  field-name: "3-D Floating Point Coordinate Tuple"
+  ddf: "1100;&□□□3-D□Floating□Point□Coordinate□Tuple▲VCID!YCOO!XCOO!ZCOO▲(b11,3b48)▼"
+  subfields:
+    - subfield-name: "Vertical CRS Id"
+      label: "VCID"
+      format: "b11"
+      subfield-content: "Internal identifier of the Vertical CRS"
+    - subfield-name: "Coordinate in Y axis"
+      label: "YCOO"
+      format: "b48"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b48"
+      subfield-content: "X-coordinate or longitude"
+    - subfield-name: "Coordinate in Z axis"
+      label: "ZCOO"
+      format: "b48"
+      subfield-content: "Z-coordinate (depth or height)"
+
+- table-name: "2-D Integer Coordinate List field structure"
+  field-tag: "C2IL"
+  field-name: "2-D Integer Coordinate List"
+  ddf: "2100;&□□□2-D□Integer□Coordinate□List▲*YCOO!XCOO▲(2b24)▼"
+  subfields:
+    - subfield-name: "Coordinate in Y axis"
+      label: "*YCOO"
+      format: "b24"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b24"
+      subfield-content: "X-coordinate or longitude"
+
+- table-name: "3-D Integer Coordinate List field structure"
+  field-tag: "C3IL"
+  field-name: "3-DInteger Coordinate List"
+  ddf: "2100;&□□□3-D□Integer□Coordinate□List▲VCID!*YCOO!XCOO!ZCOO▲(b11,3b24)▼"
+  subfields:
+    - subfield-name: "Vertical CRS Id"
+      label: "VCID"
+      format: "b11"
+      subfield-content: "Internal identifier of the Vertical CRS"
+    - subfield-name: "Coordinate in Y axis"
+      label: "*YCOO"
+      format: "b24"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b24"
+      subfield-content: "X-coordinate or longitude"
+    - subfield-name: "Coordinate in Z axis"
+      label: "ZCOO"
+      format: "b24"
+      subfield-content: "Z-coordinate (depth or height)"
+  note: In older versions of this standard, curly brackets '{' and '}' have been used in the format control section of the Data Descriptive Field. Though this does not conform to the ISO8211 standard, implementers should be aware that curly brackets may appear. They should not be considered or treated as an error. They should be interpreted as if they were round brackets '(' and ')'.
+
+- table-name: "2-D Floating Point Coordinate List field structure"
+  field-tag: "C2FL"
+  field-name: "2-D Floating Point Coordinate List"
+  ddf: "2100;&□□□2-D□Floating□Point□Coordinate□List▲*YCOO!XCOO▲(2b48)▼"
+  subfields:
+    - subfield-name: "Coordinate in Y axis"
+      label: "*YCOO"
+      format: "b48"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b48"
+      subfield-content: "X-coordinate or longitude"
+
+- table-name: "3-D Floating Point Coordinate List field structure"
+  field-tag: "C3FL"
+  field-name: "3-D Floating Point Coordinate List"
+  ddf: "2100;&□□□3-D□Floating□Point□Coordinate□List▲VCID!*YCOO!XCOO!ZCOO▲(b11,3b48)▼"
+  subfields:
+    - subfield-name: "Vertical CRS Id"
+      label: "VCID"
+      format: "b11"
+      subfield-content: "Internal identifier of the Vertical CRS"
+    - subfield-name: "Coordinate in Y axis"
+      label: "*YCOO"
+      format: "b48"
+      subfield-content: "Y-coordinate or latitude"
+    - subfield-name: "Coordinate in X axis"
+      label: "XCOO"
+      format: "b48"
+      subfield-content: "X-coordinate or longitude"
+    - subfield-name: "Coordinate in Z axis"
+      label: "ZCOO"
+      format: "b48"
+      subfield-content: "Z-coordinate (depth or height)"
+  note: In older versions of this standard, curly brackets '{' and '}' have been used in the format control section of the Data Descriptive Field. Though this does not conform to the ISO8211 standard, implementers should be aware that curly brackets may appear. They should not be considered or treated as an error. They should be interpreted as if they were round brackets '(' and ')'.
+
+- table-name: "Knots"
+  intro: Knots are parameters used in spline curves to control the shape of the curve. Each knot defines a value in parameter space of the spline, which will be used to define the spline basis functions. The knot data type holds information on knot multiplicity. The parameter values in the knot array must be monotonic and strictly increasing; that is, each value must be greater than its predecessor.
+  field-tag: "KNOT"
+  field-name: "Knots"
+  ddf: "2100;&□□□Knots▲*KMUL!KVAL▲(b11,b48)▼"
+  subfields:
+    - subfield-name: "Knot multiplicity"
+      label: "*KMUL"
+      format: "b11"
+      subfield-content: "The multiplicity of the knot"
+    - subfield-name: "Knot value"
+      label: "KVAL"
+      format: "b48"
+      subfield-content: "The value of the knot"
+
+- table-name: "Derivatives"
+  intro: |
+    The derivatives field encodes the derivatives of a curve at a point. Any missing values must be encoded as 'omitted' values (see <<cls-10a-4.5>>). Derivatives are encoded in order beginning with the first-order derivative.
+
+    The derivatives are given in terms of their X and Y components. In this edition of S-100 derivatives are defined only in 2-D because splines are only in 2-D.
+
+    The derivatives are defined in floating-point and integer formats to be used with the corresponding types of coordinate fields.
+  field-tag: "DRVF"
+  field-name: "2-D Derivative List Float"
+  ddf: "2100;&□□□2-D□Derivative□List□Float▲YCOO!XCOO!DRVO!*YDRV!XDRV▲(2b48,b11,2b48)▼"
+  subfields:
+    - subfield-name: "Y component of point at which defined"
+      label: "YCOO"
+      format: "b48"
+      subfield-content: "The Y component of the point at which the derivatives are defined"
+    - subfield-name: "X component of point at which defined"
+      label: "XCOO"
+      format: "b48"
+      subfield-content: "The X component of the point at which the derivatives are defined"
+    - subfield-name: "Highest order of derivative"
+      label: "DRVO"
+      format: "b11"
+      subfield-content: "The highest order derivative in the list"
+    - subfield-name: "Y offset"
+      label: "*YDRV"
+      format: "b48"
+      subfield-content: "The Y component of the n^th^ derivative."
+    - subfield-name: "X offset"
+      label: "XDRV"
+      format: "b48"
+      subfield-content: "The X component of the n^th^ derivative."
+
+- table-name: "Derivatives"
+  field-tag: "DRVI"
+  field-name: "2-D Derivative List Integer"
+  ddf: "2100;&□□□2-D□Derivative□List□Integer▲YCOO!XCOO!DRVO!*YDRV!XDRV▲(2b24,b11,2b24)▼"
+  subfields:
+    - subfield-name: "Y component of point at which defined"
+      label: "YCOO"
+      format: "b24"
+      subfield-content: "The Y coordinate of the point at which the derivatives are defined"
+    - subfield-name: "X component of point at which defined"
+      label: "XCOO"
+      format: "b24"
+      subfield-content: "The X coordinate of the point at which the derivatives are defined"
+    - subfield-name: "Highest order of derivative"
+      label: "DRVO"
+      format: "b11"
+      subfield-content: "The highest order derivative in the list"
+    - subfield-name: "Y component of derivative"
+      label: "*YDRV"
+      format: "b24"
+      subfield-content: "The Y component of the n^th^ derivative."
+    - subfield-name: "X component of derivative"
+      label: "XDRV"
+      format: "b24"
+      subfield-content: "The X component of the n^th^ derivative."
+
+- table-name: "Point Record Identifier field structure"
+  field-tag: "PRID"
+  field-name: "Point Record Identifier"
+  ddf: "1100;&□□□Point□Record□Identifier▲RCNM!RCID!RVER!RUIN▲(b11,b14,b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{110} -- Point"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Multi Point Record Identifier field structure"
+  field-tag: "MRID"
+  field-name: "Multi Point Record Identifier"
+  ddf: "1100;&□□□Multi□Point□Record□Identifier▲RCNM!RCID!RVER!RUIN▲(b11,b14,b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{115} -- Multi Point"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Curve Record Identifier field structure"
+  field-tag: "CRID"
+  field-name: "Curve Record Identifier"
+  ddf: "1100;&□□□Curve□Record□Identifier▲RCNM!RCID!RVER!RUIN▲(b11,b14,b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{120} -- Curve"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Point Association field structure"
+  field-tag: "PTAS"
+  field-name: "Point Association"
+  ddf: "2100;&□□□Point□Association▲*RRNM!RRID!TOPI▲(b11,b14,b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Topology indicator"
+      label: "TOPI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Beginning point
+
+        {2} -- End point
+
+        {3} -- Beginning & End point
+
+- table-name: "Segment Control field structure"
+  field-tag: "SECC"
+  field-name: "Segment Control"
+  ddf: "1100;&□□□Segment□Control▲SEUI!SEIX!NSEG▲(b11,2b12)▼"
+  subfields:
+    - subfield-name: "Segment update instruction"
+      label: "SEUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Segment index"
+      label: "SEIX"
+      format: "b12"
+      subfield-content: "Index (position) of the addressed segment in the target record"
+    - subfield-name: "Number of segments"
+      label: "NSEG"
+      format: "b12"
+      subfield-content: "Number of segments in the update record"
+
+- table-name: "Segment Header field structure"
+  field-tag: "SEGH"
+  field-name: "Segment Header"
+  ddf: "1100;&□□□Segment□Header▲INTP▲(b11)▼"
+  subfields:
+    - subfield-name: "Interpolation"
+      label: "INTP"
+      format: "b11"
+      subfield-content: |
+        {1} -- Linear
+
+        {2} -- Arc3Points
+
+        {3} -- Geodesic
+
+        {4} -- Loxodromic
+
+        {5} -- Elliptical
+
+        {6} -- Conic
+
+        {7} -- CircularArcCenterPointWithRadius
+
+        {8} -- polynomialSpline
+
+        {9} -- bezierSpline
+
+        {10} -- bSpline
+
+        {11} -- blendedParabolic
+
+- table-name: "Circle Parameter field structure"
+  field-tag: "CIPM"
+  field-name: "Circle Parameter"
+  ddf: "1100;&□□□Circle□Parameter▲RADI!RADU▲(b48,b11)▼"
+  subfields:
+    - subfield-name: "Radius"
+      label: "RADI"
+      format: "b48"
+      subfield-content: "Radius of the circle"
+    - subfield-name: "Unit of Radius"
+      label: "RADU"
+      format: "b11"
+      subfield-content: |
+        {1} -- Metres
+
+        {2} -- Yards
+
+        {3} -- Kilometres
+
+        {4} -- Statute miles
+
+        {5} -- Nautical miles
+
+- table-name: "Arc Parameter field structure"
+  field-tag: "ARPM"
+  field-name: "Arc Parameter"
+  ddf: "1100;&□□□Arc□Parameter▲RADI!RADU!SBRG!ANGL▲(b48,b11,2b48)▼"
+  subfields:
+    - subfield-name: "Radius"
+      label: "RADI"
+      format: "b48"
+      subfield-content: "Radius of the circle"
+    - subfield-name: "Unit of Radius"
+      label: "RADU"
+      format: "b11"
+      subfield-content: |
+        {1} -- Metres
+
+        {2} -- Yards
+
+        {3} -- Kilometres
+
+        {4} -- Statute miles
+
+        {5} -- Nautical miles
+    - subfield-name: "Start Bearing Angle"
+      label: "SBRG"
+      format: "b48"
+      subfield-content: "In decimal degrees, range [0.0, 360.0]"
+    - subfield-name: "Angular distance"
+      label: "ANGL"
+      format: "b48"
+      subfield-content: "In decimal degrees [-360.0, 360.0"
+
+- table-name: "Spline Parameter field structure"
+  field-tag: "SPLI"
+  field-name: "Spline Parameter"
+  ddf: "1100;&□□□Spline□Parameter▲DEGR!KSPC!RTNL▲(3b11)▼"
+  subfields:
+    - subfield-name: "Degree"
+      label: "DEGR"
+      format: "b11"
+      subfield-content: "The degree of the interpolating polynomial"
+    - subfield-name: "KnotSpec"
+      label: "KSPC"
+      format: "b11"
+      subfield-content: |
+        {1} -- uniform
+
+        {2} -- quasiUniform
+
+        {3} -- piecewiseBezier
+
+        {4} -- nonUniform
+    - subfield-name: "Is Rational"
+      label: "RTNL"
+      format: "b11"
+      subfield-content: |
+        {1} -- the spline is a rational spline
+
+        {2} -- the spline is not a rational spline
+
+- table-name: "Polynomial Spline Parameter field structure"
+  field-tag: "PSPL"
+  field-name: "Polynomial Spline Parameter"
+  ddf: "1100;&□□□Polynomial□Spline□Parameter▲DEGR!KSPC!RTNL!NDRV!NDVI▲(5b11)▼"
+  subfields:
+    - subfield-name: "Degree"
+      label: "DEGR"
+      format: "b11"
+      subfield-content: "The degree of the interpolating polynomial"
+    - subfield-name: "KnotSpec"
+      label: "KSPC"
+      format: "b11"
+      subfield-content: |
+        {1} -- uniform
+
+        {2} -- quasiUniform
+
+        {3} -- piecewiseBezier
+
+        {4} -- nonUniform
+    - subfield-name: "Is Rational"
+      label: "RTNL"
+      format: "b11"
+      subfield-content: |
+        {1} -- the spline is a rational spline
+
+        {2} -- the spline is not a rational spline
+    - subfield-name: "Number of derivatives at start and end"
+      label: "NDRV"
+      format: "b11"
+      subfield-content: "The number of derivatives at each end. The number of derivatives at the start and end must be the same. If the start and end have different numbers of derivatives the missing values must be encoded as 'omitted' values (see 10a-3.5)"
+    - subfield-name: "Number derivatives Interior"
+      label: "NDVI"
+      format: "b11"
+      subfield-content: "The number of interior derivatives required to be continuous. For example, \"2\" means the first and second interior derivatives must be continuous"
+
+- table-name: "Composite Curve Record Identifier field structure"
+  field-tag: "CCID"
+  field-name: "Composite Curve Record Identifier"
+  ddf: "1100;&□□□Composite□Curve□Record□Identifier▲RCNM!RCID!RVER!RUIN▲(b11,b14,b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{125} -- Composite Curve"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Curve Component Control field structure"
+  field-tag: "CCOC"
+  field-name: "Curve Component Control"
+  ddf: "1100;&□□□Curve□Component□Control▲CCUI!CCIX!NCCO▲(b11,2b12)▼"
+  subfields:
+    - subfield-name: "Curve Component update instruction"
+      label: "CCUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Curve Component index"
+      label: "CCIX"
+      format: "b12"
+      subfield-content: "Index (position) of the addressed Curve record pointer within the CUCO field(s) of the target record"
+    - subfield-name: "Number of Curve Components"
+      label: "NCCO"
+      format: "b12"
+      subfield-content: "Number of Curve record pointer in the CUCO field(s) of the update record"
+
+- table-name: "Curve Component field structure"
+  field-tag: "CUCO"
+  field-name: "Curve Component"
+  ddf: "2100;&□□□Curve□Component▲*RRNM!RRID!ORNT▲(b11,b14,b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Orientation"
+      label: "ORNT"
+      format: "b11"
+      subfield-content: |
+        {1} -- Forward
+
+        {2} -- Reverse
+
+- table-name: "Surface Record Identifier field structure"
+  field-tag: "SRID"
+  field-name: "Surface Record Identifier"
+  ddf: "1100;&□□□Surface□Record□Identifier▲RCNM!RCID!RVER!RUIN▲(b11,b14,b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{130} -- Surface"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Ring Association field structure"
+  field-tag: "RIAS"
+  field-name: "Ring Association"
+  ddf: "2100;&□□□Ring□Association▲*RRNM!RRID!ORNT!USAG!RAUI▲(b11,b14,3b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Orientation"
+      label: "ORNT"
+      format: "b11"
+      subfield-content: |
+        {1} -- Forward
+
+        {2} -- Reverse
+    - subfield-name: "Usage indicator"
+      label: "USAG"
+      format: "b11"
+      subfield-content: |
+        {1} -- Exterior
+
+        {2} -- Interior
+    - subfield-name: "Ring Association update instruction"
+      label: "RAUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+- table-name: "Feature Type Record Identifier field structure"
+  field-tag: "FRID"
+  field-name: "Feature Type Record Identifier"
+  ddf: "1100;&□□□Feature□Type□Record□Identifier▲RCNM!RCID!NFTC!RVER!RUIN▲(b11,b14,2b12,b11)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{100} -- Feature type"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Numeric Feature Type Code"
+      label: "NFTC"
+      format: "b12"
+      subfield-content: "A valid feature type code as defined in the FTCS field of the Dataset General Information Record"
+    - subfield-name: "Record version"
+      label: "RVER"
+      format: "b12"
+      subfield-content: "RVER contains the serial number of the record edition"
+    - subfield-name: "Record update instruction"
+      label: "RUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+
+- table-name: "Feature Object Identifier field structure"
+  field-tag: "FOID"
+  field-name: "Feature Object Identifier"
+  ddf: "1100;&□□□Feature□Object□Identifier▲AGEN!FIDN!FIDS▲(b12,b14,b12)▼"
+  subfields:
+    - subfield-name: "Producing agency"
+      label: "AGEN"
+      format: "b12"
+      subfield-content: "Agency code"
+    - subfield-name: "Feature identification number"
+      label: "FIDN"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Feature identification subdivision"
+      label: "FIDS"
+      format: "b12"
+      subfield-content: "Range: 1 to 2^16^-2"
+
+- table-name: "Spatial Association field structure"
+  field-tag: "SPAS"
+  field-name: "Spatial Association"
+  ddf: "2100;&□□□Spatial□Association▲*RRNM!RRID!ORNT!SMIN!SMAX!SAUI▲(b11,b14,b11,2b14,b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Orientation"
+      label: "ORNT"
+      format: "b11"
+      subfield-content: |
+        {1} -- Forward
+
+        {2} -- Reverse
+
+        {255} -- NULL (Not Applicable)
+    - subfield-name: "Scale Minimum"
+      label: "SMIN"
+      format: "b14"
+      subfield-content: "The denominator of the smallest scale for which the referenced geometry can be used for the instance of the feature type (for example, for depiction) {2^32^-1} NULL (Not Applicable) (See Note)"
+    - subfield-name: "Scale Maximum"
+      label: "SMAX"
+      format: "b14"
+      subfield-content: "The denominator of the largest scale for which the referenced geometry can be used for the instance of the feature type (for example, for depiction) {2^32^-1} NULL (Not Applicable) (See Note)"
+    - subfield-name: "Spatial Association Update Instruction"
+      label: "SAUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+  note: For a correct handling of older data, robust parsers should consider both 0 and 2^32^-1 as 'Not Applicable' for the SMIN and the SMAX sub-field.
+
+- table-name: "Feature Association field structure"
+  field-tag: "FASC"
+  field-name: "Feature Association"
+  ddf: "3600;&%/GFeature□Association▲RRNM!RRID!NFAC!NARC!FAUI\\*NATC!ATIX!PAIX!ATIN!ATVL ▲(b11,b14,2b12,b11,(3b12,b11,A))▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Numeric Feature Association Code"
+      label: "NFAC"
+      format: "b12"
+      subfield-content: "A valid code for the feature association as defined in the FACS field of the Dataset General Information Record"
+    - subfield-name: "Numeric Association Role Code"
+      label: "NARC"
+      format: "b12"
+      subfield-content: "A valid code for the role as defined in the ARCS field of the Dataset General Information Record"
+    - subfield-name: "Feature Association Update Instruction"
+      label: "FAUI"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Numeric Attribute Code"
+      label: "*NATC"
+      format: "b12"
+      subfield-content: "A valid attribute code as defined in the ATCS field of the Dataset General Information Record"
+    - subfield-name: "Attribute index"
+      label: "ATIX"
+      format: "b12"
+      subfield-content: "Index (position) of the attribute in the sequence of attributes with the same code and the same parent (starting with 1)"
+    - subfield-name: "Parent index"
+      label: "PAIX"
+      format: "b12"
+      subfield-content: "Index (position) of the parent complex attribute within this FASC field (starting with 1). If the attribute has no parent (top level attribute) the value is 0"
+    - subfield-name: "Attribute Instruction"
+      label: "ATIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Attribute value"
+      label: "ATVL"
+      format: "A()"
+      subfield-content: "A string containing a valid value for the domain of the attribute specified by the subfields above"
+  note: In older versions of this standard, curly brackets '{' and '}' have been used in the format control section of the Data Descriptive Field. Though this does not conform to the ISO8211 standard, implementers should be aware that curly brackets may appear. They should not be considered or treated as an error. They should be interpreted as if they were round brackets '(' and ')'.
+
+- table-name: "Theme Association field structure"
+  field-tag: "THAS"
+  field-name: "Theme Association"
+  ddf: "2100;&□□□Theme□Association▲*RRNM!RRID!TAUI▲(b11,b14,b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Theme Association Update Instruction"
+      label: "TAUI"
+      format: "b11"
+      subfield-content: |
+        {1} - Insert
+
+        {2} - Delete
+
+- table-name: "Masked Spatial Type field structure"
+  field-tag: "MASK"
+  field-name: "Masked Spatial Type"
+  ddf: "2100;&□□□Masked□Spatial□Record▲*RRNM!RRID!MIND!MUIN▲(b11,b14,2b11)▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "*RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Mask Indicator"
+      label: "MIND"
+      format: "b11"
+      subfield-content: |
+        {1} -- Truncated by the dataset limit
+
+        {2} -- Suppress portrayal
+    - subfield-name: "Mask Update Instruction"
+      label: "MUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+  note: The _Referenced Record identifier_ field corresponds to the _spatialRef_ attribute of S100_GF_MaskReference (Part 3, Table 3-14). The _Mask Indicator_ field corresponds to the _maskIndicator_ attribute of S100_GF_MaskReference.

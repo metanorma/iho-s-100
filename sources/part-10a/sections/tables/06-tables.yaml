@@ -1,0 +1,409 @@
+---
+- table-name: "Data Set Identification field structure"
+  field-tag: "DSID"
+  field-name: "Data Set Identification"
+  ddf: "3600;&%/GData□Set□Identification▲RCNM!RCID!ENSP!ENED!PRSP!PRED!PROF!DSNM!DSTL!DSRD!DSLG!DSAB!DSED\\*DSTC▲(b11,b14,7A,A(8),3A,(b11))▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{10} -- Data Set Identification"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Encoding specification"
+      label: "ENSP"
+      format: "A()"
+      subfield-content: "Encoding specification that defines the encoding"
+    - subfield-name: "Encoding specification edition"
+      label: "ENED"
+      format: "A()"
+      subfield-content: "Edition of the encoding specification"
+    - subfield-name: "Product identifier"
+      label: "PRSP"
+      format: "A()"
+      subfield-content: "Unique identifier for the data product as specified in the Product Specification"
+    - subfield-name: "Product edition"
+      label: "PRED"
+      format: "A()"
+      subfield-content: "Edition of the Product Specification"
+    - subfield-name: "Application profile"
+      label: "PROF"
+      format: "A()"
+      subfield-content: "Identifier that specifies a profile within the data product"
+    - subfield-name: "Dataset file identifier"
+      label: "DSNM"
+      format: "A()"
+      subfield-content: "The file identifier of the dataset"
+    - subfield-name: "Dataset title"
+      label: "DSTL"
+      format: "A()"
+      subfield-content: "The title of the dataset"
+    - subfield-name: "Dataset reference date"
+      label: "DSRD"
+      format: "A(8)"
+      subfield-content: |
+        The reference date of the dataset
+
+        Format: YYYMMDD according to ISO 8601
+    - subfield-name: "Dataset language"
+      label: "DSLG"
+      format: "A()"
+      subfield-content: "The (primary) language used in this dataset"
+    - subfield-name: "Dataset abstract"
+      label: "DSAB"
+      format: "A()"
+      subfield-content: "The abstract of the dataset"
+    - subfield-name: "Dataset edition"
+      label: "DSED"
+      format: "A()"
+      subfield-content: "The edition of the dataset"
+    - subfield-name: "Dataset topic category"
+      label: "*DSTC"
+      format: "b11"
+      subfield-content: "A set of topic categories"
+  note: In older versions of this standard, curly brackets '{' and '}' have been used in the format control section of the Data Descriptive Field. Though this does not conform to the <<ISO8211>> standard, implementers should be aware that curly brackets may appear. They should not be considered or treated as an error. They should be interpreted as if they were round brackets '(' and ')'.
+
+- table-name: "Data Set Structure Information field structure"
+  field-tag: "DSSI"
+  field-name: "Data Set Structure Information"
+  ddf: "1600;&□□□Data□Set□Structure□Information▲DCOX!DCOY!DCOZ!CMFX!CMFY!CMFZ!NOIR!NOPN!NOMN!NOCN!NOXN!NOSN!NOFR▲(3b48,10b14)▼"
+  subfields:
+    - subfield-name: "Dataset Coordinate Origin X"
+      label: "DCOX"
+      format: "b48"
+      subfield-content: "Shift used to adjust x-coordinate before encoding"
+    - subfield-name: "Dataset Coordinate Origin Y"
+      label: "DCOY"
+      format: "b48"
+      subfield-content: "Shift used to adjust y-coordinate before encoding"
+    - subfield-name: "Dataset Coordinate Origin Z"
+      label: "DCOZ"
+      format: "b48"
+      subfield-content: "Shift used to adjust z-coordinate before encoding"
+    - subfield-name: "Coordinate multiplication factor for x-coordinate"
+      label: "CMFX"
+      format: "b14"
+      subfield-content: "Floating point to integer multiplication factor for the x-coordinate or longitude"
+    - subfield-name: "Coordinate multiplication factor for y-coordinate"
+      label: "CMFY"
+      format: "b14"
+      subfield-content: "Floating point to integer multiplication factor for the y-coordinate or latitude"
+    - subfield-name: "Coordinate multiplication factor for z-coordinate"
+      label: "CMFZ"
+      format: "b14"
+      subfield-content: "Floating point to integer multiplication factor for the z-coordinate or depths or height"
+    - subfield-name: "Number of Information Type records"
+      label: "NOIR"
+      format: "b14"
+      subfield-content: "Number of information records in the dataset"
+    - subfield-name: "Number of Point records"
+      label: "NOPN"
+      format: "b14"
+      subfield-content: "Number of point records in the dataset"
+    - subfield-name: "Number of Multi Point records"
+      label: "NOMN"
+      format: "b14"
+      subfield-content: "Number of multi point records in the dataset"
+    - subfield-name: "Number of Curve records"
+      label: "NOCN"
+      format: "b14"
+      subfield-content: "Number of curve records in the dataset"
+    - subfield-name: "Number of Composite Curve records"
+      label: "NOXN"
+      format: "b14"
+      subfield-content: "Number of composite curve records in the dataset"
+    - subfield-name: "Number of Surface records"
+      label: "NOSN"
+      format: "b14"
+      subfield-content: "Number of surface records in the dataset"
+    - subfield-name: "Number of Feature Type records"
+      label: "NOFR"
+      format: "b14"
+      subfield-content: "Number of feature type records in the dataset"
+
+- table-name: "Attribute Codes field structure"
+  field-tag: "ATCS"
+  field-name: "Attribute Codes"
+  ddf: "2600;&□□□Attribute□Codes▲*ATCD!ANCD▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Attribute Code"
+      label: "*ATCD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Attribute Numeric Code"
+      label: "ANCD"
+      format: "b12"
+      subfield-content: "The code used within the NATC subfield"
+
+- table-name: "Information Type Codes field structure"
+  field-tag: "ITCS"
+  field-name: "Information Type Codes"
+  ddf: "2600;&□□□Information□Type□Codes▲*ITCD!ITNC▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Information Type Code"
+      label: "*ITCD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Information Type Numeric Code"
+      label: "ITNC"
+      format: "b12"
+      subfield-content: "The code used within the NITC subfield"
+
+- table-name: "Feature Type Codes field structure"
+  field-tag: "FTCS"
+  field-name: "Feature Type Codes"
+  ddf: "2600;&□□□Feature□Type□Codes▲*FTCD!FTNC▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Feature Type Code"
+      label: "*FTCD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Feature Type Numeric Code"
+      label: "FTNC"
+      format: "b12"
+      subfield-content: "The code used within the NFTC subfield"
+
+- table-name: "Information Association Codes field structure"
+  field-tag: "IACS"
+  field-name: "Information Association Codes"
+  ddf: "2600;&□□□Information□Association□Codes▲*IACD!IANC▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Information Association Code"
+      label: "*IACD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Information Association Numeric Code"
+      label: "IANC"
+      format: "b12"
+      subfield-content: "The code used within the NIAC subfield"
+
+- table-name: "Feature Association Codes field structure"
+  field-tag: "FACS"
+  field-name: "Feature Association Codes"
+  ddf: "2600;&□□□Feature□Association□Codes▲*FACD!FANC▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Feature Association Code"
+      label: "*FACD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Feature Association Numeric Code"
+      label: "FANC"
+      format: "b12"
+      subfield-content: "The code used within the NFAC subfield"
+
+- table-name: "Association Role Codes field structure"
+  field-tag: "ARCS"
+  field-name: "Association Role Codes"
+  ddf: "2600;&□□□Association□Role□Codes▲*ARCD!ARNC▲(A,b12)▼"
+  subfields:
+    - subfield-name: "Association Role Code"
+      label: "*ARCD"
+      format: "A"
+      subfield-content: "The code as defined in the Feature Catalogue"
+    - subfield-name: "Association Role Numeric Code"
+      label: "ARNC"
+      format: "b12"
+      subfield-content: "The code used within the NARC subfield"
+
+- table-name: "Coordinate Reference System Record Identifier field structure"
+  field-tag: "CSID"
+  field-name: "Coordinate Reference System Record Identifier"
+  ddf: "1100;&□□□Coordinate□Reference□System□Record□Identifier▲RCNM!RCID!NCRC▲(2b11,b14)▼"
+  subfields:
+    - subfield-name: "Record name"
+      label: "RCNM"
+      format: "b11"
+      subfield-content: "{15} - Coordinate Reference System Identifier"
+    - subfield-name: "Record identification number"
+      label: "RCID"
+      format: "b14"
+      subfield-content: "Range: 1 to 2^32^-2"
+    - subfield-name: "Number of CRS Components"
+      label: "NCRC"
+      format: "b11"
+      subfield-content: ""
+
+- table-name: "Coordinate Reference System Header field structure"
+  field-tag: "CRSH"
+  field-name: "Coordinate Reference System Header"
+  ddf: "1600;&□□□Coordinate□Reference□System□Header▲CRIX!CRST!CSTY!CRNM!CRSI!CRSS!SCRI▲(3b11,2A,b11,A)▼"
+  subfields:
+    - subfield-name: "CRS Index"
+      label: "CRIX"
+      format: "b11"
+      subfield-content: |
+        Internal identifier of the CRS
+
+        (Used for identifying the vertical CRS in C3DI or C3DF)
+    - subfield-name: "CRS Type"
+      label: "CRST"
+      format: "b11"
+      subfield-content: "see table"
+    - subfield-name: "Coordinate System Type"
+      label: "CSTY"
+      format: "b11"
+      subfield-content: |
+        {1} - Ellipsoidal CS
+
+        {2} - Cartesian CS
+
+        {3} - Vertical CS
+    - subfield-name: "CRS Name"
+      label: "CRNM"
+      format: "A()"
+      subfield-content: "Name of the Coordinate Reference System"
+    - subfield-name: "CRS Identifier"
+      label: "CRSI"
+      format: "A()"
+      subfield-content: |
+        Identifier of the CRS from an external source
+
+        Empty if not defined by reference
+    - subfield-name: "CRS Source"
+      label: "CRSS"
+      format: "b11"
+      subfield-content: |
+        {1} - IHO CRS Register
+
+        {2} - EPSG
+
+        {254} - Other Source
+
+        {255} - Not Applicable
+    - subfield-name: "CRS Source Information"
+      label: "SCRI"
+      format: "A()"
+      subfield-content: "Information about the CRS source if CRSS = 'Other Source'"
+
+- table-name: "Coordinate System Axes field structure"
+  field-tag: "CSAX"
+  field-name: "Coordinate System Axes"
+  ddf: "1100;&□□□Coordinate□System□Axes▲AXTY!AXUM▲(2b11)▼"
+  subfields:
+    - subfield-name: "Axis Type"
+      label: "*AXTY"
+      format: "b11"
+      subfield-content: "see table"
+    - subfield-name: "Axis Unit of Measure"
+      label: "AXUM"
+      format: "b11"
+      subfield-content: |
+        {1} - Degree
+
+        {2} - Grad
+
+        {3} - Radian
+
+        {4} - Metre
+
+        {5} - International foot
+
+        {6} - US survey foot
+
+- table-name: "Projection field structure"
+  field-tag: "PROJ"
+  field-name: "Projection"
+  ddf: "1600;&□□□Projection▲PROM!PRP1!PRP2!PRP3!PRP4!PRO5!FEAS!FNOR▲(b11,7b48)▼"
+  subfields:
+    - subfield-name: "Projection Method"
+      label: "PROM"
+      format: "b11"
+      subfield-content: "see table"
+    - subfield-name: "Projection Parameter 1"
+      label: "PRP1"
+      format: "b48"
+      subfield-content: "see table"
+    - subfield-name: "Projection Parameter 2"
+      label: "PRP2"
+      format: "b48"
+      subfield-content: "see table"
+    - subfield-name: "Projection Parameter 3"
+      label: "PRP3"
+      format: "b48"
+      subfield-content: "see table"
+    - subfield-name: "Projection Parameter 4"
+      label: "PRP4"
+      format: "b48"
+      subfield-content: "see table"
+    - subfield-name: "Projection Parameter 5"
+      label: "PRO5"
+      format: "b48"
+      subfield-content: "see table"
+    - subfield-name: "False Easting"
+      label: "FEAS"
+      format: "b48"
+      subfield-content: "False easting (Units of measurement according to the coordinate axis 'Easting'"
+    - subfield-name: "False Northing"
+      label: "FNOR"
+      format: "b48"
+      subfield-content: "False northing (Units of measurement according to the coordinate axis 'Northing'"
+
+- table-name: "Geodetic Datum field structure"
+  field-tag: "GDAT"
+  field-name: "Geodetic Datum"
+  ddf: "1600;&□□□Geodetic□Datum▲DTNM!ELNM!ESMA!ESPT!ESPM!CMNM!CMGL▲(2A,b48,b11,b48,A,b48)▼"
+  subfields:
+    - subfield-name: "Datum Name"
+      label: "DTNM"
+      format: "A()"
+      subfield-content: "Name of the geodetic datum"
+    - subfield-name: "Ellipsoid Name"
+      label: "ELNM"
+      format: "A()"
+      subfield-content: "Name of the ellipsoid"
+    - subfield-name: "Ellipsoid semi major axis"
+      label: "ESMA"
+      format: "b48"
+      subfield-content: "Semi major axis of the ellipsoid in metre"
+    - subfield-name: "Ellipsoid second parameter type"
+      label: "ESPT"
+      format: "b11"
+      subfield-content: |
+        {1} - Semi minor axis in metres
+
+        {2} - Inverse Flattening
+    - subfield-name: "Ellipsoid second parameter"
+      label: "ESPM"
+      format: "b48"
+      subfield-content: "The second defining parameter of the ellipsoid"
+    - subfield-name: "Central Meridian Name"
+      label: "CMNM"
+      format: "A()"
+      subfield-content: "Name of the central meridian"
+    - subfield-name: "Central Meridian Greenwich Longitude"
+      label: "CMGL"
+      format: "b48"
+      subfield-content: "Greenwich longitude of the central meridian in degrees"
+
+- table-name: "Vertical Datum field structure"
+  field-tag: "VDAT"
+  field-name: "Vertical Datum"
+  ddf: "1100;&□□□Vertical□Datum▲DTNM!DTID!DTSR!SCRI▲(2A,b11,A)▼"
+  subfields:
+    - subfield-name: "Datum Name"
+      label: "DTNM"
+      format: "A()"
+      subfield-content: "Name of the vertical datum"
+    - subfield-name: "Datum Identifier"
+      label: "DTID"
+      format: "A()"
+      subfield-content: "Identifier of the datum in an external source"
+    - subfield-name: "Datum Source"
+      label: "DTSR"
+      format: "b11"
+      subfield-content: |
+        {1} - IHO CRS Register
+
+        {2} - Feature Catalogue
+
+        {3} - EPSG
+
+        {254} - Other Source
+
+        {255} - Not Applicable
+    - subfield-name: "Datum Source Information"
+      label: "SCRI"
+      format: "A()"
+      subfield-content: "Information about the datum source if DTSR = 'Other Source'"

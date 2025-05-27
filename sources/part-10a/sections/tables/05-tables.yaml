@@ -1,0 +1,88 @@
+---
+- table-name: "Attribute field structure"
+  field-tag: "ATTR"
+  field-name: "Attribute"
+  ddf: "2600;&%/GAttribute▲*NATC!ATIX!PAIX!ATIN!ATVL▲(3b12,b11,A)▼"
+  subfields:
+    - subfield-name: "Numeric attribute code"
+      label: "*NATC"
+      format: "b12"
+      subfield-content: "A valid attribute code as defined in the ATCS field of the Dataset General Information Record"
+    - subfield-name: "Attribute index"
+      label: "ATIX"
+      format: "b12"
+      subfield-content: "Index (position) of the attribute in the sequence of attributes with the same code and the same parent (starting with 1)"
+    - subfield-name: "Parent index"
+      label: "PAIX"
+      format: "b12"
+      subfield-content: "Index (position) of the parent complex attribute within this ATTR field (starting with 1). If the attribute has no parent (top level attribute) the value is 0"
+    - subfield-name: "Attribute instruction"
+      label: "ATIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Attribute value"
+      label: "ATVL"
+      format: "A()"
+      subfield-content: "A string containing a valid value for the domain of the attribute specified by the subfields above"
+
+- table-name: "Information Association field structure"
+  field-tag: "INAS"
+  field-name: "Information Association"
+  ddf: "3600;&%/GInformation□Association▲RRNM!RRID!NIAC!NARC!IUIN\\*NATC!ATIX!PAIX!ATIN!ATVL▲(b11,b14,2b12,b11,(3b12,b11,A))▼"
+  subfields:
+    - subfield-name: "Referenced Record name"
+      label: "RRNM"
+      format: "b11"
+      subfield-content: "Record name of the referenced record"
+    - subfield-name: "Referenced Record identifier"
+      label: "RRID"
+      format: "b14"
+      subfield-content: "Record identifier of the referenced record"
+    - subfield-name: "Numeric Information Association Code"
+      label: "NIAC"
+      format: "b12"
+      subfield-content: "A valid code for the information association as defined in the IACS field of the Dataset General Information Record"
+    - subfield-name: "Numeric Association Role code"
+      label: "NARC"
+      format: "b12"
+      subfield-content: "A valid code for the role as defined in the ARCS field of the Dataset General Information Record"
+    - subfield-name: "Information Association Update Instruction"
+      label: "IUIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Numeric attribute code"
+      label: "*NATC"
+      format: "b12"
+      subfield-content: "A valid attribute code as defined in the ATCS field of the Dataset General Information Record"
+    - subfield-name: "Attribute index"
+      label: "ATIX"
+      format: "b12"
+      subfield-content: "Index (position) of the attribute in the sequence of attributes with the same code and the same parent (starting with 1)"
+    - subfield-name: "Parent index"
+      label: "PAIX"
+      format: "b12"
+      subfield-content: "Index (position) of the parent complex attribute within this INAS field (starting with 1). If the attribute has no parent (top level attribute) the value is 0"
+    - subfield-name: "Attribute Instruction"
+      label: "ATIN"
+      format: "b11"
+      subfield-content: |
+        {1} -- Insert
+
+        {2} -- Delete
+
+        {3} -- Modify
+    - subfield-name: "Attribute value"
+      label: "ATVL"
+      format: "A()"
+      subfield-content: "A string containing a valid value for the domain of the attribute specified by the subfields above"
+  note: In older versions of this standard, curly brackets '{' and '}' have been used in the format control section of the Data Descriptive Field. Though this does not conform to the <<ISO8211>> standard, implementers should be aware that curly brackets may appear. They should not be considered or treated as an error. They should be interpreted as if they were round brackets '(' and ')'.

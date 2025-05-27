@@ -1,0 +1,1007 @@
+[[cls-10a-7]]
+== Object Records
+
+[[cls-10a-7.1]]
+=== Information Type record
+
+[[cls-10a-7.1.1]]
+==== Encoding rules
+
+Information types are pieces of information in a data set that can be 
+shared between objects. They have attributes like feature types but 
+are not related to any geometry. Information types may reference other 
+information types. For this encoding it is important that an 
+information type record must be stored prior to any record that 
+references this record.
+
+The object code must be a valid code in the feature catalogue that is 
+defined for the data product. The record version will be initialized 
+with 1 and will be incremented for any update of this record. The 
+record update instruction indicates if an information type will be 
+inserted, modified or deleted in an update. In a base data set the 
+value will always be 'Insert'.
+
+[[cls-10a-7.1.2]]
+==== Information Type record structure
+
+[source%unnumbered]
+----
+Information Type record
+  |
+  |--IRID (5): Information Type Record Identifier field
+     |
+     |-<0..*>-ATTR (*5): Attribute field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:0 limit:1 %}
+[[cls-10a-7.1.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2]]
+=== Spatial type records
+
+[[cls-10a-7.2.1]]
+==== Coordinate fields
+
+[[cls-10a-7.2.1.1]]
+===== Encoding rules
+
+Coordinates in a dataset are defined by the coordinate reference 
+system (CRS). The CRS is defined in the Coordinate Reference System 
+record. This record also defines the units of the coordinates.
+
+The DSSI field of the Data Set General Information record can carry a 
+local origin for the coordinates in a Data Set. When storing 
+coordinates the Origin needs to be subtracted from the value, when 
+reading coordinates from a dataset the Origin needs to be added back 
+on to restore the CRS defined value.
+
+Coordinates can be stored in two ways as floating point numbers or as 
+integer numbers. In the latter case the stored integer value is 
+calculated by the multiplication of the real coordinate and a 
+multiplication factor. Those factors are defined for each coordinate 
+axis in the DSSI field of the Data Set General Information record. 
+With these factors the stored value can be transformed into the real 
+coordinate according to the coordinate reference system (CRS).
+
+The coordinates are transformed as follows:
+
+[source%unnumbered]
+----
+x = DCOX + XCOO / CMFX
+y = DCOY + YCOO / CMFY
+z = DCOZ + ZCOO / CMFZ
+----
+
+Note that the values of (CMFX, CMFY and CMFZ) should be set to 1 if 
+the coordinates are stored as floating point values.
+
+If the coordinate field allows more than one coordinate tuple the 
+update must maintain the order of the coordinates. Each update of a 
+coordinate stream is therefore defined by an index into the coordinate 
+field(s) of the target record, an update instruction and the number of 
+coordinates in the coordinate field(s) of the update record.
+
+Note that the index and the number refer to coordinate tuples, not to 
+single coordinates. The index will start with 1.
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 2 %}
+{% for item in data offset:1 limit:11 %}
+[[cls-10a-7.2.1.{{start_index | plus: forloop.index}}]]
+===== {{item.table-name}}
+
+{% if item.intro and item.intro != "" %}
+{{item.intro}}
+{% endif %}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% for item in data offset:12 limit:1 %}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2.2]]
+==== Point record
+
+[[cls-10a-7.2.2.1]]
+===== Encoding rules
+
+A point is a zero-dimensional spatial object. It will be encoded with 
+the Point record. This record contains the Point Record Identifier 
+field. With the RCNM and RCID subfields every point must be uniquely 
+identifiable within a data set. A point can have associations to 
+information types.
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+Each point has exactly one coordinate field with exactly one 
+coordinate tuple. Points can have both 2D or 3D coordinates.
+
+Since there is only one coordinate tuple no special mechanism is 
+necessary to address a coordinate for updating. When the coordinate of 
+a point is to be updated the update record will contain a coordinate 
+field with the new coordinate. The dimension of the coordinate in the 
+update record must be the same as in the target record.
+
+[[cls-10a-7.2.2.2]]
+===== Point record structure
+
+[source%unnumbered]
+----
+Point record
+  |
+  |--PRID (4): Point Record Identifier field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |alternate coordinate representations
+     |
+     *--C2IT (2): 2-D Integer Coordinate Tuple field
+     |
+     *--C3IT (4): 3-D Integer Coordinate Tuple field
+     |
+     *--C2FT (2): 2-D Floating Point Coordinate Tuple field
+     |
+     *--C3FT (4): 3-D Floating Point Coordinate Tuple field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:13 limit:1 %}
+[[cls-10a-7.2.2.2.{{start_index | plus: forloop.index}}]]
+====== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2.3]]
+==== Multi Point record
+
+[[cls-10a-7.2.3.1]]
+===== Encoding rules
+
+A Multi Point is an aggregation of zero-dimensional spatial objects. 
+It will be encoded with the Multi Point record. Each Multi Point must 
+have a unique identifier (RCNM + RCID) stored in the Multi Point 
+Record Identifier field. Like any other spatial object Multi Points 
+can have associations to information types.
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+Coordinates will be stored by one type of the coordinate list fields. 
+The field can be repeated and in one field can be multiple coordinate 
+tuples. If multiple coordinate list fields are used they must be all 
+of the same type. If 3D-coordinates are used for the Multi Point they 
+must all refer to the same Vertical Datum.
+
+On updating the Coordinate control field defines which coordinates in 
+the target record will be updated. Three kinds of updates are possible 
+as defined by the Coordinate Update Instruction subfield (COUI):
+
+. Insert
++
+--
+Coordinates encoded in the coordinate field(s) of the update 
+record must be inserted in the coordinate field(s) of the target 
+record. The Coordinate Index subfield (COIX) indicates the index where 
+the new coordinates are to be inserted. The first coordinate has the 
+index 1. The number of coordinates to be inserted is given in the 
+Number of Coordinates subfield (NCOR).
+--
+. Delete
++
+--
+Coordinates must be deleted from the coordinate field(s) of 
+the target record. The deletion must start at the index specified in 
+the COIX subfield. The number of coordinates to be removed is given in 
+the NCOR subfield.
+--
+. Modify
++
+--
+Coordinates encoded in the coordinate field(s) of the update 
+record must replace the addressed coordinate(s) in the coordinate 
+field(s) of the target record. The replacement must start at the index 
+given in the COIX subfield. The number of coordinates to be replaced 
+is given in the NCOR subfield.
+--
+
+Note that the index and number as given in the COIX and NCOR subfields 
+are regarded to coordinate tuples not to single coordinates.
+
+If several operations are necessary to update the coordinates of one 
+target record each operation shall be encoded in a separate update 
+record. Note that indices always refer to the latest version of the 
+record; that is if the indices of coordinates have changed by one 
+update record these changes have to be taken into account in every 
+subsequent update record.
+
+All coordinates in an update record must be stored in the same type of 
+Coordinate field that is used in the target record and for 
+3D-coordinates the must refer to the same Vertical Datum as the 
+coordinates in the target record.
+
+[[cls-10a-7.2.3.2]]
+===== Multi Point record structure
+
+[source%unnumbered]
+----
+Multi Point record
+  |
+  |--MRID (4): Multi Point Record Identifier field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |-<0..1>-COCC (3): Coordinate Control field
+     |
+     |alternate coordinate representations
+     |
+     *-<0..*>-C2IL (*2): 2-D Integer Coordinate List field
+     |
+     *-<0..*>-C3IL (1\\*3): 3-D Integer Coordinate List field
+     |
+     *-<0..*>-C2FL (*2): 2-D Floating Point Coordinate List field
+     |
+     *-<0..*>-C3FL (1\\*3): 3-D Floating Point Coordinate List field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:14 limit:1 %}
+[[cls-10a-7.2.3.2.{{start_index | plus: forloop.index}}]]
+====== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2.4]]
+==== Curve record
+
+[[cls-10a-7.2.4.1]]
+===== Encoding rules
+
+A Curve is a one-dimensional spatial object. It consists of one or 
+more segments which define the geometry of the curve. All segments of 
+one curve define one contiguous path. The geometry of a segment is 
+given by a set of control points (coordinates) and an interpolation 
+method. As with any other spatial object, curves can have associations 
+to information types. A curve can have associations to points which 
+define the topological boundaries (the ends) of the curve. Those 
+points must be coincident with the start of the first segment or with 
+the end of the latest segment respectively. The association with such 
+points will be encoded by means of the Point Association field (PTAS).
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+For each segment, one Segment Header field (SEGH) has to be encoded 
+followed by the Coordinate Control field (update records only) and 
+Coordinate fields.
+
+* For segments with the INTP subfield set to 7 
+(CircularArcCenterPointWithRadius) a parameter field (CIPM or ARPM) 
+must follow the Coordinate field to define the additional parameter of 
+such segments. The CIPM (Circle Parameter field) must be used if the 
+segment is a full circle and the ARPM (Arc Parameter field) must be 
+used for circular arcs. Note that for such segments there is exactly 
+one control point.
+* For segments with the INTP field set to 8 (polynomialSpline) or 9 
+(bezierSpline), the polynomial spline parameter field (PSPL) must 
+follow the Coordinate field to define the additional parameter for 
+such segments. The Knot fields are required only if the knots are not 
+uniform (knotSpec is other than 1).
+* For segments with the INTP field set to 10 (bSpline), the spline 
+parameter field (SPLI) must follow the Coordinate field to define the 
+additional parameters for spline segments. The Knot fields are 
+required only if the knots are not uniform (knotSpec is other than 1).
+* For segments with the INTP field set to 11 (blendedParabolic) no 
+additional parameters are needed. The control (data) points given in 
+the Coordinate fields and the interpolation type suffice to define the 
+curve segment. Note that for closed segments the start and end points 
+of the segment must overlap in order to produce a smooth closed curve 
+(see Part 7 clause 7-4.2.2.2).
+
+Coordinates of control points can be stored in the following fields: 
+C2IL, C2FL, C3IL, or C3FL. Those fields, coordinate list fields, can 
+be repeated and can carry multiple coordinate tuples (exept for INTP 
+equal to 7 see above).
+
+If multiple coordinate list fields are used they must be all of the 
+same type. If 3D-coordinates are used for the segment they must all 
+refer to the same Vertical Datum.
+
+For the Point Association field no special update instruction is 
+needed. The association defined in the update record will replace the 
+respective association in the target record.
+
+For segments the order is important and must be maintained during the 
+update. Therefore a special control field for segments will be used 
+during update. The order of segments in a curve is defined by the 
+sequence of Segment Header fields in the record. To update this 
+sequence the Segment Control field (SECC) is used.
+
+Three instructions can be defined in the SEUI subfield:
+
+. Insert
++
+--
+Segments of the update record has to be inserted into the target 
+record. The SEIX subfield specifies the index (position) where the 
+segments are to be inserted. The subfield NSEG subfield gives the 
+number of segments to be inserted.
+--
+. Delete
++
+--
+Segments must be deleted from the target record. The subfields SEIX 
+and NSEG specify where and how many segments are to be deleted.
+--
+. Modify
++
+--
+Segments of the target record must be modified according to the 
+encoded instructions in the update record. Each segment that is to be 
+modified must have at a Segment Header field, a Coordinate Control 
+field and if necessary the appropriate Coordinate fields. The SEIX 
+subfield indicates the first segment to be modified and the NSEG 
+subfield gives the number of segments to be modified. All segments to 
+be modified with one update record must be contiguous in the target 
+record. Otherwise more than one update record has to be used.
+--
+
+When the coordinates of the control points of a segment are to be 
+modified, this has to be done by means of the Coordinate Control 
+field. It defines which coordinates in the target record will be 
+updated. Three kinds of updates are possible and are defined by the 
+Coordinate Update Instruction subfield (COUI):
+
+. Insert
++
+--
+Coordinates encoded at the coordinate field(s) of the update records 
+segment must be inserted in the coordinate field(s) of the 
+corresponding target records segment. The Coordinate Index subfield 
+(COIX) indicates the index where the new coordinates are inserted. The 
+first coordinate has the index 1. The number of coordinates to be 
+inserted is given in the Number of Coordinates subfield (NCOR).
+--
+. Delete
++
+--
+Coordinates must be deleted from the coordinate field(s) of the 
+corresponding target records segment. The deletion must start at the 
+index specified in the COIX subfield. The number of coordinates to be 
+removed is given in the NCOR subfield.
+--
+. Modify
++
+--
+Coordinates encoded in the coordinate field(s) of the update records 
+segment must be replace the addressed coordinate(s) in the coordinate 
+field(s) of the corresponding target records segment. The replacement 
+must start at the index given in the COIX subfield. The number of 
+coordinates to be replaced is given in the NCOR subfield.
+--
+
+Note that the index and number as given in the COIX and NCOR subfields 
+refer to coordinate tuples not to single coordinates.
+
+All coordinates in an update record must be stored in the same type of 
+Coordinate field that is used in the target record and for 
+3D-coordinates the must refer to the same Vertical Datum as the 
+coordinates in the target record.
+
+[[cls-10a-7.2.4.2]]
+===== Curve record structure
+
+[source%unnumbered]
+----
+Curve record
+  |
+  |--CRID (4): Curve Record Identifier field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |-<0..1>-PTAS (*3): Point Association field
+     |
+     |-<0..1>-SECC (3): Segment Control field
+     |
+     |-<0..*>-SEGH (1): Segment Header field
+        |
+        |-<0..1>-COCC (3): Coordinate Control Field
+        |
+        |alternate coordinate representations
+        |
+        *-<0..*>-C2IL (*2): 2-D Integer Coordinate List field
+        |
+        *-<0..*>-C3IL (1\\*3): 3-D Integer Coordinate List field
+        |
+        *-<0..*>-C2FL (*2): 2-D Floating Point Coordinate List field
+        |
+        *-<0..*>-C3FL (1\\*3): 3-D Floating Point Coordinate List |
+        |alternate parameter for circle and arc segments
+        |
+        *-<0..1>-CIPM (6): Circle Parameter field
+        |
+        *-<0..1>-ARPM (6): Arc Parameter field
+        |
+        |alternate parameters for spline segments
+        |
+        *-<0..1>-SPLI (3): Spline Parameter field
+        |  |
+        |  *-<0..1>-KNOT (*2) Knots array field
+        |
+        *-<0..1>-PSPL (5): Polynomial Spline Parameter field
+           |
+           *-<0..1>-KNOT (*2) Knots array field
+           |
+           |alternate coordinate representations
+           |
+           *-<0..1>-DRVF (3\\*2) Derivatives field (floating point)
+           |
+           *-<0..1>-DRVI (3\\*2) Derivatives field (Integer)
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:15 limit:8 %}
+[[cls-10a-7.2.4.2.{{start_index | plus: forloop.index}}]]
+====== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2.5]]
+==== Composite Curve record
+
+[[cls-10a-7.2.5.1]]
+===== Encoding rules
+
+Composite Curves are one-dimensional spatial objects that are composed 
+of other curves. A composite curve itself is a contiguous path; that 
+is, the end of one component must be coincident with the start of the 
+next component. Components are curves, although the direction in which 
+they are used may be opposite to the direction in which the curve is 
+defined originally. Which direction is used will be encoded in the 
+ORNT subfield of the Curve Component field (CUCO).
+
+The topological boundaries are not encoded explicitly. The beginning 
+node is taken from the first component and the end node is taken from 
+the last component. Which boundary is taken depends on the ORNT 
+subfield.
+
+As with any other spatial object, composite curves can have 
+associations to information types.
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+Composite curves can have other composite curves as components. In 
+this case the record of the component must be stored prior to the 
+record which references the component.
+
+Since the order of components is essential for the definition of the 
+composite curve it must be maintained during an update. Therefore, a 
+special control field is used to update the sequence of components. 
+This field contains an update instruction subfield (CCUI) that can 
+have three values:
+
+. Insert
++
+--
+The components of the update record must be inserted in the sequence 
+of components defined in the target record. The CCIX will define the 
+index (position) where the components are to be inserted. The first 
+component has the index 1. The NCCO subfield gives the number of 
+components in the update record. The new components must be added to 
+the dataset before references to them can be inserted into the 
+composite curve.
+--
+. Delete
++
+--
+Components must be deleted from the target record. The CCIX subfield 
+will specify the index (position) of the first components to be 
+deleted, The NCCO subfield gives the number of components to be 
+deleted. Note that the component is only deleted from the sequence of 
+components of the composite curve not from the data set.
+--
+. Modify
++
+--
+The components in the target record will be replaced by the components 
+in the update record. The first component to be replaced is given by 
+the subfield CCIX, the number of components to be replaced is 
+specified by the subfield NCCO. New components must be added to the 
+dataset before references to them can be applied to the composite 
+curve.
+--
+
+If more than one instruction is necessary to update the sequence of 
+components multiple update records have to be encoded. Note that 
+indices always refer to the latest version of the record, that is if 
+the indices of components have changed by one update record these 
+changes have to be taken into account in every subsequent update 
+record.
+
+[[cls-10a-7.2.5.2]]
+===== Composite Curve record structure
+
+[source%unnumbered]
+----
+Composite Curve record
+  |
+  |--CCID (4): Composite Curve Record Identifier field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |-<0..1>-CCOC (3): Curve Component Control field
+     |
+     |-<0..*>-CUCO (*3): Curve Component field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:23 limit:3 %}
+[[cls-10a-7.2.5.2.{{start_index | plus: forloop.index}}]]
+====== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.2.6]]
+==== Surface record
+
+[[cls-10a-7.2.6.1]]
+===== Encoding rules
+
+A surface is a two-dimensional spatial object. It is defined by its 
+boundaries. Each boundary is a closed curve. Closed means that the 
+start and the end point of that curve are coincident. A surface has 
+exactly one exterior boundary and can have zero or more interior 
+boundaries (holes in the surface).
+
+All interior boundaries must be completely inside the exterior 
+boundary and no interior boundary must be inside another interior 
+boundary. Boundaries must not intersect but a tangential touch is 
+allowed. Those boundaries, also called rings, are encoded with the 
+Ring Association field. Each ring will be encoded by a reference to a 
+curve record (RRNM and RRID), the orientation (ORNT) in which the 
+curve is used and the indication whether this ring is exterior or 
+interior (USAG). In Addition each ring is encoded with an update 
+instruction (RAUI). Since the order how the ring associations are 
+encoded is arbitrary there is no special update field to add or remove 
+rings from a surface definition. This will be made with the Ring 
+Association field and the appropriate Ring Association Update 
+Instruction (RAUI) subfield.
+
+As with any other spatial object, surfaces can have associations to 
+information types.
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+[[cls-10a-7.2.6.2]]
+===== Surface record structure
+
+[source%unnumbered]
+----
+Surface record
+  |
+  |--SRID (4): Surface Record Identifier field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |-<1..*>-RIAS (*5): Ring Association field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:26 limit:2 %}
+[[cls-10a-7.2.6.2.{{start_index | plus: forloop.index}}]]
+====== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-7.3]]
+=== Feature Type record
+
+[[cls-10a-7.3.1]]
+==== Encoding rules
+
+An instance of a feature type is implemented in the data structure as 
+a feature record. Feature types are listed in the Feature Catalogue of 
+the data product. For each feature type the Feature Catalogue defines 
+permissible attributes and associations. The Feature Catalogue defines 
+also the two roles for each feature to feature association.
+
+An S-100 compliant Feature Catalogue identifies 4 categories of 
+feature types:
+
+. Meta feature;
+. Cartographic feature;
+. Geographic feature;
+. Theme feature.
+
+Each category is implemented in the structure as a feature record and 
+encoded in the same manner.
+
+In the FRID field the code of the feature type is encoded. It must be 
+a valid type from the Feature Catalogue of the data product. Note that 
+for products using this encoding the Feature Catalogue must provide a 
+16-bit integer code.
+
+The FOID field encodes a unique identifier for the instance of a 
+feature type. Instances that are split into separate parts can have 
+the same Feature Object Identifier indicating that this is the same 
+feature object. This is possible for parts in the same data set but 
+also for feature objects in different data sets. The latter case 
+allows to identify parts of the same feature object in adjacent data 
+sets or to determine identical feature objects in different scale 
+bands.
+
+The Feature Object Identifier is only used for implicit relationships 
+not for referencing records directly. That is always done by the 
+combination of the Referenced Record Name (RRNM) and Referenced Record 
+Identifier (RRID).
+
+The record version will be initialized with 1 and will be incremented 
+for any update of this record. The record update instruction indicates 
+if an information type will be inserted, modified or deleted in an 
+update. In a base dataset the value will always be 'Insert'.
+
+Feature types are characterised by attributes and can have additional 
+information associated by means of information types. Attributes are 
+encoded by the Attribute field (ATTR) whereas the Information 
+Association field is used for encoding the associations to information 
+types.
+
+The location of a feature object is defined by spatial objects. The 
+association to these spatial objects is encoded with the Spatial 
+Association field. It consists of a reference to the spatial object, 
+an orientation flag, and two values which specifies the scale range 
+for depicting the feature with the referenced geometry. The 
+orientation flag is only necessary if the direction (of a curve) is 
+meaningful for the feature object (for example a one-way street).
+
+Feature types can have associations to other feature types. These 
+associations including their roles are defined in the feature 
+catalogue and must be encoded in the Feature Association field. Each 
+relationship to another feature object is defined by:
+
+. The reference to the other feature object;
+. The association used for the relationship (Given by the code from 
+the Feature Catalogue);
+. The code of the role used within the association. Each association between the objects A and B has two roles, one for the relationship 
+from A to B and one from the relationship from B to A.
++
+--
+For example, the 
+association 'Aggregation' has the roles: 'Consists of' and 'Is part 
+of'.
+--
+
+Note that only one direction of the relationship has to be encoded 
+explicitly, the other direction is always implicit. For example an 
+aggregation object has encoded the relationships to its parts but 
+there is no explicit encoding for the relationships from the parts to 
+the aggregation object. For each association a separate field has to 
+be used. The association itself can have attributes. The attributes 
+are encoded in the field by the same mechanism as described for the 
+ATTR field. The same subfields are used at the end of the association 
+field
+
+Theme objects are a special kind of aggregation objects. They do not 
+define an object itself, but group other objects together. The reasons 
+for the grouping are mostly thematic; other reasons are possible. Each 
+feature object may belong to more than one theme. Themes are therefore 
+not mutually exclusive. Since the kind of association from a theme 
+object to its members (and vice versa) is not variable, the encoding 
+of this type of association is different from the other feature 
+associations. A separate field, the Theme Association field is used. 
+The association is always encoded from the feature object that belongs 
+to the theme to the theme object itself.
+
+If parts of the geometry are not intended to be used for the depiction 
+of a feature object these spatial objects can be specified in the MASK 
+field. Note that spatial objects may not be used directly by the 
+feature object. For example, if a feature object is defined by a 
+surface only, a curve that forms a part of the surface boundary can be 
+masked.
+
+The MASK field consists of a reference to a record and an update 
+instruction.
+
+_Feature types may reference other feature types. For this encoding it 
+is important that a Feature Type record must be stored prior to any 
+record that references this record._
+
+[[cls-10a-7.3.2]]
+==== Feature Type record structure
+
+[source%unnumbered]
+----
+Feature Type record
+  |
+  |--FRID (5): Feature Type Record Identifier field
+     |
+     |-<0..1>-FOID (3): Feature Object Identifier field
+     |
+     |-<0..*>-ATTR (*5): Attribute field
+     |
+     |-<0..*>-INAS (5\\*5): Information Association field
+     |
+     |-<0..*>-SPAS (*6): Spatial Association field
+     |
+     |-<0..*>-FASC (5\\*5): Feature Association field
+     |
+     |-<0..*>-THAS (*3): Theme Association field
+     |
+     |-<0..*>-MASK (*4): Masked Spatial Type field
+----
+
+[yaml2text,sections/tables/07-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:28 limit:6 %}
+[[cls-10a-7.3.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----

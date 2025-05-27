@@ -1,0 +1,436 @@
+[[cls-10a-6]]
+== Data Set Descriptive records
+
+[[cls-10a-6.1]]
+=== Data Set General Information record
+
+[[cls-10a-6.1.1]]
+==== Encoding rules
+
+This record encodes general information about the data set. This 
+information includes identification, structural information and 
+Metadata.
+
+The Data Set Identification field contains information to identify the 
+data set. This information is divided into three groups:
+
+. Information about the encoding;
+. Information about the data product;
+. Information about the data set itself.
+
+The first group specifies the encoding specification on which the 
+encoding is based and what version of that specification is applicable.
+
+The second group defines the data product, the edition of the product 
+specification and the profile used within the product. The product 
+itself is specified by a unique identifier. Edition and Profile depend 
+on the product specification and will be encoded as character strings.
+
+The third group contains:
+
+. A file identifier of the data set;
+. A title of the data set;
+. The reference (issue) date of the data set;
+. The (default) language used in the data set;
+. An abstract about the data set;
+. The edition of the data set (may contain subversion/update number);
+. A list of topic categories according to <<ISO19115-1>> (see list):
+
+[%unnumbered,cols=2]
+|===
+| Value of DSTC subfield | Topic Category
+
+| 1 | farming
+| 2 | biota
+| 3 | boundaries
+| 4 | climatologyMeterologyAtmosphere
+| 5 | economy
+| 6 | elevation
+| 7 | environment
+| 8 | geoscientificInformation
+| 9 | health
+| 10 | imageryBaseMapsEarthCover
+| 11 | intelligenceMilitary
+| 12 | inlandWaters
+| 13 | location
+| 14 | oceans
+| 15 | planningCadastre
+| 16 | society
+| 17 | structure
+| 18 | transportation
+| 19 | utilitiesCommunication
+| 21 | disaster
+|===
+
+The Data Set Structure Information field contains some structural 
+information. These are:
+
+. An origin offset used to shift the coordinate data being encoded 
+such that higher precision can be carried in the region of the dataset.
+. The multiplication factors for the separate coordinate axes.
+. The number of the different kinds of records in the data file.
+
+In an S-100 Feature catalogue all items are uniquely identifiable 
+using the S100_FC_Item code which is a character string. This applies 
+to Attributes, Information Types, Feature Types, Information 
+Associations, Feature Associations and Association roles.  In the 
+interest of space and efficiency of the 8211 encoding it is desirable 
+to use numeric identifiers for these items. To support this 
+capability, the 8211 encoding includes a table for each item type that 
+holds a listing of the S100_FC_Item codes used in the dataset. Each 
+entry in the table carries the item code and the associated numeric 
+code which will be used within the dataset everywhere that item type 
+is referenced. These numeric codes are only guaranteed to be unique 
+within one instance of a dataset. For example a Feature with code 
+Coastline could be recorded in the Feature Type Codes field with a 
+numeric code of 10. Then all the Coastline Features in the dataset 
+would carry the numeric code of 10. In another dataset the numeric 
+code for Coastline could be 15.
+
+[[cls-10a-6.1.2]]
+==== Data Set General Information record structure
+
+.Data Set General Information record structure
+[source%unnumbered]
+----
+Data Set General Information record
+  |
+  |--DSID (13\\*1): Data Set Identification field
+     |
+     |--DSSI (13): Data Set Structure Information field
+     |
+     |-<0..1>-ATCS (*2): Attribute Codes field
+     |
+     |-<0..1>-ITCS (*2): Information Type Codes field
+     |
+     |-<0..1>-FTCS (*2): Feature Type Codes field
+     |
+     |-<0..1>-IACS (*2): Information Association Codes field
+     |
+     |-<0..1>-FACS (*2): Feature Association Codes field
+     |
+     |-<0..1>-ARCS (*2): Association Role Codes field
+----
+
+[yaml2text,sections/tables/06-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:0 limit:8 %}
+[[cls-10a-6.1.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% if item.note and item.note != "" %}
+NOTE: {{item.note}}
+{% endif %}
+
+{% endfor %}
+----
+
+[[cls-10a-6.2]]
+=== Data Set Coordinate Reference System record
+
+[[cls-10a-6.2.1]]
+==== Encoding rules
+
+All two-dimensional coordinates in a dataset refer to one horizontal 
+CRS. Three-dimensional coordinates refer to a compound CRS which 
+consists of the horizontal CRS and a vertical CRS. There can be more 
+than one vertical CRSs in a dataset one for each compound CRS.
+
+The CRSH field contains the following information about the (single) 
+CRS:
+
+* The type of CRS (this implies the dimension of the coordinate 
+system);
+* The type of the associated coordinate system;
+* The name of the CRS;
+* An identifier in an external source (if the CRS is defined by 
+referencing);
+* An indication which external source is referenced;
+* Information about this source (if it is not one from a predefined 
+list).
+
+If the CRS is not defined by referencing all details of the coordinate 
+axes, the datum and if necessary about the used projection must be 
+encoded. This has to done by means of the appropriate fields. In this 
+case the CRSI subfield must be encoded empty and the CRSS subfield 
+must have the value 255 (Not Applicable).
+
+For more details on CRS refer to the Coordinate Reference System 
+Component of this standard.
+
+This encoding specification supports the following types of CRS's:
+
+.Supported types of CRSs
+[cols="a,a,a,a,a,a,a",options=header]
+|===
+| CRS Type | Dimension | CS Type | Axes | Type of Datum | CRST value | Remarks
+
+| 2D Geographic
+| 2
+| Ellipsoidal
+| Geodetic Latitude
+
+Geodetic Longitude
+| Geodetic
+| 1
+| can be combined with a vertical CRS
+
+| 3D Geographic
+| 3
+| Ellipsoidal
+| Geodetic Latitude
+
+Geodetic Longitude
+
+Ellipsoidal Height
+| Geodetic
+| 2
+|
+
+| Geocentric
+| 3
+| Cartesian
+| Geocentric X
+
+Geocentric Y
+
+Geocentric Z
+| Geodetic
+| 3
+|
+
+| Projected
+| 2
+| Cartesian
+| Easting / Westing
+
+Northing / Southing
+| Geodetic
+| 4
+| can be combined with a vertical CRS
+
+| Vertical
+| 1
+| Vertical
+| Gravity Related Height or
+
+Gravity related Depth
+| Vertical
+| 5
+|
+|===
+
+The next table shows the supported coordinate axes:
+
+.Supported coordinate axes
+[cols=4,options=header]
+|===
+| Axis Type | Axis direction | AXTY value | Remarks
+
+| Geodetic Latitude
+| North
+| 1
+|
+
+| Geodetic Longitude
+| East
+| 2
+|
+
+| Ellipsoidal Height
+| Up
+| 3
+|
+
+| Easting
+| East
+| 4
+|
+
+| Northing
+| North
+| 5
+|
+
+| Westing
+| West
+| 6
+|
+
+| Southing
+| South
+| 7
+|
+
+| Geocentric X
+| Geocentric X
+| 8
+|
+
+| Geocentric Y
+| Geocentric Y
+| 9
+|
+
+| Geocentric Z
+| Geocentric Z
+| 10
+|
+
+| Gravity Related Height
+| Up
+| 11
+|
+
+| Gravity Related Depth
+| Down
+| 12
+|
+|===
+
+This table shows the supported projections together with their set of 
+parameters:
+
+.Supported projections and their set of parameters
+[cols=8,options=header]
+|===
+| Name | PROM value | Parameter 1 | Parameter 2 | Parameter 3 | Parameter 4 | Parameter 5 | EPSG code
+
+| Mercator | 1 | Latitude of 1^st^ standard parallel{blank}footnote:[Latitude of true scale] | Longitude of natural origin | - | - | - | 9805
+| Transverse Mercator | 2 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | - | 9807
+| Oblique Mercator | 3 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Angle from Rectified to Skew Grid | Scale factor on initial line | 9815
+| Hotine Oblique Mercator | 4 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Angle from Rectified to Skew Grid | Scale factor on initial line | 9812
+| Lambert Conic Conformal (1SP) | 5 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | - | 9801
+| Lambert Conic Conformal (2SP) | 6 | Latitude of false origin | Longitude of false origin | Latitude of 1^st^ standard parallel{blank}footnote:f2[Standard parallel nearer to equator] | Latitude of 2^nd^ standard parallel{blank}footnote:f3[Standard parallel farther from equator] | - | 9802
+| Oblique Stereographic | 7 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | - | 9809
+| Polar Stereographic | 8 | Latitude of natural origin{blank}footnote:[Must be either 90 degrees or -90 degrees] | Longitude of natural origin | Scale factor at natural origin | - | - | 9810
+| Krovak Oblique Conic Conformal | 9 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Latitude of pseudo standard parallel | Scale factor on pseudo standard parallel | 9819
+| American Polyconic | 10 | Latitude of natural origin | Longitude of natural origin | - | - | - | 9818
+| Albers Equal Area | 11 | Latitude of false origin | Longitude of false origin | Latitude of 1^st^ standard parallel{blank}footnote:f2[] | Latitude of 2^nd^ standard parallel{blank}footnote:f3[] | - | 9822
+| Lambert Azimuthal Equal Area | 12 | Latitude of natural origin | Longitude of natural origin | - | - | - | 9820
+| New Zealand Mapgrid | 13 | Latitude of natural origin | Longitude of natural origin | - | - | - | 9811
+|===
+
+All latitudes and longitudes must be given in degrees (south and west 
+are negative). Azimuths are given in degrees. For the detailed 
+formulas of the projections refer to the EPSG documentation.
+
+In case that both two-dimensional and three-dimensional coordinates 
+are used in the same data set the three-dimensional coordinates must 
+be described by a compound CRS. The two-dimensional coordinates refer 
+to the first component (usually a 2D Geographic or Projected CRS).
+
+Although all coordinates in a data set must refer to the same CRS 
+different Vertical Datums can be used for the height or depth 
+component of a coordinate tuple. Therefore the VDAT field can be 
+repeated. For each Vertical Datum a unique identifier is defined. 
+Those identifiers will be used in the 3D - coordinate fields to 
+indicate which Vertical Datum is used. The encoding of the Coordinate 
+Reference System record will be demonstrated with two examples. The 
+first example specifies a compound CRS. The first component is a 2D 
+Geographic CRS (WGS84) and the second component is a Vertical CRS for 
+depth using the Vertical Datum: Mean Sea Level.
+
+[source%unnumbered]
+----
+{{{*CSID:*}}} RCNM{15}!RCID{1}!NCRC{2}!
+{{{*CRSH:*}}} CRIX{1}!CRST{1}!CSTY{1}!CRNM'WGS
+      84'!CRSI'4326'!CRSS{2}!SCRI!
+{{{*CRSH:*}}} CRIX{2}!CRST{5}!CSTY{3}!CRNM'Mean Sea Level Depth'!
+      CRSI!CRSS{255}SCRI!
+{{{*CSAX:*}}} AXTY{12}!AXUM{4}!
+{{{*VDAT:*}}} DTNM'Mean Sea Level'!DTID'VERDAT3'!DTSR{2}!SCRI!
+----
+
+The second example encodes a projected CRS by defining the details.
+
+[source%unnumbered]
+----
+{{{*CSID:*}}} RCNM{15}!RCID{1}!NCRS{1}!
+{{{*CRSH:*}}} CRIX{1}!CRST{4}!CSTY{2}!CRNM'WGS84/UTM
+      32N'!CRSI!CRSS{255}SCRI!
+{{{*CSAX:*}}} AXTY{4}!AXUM{4}!AXTY{5}!AXUM{4}!
+{{{*PROJ:*}}} PROM{2}!PRP1{0}!PRP2{9}!PRP3{0.9996}!PRP4{0}!PRP5{0}!
+      FEAS{500000}!FNOR{0}!
+{{{*GDAT:*}}} DTNM'World Geodetic System 1984'!ELNM'WGS 84'!ESMA{6378137}!
+      ESPT{2}!ESPM{298.257223563}!CMNM'Greenwich'!CMGL{0}!
+----
+
+[[cls-10a-6.2.2]]
+==== Data Set Coordinate Reference System record structure
+
+[source%unnumbered]
+----
+Data Set Coordinate Reference System record
+  |
+  |--CSID (3): Coordinate Reference System Record Identifier field
+     |
+     |-<1..*>-CRSH (7): Coordinate Reference System Header field
+     |
+     |-<0..1>-CSAX (*2): Coordinate System Axes field
+     |
+     |-<0..1>-PROJ (8): Projection field
+     |
+     *-<0..1>-GDAT (7): Geodetic Datum field
+     |
+     *-<0..1>-VDAT (4): Vertical Datum field
+----
+
+[yaml2text,sections/tables/06-tables.yaml,data]
+----
+{% assign start_index = 1 %}
+{% for item in data offset:8 limit:6 %}
+[[cls-10a-6.2.2.{{start_index | plus: forloop.index}}]]
+===== {{item.table-name}}
+
+.{{item.table-name}}
+[cols=2,options=header]
+|===
+| Field Tag | Field Name
+| *{{item.field-tag}}* | {{item.field-name}}
+|===
+
+[%unnumbered,cols="a,a,a,a",options=header]
+|===
+| Subfield Name | Label | Format | Content
+
+{% for row in item.subfields %}
+| {{row.subfield-name}} | {{row.label}} | {{row.format}} | {{row.subfield-content}}
+{% endfor %}
+|===
+
+{% if item.ddf and item.ddf != "" %}
+.Data Descriptive Field
+[source%unnumbered]
+--
+{{item.ddf}}
+--
+{% endif %}
+
+{% endfor %}
+----
