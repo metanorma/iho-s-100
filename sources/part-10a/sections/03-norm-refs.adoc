@@ -1,0 +1,25 @@
+[bibliography]
+== Normative References
+
+The following referenced documents are required for the application of 
+this document. For dated references, only the edition cited applies. 
+For undated references, the latest edition of the referenced document 
+(including amendments) applies.
+
+* [[[ISO8211,ISO/IEC 8211:1994]]]
+
+* [[[ISO19106,hidden(ISO 19106:2004)]]]
+
+* [[[ISO10646,hidden(ISO/IEC 10646)]]]
+
+* [[[ISO8601,hidden(ISO 8601)]]]
+
+* [[[ISO19115-1,hidden(ISO 19115-1)]]]
+
+* [[[IEEE754,hidden(IEEE 754)]]]
+
+* [[[ISO646,hidden(ISO 646)]]]
+
+* [[[RFC3986,hidden(IETF RFC 3986)]]]
+
+* [[[RFC2141,hidden(IETF RFC 2141)]]]

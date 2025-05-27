@@ -1,0 +1,91 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected field description syntax (amend "{}" to "()").
+      location:
+        - part=10a,clause=10a-4.8.5
+        - part=10a,clause=10a-5.2.2
+        - part=10a,clause=10a-6.1.2.1
+        - part=10a,clause=10a-7.2.1.8
+        - part=10a,clause=10a-7.2.1.10
+        - part=10a,clause=10a-7.3.2.4
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Added Note regarding interpretation of the syntax used in the format control section of the Data Descriptive Field in previous versions of S-100.
+      location:
+        - part=10a,clause=10a-5.2.2
+        - part=10a,clause=10a-6.1.2.1
+        - part=10a,clause=10a-7.2.1.8
+        - part=10a,clause=10a-7.2.1.10
+        - part=10a,clause=10a-7.3.2.4
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected syntax for the Data Descriptive Field for the Vertical Datum field structure.
+      location:
+        - part=10a,clause=10a-6.2.2.6
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected format descriptor for the Data Descriptive Field for the 3-D Floating point Coordinate List field structure – 3b24 amended to 3b48.
+      location:
+        - part=10a,clause=10a-7.2.1.10
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected syntax for the Data Descriptive Field for the Derivatives fields (DRVF and DRVI) to remove extraneous character "!" (from "DRVO!") and add grouping; and corrected curve record structure accordingly.
+      location:
+        - part=10a,clause=10a-7.2.1.12
+        - part=10a,clause=10a-7.2.4.2
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected format descriptor for the Data Descriptive Field for the Polynomial Spline Parameter field structure to remove redundant KNUM subfield and corrected curve record structure accordingly.
+      location:
+        - part=10a,clause=10a-7.2.4.2
+        - part=10a,clause=10a-7.2.4.2.8
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected curve record structure, entry Spline Parameter (SPLI) field to conform with the field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.2
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected syntax for the Data Descriptive Field for the Segment Header field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.2.4
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected the subfield content and specification for subfield Degree in the polynomial spline parameter field structure.
+      location:
+        - part=10a,clause=10a-7.2.4.8
+----

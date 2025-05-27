@@ -1,0 +1,4 @@
+[[cls-10a-2]]
+== Conformance
+
+This profile conforms to level 2 of <<ISO19106>>.
