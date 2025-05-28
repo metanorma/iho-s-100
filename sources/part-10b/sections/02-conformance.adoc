@@ -1,0 +1,5 @@
+[[cls-10b-2]]
+== Conformance
+
+The profile described in this Part conforms to the requirements for GML profiles described
+in <<ISO19136>>.

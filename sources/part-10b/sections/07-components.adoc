@@ -1,0 +1,43 @@
+[[cls-10b-7]]
+== Components and relationships to standards
+
+The GML data encoding for S-100 consists of the following components, realized as separate XML schemas:
+
+. An XML schema that defines a GML profile ("*Profile"*). This is a restricted subset of
+types and elements ("XML constructs") defined in the GML 3.2.1 schemas. XML constructs not
+needed for S-100 data products are excluded.
+. An XML schema defining additional XML constructs ("*S100base"*). This schema uses the
+GML profile schema. The constructs defined in this schema are expected to be needed in
+order for a product specification conforming to the S-100 standard to define a format for
+datasets.
+
+<<fig-10b-1>> below illustrates the relationships between the various elements of the
+S-100 framework, an S-100 product specification and the GML profile. The GML encoding
+standard (<<ISO19136>>) provides an implementation schema (XML Schema) for the
+ISO 19100 conceptual schemas. The S-100 GML profile is a subset of the constructs
+defined by the GML implementation schema. S-100 common elements are defined in a common
+elements XML schema conforming to the profile. GML formats for specific data products use
+the constructs in the common elements to define XML types and elements corresponding
+strictly to feature and information types defined by the relevant Product Specification in
+the Feature Catalogue. A dataset is an XML file conforming to the GML Application Schema.
+
+[[fig-10b-1]]
+.Derivation of profile and its use by a data product
+image::img139.png[]
+
+[[cls-10b-7.1]]
+=== Use of profile
+
+The typical use of the profile is to define a format for GML files encapsulating datasets
+packaged as files.
+
+Formats for modes of exchange other than datasets are not required to use these Schemas.
+
+The S-100 GML Profile has been defined to support Schema validation. The S-100 GML Profile
+must be declared within the Application Schema. This allows a validation engine to select
+this Schema instead of the GML 3.2.1 Schema to validate the data against.
+
+A GML Application Schema mirrors the feature/attribute names, multiplicities, geometric
+primitives, types and relationships which are defined in the Feature Catalogue. While
+Schema validation is possible it should also be possible to unambiguously parse a GML
+dataset using the Feature Catalogue without recourse to the Application Schema.

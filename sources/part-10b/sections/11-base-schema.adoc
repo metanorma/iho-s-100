@@ -1,0 +1,372 @@
+[[cls-10b-11]]
+== S-100 base schema for feature data
+
+[[cls-10b-11.1]]
+=== Introduction
+
+A second XML Schema is provided which defines a small set of derived types and elements in
+an "S100" namespace. The Schema defining these common elements and types is technically a
+"GML Application Schema" in the sense defined by <<ISO19136>>. It defines GML constructs
+which are expected to be used by different Product Specifications to define detailed GML
+Application Schemas encoding formats for GML datasets. This Schema provides a common core
+structural paradigm for GML datasets across a variety of application domains. The
+intention is to reduce the complexity of application development, facilitate sharing of
+software modules, and information integration and mapping across different application
+domains, by minimising the proliferation of structural variations. The XML Schemas are
+designed to ensure a match between the Feature Catalogue structure and the produced GML
+Schema.
+
+Elements and types are defined using only the restricted subset of GML defined in the
+S-100 GML Profile.
+
+[[cls-10b-11.1.1]]
+==== Construction of the xsd header
+
+The Application Schema header must define namespaces and prefixes for all imported
+elements of the S-100 GML Profile. An example top level Schema element is shown below:
+
+[source%unnumbered]
+----
+<xs:schema
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:S100="http://www.iho.int/s100gml/1.0"
+xmlns:gml="http://www.opengis.net/gml/3.2"
+xmlns="http://www.iho.int/S123/gml/1.0"
+xmlns:S100EXT="http://www.iho.int/s100gml/1.0+EXT" targetNamespace="http://www.iho.int/*S123*/gml/1.0"
+elementFormDefault="qualified"
+version="1.0.0-20170831">
+----
+
+The namespaces defined are:
+
+[source%unnumbered]
+----
+xmlns:gml=http://www.opengis.net/gml/3.2
+xmlns:S100="http://www.iho.int/s100gml/1.0"
+xmlns="http://www.iho.int/S123/gml/1.0"
+targetNamespace=http://www.iho.int/S123/gml/1.0
+elementFormDefault="qualified"
+----
+
+The Schema default namespace and the target namespace are the same and should be formed
+using a consistent pattern defined in S-100 Part 10b; perhaps based on the Product
+Specification and the Product Specification version. Using elementFormDefault =
+'qualified' means every element in the dataset must belong to a namespace but it does not
+mean that a namespace prefix is needed; a default namespace can be used to set the
+namespace for any elements without a specific prefix.
+
+NOTE: If the dataset is meant to contain more than one product then no default is used and
+every element requires a namespace or namespace prefix.
+
+[[cls-10b-11.2]]
+=== Feature and information types
+
+An XML complex type AbstractFeatureType is defined as the base types for all geographic
+features in the S-100 profile. Beginning with S-100 Edition 5.0.0 no generic associations
+are defined within the abstract feature types or information types.
+
+All associations shall be implemented as named associations with names and types
+corresponding to those used in the source Feature Catalogue. The GML identifier gml:id may
+shall be used as a default feature identifier.
+
+[[fig-10b-7]]
+.Base type definition for S-100 feature elements
+image::img146.png[]
+
+The common type definition for information types is similar to that for the common feature
+type.
+
+[[fig-10b-8]]
+.Base type definition for S-100 information type elements
+image::img147.png[]
+
+[[cls-10b-11.3]]
+=== Spatial types
+
+More complex spatial types are defined as extensions of the corresponding GML spatial
+types with an information association added, since in S-100 spatial objects can have
+information associations. The Figure below shows the design of the Point type in the S-100
+schema. It includes a single gml:Point type and 0 or more associations to S-100
+information types.
+
+[[fig-10b-9]]
+.S-100 generic S-100 spatial type for point spatial object
+image::img148.png[]
+
+The other spatial types have a similar structure.
+
+[[cls-10b-11.3.1]]
+==== Inline and referenced geometry
+
+The base schema also allows geometry to be defined either inline or by reference,
+conforming with the same ability in GML. Where both are included in a dataset, the inline
+geometry is normative.
+
+[[cls-10b-11.3.2]]
+==== Spatial types defined in base schema
+
+The base schema defines the point, curve, and surface spatial objects, as well as
+multipoint and composite curve objects. Curves may be simple, composite, or orientable
+curves. This is the same set defined in the S-100 GML profile (<<cls-10b-10.1>>). It also
+supports _gml:Polygon_ (<<ISO19136>>) which is a special surface that is defined by a
+single surface patch.
+
+[[fig-10b-10]]
+.Geometry types defined in the base schema
+image::img149.png[]
+
+[[cls-10b-11.4]]
+=== Associations
+
+Feature and information association properties are defined as extensions of GML feature
+properties. The pointers to the object at the other end of the association are encoded in
+the Xlink attributes.
+
+XLink components are the standard method to support hypertext referencing in XML.
+
+GML provides an XML Schema attribute group, _gml:AssociationAttributeGroup_, to support
+the use of Xlinks as the method for indicating the value of a property by reference in a
+uniform manner in GML. This structure shall be used to encode all associations in the
+associated Feature Catalogue.
+
+<<ISO19136>> specifies that the value of a GML property that carries an _xlink:href_
+attribute is the resource returned by traversing the link.
+
+The data types of the attributes are listed in the <<tab-10b-3>> below.
+
+[[tab-10b-3]]
+.Requirements for XLink attributes in associations
+[cols="a,a,a",options=header]
+|===
+| Xlink attribute | Data type | Remarks
+
+| href | URI | Reference to the object at the other end of the association, for example, the gml:id of an object in the current data set. May be a URI fragment.as described in the XLink specification
+| role | URI | Optional description of the nature of the target resource, given as a URI
+| arcrole | legacy extended IRI | Description of the role or purpose of the target resource in relation to the present resource, given as a URI (<<ISO19136>>). May be constructed from the role name from the application schema.
+
+The XLink 1.1 specification requires:
+
+1) The value must be a Legacy extended IRI
+
+2) The identifier must not be relative
+| title | character string | Optional string describing the relationship. Product specifications may constrain its format and define its semantics
+| show
+|
+| not used
+| actuate
+|
+| not used
+| type
+|
+| not used
+|===
+
+Beginning with S-100 Edition 5.0.0, Application Schemas may only use named reference types
+for associations between features and information types, using the role name as a property
+element, with generic associations deprecated for use in GML Application Schemas.
+
+[[cls-10b-11.4.1]]
+==== Role name as property element
+
+The roles defined in the Application Schema shall be used as the property element of the
+feature or information type with XLink attributes providing the reference to the instance.
+In this case the role at the far end of the association should be used for the XML tag
+defining the property. The role name may be usable as-is for the property tag, or it may
+have to be mapped to a tag conforming to XML and GML conventions.
+
+Example (non-normative): Given an Application Schema containing the relationship in the
+figure below, the _NavigationLine_ feature can encode the association as a property
+element named _navTrack_ as below. The format, construction rules, and semantics for the
+_arcrole_ and _title_ values would be defined in the Application Scheme.
+
+[source%unnumbered]
+----
+<NavigationLine gml:id="US123098">
+  <navTrack xlink:href="#US890321"
+    xlink:arcrole="urn:iho:s101:1.0:52.2" title="RangeSystem"/>
+...
+</NavigationLine>
+----
+
+and elsewhere in the same file:
+
+[source%unnumbered]
+----
+<RecommendedTrack gml:id="US890321">
+  <navLine xlink:href="#US123098"
+    xlink:arcrole="urn:iho:s101:1.0:52.1" title="RangeSystem"/>
+  ...
+</RecommendedTrack>
+----
+
+[[fig-10b-11]]
+.Association in Application Schema
+image::img150.png[]
+
+[[cls-10b-11.5]]
+=== Updating
+
+Datasets may have two purposes.
+
+. Base datasets containing all features, information types and associations within a
+specific coverage area, for a given dataset issue date.
+. Numbered update datasets, containing only updates to individual features within an
+earlier base dataset.
+
+Updates are numbered, with a sequential update number, starting at 1, listed in the
+dataset metadata. A dataset's purpose is listed in the dataset metadata element and in
+the catalogue metadata for the exchange set in which it is contained.
+
+Updates are only defined at a feature or information type level. They can only add new
+features or replace earlier definitions of individual dataset features. Updated features
+shall retain the GML identifier issued in the base dataset. It is not possible to update
+associations except by replacing all features affected by a change to references. It is
+not possible to delete features through update.
+
+[[cls-10b-11.6]]
+=== Dataset general information
+
+[[cls-10b-11.6.1]]
+==== Dataset identification
+
+Dataset identification information is defined by the complex type
+_DatasetIdentificationType_. The fields are shown in <<tab-10b-4>> and <<fig-10b-12>>
+below.
+
+[[tab-10b-4]]
+.Dataset identification header elements
+[cols=6]
+|===
+| Field | XML Tag | Value | Mult. | Type | Description
+
+| Encoding specification | encodingSpecification | 'S-100 Part 10b' | 1 | CharacterString | Encoding specification that defines the encoding
+| Encoding specification edition | encodingSpecificationEdition | "1.0" | 1 | CharacterString | Edition of the encoding specification
+| Product identifier
+| productIdentifier
+|
+
+| 1
+| CharacterString
+| Unique identifier for the data product
+
+| Product edition
+| productEdition
+|
+
+| 1
+| CharacterString
+| Edition of the product specification
+
+| Application profile
+| applicationProfile
+|
+
+| 1
+| CharacterString
+| "1" -- base datasets
+
+"2" -- update datasets
+
+| Dataset file identifier
+| datasetFileIdentifier
+|
+
+| 1
+| CharacterString
+| The file name including the extension but excluding any path information
+
+| Dataset title
+| datasetTitle
+|
+
+| 1
+| CharacterString
+| The title of the dataset
+
+| Dataset reference date
+| datasetReferenceDate
+|
+
+| 1
+| date
+| The issue date of the dataset.
+
+Format: YYYY-MM-DD
+
+| Dataset language
+| datasetLanguage
+| "ENG"
+| 1
+| ISO 639-1-2/T
+| The (primary) language used in this dataset
+
+3 character codes
+
+| Dataset abstract
+| datasetAbstract
+|
+| 0..1
+| CharacterString
+| The abstract of the dataset
+
+| Dataset topic category
+| datasetTopicCategory
+| {14}{18}
+| 1..*
+| MD_TopicCategoryCode (<<ISO19115-1>>)
+| A set of topic category codes from the MD_TopicCategoryCode list in <<ISO19115-1>> (except "extraTerrestrial")
+
+| Dataset Purpose
+| datasetPurpose
+| {"Base","Update"}
+| 1
+| CharacterString
+| Whether dataset consists of updated features or all features
+
+| Update Number
+| updateNumber
+|
+| 1
+| Integer
+| The sequential update number of this dataset
+|===
+
+[[fig-10b-12]]
+.Dataset identification
+image::img151.png[]
+
+[[cls-10b-11.7]]
+=== Coordinate Reference System
+
+GML allows the coordinate reference system ("spatial reference system") used for geometry
+to be determined in different ways -- by explicit specification, or by "inheriting" the
+SRS of outer elements. For S-100 datasets, this means the SRS can be specified in one of
+two ways:
+
+* Using the srsName attribute of the gml:Envelope element in a feature collection implies
+that the same SRS is uses for all geometries contained in that collection.
+* Using the srsName and srsDimension attributes for individual geometry elements.
+
+Application data formats may use either method, but shall ensure that the SRS of every
+instance of geometry in a dataset can be determined by application software, using one
+method or another.
+
+"Standard" geodetic coordinate reference systems shall be identified using the URI
+convention for SRS specified by OGC.
+
+[example]
+http://www.opengis.net/def/crs/EPSG/0/4326
+
+[[cls-10b-11.8]]
+=== Dataset structure definition
+
+Application Schemas for data products shall define an XML type and element to serve as
+the root element of a GML dataset, consisting of a collection of XML elements for
+feature, information type, and spatial data objects defined elsewhere in the Application
+Schema. This shall be called "Dataset".
+
+[[cls-10b-11.8.1]]
+==== Dataset metadata
+
+The dataset class may contain one or metadata properties to encode dataset level metadata
+(for example <<ISO19115>>/<<ISO19139>>) either inline or by reference.

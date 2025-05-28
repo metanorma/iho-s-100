@@ -1,0 +1,9 @@
+[[cls-10b-15]]
+== Divergences from common GML practices
+
+The GML profile (<<cls-10b-8>>) and base schema (<<cls-10b-11>>) diverge from common GML
+practice in the following items:
+
+. Interpretation of missing curve interpolation value (see <<cls-10b-10.1.2>>).
+. Geometry properties are defined individually instead of using substitution groups.
+There is no single property which functions as a spatial attribute in all features.

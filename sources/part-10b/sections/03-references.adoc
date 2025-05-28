@@ -1,0 +1,72 @@
+== References
+
+[bibliography]
+=== Normative references
+
+* [[[ISO19106,ISO 19106:2004]]]
+
+* [[[ISO19107,ISO 19107:2003]]]
+
+* [[[ISO19111,ISO 19111:2007]]]
+
+* [[[ISO19118,ISO 19118:2005]]]
+
+* [[[ISO19123,ISO 19123:2005]]]
+
+* [[[ISO19136,ISO 19136:2007]]]
+
+* [[[ISO19136-2,ISO 19136-2:2015]]]
+
+* [[[ISO19139,ISO/TS 19139]]]
+
+* [[[ISO19757-3,ISO/IEC 19757-3]]]
+
+* [[[RFC2396,IETF RFC 2396]]]
+
+* [[[RFC3986,IETF RFC 3986]]]
+
+* [[[xlink,12]]],
+span:title[W3C XLink, XML Linking Language (XLink) Version 1.0, W3C Recommendation]
+
+* [[[xml-ns,13]]],
+span:title[W3C XML Namespaces, Namespaces in XML, W3C Recommendation]
+
+* [[[xml,14]]],
+span:title[W3C XML, Extensible Markup Language (XML) 1.0, W3C Recommendation]
+
+* [[[xml-schema1,15]]],
+span:title[W3C XML Schema Part 1, Structures, W3C Recommendation]
+
+* [[[xml-schema2,16]]],
+span:title[W3C XML Schema Part 2, Datatypes, W3C Recommendation]
+
+* [[[leiri,17]]],
+span:title[LEIRI, Legacy Extended IRIs for XML Resource Identification, W3C Working Group Note 3].
+span:uri[http://www.w3.org/TR/leiri]
+
+[bibliography]
+=== Non-normative references
+
+The following references are listed only for informative purposes or to clarify parts of
+this document. Drafts are subject to change and are not international standards.
+
+* [[[ISODIS19107,nofetch(ISO/DIS 19107)]]],
+_span:title[Geographic information – Spatial schema (Draft – June 2018)]_
+
+* [[[OGC10-025r1,hidden(OGC 10-025r1)]]]
+
+* [[[S127,hidden(IHO S-127)]]]
+
+* [[[OGC10-129r1,hidden(OGC 10-129r1)]]]
+
+* [[[OGC07-036,hidden(OGC 07-036)]]]
+
+* [[[ISO19108,hidden(ISO 19108)]]]
+
+* [[[ISO19156,hidden(ISO 19156)]]]
+
+* [[[ISO19115-1,hidden(ISO 19115-1)]]]
+
+* [[[ISO19115,hidden(ISO 19115)]]]
+
+* [[[ISO19101,hidden(ISO 19101)]]]

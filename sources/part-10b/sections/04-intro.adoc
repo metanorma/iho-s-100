@@ -1,0 +1,9 @@
+[[cls-10b-4]]
+== Introduction
+
+The S-100 GML profile defines the core GML components that shall be used in GML encodings
+for S-100 data products. This profile defines a restricted subset of XML and GML types
+that excludes GML features not required by S-100 GML datasets. The profile of GML is
+contained in multiple Schema files and reduces the complexity of the full GML encoding to
+a more manageable level. Part of the Schema defines common elements and types needed for
+all S-100 datasets encoding feature-based information.

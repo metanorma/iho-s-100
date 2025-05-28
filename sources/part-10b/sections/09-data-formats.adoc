@@ -1,0 +1,37 @@
+[[cls-10b-9]]
+== S-100 GML data formats
+
+Data formats shall use the camel case codes of features, information types, and attributes
+and sub-attributes as specified in Feature Catalogues as the 'local name' in element tags
+for GML features and attributes.
+
+[example]
+Given a Feature Catalogue that defines a feature named "Marine Protected Area"
+with code "MarineProtectedArea", the corresponding feature in the dataset must use
+"MarineProtectedArea" as the local name -- for example, `<S122:MarineProtectedArea ...` or
+`<MarineProtectedArea>` with the Schema type "MarineProtectedAreaType"
+
+Ordering of elements in GML Schemas corresponding to simple and complex attributes shall
+be identical with ordering in the Feature Catalogue. Attributes and sub-attributes
+inherited from abstract types in the Feature Catalogue shall appear before those belonging
+to the specialised type.
+
+Spatial objects that are encoded independently of features (that is, not embedded inline
+with a feature) shall be encoded with tags whose local name components are the spatial
+object elements in the S-100 GML profile (for example, S100:Point).
+
+The GML Profile defines abstract types for feature and information types to be used for
+definition of concrete types contained in the Feature Catalogue.
+
+Feature and information associations must encode at least one of the _role_ or _arcrole_
+attributes of the reference.
+
+The following tags are reserved and may not be used in GML data formats as local names of
+elements:
+
+* geometry;
+* Dataset.
+
+GML data formats for S-100 datasets must follow the GML rules as described in the GML
+specification (<<ISO19136>>/<<OGC07-036>>), as modified by the S-100 GML profile and this
+Part.
