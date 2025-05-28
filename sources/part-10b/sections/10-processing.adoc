@@ -1,0 +1,292 @@
+[[cls-10b-10]]
+== Processing of GML datasets
+
+Implementations, including applications and production tools, may use any suitable method
+for processing GML datasets. While GML datasets must conform to the GML Application
+Schemas defined in Product Specifications, processors are not required to use the GML
+Application Schemas for processing datasets. However, the combination of the GML
+specification, this Part, and the S-100 GML profile result in the following commonalities:
+
+. Each dataset has a single root element ("Dataset"). GML datasets are XML documents and
+this is an XML requirement.
+. Given the path /Dataset /X1/X2 then X1 is a feature and X2 is an attribute or
+association role. Similarly, given /Dataset /X1/X2, X1 is an information type and X2 one
+of its attributes or associations.
+. If X2 has XML attributes xlink:href and xlink:role and/or xlink:arcrole it is an
+association role.
+. If X2 has element content this represents a complex or spatial attribute.
+. A spatial attribute or object will have one of the allowed spatial properties as its
+content.
+. If X2 is empty and nilled, or has text or numeric content, it is a simple attribute.
+. Applications must allow for the presence or absence of namespaces; for example, X1 might
+be of the form S122:FeatureA, etc. Namespaces in XML precede a ':' so it is possible for
+applications to distinguish the namespace part of the tag from the 'local name' part.
+
+[[cls-10b-10.1]]
+=== Spatial types
+
+[[cls-10b-10.1.1]]
+==== Geometric primitives
+
+The S-100 GML Profile supports the S-100 implementations of GML 3.2.1 basic geometries
+(Part 7, clause 7-4.1.1).
+
+For the simplest geometry requirements where no spatial attribution or associations are
+required, native GML types, imported by the S-100 GML Profile Schemas, and representing
+S-100 point, curve and surface geometry can be used. These implement equivalents to point,
+curve and surface geometry defined as geometric primitives in Feature Catalogues.
+
+* *GM_Point*
+* *GM_Curve*
+* *GM_Surface*
+
+More complex Schemas requiring referencing and spatial attributes (and more complex curve
+interpolations) can make use of the more complex constructions defined specifically for
+the S-100 GML Profile; for example:
+
+* *S100_Point*
+* *S100_Curve*
+** AbstractCurve
+** OrientableCurve
+** LineStringSegment
+** LineString
+** S100_ArcByCenterPoint
+** S100_CircleByCenterPoint
+* *S100_Surface*
+
+The S-100 GML Profile constrains the GM_CurveInterpolation type values and constrains the
+curve encoding to a subset of GML curve geometries.
+
+NOTE: S100_ArcByCenterPoint and S100_CircleByCenterPoint are not the same as the GML
+primitives ArcByCenterPoint and CircleByCenterPoint.
+
+[[cls-10b-10.1.2]]
+==== Curve Interpolation
+
+The list of allowable values consists of a subset of the values allowed by <<ISO19136>>
+plus extensions for spline and interpolated curve segments (<<ISODIS19107>>, clarifies
+that the list of interpolations in the standard is not exhaustive):
+
+. *Linear (linear) in a non-geographic CRS* -- the interpolation is defined by a series of
+DirectPositions on a straight line between each consecutive pair of controlPoints.
+. *Linear interpolation (linear) in a geographic CRS (interpreted as Loxodromic)* -- the
+interpolation method shall return DirectPositions on a loxodromic curve between each
+consecutive pair of controlPoints. A loxodrome is a line crossing all meridians at the
+same angle, that is, a path of constant bearing.
+. *Geodesic (geodesic)* -- the interpolation mechanism shall return DirectPositions on a
+geodesic curve between each consecutive pair of controlPoints. A geodesic curve is a curve
+of shortest length. The geodesic shall be determined in the coordinate reference system of
+the _GM_Curve_ in which the _GM_CurveSegment_ is used.
+. *Circular arc by 3 points (circularArc3Points*) -- the interpolation is defined by a
+series of 3 DirectPositions on a circular arc passing from the start point through the
+middle point to the end point for each set of three consecutive control points. The middle
+point is located halfway between the start and end point.
+. *Elliptical arc (elliptical*) -- for each set of four consecutive controlPoints, the
+interpolation mechanism shall return DirectPositions on an elliptical arc passing from the
+first controlPoint through the middle controlPoints in order to the fourth controlPoint.
++
+--
+NOTE: if the four controlPoints are co-linear, the arc becomes a straight line. If the
+four controlPoints are on the same circle, the arc becomes a circular one.
+--
+. *Conic arc (conic)* -- the same as elliptical arc but using five consecutive points to
+determina a conic section.
+. *Circular arc with centre and radius (circularArcCenterPointWithRadius)* -- the
+interpolation is defined by an arc of a circle of the specified radius centred at the
+position given by the single control point. The arc starts,at the start angle parameter
+and extends for the angle given by the angular distance parameter. This interpolation type
+shall be used only with S100_ArcByCenterPoint and S100_CircleByCenterPoint geometry. The
+precise semantics of the parameters are defined in Part 7 clause 7-4.2.20
+(S100_ArcByCenterPoint).
+. *Polynomial (polynomialSpline)* -- the control points are ordered as in a line-string,
+but they are spanned by a polynomial function. Normally, the degree of continuity is
+determined by the degree of the polynomials chosen.
+. *Bézier Spline (bezierSpline)* -- the data are ordered as in a line string, but they are
+spanned by a polynomial or spline function defined using the Bézier basis. Normally, the
+degree of continuity is determined by the degree of the polynomials chosen.
+. *B-spline (bSpline)* -- the control points are ordered as in a line string, but they are
+spanned by a polynomial or rational (quotient of polynomials) spline function defined
+using the B-spline basis functions (which are piecewise polynomials). The use of a
+rational function is determined by the Boolean flag "isRational". If isRational is TRUE
+then all the DirectPositions associated with the control points are in homogeneous form.
+Normally, the degree of continuity is determined by the degree of the polynomials chosen.
+. *Blended parabolic (blendedParabolic)* -- the control points are ordered as in a
+line-string, but are spanned by a function that blends segments of parabolic curves
+defined by triplet sequences of successive data points. Each triplet includes the final
+two points of its predecessor. Further details of the semantics are provided in Part 7
+clause 7-4.2.2.2.
+
+[[cls-10b-10.1.3]]
+==== Geometric complex, geometric composites, and geometric aggregates
+
+===== Geometric complex and geometric composites
+
+The S-100 GML Profile supports the following composite geometries (Part 7 clause 7-4.1.1):
+
+* CompositeCurve.
+
+===== Geometric aggregates
+
+The S-100 GML Profile supports the aggregate geometry types (Part 7 clause 7-4.1.1):
+
+* MultiPoint
+
+[[cls-10b-10.1.4]]
+==== Inline and by-reference encoding
+
+The S-100 GML Profile supports the ability to encode a geometry either inline or by
+reference where two features share the same instance of a GM_Object (see Part 3 clause
+3-6.5.4.5). Where both are specified the GML convention is followed and the inline
+reference takes priority.
+
+[[cls-10b-10.1.5]]
+==== Envelope
+
+The S-100 GML Profile supports the ability to encode an appropriate geometry via bounding
+box or envelope. The Profile does not constrain the use of the GML implementation of
+GM_Envelope.
+
+[[cls-10b-10.1.6]]
+==== Schema elements for spatial attributes
+
+GML Application Schemas shall name the S100 spatial attribute type as geometry elements
+using the reserved element name "geometry". This is for greater interoperability with
+broader GML tools. Where multiple geometric primitive types are allowed by the Feature
+Catalogue defining the GML Application Schema these shall be implemented as XML Schema
+choice elements and not as aggregated types. Geometry elements shall have multiplicity
+0..* in the GML Application Schema.
+
+For example:
+
+[%unnumbered]
+image::img142.png[]
+
+[[cls-10b-10.1.7]]
+==== Masking, truncation and scale ranges
+
+The S-100 geometry type has an optional sub-element mask containing those elements which
+are masked.
+
+Beginning with Edition 5.0.0, the S-100 GML format defines a generic complex type
+S100_SpatialAttributeType for spatial attributes with _scaleMinimum_ and _scaleMaximum_
+attributes and a _maskReference_ tag. These correspond to the attributes of the
+S100_SpatialAttribute metaclass in the S-100 General Feature Model (Part 3, Figures 3-1
+and 3-2 and clause 3-5.3.5). _scaleMinimum_ and _scaleMaximum_ are implemented as integer
+attributes. The _maskReference_ attribute is implemented using the GML Reference Type with
+the following constraints:
+
+* The value of the xlink:href attribute must be the gml:id of the masked/truncated object.
+* The value of the xlink:role attribute must be either 'truncated' or 'suppressed'.
+* The meaning of other attributes is undefined in S-100 and so they are not used within
+the GML profile.
+
+The structure of the S100_SpatialAttribute Complex type is depicted in
+<<fig-10b-4;and!fig-10b-5>> below.
+
+[[fig-10b-4]]
+.Structure of generic spatial attribute type in the S-100 GML format
+image::img143.png[]
+
+[[fig-10b-5]]
+.Structure of mask reference type
+image::img144.png[]
+
+NOTE: This Part specifies only the _href_ and _role_ attributes. The other
+_AssociationAttributeGroup_ members, _OwnershipAttributeGroup_ members, and _nilReason_
+are not used.
+
+An example of the use of masking is depicted in Figure 10b-6 below. The surface boundary
+is defined by reference to two curves (sequential curves comprising the exterior ring),
+whose gml:id's are JS.C.123 and JS.C.567. These curves are defined elsewhere in the file.
+The _maskReference_ tag in the example indicates that the curve JS.C.567 is suppressed.
+
+NOTE: The S-100 GML format does not require that the object geometry (the Surface object
+in Figure X.X) be encoded inline as depicted in Figure X.X. It can be encoded elsewhere in
+the dataset as a separate spatial data object, like the curves.
+
+NOTE: The '#' character preceding the identifier is an XML convention indicating that the
+part which follows is the identifier of an XML element inside an XML file (since no
+filename is specified, the convention is that the referenced element is in the same file).
+Note that the reference mechanism also allows references to objects in external files by
+prefixing the object identifier with the file name or URL of the external file.
+
+[[fig-10b-6]]
+.Example of masking in the GML format
+image::img145.png[]
+
+[[cls-10b-10.2]]
+=== Unsupported GML functionality
+
+Support for GML 3.2.1 and GML 3.3 geometries not defined in <<ISO19107>> is not included.
+Specifically, this means CircleByCenterPoint and ArcByCenterPoint (as defined in GML
+3.2.1) are not supported, nor are the compact geometry encodings defined in GML 3.3.
+
+The temporal model and temporal primitives defined in <<ISO19108>>, including temporal
+positions, instants, time periods, are not supported. S-100 data should code dates and
+times as thematic attributes.
+
+* Dynamic features are not supported by the S-100 GML profile.
+* Topology is not supported by the S-100 GML profile.
+* Linear Referencing is not supported by the S-100 GML profile.
+* Coverages are not supported by the S-100 GML profile.
+* The ability to define coordinate reference systems is not supported. The products should
+be defined using a well-known, pre-defined coordinate reference system such as WGS84.
+* Observations are out of scope for the S-100 GML Profile. (The observations schema within
+GML has been superseded by the OGC (<<OGC10-025r1>>) XML encoding for <<ISO19156>>:
+Observations and Measurements.)
+
+[[cls-10b-10.3]]
+=== Compliance levels
+
+In order for a client to be able to properly interpret a schema, it needs a capability to
+identify the compliance level of the application schema. An XML Schema annotation shall be
+used for this purpose. The following schema fragment shows how this annotation shall be
+declared in an application schema{blank}footnote:[Line breaks and spaces have been added
+for clarity.]:
+
+[source%unnumbered]
+----
+<annotation>
+  <appinfo>
+    <gmlProfileSchema xmlns="http://www.opengis.net/gml/3.2">
+      http://www.iho.int/S-100/profiles/s100_GMLProfile.xsd
+    </gmlProfileSchema>
+    <s100:ComplianceLevel>1</s100:ComplianceLevel>
+  </appinfo>
+</annotation>
+----
+
+[[tab-10b-2]]
+.Compliance declaration XML code
+[cols="a,a",options=header]
+|===
+| Compliance level | Description
+
+| 1 | S-100 feature types, information types, feature and information associations. Point, curve, and surface primitives
+| 2 | All features of Level 1, plus circle and arc by center point geometry, splines, and blended interpolations
+|===
+
+To manually add the compliance declaration to the schemas after they have been generated
+involves 3 steps:
+
+. Add the S-100 GML Profile XML Namespace declaration:
++
+--
+[source%unnumbered]
+----
+xmlns:s100_profile="http://www.iho.int/S-100/profile/s100_gmlProfile"
+----
+--
+. Add the S-100 GML Profile compliance declaration within the schema annotation. The
+compliance declaration is the XML code in <<tab-10b-2>> above.
+. Add an Import statement for the S-100 GML Profile Levels schema. Add the following
+import statement for the S-100 GML Profile Levels schema into the list of imported schemas
+to the list of imported schemas:
++
+--
+[source%unnumbered]
+----
+<import namespace="http://www.iho.int/S-100/profile/s100_gmlProfile"
+  schemaLocation="../../S100/profile/S100_gmlProfileLevels.xsd"/>
+----
+--

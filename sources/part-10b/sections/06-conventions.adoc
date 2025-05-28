@@ -1,0 +1,30 @@
+[[cls-10b-6]]
+== Notation and diagram conventions
+
+.Notation and diagram conventions
+[cols="a,a",options=header]
+|===
+| Diagram element | Meaning
+
+| [%unnumbered]
+image::img134.png[]
+
+or
+
+[%unnumbered]
+image::img135.png[]
+| XML Schema <sequence>
+
+| [%unnumbered]
+image::img136.png[]
+
+or
+
+[%unnumbered]
+image::img137.png[]
+| XML Schema <choice>
+
+| [%unnumbered]
+image::img138.png[]
+| XML schema multiplicity constraints (here, "0" and "unbounded")
+|===

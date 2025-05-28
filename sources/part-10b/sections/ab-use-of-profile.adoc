@@ -1,0 +1,22 @@
+[[annex-10b-b]]
+[appendix,obligation=informative]
+== Use of Profile in GML Application Dataset
+
+[[cls-10b-b-1]]
+=== Introduction
+
+This clause illustrates the use of the GML profile (<<cls-10b-8>>) and base schema
+(<<cls-10b-11>>) and a GML application schema (<<annex-10b-a>>) for an S-100-based data
+product and a GML dataset.
+
+TODO: To be added.
+
+[[cls-10b-b-2]]
+== Dataset structure in GML application schema
+
+An example of the format of a GML dataset is shown in the Figure below. This dataset
+defines data objects as information objects, spatial objects or feature objects. It
+specifies the sequence of objects in the file as information objects first, followed by
+spatial objects, then features.
+
+TODO: To be added.

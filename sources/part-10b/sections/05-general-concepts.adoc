@@ -1,0 +1,23 @@
+[[cls-10b-5]]
+== General concepts
+
+A GML application schema is an XML schema that conforms to the rules for application
+schemas given in the GML specification (<<ISO19136>>).
+
+A GML document is an XML document with a root element conforming to the rules for GML data
+specified in the GML specification (<<ISO19136>>). Specifically, in the context of S-100
+this means the root element must be a GML AbstractFeature or Dictionary element, or in a
+substitution group of any of these elements.
+
+The terms "GML application schema" and "application schema" as used in this Part mean
+respectively an _XML schema_ and a _conceptual schema_. The former may be an XSD file
+conforming to the XML schema rules, the latter a UML diagram, conforming to the S-100
+Application Schema rules.
+
+These terms and definitions conform to <<ISO19101;and!ISO19136>>. Complete definitions are
+given in <<ISO19101;and!ISO19136>>, and are reproduced in Annex A.
+
+An S-100 based Feature Catalogue presents the abstraction of reality represented in one or
+more sets of geographic data as a defined classification of phenomena. It presents a
+machine-readable description of a Product Specification Conceptual Schema according to
+S-100 Part 5.

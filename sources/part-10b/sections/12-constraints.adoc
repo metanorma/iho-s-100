@@ -1,0 +1,24 @@
+[[cls-10b-12]]
+== Constraints and validation
+
+Some validation of data can be done using validating XML processors if the data product's
+GML application schema created well defined types wherever possible, for example,
+enumerated types for the enumeration attributes, and maximum and minimum allowed values
+for real attributes. However, complete validation, especially of conditional attributes,
+is likely to require an additional means of data validation.
+
+Constraints allow complex business rules to be defined that restrict the allowable values
+based on well-defined limits or relationships between properties (for example the end
+date must be equal to or greater than the start time).
+
+Constraints can be defined in many different ways - human readable text only, object
+constraint language (OCL), Semantics of Business Vocabulary and Business Rules (SVBR) and
+these can be documented as part of the UML model or external to the model.
+
+The S-100 GML Profile does not provide explicit support for expressing constraints or for
+rule-based validation. Current industry best practice, advocates the uses of Schematron
+to validate XML files based against business rules defined using OCL, SVBR or human
+readable text. Schematron (<<ISO19757-3>>) is a rule-based validation language for making
+assertions about the presence or absence of patterns in XML. Constraints encoded using
+Schematron may be directly encoded within the resulting Application Schema or may be
+defined in an associated Schematron document.

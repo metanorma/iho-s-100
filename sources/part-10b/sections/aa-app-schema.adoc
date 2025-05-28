@@ -1,0 +1,5 @@
+[[annex-10b-a]]
+[appendix,obligation=informative]
+== Application Schema
+
+TODO: To be added.

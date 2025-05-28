@@ -1,0 +1,233 @@
+[[cls-10b-8]]
+== Profile for feature data
+
+[[cls-10b-8.1]]
+=== Feature and information types
+
+The profile supports the ability to encode classes defined as identifiable objects as
+derived from either the abstract GML type or abstract feature type:
+
+* AbstractGML (shall be used to derive S-100 Information Classes).
+* AbstractFeature (shall be used to derive S-100 Feature Classes).
+
+The S-100 GML Profile prohibits the use of the gml:StandardObjectProperties group.
+
+[[cls-10b-8.2]]
+=== Data types
+
+[[cls-10b-8.2.1]]
+==== Primitive types
+
+The S-100 GML Profile supports the types defined in S-100 Feature Catalogues (as defined
+in S-100 Part 2a, clause 2a-4.2.9) with the following equivalents. Types are supported
+using XML Schema ("xs:") built-in data types where possible except as noted.
+
+[[tab-10b-1]]
+.S-100 primitive types
+[cols="a,a",options=header]
+|===
+| Feature Catalogue Types | XML / GML Profile Equivalent
+
+| boolean | xs:boolean
+| integer | xs:integer
+| real | xs:decimal
+| text | xs:string
+| date | xs:date
+| time | xs:time
+| dateTime | xs:dateTime
+| S100_TruncatedDate | S100_TruncatedDate
+| URI, URN, URL | xs:anyURI
+|===
+
+All S-100 types referred to in <<tab-10b-1>> are defined within the S-100 GML Profile. The
+profile also provides common restrictions of types for non-negative Decimals and Decimals
+in the range 0.0-360.0 (for stem:["unitsml(deg)"] representations).
+
+[[cls-10b-8.2.2]]
+==== Extended Value types
+
+The S-100 GML Profile supports the value types defined in Part 1, clause 1-4.5.3.5:
+
+* Measure
+* Length
+* Angle
+
+NOTE: S100_UnitOfMeasure type shall be realised by the uom property, the value of which
+should reference to a value defined in a codelist Register which provides the name,
+definition and symbol.
+
+[[cls-10b-8.2.3]]
+==== Attribute types
+
+S-100 simple attributes shall take one of the types defined in <<tab-10b-1>> above. S-100
+Complex attributes have no named type in the GFM.
+
+The naming convention for Schema types of simple attributes and complex attributes shall
+have a defined type name "`<Name>Type`" where `<Name>` is the "code" field defined in the
+associated Feature Catalogue. The "code" field is expected to be compliant with the
+xs:NCName criteria.
+
+[[cls-10b-8.2.4]]
+==== Enumerations
+
+For S-100 enumeration or S-100 codelist attributes, datasets must use the code and label
+of the listed value as encoded in the Feature Catalogue.
+
+Enumerations shall be constructed using a combination of restricted simple types for the
+code and label.
+
+The code simple type shall be a restriction of xs:integer with the list of allowable
+enumeration codes from the Feature Catalogue. The type name shall be constructed as
+`<Name>Code` using the attribute code.
+
+[source%unnumbered]
+----
+<xs:simpleType name="cardinalDirectionCode">
+  <xs:restriction base="xs:integer">
+    <xs:enumeration value="1">
+      <xs:annotation>
+        <xs:documentation>N</xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    <xs:enumeration value="2">
+      <xs:annotation>
+        <xs:documentation>NNE</xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+...
+----
+
+The label simple type shall be a restriction of xs:string using the allowable enumeration
+labels from the Feature Catalogue. The type name shall be constructed as `<Name>Label`
+using the attribute code.
+
+[source%unnumbered]
+----
+<xs:simpleType name="cardinalDirectionLabel">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="N">
+      <xs:annotation>
+        <xs:documentation>1: north</xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    <xs:enumeration value="NNE">
+      <xs:annotation>
+        <xs:documentation>2: northnortheast</xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+...
+----
+
+The enumeration attribute type is defined as a complex type extending from the label type
+and including the code type as an xml attribute.
+
+[source%unnumbered]
+----
+<xs:complexType name="cardinalDirectionType">
+  <xs:annotation>
+    <xs:documentation>Cardinal direction: Principal and intermediate compass points.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleContent>
+    <xs:extension base="cardinalDirectionLabel">
+      <xs:attribute name="code" type="cardinalDirectionCode"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+----
+
+[[cls-10b-8.3]]
+=== Feature collections
+
+A feature collection is a collection of feature instances. Within GML 3.2.1, the generic
+gml:FeatureCollection element has been deprecated. A feature collection is any feature
+class with a property element in its content model which is derived by extension from
+_gml:AbstractFeatureMemberType_.
+
+The S-100 GML Profile supports the GML 3.2.1 approach to model a Feature Collection class
+within an S-100 GML Application Schema.
+
+For exchange of file-based GML data using S-100 the GML Profile includes:
+
+* A FeatureCollection, named "Dataset"; and
+* Generic dataset metadata types with mandatory dataset metadata elements
+
+Other exchange mechanisms, for example via API mechanisms may wrap GML data encoded in
+conformance with this part with different feature collection mechanisms.
+
+[[cls-10b-8.4]]
+=== Associations
+
+The profile allows associations to be encoded inline or by reference. The dataset metadata
+field associationEncoding shall be defined as either "reference" or "inline" to define
+which method is used throughout conforming datasets. In addition to the dataset metadata
+constraint such associations shall only be used to express composition relationships
+defined by the corresponding Feature Catalogue.
+
+For bi-directional associations, the profile supports the optional encoding of the name of
+reverse property in the _appInfo_ annotation element in the Application Schema XSD.
+
+[[cls-10b-8.4.1]]
+==== Association classes
+
+The profile allows the GML 3.3 convention for encoding of association classes using the
+GML 3.3 association class conversion rule, which converts association classes to an
+equivalent intermediate class. The figures below illustrate the conversion rule.
+
+Where associations contain attributes in a Product Specification Feature Catalogue, this
+structure shall be used to realise those attributes via an intermediate Information Type.
+The name of the Information Type shall be defined as the name (S100_FC_Item code) of the
+relationship (either feature or information association) concatenated with "Type" and is
+not required to be defined within the Feature Catalogue.
+
+[[fig-10b-2]]
+.Model with association classes (from <<OGC10-129r1>> / <<ISO19136-2>>)
+image::img140.png[]
+
+An example (taken from S-127) is shown in <<fig-10b-3>> below. Here an association class
+"PermissionType", corresponding to a relationship with code "Permission", is used to
+express the association attribute "categoryOfRelationship".
+
+[[fig-10b-3]]
+.Example use to represent attributes of associations (<<S127>>)
+image::img141.png[]
+
+To avoid needless duplication of relationships between source/destination features and the
+intermediate information types, the intermediate information type shall be included in
+line with the referencing feature; for example:
+
+[source%unnumbered,xml]
+----
+<S-127:VesselTrafficServiceArea gml:id="a1">
+  <categoryOfCargo>ballast</categoryOfCargo>
+  <permission xlink:href="#R1">
+    <S-127:PermissionType gml:id="res1">
+      <categoryOfRelationship>required</categoryOfRelationship>
+    </S-127:PermissionType>
+  </permission>
+  </S-127:VesselTrafficServiceArea>
+  <S-127:Applicability gml:id="R1">
+    <categoryOfCargo code="7">dangerous or hazardous</categoryOfCargo>
+</S-127:Applicability>
+----
+
+In the Application Schema this shall be done by extension of gmlReferenceType.
+
+[source%unnumbered]
+----
+<xs:complexType name="PermissionType">
+  <xs:sequence>
+    <xs:element name="categoryOfRelationship" type="categoryOfRelationshipType" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="permission">
+  <xs:complexContent>
+    <xs:extension base="gml:ReferenceType">
+      <xs:sequence>
+        <xs:element name="PermissionType" type="PermissionType" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+----
+
+The examples above are informative, not mandatory.

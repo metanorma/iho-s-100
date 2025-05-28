@@ -1,0 +1,6 @@
+[[cls-10b-14]]
+== Schema locations and namespaces
+
+The GML profile and GML application schema for common elements are located at the IHO
+Geospatial Information (GI) Registry web site. Namespaces and versions are also defined
+on that site.

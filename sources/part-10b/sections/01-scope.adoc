@@ -1,0 +1,27 @@
+[[cls-10b-1]]
+== Scope
+
+This Part specifies a profile of GML meant to be used as a basis for the development of
+GML application schemas for S-100 data products. The GML application schema for each S-100
+data product defines a file format for the machine-to-machine exchange of information
+structured in conformance with the application schema for the data product and matching
+the content of the Feature Catalogue, as defined in the appropriate Product Specification.
+
+The scope of this Part includes:
+
+. Feature and information type data conforming to the S-100 General Feature Model defined
+in Part 3, encoded using GML (<<ISO19136>>), and structured as datasets (identifiable
+collections of data).
+. Construction of GML Schemas from Feature Catalogues.
+. Guidance for use of the Schemas in Application Schemas for data products.
+
+The following are outside scope:
+
+. A format for updates to datasets.
+. Interchange by means other than datasets encapsulated as files, such as Web Feature
+Service (WFS), other Web services, email, etc.
+. Information not encapsulated using GML, such as Feature Catalogues, Exchange Set
+metadata, Portrayal Catalogues, and support files in other XML formats.
+. Tools for developing GML Application Schemas for data products.
+. Design and programming of software for processing GML data.
+. Gridded and coverage data.
