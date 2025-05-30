@@ -1,0 +1,14 @@
+[[cls-10c-15]]
+== Updates
+
+Updates to HDF5 datafiles are recommended to follow the same structure as
+the base HDF5 datafile. Updates may include only the HDF5 datasets which
+are being updated. The specific datasets being updated are included in
+their entirety in the update datafile.
+
+This clause implies that S-100 datasets may be updated in part as well as
+replaced completely by updated data, but Product Specifications are not
+required to permit partial updates. They may define update creation and
+management processes which are more suitable for their particular domains
+and applications. However, if updates to parts of S-100 datasets are
+allowed, the rule in the previous paragraph must be followed.

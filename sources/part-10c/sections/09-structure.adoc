@@ -1,0 +1,2492 @@
+[[cls-10c-9]]
+== Structure of data product
+
+[[cls-10c-9.1]]
+=== General structure
+
+An S-100 HDF5 file is structured to consist of Groups, each of which may
+contain other Groups, Attributes and (HDF) Datasets. Groups are containers
+for different types of information (meaning data values, position
+information, metadata, or ancillary information). HDF datasets are designed
+to hold large amounts of numerical data and may be used to hold the
+coverage data values. Attributes are designed to hold single-valued
+information which apply to Groups or Datasets and may be used to hold
+certain types of metadata.
+
+The following groups are contained within the root group. (The nesting
+levels in the list below correspond to the nesting levels in the HDF5 file.)
+
+. Feature information group.
+. Feature container groups -- each acts as a container for individual
+instances of a feature class. Its attributes encode any feature-class-level
+metadata.
+.. Feature instance groups -- each acts as a container for the positioning,
+tile, indexes, and data groups pertaining to a single feature instance. Its
+attribute encode any instance-level metadata
+... Tiling information group (conditional, only if values are stored as
+tiles).
+... Indexes group (conditional, only if indexes to data are required).
+... Positioning group (conditional, only if positions are not computable
+from metadata).
+... Data values group(s). Only time series data will have more than one
+value group.
+
+Note that the order in which groups and datasets are stored within the
+datafile may not be the same as the order in which they are created.
+
+The basic structure of an S-100 HDF5 file is depicted in <<fig-10c-7>>. 'F'
+is the number of feature classes defined in the Product Specification. It
+is not a requirement that every data file contain instances of all feature
+classes. There is one values group for each time point in the time
+series{blank}footnote:[Except for moving station data and fixed station
+(stationwise) data. The use of value groups for each coverage type is
+described later in this Part.] (datasets which are not time series will
+have only a single values group in each feature instance group).
+
+The FeatureContainer and Positioning groups are abstract classes because
+their attributes and content depend on the type of coverage.
+
+A more detailed diagram is included later in this Part.
+
+[[fig-10c-7]]
+.Basic structure of S-100 HDF5 file
+image::img158.png[]
+
+[[cls-10c-9.1.1]]
+==== Array and grid element indexing
+
+[underline]#Arrays#: When an index referencing a element of an array is
+used, either explicitly or implicitly, the referenced array must be treated
+as using 0-based indexing.
+
+[example]
+A member of the triangles array for a TIN defines a particular triangle by
+encoding the indexes of the first, second, and third coordinate pair
+entries in the geometryValues array. The values encoded in this member of
+the triangles array are 0, 1, and 2 respectively. (This is an explicit use
+of index values of the subject array geometryValues.)
+
+[underline]#Grid points and grid cells#: When an index value referencing
+particular grid points or cells of a grid are used, either explictly or
+implictly, the grid points or cells must be treated as using 0-based
+indexing.
+
+[example]
+The generation of Morton codes for irregular grids or variable cell size
+grids uses 0-based indexing for grid points.
+
+NOTE: Application developers may need to take library or programming
+language conventions into account. For example, a language that uses
+1-based indexing for arrays would need to add 1 to an index value encoded
+in the triangles array in order to reference the intended element in the
+geometryValues array.
+
+[[cls-10c-9.2]]
+=== Metadata
+
+Metadata is defined at different levels in the logical structure, so that
+metadata at the root group applies to all the features in the file,
+metadata at the feature container level applies to all instances of that
+feature class, and metadata at the instance level applies only to that
+particular feature instance.
+
+[[cls-10c-9.2.1]]
+==== Discovery metadata
+
+Full discovery metadata is encoded in an external discovery metadata file,
+as specified in Parts 4a (Metadata) and 4b (Metadata for Imagery and
+Gridded Data). See <<cls-10c-12>> for naming conventions.
+
+[[cls-10c-9.2.2]]
+==== Carrier (embedded) metadata
+
+Carrier metadata is metadata that is encoded within the HDF5 file. It is
+divided into general, type, and instance metadata, depending on whether it
+pertains to the HDF5 file as a whole, describes the structure and
+attributes of data object classes, or provides parameters needed to read
+instances of data object classes. Metadata is encoded in the following
+places:
+
+* General metadata, defined as general parameters that apply to the file as
+a whole. General metadata consists of parameters that apply to all
+information in the data file, such as dates of issue, datum information,
+and overall spatial extent (bounding box). This includes the essential
+general elements for processing and cell location (the rest of the
+essential information is encoded with the feature instance). This metadata
+is encoded as attributes of the root group;
+* Type, or feature, metadata, defined as specific characteristics which
+describes data object classes in the file (for example, pertains to
+specific features and attributes) and which will therefore be different for
+each feature class. This metadata is used for feature and attribute
+specification information (corresponding to entries in the feature
+catalogue). This type information is analogous to the feature catalogue
+described in Part 5, but may contain only extracts from the Feature
+Catalogue as well as add format-specific parameters relevant only to HDF5
+encodings. The Type Metadata is encoded as content (HDF5 datasets) in the
+feature information group and as attributes of each feature container
+group. The feature informationgroup (Group_F) is also the future intended
+container for information from the exchange set catalogue or about support
+files, if it is necessary to include that within the HDF5 file and it is
+not applicable to the file as a whole;
+* Instance metadata, defined as parameters for each feature class in the
+application schema. This includes parameters that are needed to read the
+information in the data product even if external metadata files are
+unavailable, including coverage-specific spatial parameters (extent, grid
+parameters). This metadata may include parameters that have significance
+only in the context of the specific coverage spatial type(s) permitted for
+the feature class in the application schema. This metadata is encoded as
+attributes of the instances within each feature container group.
+
+Additional information describing the data is contained in the values
+group, as attributes that apply to the values dataset in each values group.
+The data may be a time point or station information such as station name;
+and the time series characteristics such as time interval, number of values
+and start and end times.
+
+[[cls-10c-9.2.3]]
+==== Extended metadata
+
+Extended metadata elements defined in the Product Specification are encoded
+as either or both of:
+
+* Additional attributes of the root of feature container group, depending
+on whether they are considered necessary for processing and pertain to the
+datafile as a whole or to feature instances. An example is provided later
+in this Part (<<tab-10c-7>>). (Note that any extended metadata that is
+essential for processing implies product-specific modules in
+implementations.);
+* Extended metadata in the external XML files encoding the discovery
+metadata or exchange catalogue, if they are considered discovery metadata.
+
+Data products may also define vector feature metadata; for example, quality
+meta-features with vector geometry. Vector features are not encoded within
+the HDF5 file but in a separate file conforming to S-100 Part 10a or Part
+10b. If vector meta-features are present, a reference to the separate file
+must be included in carrier metadata by naming the file in the
+_metaFeatures_ attribute (see <<cls-10c-9.4>>).
+
+[[cls-10c-9.3]]
+=== Generalized dimensions and storage of coordinates and data
+
+This section provides an overview of the general approach to representing
+positioning information and storing data in S-100 HDF5 datasets. The basic
+approach is to minimize the variety of data structures used for storing
+data records. This profile stores data in one of two ways:
+
+. A multi-dimensional data array, of rank and dimensions corresponding
+exactly to the shape of the grid. This is used only for regular grids. In
+order to reduce space requirements, the coordinates of grid points are not
+explicitly stored because they can be computed from grid parameters;
+. One-dimensional arrays of data and grid coordinates, accompanied by
+meta-information describing the shape of the grid. This is also used for
+multipoint data (where there is no actual grid).
+
+The key idea at the core of the structure is this: the organization of the
+data is logically the same for each of the various types of data, but the
+information itself will be interpreted differently depending on the type of
+spatial representation, which is indicated by the metadata attribute
+dataCodingFormat (defined in <<tab-10c-10>> and <<cls-10c-4>>).
+
+For regularly-gridded data, the positioning information is not stored in
+the form of explicit coordinates because the grid metadata (extent and grid
+cell spacing information) suffices to specify the coordinates of each grid
+point. For example, for 2-D grids the value arrays are two dimensional,
+with dimensions specified by the attributes numPointsLongitudinal and
+numPointsLatitudinal. By knowing the grid origin and the grid spacings, the
+position of every point in the grid can be computed by simple formulae.
+
+For non-regularly gridded data only, there is additional positioning
+information. The nature of the positioning information depends on the data
+type:
+
+* For fixed stations, fixed stations (stationwise) and moving platform
+data, the positioning information is stored as explicit coordinates, in
+one-dimensional arrays of size numPOS of compound elements. The components
+of the compound element correspond to the coordinate axes; for example,
+latitude, longitude, z-coordinate, time, etc. The sequence of points
+corresponds either to the positions of fixed stations or sequential
+positions of moving platforms, as appropriate.
+* For ungeorectified grids, the positioning information is also stored as
+explicit coordinates in one-dimensional arrays of size numPOS of compound
+elements that contain the coordinates (as defined above).
+* For irregular grids, the positioning information is stored as
+one-dimensional arrays of size numPOS of compound elements containing
+information about the location of populated cells. Coordinate values for
+each grid point are not explicitly stored. In addition, the tiling group
+may be populated with tiles whose spatial union exactly covers the grid.
+The sequence of cell locationarrays must conform to the sequencingRule
+metadata attribute in the feature container group (<<cls-10c-9.6>>). An
+optional tile index component (index into the tiles array -- see
+<<cls-10c-9.7>>) may be added to by a Product Specification for faster
+retrieval. If used, the tile index component must be named 'tileIndex' and
+be of 'integer' datatype. This format is intended for grids of irregular
+shapes based on uniform rectangular cells.
+* For grids with variable cell sizes, the positioning information is stored
+as two one-dimensional arrays of size numPOS of compound elements, one
+array containing information about cell location (as for irregular grids)
+and the other about cell sizes. Coordinate values for each grid point are
+not explicitly stored. The actual cell size is described in terms of
+aggregations of a unit cell size. The format assumes that the varying cells
+are aligned with the grid and that cell sizes are multiples of unit cell
+size in each dimension.
+* For TIN data, the positioning information is stored as one-dimensional
+arrays of size numPOS encoding the vertex locations (using the same type of
+compound elements as for ungeorectified grids above) plus a Triangles array
+encoding references to the vertices of the triangle and references to
+adjacent triangles.
+
+For irregular grids and variable cell size, the auxiliary arrays describing
+cell locations and sizes are stored in the 'values' group rather than the
+positioning group (this allows for different aggregations of cells at
+different time points in the variable cell size format). The storage of
+data and coordinate values is summarized in <<tab-10c-3>>. ('D' is the
+number of dimensions of the coverage.)
+
+[TIP,type=box]
+====
+The HDF datasets storing coordinates and values are designed so as to use
+uniform data storage structures across different coverage types as well as
+reduce the total data volume. These criteria resulted in storing the
+additional information needed by some coverage types separately (e.g., cell
+location and size information for irregular and variable cell size grids).
+====
+
+[[tab-10c-3]]
+.Summary of storage strategies for coordinates and data values
+[cols="a,a,a",options=header]
+|===
+| Coverage type | Coordinate values | Data values
+
+| Regular grid
+| Not explicitly stored
+
+Computable from metadata
+| D-dimensional array of value tuples
+
+| Irregular grid
+| Not explicitly stored
+
+Computable from metadata
+| 1-D array of value tuples
+
++
+
+information about location of cells
+
+| Variable cell size grid
+| Not explicitly stored
+
+Computable from metadata
+| 1-D array of value tuples
+
++
+
+information about cell size and location
+
+| Fixed stations, fixed stations (stationwise), ungeorectified grid, moving platform
+| 1-D array of coordinate tuples
+| 1-D array of value tuples
+
+| TIN
+| 1-D array of coordinate tuples
+
++
+
+triangle information
+| 1-D array of value tuples
+|===
+
+Data Groups are separate groups containing the data values, which are
+stored in arrays corresponding to the positioning information. For coverage
+types where positioning information is not explicitly stored (N-dimensional
+regular grids), data is stored in N-dimensional arrays of rank
+corresponding to the grid dimensions (for example, for 2-D data, 2-D arrays
+of size numROWS by numCOLS).
+
+For time series data, multiple data groups are present. The total number of
+data Groups is numGRP. The meaning of numGRP for each type of spatial
+representation is specified in <<tab-10c-4>> below. The format allows for
+time series data for all representations.
+
+Positions in coordinate systems with more than 2 coordinate axes are
+encoded using correspondingly more dimensions. For example, for
+3-dimensional data, the vertical dimension is used as a third dimension.
+
+[TIP,type=box]
+====
+For processing efficiency, this profile recommends limiting the number of
+dimensions to no more than four (space and time), but higher dimensionality
+may be used if required for the data product.
+====
+
+The variables that determine the array sizes (numROWS, numCOLS, numPOS, and
+numGRP) are different, depending upon which coding format is used. They are
+given in <<tab-10c-4>>.
+
+[%landscape]
+<<<
+
+[[tab-10c-4]]
+.Array dimensions for different types of coverages
+[cols=7,options=header,headerrows=2]
+|===
+.2+| Coding Format .2+| Data Type | Positioning 4+| Data Values
+| numPOS | numCOLS | numROWS | numZ (3-D only) | numGRP
+
+| 1 | Fixed Stations | numberOfStations | 1 | numberOfStations | 1 | numberOfTimes
+| 2 | Regular Grid | (not used) | numPointsLongitudinal | numPointsLatitudinal | numPointsVertical | numberOfTimes
+| 3 | Ungeorectified Grid | numberOfNodes | 1 | numberOfNodes | 1 | numberOfTimes
+| 4 | Moving Platform | numberOfTimes | 1 | numberOfTimes | 1 | 1
+| 5 | Irregular Grid | numberOfNodes | 1 | numberOfNodes | 1 | numberOfTimes
+| 6 | Variable cell size | numberOfNodes | 1 | numberOfNodes | 1 | numberOfTimes
+| 7 | TIN | numberOfNodes | 1 | numberOfNodes | 1 | numberOfTimes
+| 8 | Fixed Stations (Stationwise) | numberOfStations | 1 | numberOfTimes | 1 | numberOfStations
+| 9 | Feature oriented Regular Grid | (not used) | numPointsLongitudinal | numPointsLatitudinal | 1 | numberOfTimes
+|===
+
+[%portrait]
+<<<
+
+Note that numROWS, numCOLS, numZ, and numPOS are not explicitly encoded in
+the HDF5 file. This specification uses them only to indicate array
+dimensions for implementation purposes. It is the number of stations,
+nodes, points, etc that are encoded as attributes of feature instances
+(<<cls-10c-9.7>>).
+
+The name of each data Group begins with the characters 'Group_nnn', where n
+is numbered from 1 to numGRP. A maximum of 999 data groups are allowed. The
+length of the data group name is 9.
+
+For all data types, the logical product structure in HDF5 consists of (a) a
+metadata block, which is followed by (b) the feature information group,
+then (&#x200c;c) one or more data container groups, each of which contains one or
+more feature instance groups, which in turn contain tiling, indexing,
+positioning and data groups as described in <<cls-10c-9.1>>. The tiling,
+indexing, and positioning groups are conditionally required depending on
+the type of data, indicated by an HDF5 attribute that specifies the coding
+format.
+
+The physical layout of the file may not be the same as its logical data
+structure, however the HDF5 API allows implementers to access information
+using the logical data structure.
+
+The following sections describe the content and attributes of each group.
+
+[%landscape]
+<<<
+
+[[cls-10c-9.4]]
+=== Root group
+
+The root group acts as a container for the other groups. The carrier
+metadata (<<tab-10c-6>>) is contained as attributes in the root group. The
+carrier metadata consists of the data and parameters (a) needed to read and
+interpret the information in the product even if external metadata files
+are unavailable, and, mostly, (b) are not included elsewhere in the
+metadata.
+
+[[tab-10c-5]]
+.Root group
+[cols=9,options=header]
+|===
+| Group | HDF5 Category 4+| Name 2+| Data Type | Data Space / Remarks
+
+.10+| / _(root)_
+
+| Attributes
+4+| (Carrier metadata attributes)
+2+| Integer, Float, Enumeration, or String
+| (none)
+
+Described in <<tab-10c-6>>
+
+| Group
+4+| Group_F
+2+|
+| Feature information group (see <<cls-10c-9.6>>)
+
+.8+| Group(s)
+4+| (featureCode)
+2+|
+a| Feature container group -- one group for each feature type in the data product.The name is the feature code, which is given in Group_F.
+
+See <<cls-10c-9.6>> for structure and attributes
+
+h| HDF5 Category
+3+h| Name
+2+|
+|
+
+.6+| Group(s)
+3+| (featureCode).N
+2+|
+a| Feature instance group(s) -- one for each instance of the feature.
+
+See  <<cls-10c-9.7>> for structure and attributes
+
+h| HDF5 Category
+h| Name
+2+|
+2+|
+
+| Group(optional)
+| Group_TL
+2+|
+2+a| Tiling information, only if product uses tiles.
+
+See <<cls-10c-9.8>>
+
+| Group(optional)
+| Group_IDX
+2+|
+2+a| Spatial index information, only if product uses spatial indexes.
+
+See <<cls-10c-9.9>>
+
+| Group
+| Positioning
+2+|
+2+a| Positioning information -- 2-D or 3-D.
+
+Not required for dataCodingFormat = 2 (Regular grid) and dataCodingFormat = 9
+
+(Feature oriented Regular Grid)
+
+See <<cls-10c-9.10>>
+
+| Group(s)
+| Group_NNN
+2+|
+2+a| Static data -- only 1 values group
+
+Time series data -- 000 to 999 groups
+
+See <<cls-10c-9.11>>
+|===
+
+The common (core) metadata elements are specified as attributes of the
+root group, as listed in <<tab-10c-6>>. The root group contains only a
+subset of the elements of minimum metadata specified in Parts 4a and 4b.
+The external XML metadata file is required to contain all the mandatory
+metadata elements.
+
+[[tab-10c-6]]
+.Embedded metadata (carrier metadata) in root group
+[cols="a,a,a,a,a,a",options=header]
+|===
+| No | Name | Camel Case | Mult | Data Type | Remarks and/or Units
+
+| 1
+| Product Specification number and version
+| productSpecification
+| 1
+| String
+| For example{blank}footnote:[To be replaced by a common format used in all S-100 based products, after that is finalized.], 'INT.IHO.S-NNN.X.X', with Xs representing the version number. "NNN" and "X" do not imply length restrictions
+
+Corresponds to combination of S100_ProductSpecification productIdentifier and version fields
+
+| 2
+| Time of data product issue
+| issueTime
+| 0..1
+| String (Time format)
+| Must be consistent with issueTime in discovery metadata
+
+| 3
+| Issue date
+| issueDate
+| 1
+| String (Date format)
+| Must be consistent with issueDate in discovery metadata
+
+| 4
+| Horizontal CRS
+| horizontalCRS
+| 1
+| Integer
+| EPSG code or -1 if user defined
+
+| 5
+| Name of the horizontal CRS
+| nameOfHorizontalCRS
+| 0..1
+| String
+| Mandatory if horizontalCRS = -1
+
+| 6
+| Type of the horizontal CRS
+| typeOfHorizontalCRS
+| 0..1
+| Enumeration
+| Mandatory if horizontalCRS = -1
+
+See <<tab-10c-21>>
+
+| 7
+| Horizontal coordinate system
+| horizontalCS
+| 0..1
+| Integer
+| Mandatory if horizontalCRS = -1
+
+Allowed values if typeOfHorizontalCRS = 1 (Geodetic CRS 2-D):
+
+* 6422 (Lat, Lon -- degree)
+
+Allowed values if typeOfHorizontalCRS = 2 (Projected CRS):
+
+* 4400 (Easting, Northing -- metres)
+* 4500 (Northing, Easting -- metres)
+
+| 8
+| Horizontal datum
+| horizontalDatum
+| 0..1
+| Integer
+| Mandatory if horizontalCRS = -1
+
+EPSG code or -1 if user defined
+
+| 9
+| Name of horizontal datum
+| nameOfHorizontalDatum
+| 0..1
+| String
+| Mandatory if horizontalDatum = -1
+
+| 10
+| Prime meridian
+| primeMeridian
+| 0..1
+| Integer
+| Mandatory if horizontalDatum = -1; EPSG Code
+
+| 11
+| Spheroid
+| spheroid
+| 0..1
+| Integer
+| Mandatory if horizontalDatum = -1; EPSG Code
+
+| 12
+| Projection method
+| projectionMethod
+| 0..1
+| Integer
+| Mandatory if typeOfHorizontalCRS = 2; EPSG Code, see <<tab-10c-24>>
+
+| 13
+| Projection parameter 1
+| projectionParameter1
+| 0..1
+| Float
+| Only if projectionMethod is used. See <<tab-10c-24>>
+
+| 14
+| Projection parameter 2
+| projectionParameter2
+| 0..1
+| Float
+| Only if projectionMethod is used. See <<tab-10c-24>>
+
+| 15
+| Projection parameter 3
+| projectionParameter3
+| 0..1
+| Float
+| Only if projectionMethod is used. See <<tab-10c-24>>
+
+| 16
+| Projection parameter 4
+| projectionParameter4
+| 0..1
+| Float
+| Only if projectionMethod is used. See <<tab-10c-24>>
+
+| 17
+| Projection parameter 5
+| projectionParameter5
+| 0..1
+| Float
+| Only if projectionMethod is used. See <<tab-10c-24>>
+
+| 18
+| False northing
+| falseNorthing
+| 0..1
+| Float
+| Only if projectionMethod is used. To be applied to the coordinates at axis Northing. [m]
+
+| 19
+| False easting
+| falseEasting
+| 0..1
+| Float
+| Only if projectionMethod is used. To be applied to the coordinates at axis Easting. [m]
+
+| 20
+| Epoch of realization
+| epoch
+| 0..1
+| String
+| Code denoting the epoch of the geodetic datum used by the CRS. For example, G1762 for the 2013-10-16 realization of the geodetic datum for WGS84
+
+| 21a
+.4+| Bounding box
+| westBoundLongitude
+| 1
+| Float
+.4+| Ref. dataCoverage.boundingBox > EX_GeographicBoundingBox
+
+Each of the components of the bounding box is encoded as a separate attribute
+
+The minimum/maximum latitude and longitude of the data is based on a Geographic CRS that uses the same horizontal datum as the CRS defined for the data set which might be projected.
+
+The unit must be degrees.
+| 21b | eastBoundLongitude | 1 | Float
+| 21c | southBoundLatitude | 1 | Float
+| 21d | northBoundLatitude | 1 | Float
+
+| 22
+| Geographic location of the resource (by description)
+| geographicIdentifier
+| 0..1
+| String
+| EX_Extent > EX_GeographicDescription.geographicIdentifier > MD_Identifier.code
+
+| 23
+| Metadata
+| metadata
+| 0..1
+| String
+| MD_Metadata.fileIdentifier
+
+Name of XML metadata file (<<cls-10c-12>>).
+
+Ref. S-100 Part 8
+
+Must be present and populated if an ISO XML metadata file describing this dataset is included in the Exchange Set; must be omitted otherwise.
+
+| 24
+| Vertical coordinate system
+| verticalCS
+| 0..1
+| Integer
+| EPSG Code; Allowed Values
+
+* 6498 (Depth -- Metres -- Orientation down)
+* 6499 (Height -- Metres -- Orientation up)
+
+| 25
+| Vertical coordinate base
+| verticalCoordinateBase
+| 0..1
+| Enumeration
+| See <<tab-10c-22>>
+
+| 26
+| Vertical datum reference
+| verticalDatumReference
+| 0..1
+| Enumeration
+| Only if verticalCoordinateBase = 2
+
+See <<tab-10c-23>>
+
+| 27
+| Vertical datum
+| verticalDatum
+| 0..1
+| Integer
+| Only if verticalCoordinateBase = 2
+
+If verticalDatumReference = 1 this is a value from S100_VerticalAndSoundingDatum
+
+If verticalDatumReference = 2 this is an EPSG code for vertical datum
+
+| 28
+| Meta features
+| metaFeatures
+| 0..1
+| String
+| Name of 8211 or GML file containing meta-features
+
+GML files must have extension .GML or .gml; <<ISO8211>> files must have extension .NNN where N is any digit
+|===
+
+[NOTE]
+====
+If the CRS is user defined only the following coordinate systems are
+supported:
+
+Geodetic CS (Latitude, Longitude) -- Degrees; and
+
+Cartesian CS (Northing, Easting or Easting, Northing) -- Metres.
+====
+
+NOTE: For the horizontal Datum all EPSG predefined Datum are allowed or
+any combination of predefined Prime Meridians or predefined Spheroids.
+
+NOTE: The projection methods are limited to those given in <<tab-10c-24>>.
+
+NOTE: If the horizontal CRS is defined by the EPSG code, the defined CRS
+should not use any other elements than the one allowed for user defined
+CRSs; (for example, no projection method that is not in the Table).
+
+NOTE: The bounding box is the data set bounding box; the coverage data
+feature instances may or may not cover the entire bounding box. If there
+is only a single coverage feature, its extent may or may not be the same
+as the data set.
+
+NOTE: The core attributes correspond to metadata attributes in
+S100_DatasetDiscoveryMetadata (Part 4a) or the imagery/gridded/coverage
+data attributes in Part 8. The correspondences are given in the Remarks
+column.
+
+NOTE: Vertical datum is optional since it is not applicable to some types
+of depth referencing as used in some data products; for example, Surface
+Currents.
+
+Product Specifications which need additional metadata attributes may
+include them as additional attributes, defined in the Product
+Specification. The additional attributes must be defined in the same way
+as <<tab-10c-6>> -- specifically, they must have a camel-case name
+beginning with a lower-case letter, multiplicity either 0..1 (optional) or
+1 (mandatory) and be one of the allowed types listed in <<tab-10c-1>>. In
+addition, restrictions or additional conditions can be added for core
+carrier metadata attributes. The data types of common carrier metadata
+attributes cannot be changed, but the range of allowed values may be
+restricted or optional attributes made mandatory or conditionally
+mandatory.
+
+[example]
+<<tab-10c-7>> shows how a Product Specification might define an additional
+attribute (Vertical reference), introduce a conditional test for a core
+metadata attribute (Vertical datum reference), and make an optional
+metadata attribute mandatory (Time of data product issue).
+
+[[tab-10c-7]]
+.Example of extended metadata attribute and additional conditions on core metadata attributes
+[cols="a,a,a,a,a,a",options=header]
+|===
+| No | Name | Camel Case | Mult | Data Type | Remarks and/or Units
+
+6+.<| _Additional carrier metadata_
+
+| 11
+| Vertical reference
+| depthTypeIndex
+| 1
+| Enumeration
+| 1: Layer average
+
+2: Sea surface
+
+3: Vertical datum (see verticalDatum)
+
+4: Sea bottom
+
+6+.<| _Additional restrictions or conditions on core carrier metadata_
+| 2
+| Time of data product issue
+| issueTime
+| 1
+| String (Time format)
+|
+
+| 9
+| Vertical datum reference
+| verticalDatum
+| 0..1
+| Enumeration
+| Required if and only if depthTypeIndex=3
+|===
+
+How the Product Specification describes core and extended metadata
+attributes is left to the specification writers, but specifications should
+distinguish core attributes from extended attributes as well as clearly
+indicating any additional restrictions or conditions on core attributes.
+The ISO format for specifying metadata extensions (Part 4a clause
+4a-5.7.5) may be used.
+
+[[cls-10c-9.5]]
+=== Feature information group
+
+The feature information group contains the specifications of feature
+classes and their attributes. The components of the feature information
+group are described in <<tab-10c-8>>.
+
+[[tab-10c-8]]
+.Components of feature information group
+[cols="a,a,a,a,a",options=header]
+|===
+| Group | HDF5 Category | Name | Data Type or HDF Category | Data Space
+
+.2+| /Group_F
+| Dataset
+| featureCode
+| String (variable length)
+| Array (1-D): i=0, F-1
+
+Values = codes of feature classes
+
+(F is the number of feature classes in the application schema.)
+
+| Dataset(s)
+
+(feature information datasets - one for each feature in the featureCode array)
+| <featureCode>
+
+For example: SurfaceCurrent, WaterLevel
+| Array of Compound
+
+(String X 8)
+| Array (1-D): i=0, _NA~F~-1_ _(NA~F~ = number of attributes of feature named by <featurecode>)_.
+
+Components of the compound type: +
+code: camel case code of attribute as in feature catalogue +
+name: long name as in feature catalogue +
+uom.name: units (uom>name from S-100 feature catalogue) +
+fillValue: fill value (integer or float value, string representation) +
+datatype: HDF5 data type, as returned by H5Tget_class() function +
+lower: lower bound on value of attribute +
+upper: upper bound on attribute value +
+closure: type of closure
+
+The "code" and "datatype" components encode the rangeType attribute of the coverage features in Part 8
+
+"lower", "upper", and "closure" encode any constraints on attribute values as encoded in the feature catalogue (see "S100_FC_SimpleAttribute>constraints" in Part 5 and S100_NumericRange in Part 1)
+|===
+
+NOTE: Land mask or unknown values are represented by the attribute's
+_fillValue_.
+
+[%portrait]
+<<<
+
+All the numeric values in the feature description dataset are string
+representations of numeric values; for example, "-9999.0" not the float
+value -9999.0. Applications are expected to parse the strings to obtain
+the numeric value. Inapplicable entries are represented by null values or
+the empty (0-length) string.
+
+An entry in Group_F is required for every feature type that is used in the
+HDF5 data file. This means that:
+
+* The *featureCode* array must include each feature type for which there
+is a feature instance somewhere in the current physical file.
+* There must be a feature description dataset for each feature type named
+in the *featureCode* array.
+* Each feature description dataset must list all the attributes of the
+feature type (both direct and inherited) as specified in the Feature
+Catalogue.
+
+[TIP,type=box]
+====
+Note that the above requirements do not mandate entries in Group_F for
+feature types which are defined in the XML feature catalogue but for which
+there are no instances in the current data file.
+====
+
+The number of attributes for each feature type (NA~F~ in <<tab-10c-8>>) is
+not explicitly specified but can be determined using HDF5 API to determine
+the number of rows in each feature description dataset.
+
+<<fig-10c-8>> depicts Group_F for a hypothetical product with two feature
+types, _SurfaceCurrent_ and _WaterLevel_. The two features are named
+(using the camel case codes from the feature catalogue) in the dataset
+*featureCode*. The feature description datasets *SurfaceCurrent* and
+*WaterLevel* describe the attributes of each feature type. The feature
+description datasets are given the same names as the values in the
+*featureCode* dataset, which are the camel case codes of the features from
+the XML feature catalogue. Each feature description dataset is an array of
+compound type elements, whose components are the 8 components specified in
+<<tab-10c-8>>.
+
+[[fig-10c-8]]
+.Example of Group_F
+image::img159.png[]
+
+[[cls-10c-9.6]]
+=== Feature container group
+
+The feature container groups contain the coordinates and values for all
+instances of a single feature class. Each feature instance is allocated
+its own group within the feature container group. This organization allows
+class-wide attributes to be attached to the class as a whole and
+instance-specific attributes to be attached to the appropriate feature
+instance.
+
+NOTE: The decision to make a distinct group for each feature instance is
+based on the fact that there will be multiple datasets for a single
+instance in some circumstances (for example, index, TIN, etc), and placing
+all the datasets directly under the container group is likely to add
+confusion to the data organization from the human perspective at least
+(though suffixes might suffice to distinguish different instances for
+programming purposes).
+
+The structure of the Feature Container group is shown in <<tab-10c-9>>
+below. This Table also shows the feature instance group(s). The axis names
+are given in a dataset at the feature container level.
+
+Metadata that is common to all instances of the feature class (such as
+dimensionality) is encoded at the feature container level and these
+metadata elements are listed in <<tab-10c-10>>. Metadata that is specific
+to feature instances (such as grid parameters) is encoded at the instance
+level and these elements are listed in <<tab-10c-12>>.
+
+Product Specifications may add product-specific metadata attributes. The
+guidelines for additional metadata elements are the same as additional
+metadata elements in the root group (<<cls-10c-9.4>>).
+
+[%landscape]
+<<<
+
+[[tab-10c-9]]
+.Structure of feature container groups
+[cols="a,a,a,a,a"]
+|===
+| Group | HDF5 Category | Name | Data Type | Remarks / Data space
+
+.6+| /(feature code)
+
+| attribute
+| See <<tab-10c-10>>
+| (see Table)
+| Single-valued attributes as described in <<tab-10c-10>>
+
+| Dataset
+| axisNames
+| String
+| Array (1-D): 0..D-1 where D is the value of the _dimension_ attribute
+
+Axes should be in major-minor order; that is, if storage is to be in row-major order the X/longitude axis should be first
+
+| Dataset (optional)
+| coordinateSize
+| Integer
+| Array (1-D): 0..D-1 where D is the value of the _dimension_ attribute
+
+The size of the coordinate encoding in bytes. Allowed values are 1, 2, 4, or 8. If this dataset is not present the coordinates must be encoded using 64 bits (8 bytes) for Float coordinates and 32 bits (4 bytes) for Integer coordinates
+
+| Dataset (optional)
+| interpolationParameters
+| Float
+| Array (1-D) of interpolation parameters
+
+Required if and only if the value of attribute _interpolationType_ is 'biquadratic' or 'bicubic'
+
+| Dataset (optional)
+| featureAttributeTable
+| Compound
+| Array (1-D) of index-based feature attributes (<<cls-10c-9.6.2>>).
+
+Required if and only if the value of attribute _dataCodingFormat_ is 9
+
+| Group
+| /(feature code).N
+|
+| Container for each instance of a feature type. Numbered sequentially from 1 to _numInstances_ (<<tab-10c-10>>). Zero-padding with leading zeros must be used so that the 'N' suffixes are all the same length. To accommodate expansion, an extra zero is recommended
+|===
+
+NOTE: "uncertainty" is the uncertainty in data values, position
+uncertainty (both horizontal and vertical) is encoded separately.
+
+NOTE: The length of the interpolationParameters dataset and sequence of
+parameters should be provided in the Product Specification.
+
+[[tab-10c-10]]
+.Attributes of feature container groups
+[cols="a,a,a,a,a,a"]
+|===
+| No | Name | Camel Case | Mult | Data Type | Remarks and/or Units
+
+|
+| Data organization index
+| dataCodingFormat
+| 1
+| Enumeration
+| Indication of the type of coverage in instances of this feature. Used to read the data (see <<tab-10c-4>>)
+
+1: Time series at fixed stations
+
+2: Regularly-gridded arrays
+
+3: Ungeorectified gridded arrays
+
+4: Moving platform
+
+5: Irregular grid
+
+6: Variable cell size
+
+7: TIN
+
+8: Time series at fixed stations (stationwise)
+
+9: Feature oriented Regular Grid
+
+|
+| Dimension
+| dimension
+| 1
+| Integer
+| The dimension of the feature instances
+
+This is the number of coordinate axes, not the rank of the HDF5 arrays storing coordinates or values. For example, a fixed stations dataset with positions in latitude and longitude will have dimension=2
+
+|
+| Common point rule
+| commonPointRule
+| 1
+| Enumeration
+| The procedure used for evaluating the coverage at a position that falls on the boundary or in an area of overlap between geometric objects
+
+Values from CV_CommonPointRule (Part 8, Table 8-11)
+
+|
+| Horizontal position uncertainty
+| horizontalPositionUncertainty
+| 1
+| Float
+| The uncertainty in horizontal coordinates.
+
+For example, -1.0 (unknown/inapplicable) or positive value (m)
+
+|
+| Vertical position uncertainty
+| verticalUncertainty
+| 1
+| Float
+| The uncertainty in vertical coordinate(s).
+
+For example, -1.0 (unknown/inapplicable) or positive value (m)
+
+|
+| Time uncertainty
+| timeUncertainty
+| 0..1
+| Float
+| Uncertainty in time values.
+
+For example, -1.0 (unknown/inapplicable) or positive value (s)
+
+Only for time series data
+
+|
+| Number of feature instances
+| numInstances
+| 1
+| Integer
+| Number of instances of the feature
+
+(Records in the same time series or moving platform sequence are counted as a single instance, not as separate instances)
+
+|
+| (additional common attributes)
+|
+|
+|
+| (As specified in Product Specification)
+
+6+.<| dataCodingFormat = 1
+|
+| (none)
+|
+|
+|
+|
+
+6+.<| dataCodingFormat = 2
+
+.2+|
+.2+| Sequencing rule
+| sequencingRule.type
+| 1
+| Enumeration
+.2+| Method to be used to assign values from the sequence of values to the grid coordinates
+
+Type and scan direction are encoded as separate attributestype: Enumeration CV_SequenceType (Part 8, Table 8-13)
+
+scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
+
+| sequencingRule.scanDirection
+| 1
+| String
+
+|
+| Interpolation type
+| interpolationType
+| 1
+| Enumeration
+| Interpolation method recommended for evaluation of the S100_GridCoverage
+
+Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+
+|
+| Offset of data point in cell
+| dataOffsetCode
+| 0..1
+| Enumeration
+| See <<cls-10c-9.6.1>>
+
+1: XMin, YMin ("Lower left") corner ("Cell origin")
+
+2: XMax, YMax ("Upper right") corner
+
+3: XMax, YMin ("Lower right") corner
+
+4: XMin, YMax ("Upper left") corner
+
+5: Barycenter (centroid) of cell
+
+|
+| Offset of data point in cell as vector
+| dataOffsetVector
+| 0..1
+| Float
+| Array (1-D) 0..D-1 where D is the value of the dimension attribute
+
+Values must be real numbers in the range [0,1]
+
+See  <<cls-10c-9.6.1>>
+
+6+.<| dataCodingFormat = 3
+|
+| Interpolation type
+| interpolationType
+| 1
+| Enumeration
+| Interpolation method recommended for evaluation of the S100_GridCoverage
+
+Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+
+6+.<| dataCodingFormat = 4
+|
+| (none)
+|
+|
+|
+|
+
+6+.<| dataCodingFormat = 5
+.2+|
+.2+| Sequencing rule
+| sequencingRule.type
+| 1
+| Enumeration
+.2+| Method to be used to assign values from the sequence of values to the grid coordinates
+
+Type and scan direction are encoded as separate attributes
+
+type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+
+scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
+
+| sequencingRule.scanDirection | 1 | String
+
+|
+| Interpolation type
+| interpolationType
+| 1
+| Enumeration
+| Interpolation method recommended for evaluation of the S100_GridCoverage
+
+Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+
+|
+| Offset of data point in cell
+| dataOffsetCode
+| 0..1
+| Enumeration
+| See <<cls-10c-9.6.1>>
+
+1: XMin, YMin ("Lower left") corner ("Cell origin")
+
+2: XMax, YMax ("Upper right") corner
+
+3: XMax, YMin ("Lower right") corner
+
+4: XMin, YMax ("Upper left") corner
+
+5: Barycenter (centroid) of cell
+
+|
+| Offset of data point in cell as vector
+| dataOffsetVector
+| 0..1
+| Float
+| Array (1-D) 0..D-1 where D is the value of the dimension attribute
+
+Values must be real numbers in the range [0,1]
+
+See <<cls-10c-9.6.1>>
+
+6+.<| dataCodingFormat = 6
+.2+|
+.2+| Sequencing rule
+| sequencingRule.type
+| 1
+| Enumeration
+.2+| Method to be used to assign values from the sequence of values to the grid coordinates
+
+Type and scan direction are encoded as separate attributes
+
+type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+
+scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
+
+| sequencingRule.scanDirection
+| 1
+| String
+
+|
+| Interpolation type
+| interpolationType
+| 1
+| Enumeration
+| Interpolation method recommended for evaluation of the S100_GridCoverage
+
+Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+
+|
+| Offset of data point in cell
+| dataOffsetCode
+| 0..1
+| Enumeration
+| See <<cls-10c-9.6.1>>
+
+1: XMin, YMin ("Lower left") corner ("Cell origin")
+
+2: XMax, YMax ("Upper right") corner
+
+3: XMax, YMin ("Lower right") corner
+
+4: XMin, YMax ("Upper left") corner
+
+5: Barycenter (centroid) of cell
+
+|
+| Offset of data point in cell as vector
+| dataOffsetVector
+| 0..1
+| Float
+| Array (1-D) 0..D-1 where D is the value of the dimension attribute
+
+Values must be real numbers in the range [0,1]
+
+See <<cls-10c-9.6.1>>
+
+6+.<| dataCodingFormat = 7
+|
+| Interpolation type
+| interpolationType
+| 1
+| Enumeration
+| Interpolation method recommended for evaluation of the S100_GridCoverage
+
+Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+
+6+.<| dataCodingFormat = 8
+|
+| (none)
+|
+|
+|
+|
+
+6+.<| dataCodingFormat = 9
+|
+| Offset of data point in cell
+| dataOffsetCode
+| 0..1
+| Enumeration
+| See <<cls-10c-9.6.1>>
+
+1: XMin, YMin ("Lower left") corner ("Cell origin")
+
+2: XMax, YMax ("Upper right") corner
+
+3: XMax, YMin ("Lower right") corner
+
+4: XMin, YMax ("Upper left") corner
+
+5: Barycenter (centroid) of cell
+
+|
+| Offset of data point in cell as vector
+| dataOffsetVector
+| 0..1
+| Float
+| Array (1-D) 0..D-1 where D is the value of the dimension attribute
+
+Values must be real numbers in the range [0,1]
+
+See <<cls-10c-9.6.1>>
+
+|
+| Sequencing rule
+| sequencingRule.type
+
+sequencingRule.scanDirection
+| 1
+
+1
+| Enumeration
+
+String
+| Method to be used to assign values from the sequence of values to the grid coordinates
+
+Type and scan direction are encoded as separate attributes
+
+type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+
+scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
+
+6+.<| (any dataCodingFormat value)
+
+|
+| (additional attributes)
+|
+|
+|
+| (As specified in Product Specification)
+|===
+
+[[cls-10c-9.6.1]]
+==== Location of data point within cell
+
+Product Specifications may require their data products to indicate the
+relative location of the data point corresponding to a grid cell in
+relation to the corners of the cell. The location can be indicated using
+either the _dataOffsetCode_ or _dataOffsetVector_ attribute. These
+attributes can be used only with grid-based coverages and not with time
+series, TIN, or moving platform data. Product Specifications may use
+either _dataOffsetCode_ or _dataOffsetVector_ but not both.
+
+Product Specifications in which the data point is located at the (XMin,
+YMin) grid point need not use either _dataOffsetCode_ or
+_dataOffsetVector_.
+
+The attribute _dataOffsetCode_ can be used only with two-dimensional
+grids. It indicates whether the data point is one of the four cell corners
+or the centre of the cell. Note that the definitions of the codes
+indicating the corners are in terms of X and Y grid coordinates relative
+to the grid origin. (This means that in a grid with its X axis directed
+from east to west and Y axis from north to south the "lower left" corner
+is different from the "lower left" corner in a grid with X axis directed
+west to east and Y axis south to north.)
+
+The attribute _dataOffsetVector_ is intended for use with higher-dimension
+grids or in cases where the data point location is not at one of the
+corners or the centre of the cell. The values in this array indicate the
+relative offset along each axis of the data point from the grid point
+whose grid coordinates are closest to those of the grid origin. In a
+two-dimensional grid, this will be the point with smallest X and Y grid
+coordinates. Again, it should be noted that the direction of the axes and
+the location of the grid origin determines which corner is the cell
+origin. Each offset is relative to the dimension of the cell along the
+corresponding axis. The order of values in _dataOffsetVector_ must
+correspond to the order of axes in the _axisNames_ array (<<tab-10c-9>>).
+
+For TIN coverages, the data points are located at the vertex points of the
+TIN. See S-100 Part 8, clause 8-7.4.
+
+[[cls-10c-9.6.2]]
+==== Feature attribute table
+
+This element is an optional record with the name "featureAttributeTable".
+The element is only used in the feature container group if the
+dataCodingFormat = 9 (Feature oriented Regular Grid). In all other cases,
+the element must not be used. The "featureAttributeTable" element can only
+ever be used in conjunction with the "values"-record of the "data values
+group(s)".
+
+The "featureAttributeTable" element corresponds to the HDF5 data type of a
+CompoundDataset as a 1-D array. It always consists of a fixed column with
+the name "id" and any number of additional columns.
+
+*[underline]#Column id#*
+
+The "id" column always contains one-to-one values of the unsigned integer
+data type. The values are always greater than zero (>0), since the value
+zero (0) is specified as a nodata value. The values do not have to
+correspond to any particular order. They can be chosen randomly. This
+allows using the identification value of an external data source; for
+example, a database. The column "id" always contains a value from the
+"values-record" of the "data values group(s)" of the "feature instance
+group(s)".The value serves as a link between the raster geometry of a
+feature and its descriptive data in the "featureAttributeTable". The
+one-to-one values of the "id" column may occur redundantly in the pixels
+in the raster image, but must always describe exactly one feature
+geometry. The effect of the redundancy in the raster image can be
+significantly reduced by compression within the HFD5 dataset.
+
+*[underline]#Additional columns#*
+
+The number of additional columns depends on the information to be
+transported. The number must always be greater than zero (>0).
+<<tab-10c-8>> defines that the name of the "feature container group" must
+always correspond to the camelCase name of an object of the type "Feature
+Type" of the IHO Geospatial Information (GI) Registry, Data Dictionary
+Register. The names of the other columns are based on the attributes of
+the selected feature type of the Data Dictionary Register. Due to the
+mapping form of the attributes in the HDF5 format, only simple data types
+(see <<cls-10c-7>>) can be used. For the mapping of complex data types, a
+corresponding notation by means of a dot is necessary. The respective
+levels of the complex data type are separated by a dot up to the simple
+data type; for example, "surveyDateRange.dateEnd" &
+"surveyDateRange.dateStart".
+
+[[cls-10c-9.7]]
+=== Feature instance group
+
+The feature instance groups are contained within the feature container
+groups. The structure of a feature instance group is defined in
+<<tab-10c-11>>. The attributes that are specific to each feature instance
+are defined in the Table following (<<tab-10c-12>>) and consist of
+information that may vary for different instances in the same dataset,
+such as extent, location, time, and grid size.
+
+[[tab-10c-11]]
+.Structure of feature instance groups
+[cols="a,a,a,a,a"]
+|===
+| Group | HDF5 Category | Name | Data Type | Remarks / Data space
+
+.10+| /(feature code).N
+
+For example: SurfaceCurrent.01
+
+| attributes
+| See <<tab-10c-12>>
+| (see Table)
+| Single-valued attributes as described in <<tab-10c-12>>
+
+| Dataset (optional)
+| domainExtent.polygon
+| Compound (Float, Float)
+| Spatial extent of the domain of the coverage
+
+Array (1-D): i=0, P
+
+Components: <longitude, latitude> or <X, Y> (coordinates of bounding polygon vertices as a closed ring; that is, the first and last elements will contain the same values)
+
+Either this or the bounding box attribute must be populated. For irregular arrays, this dataset must specify the polygon indicating the area for which data are provided
+
+| Dataset (optional)
+| domainExtent.verticalElement
+| Compound (Integer X 2, Float X 2)
+| Array (1-D) of compound elements each providing a grid location and maximum, minimum vertical extents at the location
+
+The components of the compound type are:
+
+gridX, gridY: Integer (grid point numbers along X/longitude and Y/latitude axes)
+
+minimumValue, maximumValue (Float): minimum and maximum Z values at the grid point specified by gridX and gridY
+
+Applicable only to 3-D grids. Either this dataset or the verticalExtent attribute (<<tab-10c-12>>) must be populated for 3-D grids
+
+| Dataset (optional)
+| extent
+| Compound (Integer X D)
+| 1-D array, of compound elements, 2 rows. Row 0 gives the "low" values, row 1 the "high" values
+
+The area of the grid for which data are provided. (Part 8 Figure 8-24)
+
+Components of compound type are named according to the axis names in the axisNames dataset
+
+| Dataset (optional)
+| uncertainty
+| Compound (String, Float)
+| Array (1-D): i = 0, (up to) NA~F~
+
+Code and uncertainty of data values
+
+For example, ("surfaceCurrentSpeed", 0.1)
+
+The number of attributes for this feature class (NA~F~) may be determined from Group_F
+
+| Dataset (optional)
+| cellGeometry
+| Compound(String, Float X 2, Integer X 1)
+| Cell geometry. Array (1-D) of length the same as the _axisNames_ array defined above (this means that if present, this dataset encodes all the axes including latitude, longitude, etc)
+
+Conditional, required only for regular grids (dataCodingFormat = 2 or 9) using coordinate reference systems with axes other than (latitude, longitude, vertical), or with more than 3 dimensions
+
+This array serves to extend the information encoded in the grid parameter attributes (origin, spacing, number of points) defined in <<tab-10c-12>> (Attributes of feature instance group) for data products which use higher-dimensional grids or non-standard coordinate axes
+
+Components:
+
+axisName: string (an entry in the _axisNames_ array defined above)
+
+gridOrigin: Float (the origin of the axis named in the axisName component)
+
+gridSpacing: Float (Cell spacing for the named axis)
+
+numPoints: Integer (the number of grid lines along the named axis)
+
+| Group (optional)
+| /Group_TL
+|
+| Tile information.
+
+Conditional, required if the Product Specification specifies tiling.
+
+| Group(optional)
+| /Group_IDX
+|
+| Spatial indexing method.
+
+Conditional, required if the Product Specification specifies spatial indexing.
+
+| Group(optional)
+| /Positioning
+|
+| Positioning information. Coordinates of data values.
+
+Conditional, required if dataCodingFormat is not 2 (Regular grid)
+
+| Group
+| /Group_nnn
+|
+| Data Values group(s).
+|===
+
+[[tab-10c-12]]
+.Attributes of feature instance groups
+[cols="a,a,a,a,a,a"]
+|===
+| No | Name | Camel Case | Mult | Data Type | Remarks and/or Units
+
+.4+|
+.4+| Bounding box
+| westBoundLongitude
+| 0..1
+| Float
+.4+| The geographic extent of the grid, as a bounding box
+
+Ref. domainExtent: EX_GeographicExtent > EX_GeographicBoundingBox
+
+Either this or the domainExtent dataset must be populated
+
+The bounds must either all be populated or all omitted
+
+The unit must conform to the CRS used for the dataset (for example, degrees for the geographic 2-D CRS EPSG 4326; and metres for the UTM zone projected CRS EPSG 32710)
+
+| eastBoundLongitude | 0..1 | Float
+| southBoundLatitude | 0..1 | Float
+| northBoundLatitude | 0..1 | Float
+
+|
+| Number of time records
+| numberOfTimes
+| 0..1
+| Integer
+| The total number of time records
+
+Time series data only. For dataCodingFormat = 8, this variable may be overridden by the corresponding one in the values group attributes (<<tab-10c-19>>)
+
+|
+| Time interval
+| timeRecordInterval
+| 0..1
+| Integer
+| The interval between time records. Units: Seconds
+
+Time series data only. For dataCodingFormat = 8, this variable may be overridden by the corresponding one in the values group attributes (<<tab-10c-19>>)
+
+|
+| Valid Time of Earliest Value
+| dateTimeOfFirstRecord
+| 0..1
+| Character
+| The validity time of the earliest time record. Units: DateTime
+
+Time series data only
+
+|
+| Valid Time of Latest Value
+| dateTimeOfLastRecord
+| 0..1
+| Character
+| The validity time of the latest time record. Units: DateTime
+
+Time series data only
+
+.2+|
+.2+| Vertical extent
+| verticalExtent.minimumZ
+| 0..1
+| Float
+.2+| Vertical extent of 3-D grids
+
+minimumZ, maximumZ: Minimum and maximum values of the grid's spatial extent along the vertical direction. They are encoded as separate attributes
+
+| verticalExtent.maximumZ | 0..1 | Float
+
+|
+| Number of groups
+| numGRP
+| 1
+| Integer
+| The number of data values groups contained in this instance group.
+
+|
+| (additional attributes specific to data product)
+| (as defined in Product Specification)
+|
+|
+|
+
+6+.<| dataCodingFormat = 1
+|
+| Number of fixed stations
+| numberOfStations
+| 1
+| Integer
+| The number of fixed stations
+
+6+.<| dataCodingFormat = 2 or 9
+|
+| Longitude of grid origin
+| gridOriginLongitude
+| 1
+| Float
+| The longitude of the grid origin. Unit: Arc Degrees
+
+|
+| Latitude of grid origin
+| gridOriginLatitude
+| 1
+| Float
+| The longitude of the grid origin. Arc Degrees
+
+|
+| Vertical grid origin
+| gridOriginVertical
+| 0..1
+| Float
+| The grid origin in the vertical dimension. Only for 3-D grids. Units specified by Product Specifications
+
+|
+| Grid spacing, long.
+| gridSpacingLongitudinal
+| 1
+| Float
+| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+
+|
+| Grid spacing, lat.
+| gridSpacingLatitudinal
+| 1
+| Float
+| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+
+|
+| Grid spacing, Z
+| gridSpacingVertical
+| 0..1
+| Float
+| Cell size in the vertical dimension. Only for 3-D grids. Units specified by Product Specifications
+
+|
+| Number of points, long.
+| numPointsLongitudinal
+| 1
+| Integer
+| Number of grid points in the X/longitude dimension. (iMax)
+
+|
+| Number of points, lat.
+| numPointsLatitudinal
+| 1
+| Integer
+| Number of grid points in the Y/latitude dimension. (jMax)
+
+|
+| Number of points, vertical
+| numPointsVertical
+| 0..1
+| Integer
+| Number of grid points in the vertical dimension. (kMax)
+
+|
+| Start sequence
+| startSequence
+| 1
+| String
+| Grid coordinates of the grid point to which the first in the sequence of values is to be assigned. The choice of a valid point for the start sequence is determined by the sequencing rule. Format: n, n... (comma-separated list of grid points, one per dimension -- For example, 0,0)
+
+6+.<| dataCodingFormat = 3
+|
+| Nodes in grid
+| numberOfNodes
+| 1
+| Integer
+| The total number of grid points
+
+6+.<| dataCodingFormat = 4
+|
+| Number of stations
+| numberOfStations
+| 1
+| Integer
+| Value is always 1
+
+6+.<| dataCodingFormat = 5 or 6
+|
+| Longitude of grid origin
+| gridOriginLongitude
+| 1
+| Float
+| The longitude of the grid origin. Unit: Arc Degrees
+
+|
+| Latitude of grid origin
+| gridOriginLatitude
+| 1
+| Float
+| The longitude of the grid origin. Arc Degrees
+
+|
+| Vertical grid origin
+| gridOriginVertical
+| 0..1
+| Float
+| The grid origin in the vertical dimension. Only for 3-D grids. Units specified by Product Specifications
+
+|
+| Grid spacing, long.
+| gridSpacingLongitudinal
+| 1
+| Float
+| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+
+For variable cell size grids this is the unit cell size (the size of the smallest cell in this dimension)
+
+|
+| Grid spacing, lat.
+| gridSpacingLatitudinal
+| 1
+| Float
+| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+
+For variable cell size grids this is the unit cell size
+
+|
+| Grid spacing, Z
+| gridSpacingVertical
+| 0..1
+| Float
+| Cell size in the vertical dimension. Only for 3-D grids. Units specified by Product Specifications. For variable cell size grids this is the unit cell size
+
+|
+| Nodes in grid
+| numberOfNodes
+| 1
+| Integer
+| The total number of grid points
+
+|
+| Start sequence
+| startSequence
+| 1
+| String
+| Grid coordinates of the grid point to which the first in the sequence of values is to be assigned. The choice of a valid point for the start sequence is determined by the sequencing rule. Format: n, n... (comma-separated list of grid points, one per dimension -- for example, 0,0)
+
+6+.<| dataCodingFormat = 7
+|
+| Nodes in grid
+| numberOfNodes
+| 1
+| Integer
+| The total number of grid points
+
+|
+| Triangles in grid
+| numberOfTriangles
+| 1
+| Integer
+| The total number of triangles in the TIN
+
+6+.<| dataCodingFormat = 8
+|
+| Number of fixed stations
+| numberOfStations
+| 1
+| Integer
+| The number of fixed stations
+
+6+.<| (any dataCodingFormat value)
+|
+| (additional attributes)
+|
+|
+|
+| (As specified in Product Specification)
+|===
+
+NOTE: The type-specific attributes for regular and variable cell size
+grids are the same except that the parameters giving the number of points
+in each dimension are replaced by the total number of nodes in the grid.
+
+NOTE: Attributes "Valid time of earliest value" and "Valid time of latest
+value" provide the _temporalElement_ component of the domainExtent
+attribute in the grid model (S-100 Part 8, Figures 8-22, 8-23 and 8-24).
+
+NOTE: Product Specifications may require use of one or the other of the
+domainExtent or boundingBox attributes, depending on whether spatial
+extents of feature instances are definitely known to be rectangular in the
+coordinate system or definitely known to be of irregular shape.
+
+[%portrait]
+<<<
+
+[[cls-10c-9.7.1]]
+==== Overriding attributes
+
+A feature instance group may also carry any of the following attributes
+defined in higher-level groups. The attribute value assigned in the
+feature instance group overrides the value in the higher group.
+
+* The "Vertical datum reference" (verticalDatum) attribute from the Root
+group;
+* Any attribute from the Feature Container group, *except* "Number of
+feature instances" (numInstances).
+
+Product Specifications may prohibit attribute overriding if not required
+for their products.
+
+NOTE: Attribute overriding is intended to allow certain products to encode
+variations of feature types in the same data file, for example, if an
+application schema defines a feature which can have either regular grid or
+fixed station information, and therefore may need different metadata
+attributes. Product Specification authors should note however that this
+issue can be resolved in application schemas by defining appropriate
+specializations of the feature class, which would be distinct feature
+types, and therefore encoded in different feature containers.
+
+NOTE: Attribute overriding also allows production-time differences, such
+as different vertical datums for different instances. While this is
+possible, its practice should be avoided in order to reduce the
+possibility of human error in application development as well as by the
+end-user.
+
+[[cls-10c-9.7.2]]
+==== Example of container and instance structure
+
+<<fig-10c-9>> depicts the structure of a hypothetical data file containing
+3 instances of the *SurfaceCurrent* feature type.
+
+* The vertical panel on the left shows the overall structure. The data
+product consists of 2 features (*SurfaceCurrent* and *WaterLevel*). Each
+is represented by a group just under the root group. The Feature
+Information group described earlier (<<cls-10c-9.5>>) is also shown.
+* The Feature Container group named *SurfaceCurrent* contains 3 instances
+of the *SurfaceCurrent* feature type (hypothetically, data for 3 separate
+places, each with a local coverage grid). Each instance contains subgroups
+(Group_001, etc) for time series data.
+* Locations are encoded in the *geometryValues* dataset in the
+*Positioning* group (panel at top right). The *axisNames* panel to its
+left names the components of the *geometryValues* (that is., the
+coordinate axes).
+* The *SurfaceCurrent* panel in the the middle shows the metadata
+attributes common to all instances, which are attached to the
+*SurfaceCurrent* feature container group.
+* The two panels at the bottom show the instance-specific metadata for the
+feature instances *SurfaceCurrent.01* and *SurfaceCurrent.02*.
+
+[[fig-10c-9]]
+.Illustrative example of dataset structure.
+image::img160.png[]
+
+[[cls-10c-9.8]]
+=== Tiling information group
+
+This group encodes information about the tiling scheme used in the (S-100)
+dataset. It is present if and only if the data is encoded in more than a
+single tile. Some tiling schemes are described in S-100 Part 8, clause
+8-6. This edition of the HDF5 profile supports only two tilings: simple
+grid and variable density simple grid. In both cases, the extents of the
+tiles are specified in terms of their bounding boxes (<<tab-10c-12>>).
+
+The spatial union of tile surfaces must cover all the features in the
+(S-100) dataset, but the converse is not a requirement. (Informally, this
+means that there may be parts of tiles that are not covered by the
+geometry of any feature in the dataset, but not vice versa -- there cannot
+be parts of feature geometry that are not covered by at least one tile.)
+
+Note that tiling is not quite the same concept as "chunking", as the
+latter is defined in HDF5 and NetCDF -- tiles are coordinate-based
+geographical partitions, while chunking defines slices of HDF5 datasets
+for storage and retrieval performance optimization.
+
+[[tab-10c-13]]
+.Tiling information group
+[cols="a,a,a,a,a",options=header]
+|===
+| Group | HDF5 Category | Name | Data Type or HDF Category | Remarks / Data space
+
+.3+| /Group_TL
+| Attribute
+| numTiles
+| Integer
+| Number of tiles
+
+value > 0
+
+| Attribute
+| tilingScheme
+| Enumeration
+| 1: Simple grid
+
+2: Variable-density simple grid
+
+(Product Specification must pick one)
+
+| Dataset
+| tiles
+| Array
+
+Compound (Float X 4, Integer)
+| Bounding boxes of tiles.
+
+Components:
+
+westBoundLongitude: Float
+
+eastBoundLongitude: Float
+
+southBoundLatitude: Float
+
+northBoundLatitude: Float
+
+tileID: Integer (tile identifier)
+|===
+
+The details of tiling methods are left to Product Specifications in this
+edition of S-100. This profile does not specify an ordering for the tiles,
+nor does it control the use or non-use of hierarchical tiling schemes.
+S-100 Part 8, clause 8-6 requires that any tiling scheme used must be
+completely described as part of the Product Specification for a particular
+data product. This includes the dimensions, location and data density of
+tiles as well as a tile identification mechanism (tileID).
+
+[[cls-10c-9.9]]
+=== Indexes group
+
+The indexes group encodes spatial indexing information, if used by the
+Product Specification. This group is encoded if and only if the Product
+Specification prescribes a spatial indexing method and requires explicit
+encoding of the spatial index.
+
+[[tab-10c-14]]
+.Indexes group
+[cols="a,a,a,a,a"]
+|===
+| Group | HDF5 Category | Name | Data Type or HDF Category | Remarks / Data space
+
+.2+| /Group_IDX
+| Attribute
+| indexingMethod
+| Enumeration
+| Spatial indexing method.
+
+(Described in Product Specifications)
+
+| Dataset(s) | spatialIndex | (Depends on indexing method) | Data encoding the spatial index.
+
+(Described in Product Specifications)
+|===
+
+The details of indexing methods and the structure of index datasets are
+left to Product Specifications in this edition of S-100.
+
+[[cls-10c-9.10]]
+=== Positioning group
+
+Depending of the data coding format, there can be a positioning group,
+Positioning. This group contains no attributes, it contains a coordinates
+dataset, which is an array of compound type with components named the same
+as the _axisNames_ dataset in the Feature Container group. This group is
+used for values of _dataCodingFormat_ of 1, 3, 4, 7 and 8
+(<<cls-10c-9.3>>). It is not used for _dataCodingFormat_ = 2 (regular
+grids), 5 (irregular grid), 6 (variable cell size grid), or 9 (Feature
+oriented Regular Grid).
+
+The traversal order for grids of different types is specified by the
+carrier metadata attribute _sequencingRule_ in the feature container
+group. Traversal order is not used for fixed station, moving platform, or
+TIN, or fixed station (stationwise) data (_dataCodingFormat_ = 1, 4, 7 or
+8).
+
+The dimensionality D of the data is given by the _dimension_ metadata
+attribute in the feature container group.
+
+[[cls-10c-9.10.1]]
+==== Spatial representation strategy
+
+For regularly gridded data (dataCodingFormat = 2 or 9), the number of grid
+points in each dimension, grid spacing, and grid origin are encoded in
+metadata attributes. (For example, for 2-D grids, the metadata attributes
+_numPointsLongitudinal_ and _numPointsLatitudinal_ encode the points along
+the longitude and latitude axes.) Given these parameters and the indexes
+of a point in the grid, the position of the point can be computed by
+simple formulae.
+
+For fixed station time series data, ungeorectified gridded data, moving
+platform data, triangulated irregular networks and fixed station
+(stationwise) time series data (that is, when dataCodingFormat is 1, 3, 4,
+7 or 8), the location of each point must be specified individually. This
+is accomplished in an HDF5 dataset in the "Positioning" group, which
+givesthe individual location coordinates (for example, longitude and
+latitude) for each location. For fixed station time series and fixed
+station (stationwise) time series data, the longitude and latitude values
+are the positions of the stations; the number of stations is
+_numberOfStations_. For ungeorectified gridded data, the values are the
+positions of each point in the grid; the number of grid points is
+_numberOfNodes_. For moving platform data, values are the positions of the
+platform at each time; the number of platforms is _numberOfStations_.
+
+For irregular grid and variable cell size coverages (dataCodingFormat 5
+and 6), the storage format uses the same metadata as for regular grids
+plus HDF5 datasets indicating which cells are populated or aggregated
+respectively. The latter datasets encode the locations of cells in terms
+of grid point or cell address in grid coordinates -- that is, the indexes
+in the grid, or the Morton code -- not the geographic (latitude/longitude)
+coordinates. The sequencing and axis order needed for interpretation of
+the grid coordinates as geographic coordinates are given by the
+_sequencingRule_ and _scanDirection_ attributes respectively. By combining
+this information with the grid parameters provided in metadata, the
+position of populated cells/points can be computed with slightly more
+complex formulae than for regularly gridded data.
+
+<<tab-10c-15>> summarizes the strategies for storage of coordinate
+information.
+
+[[tab-10c-15]]
+.Positioning dataset types and dimensions for different coverage types
+[cols="a,a,a"]
+|===
+| Type of coverage | dataCodingFormat | Structure of coordinates dataset
+
+| Fixed Stations | 1 | 1-dimensional Array, length = numberOfStations
+| Regular Grid | 2 | not used
+| Ungeorectified Grid | 3 | 1-dimensional Array, length = numberOfNodes
+| Moving Platform | 4 | 1-dimensional Array, length = numberOfTimes
+| Irregular Grid | 5 | not used
+| Variable cell size | 6 | not used
+| TIN | 7 | 1-dimensional Array, length = numberOfNodes
+| Fixed Stations (Stationwise) | 8 | 1-dimensional Array, length - numberOfStations
+| Feature oriented Regular Grid | 9 | not used
+|===
+
+NOTE: Multiple moving platforms can be encoded as different feature
+instances.
+
+[[cls-10c-9.10.2]]
+==== Data structures for storing position information for grid points
+
+The number of positions is computed as specified in <<tab-10c-4>> in
+<<cls-10c-9.3>>.
+
+[[tab-10c-16]]
+.Positioning group
+[cols="a,a,a,a,a",options=header]
+|===
+| Group | HDF5 Category | Name | Data Type | Data Space
+
+| /Positioning
+| Dataset
+| geometryValues
+| Compound (Float X D)
+| Array (1-dimensional) of size dependent on dataCodingFormat, see <<tab-10c-15>>
+
+Components of compound type are named according to the axis names (for example, 'latitude', 'longitude', 'Z', etc)
+
+The dimension D and the component names are specified in the feature container group _dimension_ attribute and _axisNames_ dataset respectively (<<tab-10c-10;and!tab-10c-9>>)
+
+|
+| Dataset
+| triangles(optional)
+| Array(Integer)
+| Array (2-D): dimensions numberOfTriangles X 3
+
+Each row encodes a triangle as the indexes of 3 coordinates in the _geometryValues_ dataset
+
+Required only for dataCodingFormat = 7 (TIN)
+
+|
+| Dataset
+| adjacency(optional)
+| Array(Integer)
+| Array (2-D): dimensions numberOfTriangles X 3
+
+Each row encodes the triangles adjacent to any given triangle by specifying their indexes in the triangles dataset
+
+adjacency[i][0] = triangle adjacent to the edge specified by triangles[i][0] & triangles[i][1]
+
+adjacency[i][1] = triangle adjacent to edge triangles[i][1] & triangles[i][2]
+
+adjacency[i][2] = triangle adjacent to edge triangles[i][2] & triangles[i][0]
+
+Elements for edges without adjacent triangles are filled with the value -1
+
+Applicable only for dataCodingFormat = 7 (TIN), but optional even for TIN.
+|===
+
+[[cls-10c-9.11]]
+=== Data values groups
+
+The structure of data values content is analogous to that of positioning
+content, except that regular grid data values (dataCodingFormat = 2 or 9)
+are stored as a D-dimensional array corresponding to the axis order in the
+_axisNames_ dataset in the Feature Container group (major index precedes
+minor index). The dimensionality D is encoded in the _dimension_ attribute
+of the Feature Container group.
+
+[example]
+For two-dimensional regularly gridded data, the value arrays are two
+dimensional, with dimensions numPointsLongitudinal and
+numPointsLatitudinal.
+
+For fixed station time series data, ungeorectified gridded data, moving
+platform data, triangulated irregular networks and fixed station
+(stationwise) time series data (that is, when dataCodingFormat is 1, 3, 4,
+7 or 8), the data values are stored as 1-dimensional datasets of length
+given by the numberOfTimes, numberOfNodes or numberOfStations metadata
+attribute of the feature instance group (<<tab-10c-12>>) depending on the
+dataCodingFormat.
+
+For irregular grid coverages (dataCodingFormat=5), the storage of data
+values is the same as for ungeorectified grids etc (that is, a
+1-dimensional array of value records, length = numberOfNodes) but the
+value group includes a dataset that specifies the grid point or cell
+address associated to each entry in the values array. This second dataset
+uses grid coordinates -- that is, the indexes in the grid, or the Morton
+code -- not the geographic (latitude/longitude) coordinates. The
+sequencing and axis order needed for interpretation of the grid
+coordinates as geographic coordinates are given by the _sequencingRule_
+and _scanDirection_ attributes respectively.
+
+For variable cell size coverages (dataCodingFormat=6) the storage of data
+values is the same as for irregular grid coverages but the values groups
+contains the grid index dataset used by irregular grids as well as a
+dataset indicating which cells are aggregated into larger cells.
+
+The various datasets and their components are described in the following
+<<tab-10c-17>>.
+
+[%landscape]
+<<<
+
+[[tab-10c-17]]
+.Values dataset type and size for different data encoding formats
+[cols="a,a,a,a"]
+|===
+| Type of coverage | dataCodingFormat | Structure of values and auxiliary HDF5 datasets | HDF5 Dataset components
+
+| Fixed Stations
+| 1
+| values: 1-dimensional Array, length = numberOfStations
+| Compound, one component for each attribute specified in the corresponding feature information dataset in the Feature Information group (<<tab-10c-8>>)
+
+Component name: attribute code as specified in the feature information dataset
+
+Component type: Any appropriate HDF5 datatype consistent with the attribute datatype specified in the Feature Information dataset
+
+| Regular Grid
+| 2
+| values: D-dimensional array, dimensions specified by:
+
+2-D: numPointsLatitudinal X numPointsLongitudinal
+
+3-D: numPointsLatitudinal X numPointsLongitudinal X numPointsVertical
+
+If _cellGeometry_ is present in feature instance group: product of all cellGeometry[i].numPoints values.
+| As for fixed stations
+
+| Ungeorectified Grid
+| 3
+| values: 1-dimensional Array, length = numberOfNodes
+| As for fixed stations
+
+| Moving Platform
+| 4
+| values: 1-dimensional Array, length = numberOfTimes
+| As for fixed stations
+
+.2+| Irregular Grid
+.2+| 5
+| values: 1-dimensional Array, length = numberOfNodes
+| As for fixed stations.
+
+Ordered according to the sequence rule specified by the _sequencingRule_ and _scanDirection_ attributes of the Feature Container group (<<tab-10c-10>>)
+
+| gridIndex: 1-dimensional Array, length = numberOfNodes
+
+(dataset attribute codeSize: Integer - gives the length of the bitfield)
+| Element type: bitfield (length determined by grid dimensions)
+
+Order of element corresponds to the values array
+
+Each element contains the code of the cell (grid point) according to the sequence rule specified by the _sequencingRule_ and _scanDirection_ attributes.
+
+For example, the Morton code of the cell
+
+.3+| Variable cell size
+.3+| 6
+| values: 1-dimensional Array, length = numberOfNodes
+| As for fixed stations
+| gridIndex: 1-dimensional Array, length = numberOfNodes
+
+(dataset attribute codeSize: Integer - gives the length of the bitfield)
+
+| (As for the _gridIndex_ Array for irregular grids)
+
+For cells that aggregate multiple unit cells, use the first cell (grid point) encountered in the sequencing order.
+
+For example, the Morton code of the cell
+| cellScale: 1-dimensional Array, length = numberOfNodes
+| Element type: Compound
+
+Order of elements corresponds to the values array
+
+Components of the compound type are named according to the axis names in the axisNames dataset in the Feature Container group
+
+Each component is of type Integer and gives the number of cells aggregated along the named axis
+
+| TIN
+| 7
+| values: 1-dimensional Array, length = numberOfNodes
+| As for fixed stations
+
+| Fixed Station (Stationwise)
+| 8
+| values: 1-dimensional Array, length = numberOfTimes | As for fixed stations
+
+| Feature oriented Regular Grid
+| 9
+| values: D-dimensional array, dimensions specified by:
+
+2-D: numPointsLatitudinal X numPointsLongitudinal
+
+If _cellGeometry_ is present in feature instance group: product of all cellGeometry[i].numPoints values
+| As for Regular Grid
+
+The name of the feature container group must correspond to a camelCase name of a feature type object from the IHO Geospatial Information (GI) Registry, Data Dictionary Register
+|===
+
+NOTE: 64-bit unsigned integers for gridIndex arrays allow 4-D grids with a
+maximum of 2^16^ - 1 (65,535) points/cells in each dimension.
+
+NOTE: The _gridIndex_ datasets have an integer attribute named _codeSize_
+that gives the length (in bits) of the bitfield that contains the index.
+This depends on the type of code and the number of dimensions. For
+example, a 2-D grid with 8 points in each dimension needs 6-bit Morton
+codes.
+
+[NOTE]
+====
+The size of the bitfield is calculated by multiplying the number of bits
+needed to accommodate the largest dimension by the number of dimensions
+(D). To reduce complexity each dimension is allocated the same number of
+bits in the bitfield. For example, a 200 X 1000 array is given a 20-bit
+bitfield, calculated as:
+
+[stem]
+++++
+"codesize" = 2 xx max(|~log_2 200 ~|, |~log_2 1000~|).
+++++
+====
+
+<<fig-10c-10>> depicts _gridIndex_ and _cellScale_ arrays for an irregular
+grid (left) and variable cell size array (right). Both use Morton codes
+and 2-D grids of (nominally) stem:[4 xx 4] cells in each dimension. Note
+that in <<fig-10c-10>> it is the cells rather than grid points that are
+assigned codes. The panels on the left describe an irregular grid with 11
+populated cells. The panels on the right describe a variable cell size
+grid with two aggregate cells, each aggregating stem:[2 xx 2] unit cells.
+
+The grids themselves are depicted below the panels, with the Morton codes
+shown in the respective cells {blank}footnote:[The two grid depictions at
+the bottom of the Figure are from "Elevation Surface Model Standardized
+Profile" (DGIWG 116-1) Ed. 1.0.1, Defence Geospatial Information Working
+Group (10 June 2014).]. The example on the right also indicates the
+scaling of each cell in parentheses (it is assumed that the scaling is the
+same in all dimensions; that is, cells 0100 and 1000 each aggregate
+stem:[2 xx 2] regions of the grid).
+
+For the irregular grid example, the missing cells are not shown in the
+grid. For the variable cell size example, the greyed cells are aggregated
+with cells 0100 or 1000.
+
+For variable cell size grids, this profile specifies the size of
+aggregated cells in terms of the number of unit cells they cover in each
+direction, instead of applying the same zoom factor in each dimension as
+depicted in the example at the bottom right of the <<fig-10c-10>>. This is
+for the better accommodation of rectangular and odd-shaped aggregations.
+Odd-shaped regions must be split into multiple rectangular aggregations.
+(Using rectangular aggregations has an associated extra storage cost.)
+
+Further optimizations may be addressed in future editions of this profile.
+
+[[fig-10c-10]]
+.Illustrative examples of grid index array for irregular grids (left) and grid index and cell scale arrays for variable cell size grids (right)
+image::img161.png[]
+
+The structure of the data values groups can now be described. Each group
+is structured as depicted in <<tab-10c-18>> below.
+
+[[tab-10c-18]]
+.Structure of values groups
+[cols="a,a,a,a,a"]
+|===
+| Group | HDF5 Category | Name | Data Type | Data Space
+
+.4+| /Group_NNN
+
+| Attribute
+| See <<tab-10c-19>>
+| (see Table)
+| Single-valued attributes as described in <<tab-10c-19>>
+
+| Dataset
+| values
+| Compound
+| Array of Compound type, with array rank depending on dataCodingFormat and spatial dimension, as described in <<tab-10c-17>>
+
+| Dataset
+| gridIndex
+| Bitfield
+| Required for dataCodingFormat = 5 or 6
+
+Described in <<tab-10c-17>>
+
+| Dataset
+| cellScale
+| Compound
+| Required for dataCodingFormat = 6
+
+Described in <<tab-10c-17>>
+|===
+
+Time series data for all except the moving platforms and fixed station
+(stationwise) format (dataCodingFormat = 4, 8) are encoded in successive
+groups contained within the instance group.
+
+The sub-Groups each contain a date-time value, and the value record
+arrays. For dataCodingFormat = 2, 3, 5, or 6, the date-time is for the
+entire grid. The data value arrays are two dimensional, with a number of
+columns (numCOLS) and rows (numROWS). For a time series, the data values
+will be for each time in the series. For a grid, the speed and direction
+values will be for each point in the grid.
+
+The Groups are numbered 001, 002, etc, up to the maximum number of Groups,
+numGRP. For all coverage types except moving platforms and fixed station
+(stationwise) time series data, the number of Groups is the number of time
+records. For moving platform data, there is only one Group, corresponding
+to a single platform; additional platforms can be accommodated in
+additional feature instances. For fixed stations (stationwise) data, the
+number of Groups is the number of stations.
+
+The number of individual Groups is given by the metadata variable,
+_numGRP_. The uniform time interval between individual times is given by
+the metadata variable _timeRecordInterval_.
+
+Values which represent different times are stored sequentially, from
+oldest to newest. The initial date-time value is contained in a metadata
+attribute (<<tab-10c-12>>). By knowing the time interval between each
+record, the time applicable to each value can be computed.
+
+Groups, if they represent different times, are numbered sequentially, from
+oldest to newest.
+
+Attributes (<<tab-10c-19>>) may consist of a single value (timePoint) as
+for the gridded data, or an extended list of variables that describe
+several characteristics of fixed station (stationwise) time series data
+(dataCodingFormat = 8).
+
+[[tab-10c-19]]
+.Attributes of values groups
+[cols="a,a,a,a,a,a",options=header]
+|===
+| No | Name | Camel Case | Mult | Data Type | Remarks and/or Units
+
+6+.<| dataCodingFormat = 1, 2, 3, 4, 5, 6 or 7
+
+| 1 | Time stamp | timePoint | 1 | String | DateTime
+
+6+.<| dataCodingFormat = 8
+
+| 1 | Name of the station | stationName | 0..1 | String | For example, a geographic description or 'Not Available'
+
+| 2 | Station identification | stationIdentification | 0..1 | String | For example, a letter number code for the station or 'Not Available'
+
+| 3 | Number of records | numberOfTimes | 0..1 | Integer | Value here overrides the corresponding value at Instance level
+
+| 4 | Index for time interval | timeIntervalIndex | 1 | (Integer) | 1 (TRUE) denotes uniform time interval; interval provided by _timeRecordInterval_
+
+0 (FALSE) denotes non-uniform time interval. This is a Boolean data type implemented as described in <<tab-10c-1>>
+
+| 5 | Time interval | timeRecordInterval | 0..1 | Integer | Only if _timeIntervalIndex_ = 1
+
+The uniform interval between time records. Units: Seconds. Value here overrides corresponding value at Instance level
+
+| 6 | Valid time of earliest value | startDateTime | 0..1 | String | DateTime format
+
+| 7 | Valid time of latest value | endDateTime | 0..1 | String | DateTime format
+
+|
+| (additional attributes)
+|
+|
+|
+| (As specified in Product Specification)
+|===
+
+[[cls-10c-9.11.1]]
+==== Feature oriented Regular Grid
+
+The dataCodingFormat describes a possibility to create features in form of
+a raster geometry and to provide them with additional information. The
+dataCodingFormat can only be used together with the feature attribute
+table (<<cls-10c-9.6.2>>, <<tab-10c-9>>).
+
+The name of the feature container group must correspond to a camelCase
+name of a feature type object from the IHO Geospatial Information (GI)
+Registry, Data Dictionary Register.
+
+Each grid cell defines a value that allows identification of the
+respective feature. The data type of the feature identification value is
+identical to the identification value from the feature attribute table
+(<<cls-10c-9.6.2>>). The code as well as the name of the feature
+identification value is defined in the feature information group
+(<<cls-10c-9.5>>); for example, index or id. The identification values of
+a feature may occur multiple times in the grid because multiple grid cells
+together determine the grid geometry of a feature. Compression of the HDF5
+dataset eliminates the effect of redundancy. The feature identification
+value is the connection between the grid geometry in the grid and the
+information from the feature attribute table.
+
+The use of this dataCodingFormat can require another Feature Container
+Group in raster format. This is the reference for the features created
+here. The spatial extent of the dataCodingFormat described here refers to
+the previously mentioned reference Feature Container Group. The spatial
+extents must match. Which Feature Cointainer Group is set as reference
+must be defined by the implementing Product Specification.
+
+If no features can/should be created in a certain area of the grid, the
+corresponding grid cells are to be assigned the feature identification
+value 0 (zero). The value 0 (zero) is thus considered as nodata value.
+<<fig-10c-11>> below shows a simplified illustration using an example of
+S-102.
+
+[[fig-10c-11]]
+.Illustrative example of the dataCodingFormat
+image::img162.png[]
+
+[%portrait]
+<<<
+

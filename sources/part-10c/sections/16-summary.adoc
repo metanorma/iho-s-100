@@ -1,0 +1,15 @@
+[[cls-10c-16]]
+== Summary of model
+
+The basic structure of the HDF5 profile (<<fig-10c-7>>) can now be
+presented as a more detailed conceptual model using the group and dataset
+specifications in the previous sections. The conceptual model of HDF5 file
+contents is shown in <<fig-10c-12>>. This Figure shows the group structure
+and the datasets which contain spatial representations and data values.
+(Metadata attributes and datasets containing metadata are not included for
+the sake of simplicity.) The _MatchingOrders_ association indicates that
+the sequences of elements in the associated datasets are interdependent.
+
+[[fig-10c-12]]
+.Conceptual model of content
+image::img163.png[]

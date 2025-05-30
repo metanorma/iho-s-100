@@ -1,0 +1,40 @@
+[[cls-10c-7]]
+== Data types
+
+Predefined HDF5 data types include Integer, Float, String, and Enumeration,
+but there are no HDF5 equivalents to the S-100 data types Boolean,
+S100_Codelist or S100_TruncatedDate. The latter types are mapped to the
+HDF5 constructs specified in the Table below. The S-100 data types Date,
+DateTime, and Time are mapped to HDF5 strings due to potential problems
+with portability across different processor architectures of HDF5 Time
+formats. In S-100 HDF5 data products, S-100 data types defined in Part 3
+are mapped to equivalent HDF5 data types. These equivalences are summarized
+in <<tab-10c-1>> below. HDF5 datatype classes not mentioned in this Table
+shall not be used.
+
+[[tab-10c-1]]
+.Equivalences between S-100 and HDF5 datatypes
+[cols="a,a,a",options=header]
+|===
+| S-100 Attribute Value Types | HDF5 Datatype Class | Constraint on HDF5 datatype
+
+| real | Float | 32 or 64-bit floating point
+| integer | Integer | 1, 2, or 4-byte signed and unsigned integers
+| text (CharacterString in S-100 metadata) | String | variable-length string
+| enumeration | Enumeration | Numeric codes must be 1 or 2-byte unsigned integers, range [1, 2^8^ -- 1] or [1, 2^16^ - 1]
+| date | (Character) String, length=8 | Date format according to Table 1-2 (Part 1); that is, complete representation, basic format, as specified by <<ISO8601>>
+| time | (Character) Variable-length string | Time format according to Table 1-2 (Part 1); that is, complete representation, basic format as specified by <<ISO8601>>. UTC indicated by "Z" suffix; local time by absence of suffix. The zone offset format is also permitted); for example, 123000+0100
+| dateTime | (Character) (variable length string) | Date-time format as specified by <<ISO8601>>. 
+
+[example]
+19850412T101530Z
+
+[example]
+19850412T101530-0500
+| boolean | (Integer) | 1-byte unsigned, Values: 1 (TRUE); 0 (FALSE)
+| S100_Codelist | Compound (Enumeration, variable-length string) | Exactly one of the components is allowed; the other must be the numeric value 0 or the empty (0-length) string according to its data type
+| URI, URL, URN | String (variable-length) | Format specified in <<RFC3986>> (URI, URL) or <<RFC2141>> (URN)
+| S100_TruncatedDate | String, length=8 | Format as in Part 1 Table 1-2
+| value record (Part 8) | Compound | Datatypes of components must be according to value attribute types in the Application Schema. The "value record" corresponds to the value(s) record in Part 8 Figures 8-22, 8-23, 8-24 and 8-25
+| external object reference | String | Format: extObjRef:<fileName>:<recordIdentifier> where <fileName> is the base name of the <<ISO8211>> or GML file, and <recordIdentifier> is the record identifier of the vector object record within that file. The extension part of the file name is not used. The record identifier is the gml:id for GML datasets, or the record identification number (RCID) for <<ISO8211>> datasets. The file must be present in the same exchange set
+|===

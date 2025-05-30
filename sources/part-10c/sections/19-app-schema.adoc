@@ -1,0 +1,29 @@
+[[cls-10c-19]]
+== Application Schema Realizations from Part 8 (Informative)
+
+<<fig-10c-13>> below illustrates the realization of different types of
+coverages as described in <<cls-10c-10.1>> and <<tab-10c-4>> from the
+coverage types defined in Part 8. Product Specification development teams
+may wish to develop similar figures for their Product Specifications to
+describe how the coverage types as encoded in the HDF5 format for their
+data products are realized from the coverage types defined in Part 8.
+
+[[fig-10c-13]]
+.Realizations of HDF5 encoding coverage types from Part 8 types
+image::img164.png[]
+
+It is possible to extend <<fig-10c-13>> to include upper-level derivations
+from ISO types, at the potential expense of a more crowded figure.
+<<fig-10c-14>> illustrates the idea for the Regular Grid coverage type.
+Note that the hypothetical Application Schema allows both discrete grid
+point coverage and continuous grid coverage types; if only continuous grid
+coverage is needed the CV_DiscreteGridPointCoverage and
+CV_DiscreteCoverage classes can be omitted. Also, since this hypothetical
+Application Schema uses only regular grids, the coordinates of grid points
+can be calculated from the grid origin and cell size, and the
+CV_GeometryPair class associated to S100_IF_Grid is not needed and has
+been omitted from <<fig-10c-14>>.
+
+[[fig-10c-14]]
+.Hypothetical Application Schema fragment including upper-level ISO types. The grey boxes are classes defined in <<ISO19123>>
+image::img165.png[]

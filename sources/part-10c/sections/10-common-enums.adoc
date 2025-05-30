@@ -1,0 +1,457 @@
+[[cls-10c-10]]
+== Common enumerations and dictionaries
+
+[[cls-10c-10.1]]
+=== Data coding format
+
+[[tab-10c-20]]
+.Data coding format enumeration
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_HDF_DataCodingFormat
+| Data coding formats for S-100 HDF5 data
+|
+|
+
+| Literal
+| fixedStations
+| Data at multiple discrete fixed point locations
+| 1
+|
+
+| Literal
+| regularGrid
+| Data at grid points forming a regular grid with constant cell spacing
+| 2
+| Regular grids are commonly composed of perpendicularly crossing lines of equal spacing on each dimension, creating square or rectangular cells
+
+| Literal
+| ungeorectifiedGrid
+| Data that does not include any information that can be used to determine a cell's geographic coordinate values, or in which cell spacing is variable, and there is no predefined association between one cell's location and that of another
+| 3
+| For example, a digital perspective aerial photograph without georectification information included
+
+| Literal
+| movingPlatform
+| Data at sequential discrete point locations of a moving sensor platform
+| 4
+|
+
+| Literal
+| irregularGrid
+| Data distributed over a grid with uniform cell spacing but irregular overall shape
+| 5
+| The irregularity of shape may consist of non-rectangular coverage area or relatively large regions which are not populated with data
+
+| Literal
+| variableCellSize
+| Variable-density grid containing one or more regions with cell spacing that is a whole multiple of a common minimum uniform cell spacing
+| 6
+| The shape of the overall grid may be non-rectangular
+
+| Literal
+| TIN
+| Triangulated irregular network
+| 7
+| A TIN is a representation of a continuous surface consisting entirely of triangular facets. The vertices at the corners of each triangle are shared with the adjacent triangle. These vertices form the control points of the coverage function
+
+| Literal
+| stationwiseFixed
+| Data at multiple discrete fixed point locations organised by station
+| 8
+|
+
+| Literal
+| featureOrientedRegularGrid
+| Data at grid points forming a regular grid with constant cell spacing
+| 9
+| Regular grids are commonly composed of perpendicularly crossing lines of equal spacing on each dimension, creating square or rectangular cells
+|===
+
+[[cls-10c-10.2]]
+=== Type of the horizontal CRS
+
+[[tab-10c-21]]
+.Type of the horizontal CRS
+[cols="a,a,a,a,a"]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| typeOfHorizontalCRS
+| Codes for describing the type of the two-dimensional horizontal CRS
+|
+|
+
+| Literal
+| geodeticCRS2D
+| Two-dimensional geodetic CRS
+| 1
+|
+
+| Literal
+| projectedCRS
+| Projected CRS
+| 2
+|
+|===
+
+[[cls-10c-10.3]]
+=== Vertical coordinate base
+
+[[tab-10c-22]]
+.Vertical coordinate base
+[cols="a,a,a,a,a"]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| verticalCoordinateBase
+| Codes for describing the base level of the vertical coordinate system
+|
+|
+
+| Literal
+| seaSurface
+| The base of the vertical coordinate system is the sea surface
+| 1
+|
+
+| Literal
+| verticalDatum
+| The base of the vertical coordinate system is a defined vertical datum
+| 2
+|
+
+| Literal
+| seaBottom
+| The base of the vertical coordinate system is the sea floor
+| 3
+|
+|===
+
+[[cls-10c-10.4]]
+=== Vertical datum reference
+
+[[tab-10c-23]]
+.Vertical datum reference
+[cols="a,a,a,a,a"]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| verticalDatumReference
+|
+|
+|
+
+| Literal
+| s100VerticalDatum
+| The vertical datum is one of those listed in S100_VerticalAndSoundingDatum
+| 1
+| See <<cls-10c-10.6>>
+
+| Literal
+| EPSG
+| The vertical datum is one of those listed in the EPSG Registry
+| 2
+|
+|===
+
+[[cls-10c-10.5]]
+=== Projection methods
+
+[[tab-10c-24]]
+.Projection methods and their parameters
+[cols=7]
+|===
+| Name | EPSG Code | Parameter 1 | Parameter 2 | Parameter 3 | Parameter 4 | Parameter 5
+
+| Mercator | 9805 | Latitude of 1st standard parallel | Longitude of natural origin | - | - | -
+| Transverse Mercator | 9807 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | -
+| Oblique Mercator | 9815 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Angle from Rectified to Skew Grid | Scale factor on initial line
+| Hotline Oblique Mercator | 9812 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Angle from Rectified to Skew Grid | Scale factor on initial line
+| Lambert Conic Conformal (1SP) | 9801 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | -
+| Lambert Conic Conformal (2SP) | 9802 | Latitude of false origin | Longitude of false origin | Latitude of 1^st^ standard parallel{blank}footnote:[Standard parallel nearer equator.] | Latitude of 2^nd^ standard parallel{blank}footnote:f5[Standard parallel farther from equator.] | -
+| Oblique Stereographic | 9809 | Latitude of natural origin | Longitude of natural origin | Scale factor at natural origin | - | -
+| Polar Stereographic | 9810 | Latitude of natural origin{blank}footnote:f6[Must be either 90 degrees or -90 degrees.] | Longitude of natural origin | Scale factor at natural origin | - | -
+| Krovak Oblique Conic Conformal | 9819 | Latitude of projection centre | Longitude of projection centre | Azimuth of initial line | Latitude of pseudo standard parallel | Scale factor on pseudo standard parallel
+| American Polyconic | 9818 | Latitude of natural origin | Longitude of natural origin | - | - | -
+| Albers Equal Area | 9822 | Latitude of false origin | Longitude of false origin | Latitude of 1^st^ standard parallel{blank}footnote:f5[] | Latitude of 2^nd^ standard parallel{blank}footnote:f6[] | -
+| Lambert Azimuthal Equal Area | 9820 | Latitude of natural origin | Longitude of natural origin | - | - | -
+|===
+
+NOTE: All latitudes and longitudes of the projection parameters must be
+given in degrees (south and west negative). Azimuths are given in degrees.
+For detailed description of the projection method refer to the EPSG
+documentation.
+
+[[cls-10c-10.6]]
+=== Vertical and sounding datum
+
+[[tab-10c-25]]
+.Vertical and sounding datum
+[cols="a,a,a,a,a"]
+|===
+| Item | Name | Description | Code | Remarks
+
+| S100_Codelist
+| S100_VerticalAndSoundingDatum
+| Allowable vertical and sounding datums
+| -
+| Open enumeration
+
+| Value
+| meanLowWaterSprings
+|
+| 1
+| (MLWS)
+
+| Value
+| meanLowerLowWaterSprings
+|
+| 2
+| -
+
+| Value
+| meanSeaLevel
+|
+| 3
+| (MSL)
+
+| Value
+| lowestLowWater
+|
+| 4
+| -
+
+| Value
+| meanLowWater
+|
+| 5
+| (MLW)
+
+| Value
+| lowestLowWaterSprings
+|
+| 6
+| -
+
+| Value
+| approximateMeanLowWaterSprings
+|
+| 7
+| -
+
+| Value
+| indianSpringLowWater
+|
+| 8
+| -
+
+| Value
+| lowWaterSprings
+|
+| 9
+| -
+
+| Value
+| approximateLowestAstronomicalTide
+|
+| 10
+| -
+
+| Value
+| nearlyLowestLowWater
+|
+| 11
+| -
+
+| Value
+| meanLowerLowWater
+|
+| 12
+| (MLLW)
+
+| Value
+| lowWater
+|
+| 13
+| (LW)
+
+| Value
+| approximateMeanLowWater
+|
+| 14
+| -
+
+| Value
+| approximateMeanLowerLowWater
+|
+| 15
+| -
+
+| Value
+| meanHighWater
+|
+| 16
+| (MHW)
+
+| Value
+| meanHighWaterSprings
+|
+| 17
+| (MHWS)
+
+| Value
+| highWater
+|
+| 18
+| (HW)
+
+| Value
+| approximateMeanSeaLevel
+|
+| 19
+| -
+
+| Value
+| highWaterSprings
+|
+| 20
+| -
+
+| Value
+| meanHigherHighWater
+|
+| 21
+| (MHHW)
+
+| Value
+| equinoctialSpringLowWater
+|
+| 22
+| -
+
+| Value
+| lowestAstronomicalTide
+|
+| 23
+| (LAT)
+
+| Value
+| localDatum
+|
+| 24
+| -
+
+| Value
+| internationalGreatLakesDatum1985
+|
+| 25
+| -
+
+| Value
+| meanWaterLevel
+|
+| 26
+| -
+
+| Value
+| lowerLowWaterLargeTide
+|
+| 27
+| -
+
+| Value
+| higherHighWaterLargeTide
+|
+| 28
+| -
+
+| Value
+| nearlyHighestHighWater
+|
+| 29
+| -
+
+| Value
+| highestAstronomicalTide
+|
+| 30
+| (HAT)
+
+| Value
+| balticSeaChartDatum2000
+| Baltic Sea Chart Datum 2000
+| 44
+| -
+
+| Value
+| internationalGreatLakesDatum2020
+| The 2020 update to the International Great Lakes Datum (IGLD), the official reference system used to measure water level heights in the Great Lakes, connecting channels, and the St. Lawrence River system
+| 46
+| Unlike the previous two IGLDs, this datum update will use a geoid-based vertical datum that will be accessible using Global Navigation Satellite Systems (GNSS) such as the Global Positioning System (GPS)
+
+| Value
+| seaFloor
+| The bottom of the ocean and seas where there is a generally smooth gentle gradient. Also referred to as sea bed (sometimes seabed or sea-bed), and sea bottom
+| 47
+| -
+
+| Value
+| seaSurface
+| A two-dimensional (in the horizontal plane) field representing the air-sea interface, with high-frequency fluctuations such as wind waves and swell, but not astronomical tides, filtered out
+| 48
+| -
+
+| Value
+| hydrographicZero
+| A vertical reference near the lowest astronomical tide (LAT), below which the sea level falls only very exceptionally
+| 49
+| Deviation between LAT and hydrographic zero may be due to a strong anticyclonic atmospheric condition, adding weight to the water column that may exceptionally cause the lowest sea level to fall below the astronomical low water level
+|===
+
+NOTE: The numeric codes are the codes specified in the IHO GI Registry for
+the equivalent listed values of the IHO Hydro domain attribute _Vertical
+Datum,_ since the Registry does not at present (20 June 2018) contain
+entries for Exchange Set metadata and dataset metadata attributes.
+
+Datums not included in the S-100 enumeration must be encoded using the
+"other: ..." form. If the datum in question is listed in the IHO GI
+Registry (as one of the standard listed values for attribute _Vertical
+Datum_ in the IHO Hydro domain), the "camel case code" in the Registry
+must be used in the "other: ..." element. For datums from the EPSG
+Registry but not listed in the IHO GI Registry, the form should be "other:
+EPSG_NNNN".
+
+[example]
+"Local Low Water Reference Level" is in the IHO GI Registry but not listed
+in the S-100 standard. It must be encoded with the camel case in the GI
+registry as: "other: localLowWaterReferenceLevel".
+
+[example]
+"European Vertical Reference Frame 2019 mean tide" is in the EPSG Registry
+list of vertical datums (EPSG 1287) but not in the IHO GI Registry list.
+It must be encoded as: "other: EPSG_1287".
+
+If the datum is not listed in any the table above, the IHO GI Registry, or
+the EPSG Registry, producers should determine a suitable special code in
+consultation with the IHO Working Group(s) and the IHO GI Registry
+authority.
+
+The use of datums that are neither in the enumeration above, nor in the
+IHO GI Registry, nor the EPSG Registry is discouraged. Producers who need
+to use a datum not listed in the S-100 enumeration should propose its
+addition to the IHO GI Registry and/or this enumeration by means of an
+S-100 maintenance proposal.
+
+*Note that application software is not required to process information
+encoded in "other: ..." form, meaning that ECDIS software, for example, is
+not required to recognise any datum encoded as "other: ..." and will
+therefore be unable to adjust ENC depth information with water level data
+from the corresponding S-104 dataset, and may warn or reject the S-104
+dataset as being incompatible with S-101 ENCs.*

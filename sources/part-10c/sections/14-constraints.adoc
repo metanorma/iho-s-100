@@ -1,0 +1,15 @@
+[[cls-10c-14]]
+== Constraints and validation
+
+[[cls-10c-14.1]]
+=== Validation tests
+
+Validation tests must be defined in the Product Specification, and include
+checks that:
+
+* HDF5 file structure conforms to this profile;
+* Mandatory attributes in the groups are present according to the encoded
+value of dataCodingFormat;
+* Group, dataset, and attribute names conform to this profile;
+* Lengths of positioning and value records arrays are consistent;
+* Components of compound types are named as required by the specification.

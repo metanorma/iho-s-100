@@ -1,0 +1,23 @@
+[[cls-10c-11]]
+== Support files
+
+The HDF5 format does not encode support file information as feature
+attributes; that is, application schema thematic attributes cannot be
+references to support files. This means that references to pictures or
+text files, etc, are not permitted in coverage features.
+
+Also, feature and information associations from coverage to vector
+features are not permitted.
+
+The HDF5 "metadata" attribute of the root group is a reference to an
+external metadata file. The reference must be a string of the form:
+
+`fileRef:<fileName>`
+
+where `<fileName>` is the base name of the <<ISO8211>> or GML file.The
+extension part of the file name is not used.
+
+Mixed vector-coverage data products may continue to use support files in
+connection with vector feature classes and define vector feature or
+information classes with attributes that are references to support files,
+as usual.
