@@ -1,0 +1,43 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Added new clause to clarify array and cell indexing.
+      location: part=10c,clause=10c-9.1.1
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected remark in Table 10c-6, row 1 (Product Specification number and version) to read "productIdentifier and version fields".
+      location: part=10c,clause=10c-9.4
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected Table 10c-6, row 23 (Metadata) to amend multiplicity from [1] to [0..1]. Added clarification to Remarks.
+      location: part=10c,clause=10c-9.4
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Inserted a new paragraph at the end of the clause specifying the location for TIN coverages.
+      location: part=10c,clause=10c-9.6.1
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Amended Table 10c-12 to allow for northings/eastings from a Projected CRS in the bounding box fields in addition to currently allowed Geographic reference coordinates.
+      location: part=10c,clause=10c-9.7
+----

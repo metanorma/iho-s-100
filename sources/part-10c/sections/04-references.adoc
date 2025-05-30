@@ -1,0 +1,77 @@
+[[cls-10c-4]]
+== References
+
+[bibliography]
+=== Normative references
+
+* [[[hdf1,1]]],
+span:organization[The HDF Group],
+span:date[2011-11-01],
+_span:title[HDF5 User's Guide Release 1.8.8]_
+
+* [[[hdf2,2]]],
+span:organization[The HDF Group],
+span:date[2011-11-01],
+_span:title[HDF5 Reference Manual 1.8.8]_
+
+* [[[ISO8601,ISO 8601:2004]]]
+
+* [[[ISO19123,ISO 19123]]]
+
+* [[[ISO19129,ISO/TS 19129:2009]]]
+
+[bibliography]
+=== Informative references
+
+* [[[gilbert,doi:10.1007/BF03024134]]],
+span:surname[Gilbert], span:initials[W.],
+_span:title[A Cube-filling Hilbert Curve]_,
+span:series[Mathematical Intelligencer],
+span:volume[6]
+(span:issue[3]),
+span:pages[78],
+span:date[1984-01-01]
+
+* [[[goodchild,isbn:0969156006]]],
+span:surname[Goodchild], span:initials[M. F.] and
+span:surname[Grandfield], span:initials[A. W.],
+_span:title[Optimizing Raster Storage: An Examination of Four Alternatives]_,
+span:series[Proceedings Auto-Carto]
+span:volume[6]
+(span:issue[1]),
+span:pages[400-407],
+span:pubplace[Ottawa],
+span:date[1983-01-01]
+
+* [[[kidner,doi:10.1080/0143116031000086835]]],
+span:surname[Kidner], span:initials[D.B.],
+span:title[Higher-order interpolation of regular grid digital elevation models],
+span:series[International Journal of Remote Sensing],
+span:volume[24]
+(span:issue[14]),
+span:date[2003-07-01],
+span:pages[2981-2987].
+
+* [[[kidner-dorey,4]]],
+span:surname[Kidner], span:initials[D.],
+span:surname[Dorey], span:initials[M.], &
+span:surname[Smith], span:initials[D.],
+_span:title[What's the point? Interpolation and extrapolation with a regular grid DEM]_,
+span:type[inproceedings],
+span:series[Proceedings of the 4th International Conference on GeoComputation],
+span:pubplace[Fredericksburg, Virginia].
+span:uri[http://www.geocomputation.org/1999/082/gc_082.htm]
+(span:note[retrieved 26 April 2018])
+
+* [[[laurini,5]]],
+span:surname[Laurini], span:initials[R.] and
+span:surname[Thompson], span:initials[D.],
+_span:title[Fundamentals of Spatial Information Systems]_,
+span:publisher[Academic Press],
+span:date[1992-01-01]
+
+* [[[ISO8211,hidden(ISO 8211)]]]
+
+* [[[RFC3986,hidden(IETF RFC 3986)]]]
+
+* [[[RFC2141,hidden(IETF RFC 2141)]]]

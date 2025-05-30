@@ -1,0 +1,56 @@
+[[cls-10c-8]]
+== Naming conventions
+
+Names of HDF5 elements (datasets, objects, etc) that encode data elements
+in the Application Schema (that is, feature classes, attributes, roles,
+enumerations, codelists, etc) must conform to the names in the Application
+Schema (since there is 1/1 mapping from the Application Schema to the
+Feature Catalogue, this also amounts to requiring the same conformance to
+the Feature Catalogue). 'Names' used must be the camel case names. Other
+sections in this Part indicate where the names from the Application Schema
+(or equivalently, the Feature Catalogue) are used.
+
+Elements in embedded ("carrier") metadata and positioning information which
+correspond to attributes in Parts 4a-4c must also conform to the
+corresponding camel case names in Parts 4a-4c & 8.
+
+Elements which do not have a direct correspondence may have names that are
+unique to the HDF5 format (the differences being intended to simplify the
+abstractions in <<ISO19123>> and S-100 Parts 4, 4b, and 8, and shorten fields
+which are deeply nested within the XML schemas).
+
+The names 'latitude' and 'longitude' must be used for geographic coordinate
+axes when they are appropriate, in preference to 'X' and 'Y', which should
+be used only when latitude/longitude are inappropriate.
+
+The correpondences between the carrier metadata elements in this profile
+and Parts 4-4c and Part 8 are specified later in this document.
+
+Names in non-embedded metadata and catalogue files in exchange sets are
+treated as for vector product Product Specifications -- that is, they must
+conform to the standard S-100 metadata and exchange catalogue schemas.
+
+An HDF5 group which corresponds to a schema element already named in S-100
+or in the Product Specification must be given the same name as that
+element, using the camel-case code if specified. For example, if a time
+series product specifies names for data collections at time points, those
+names should be used as the group names if the collection is encoded as a
+group. (Product Specification developers must take care to specify
+collection names which conform to the allowed HDF5 syntax.)
+
+Numeric suffixes preceded by the underscore character (that is, the suffix
+'NNN') may be added to distinguish groups which would otherwise have the
+same names (for example, data groups at different time points).
+
+The following group names are reserved for the uses specified:
+
+[[tab-10c-2]]
+.Reserved group names
+[cols="a,a"]
+|===
+| Positioning | Discrete positioning information of all kinds and dimensions. The type of positioning data is indicated by a group attribute or attributes. Includes compressed or compact encodings. Does not include positioning which can be completely specified by grid or coverage parameters alone (such parameters are encoded in attributes attached to the root group). Specifications which require non-uniform positioning (for example, second-order algebraic formulae) must be treated as ungeorectified grids.
+| Group_F | Feature specification information. For example, feature and attribute names, codes, types, multiplicities, roles, etc. Also includes format metadata specific to the HDF5 format.
+| Group_IDX | Indexes, if encoded in an HDF5 group. Includes indexes to sparse arrays.
+| Group_TL | Tiling information, if encoded in a group.
+| Group_nnn | Data for one member of a series; for example, at a time point in a time series, or for different stations. "n" means any digit from 0 to 9. Numbering must use 3 digits, 001-999.
+|===

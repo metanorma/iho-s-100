@@ -1,0 +1,126 @@
+[[cls-10c-17]]
+== Rules for Product Specification developers
+
+[[cls-10c-17.1]]
+=== Defining the format for a Product Specification from this profile
+
+Most Product Specifications will need only a subset of this profile.
+However, all Product Specifications must include the mandatory elements of
+this profile.
+
+The logical structure of the datafile must conform to the logical
+structure depicted in <<fig-10c-11>> and specified in the preceding
+sections.
+
+The 'Data Format' section of the Product Specification must indicate what
+part of the profile is used (for example, which values _dataCodingFormat_
+can take, which groups and datasets are used, whether the spatial
+representation is 2-dimensional, 3-dimensional, etc).
+
+UML diagrams derived from the conceptual structure depictions in this Part
+are recommended but not mandatory. Documentation tables specifying
+product-specific constraints or limitations on metadata and content must
+be provided unless the corresponding table in this profile applies without
+modification.
+
+Specifications which require grids with non-uniform spacing must be
+treated as ungeorectified grids and have the coordinates of each position
+explicitly encoded.
+
+This profile does not prevent a feature class from having different
+coverage types of coverage, but repeating spatial attributes for the same
+instance is not possible in this profile. This means that a feature
+instance cannot have two grids, whether or not they are the same coverage
+type. If ProductSpecifications appear to need multiple coverages for the
+same instance, consider combining the two into a single coverage object or
+using two feature instances.
+
+Feature and information associations are not fully implemented in this
+profile. However, it is possible to link coverage objects to vector
+feature or information objects in accompanying GML or ISO 8211 datasets
+using the object reference methods described in <<cls-10c-13>>. References
+to vector objects, such as influence polygons must be encoded using the
+same method.
+
+Product Specifications should specify the precision of the numeric
+metadata elements which are encoded in the HDF5 datafile, either
+individually or in blanket statements. For example, a Product
+Specification may require that all the metadata attributes of type Float
+be encoded using 64-bit floating point numbers.
+
+If uncertainty in positions or data values varies over the spatial extent
+of a single feature, Product Specification developers should consider
+solutions as part of the Product Specification; for example, subdividing
+the grid into different feature instances, or addressing this at the
+application schema level by defining an overlay feature to encode
+uncertainties or adding an uncertainty attribute to the values record.
+This Part does not require any specific approach to this problem.
+
+[[cls-10c-17.2]]
+=== Miscellaneous rules
+
+The use of variable length strings as components of compound types is
+discouraged due to reported performance problems.
+
+In theory, the use of tiles can interact with HDF5 chunking to affect
+performance. Product Specifications for which performance is a significant
+consideration may need to consider possible interaction effects and
+investigate their magnitude and consequences.
+
+[[cls-10c-17.3]]
+=== Extensions of this profile
+
+Product Specifications may extend the format in this profile by defining
+additional data structures or extending the data structures defined in
+this profile, but all extensions must retain the core specifications of
+this profile so that *implementations must be able to ingest and portray
+data without processing the additional data structures*. *The Product
+Specification must be written so that use of these extra data structures
+for processing or portrayal is optional.*
+
+Such additions should be placed in the appropriate location in the HDF5
+data file; for example, spatial indexes in the Group_IDX group.
+
+*Extensions must not reuse the names of items defined in this profile.
+Items defined in this profile must not be renamed in Product
+Specifications.*
+
+Some examples of permissible and impermissible extensions are given below.
+
+* Permissible extensions:
+
+** Quadtree index, added as an HDF5 dataset in the indexes group.
+** Extension of the value record structure that retain the core format
+described in this profile (that is, the 1-D array structure and the
+specified components).
+** Linear scale arrays indicating the grid points on each axis where the
+cell size changes, as an adjunct to variable cell size arrays.
+** Product-specific metadata as attributes of any of the groups specified
+in this profile.
+** Product-specific metadata as additional HDF5 datasets in any of the
+groups specified in this profile.
+** Additional groups, provided these are not used as substitutes for one
+of the mandatory groups in this profile.
+* Impermissible extensions:
+
+** Changes to the rank of an array dataset type; for example, using a 2-D
+array in place of a 1-D array.
+** Changes to the rules for naming of a component of a compound data type
+defined in this profile.
+
+[[cls-10c-17.4]]
+=== Extensions that add metadata
+
+While <<cls-10c-17.3>> permits adding metadata, defining product-specific
+metadata means that implementation must -- if they are to do anything with
+the additional metadata other than merely display it -- include
+product-specific coding in applications. Given that the S-100 ecosystem
+includes multiple data products which would ideally all be processable
+(including portrayal) by an S-100 application, this Part recommends
+against adding product-specific metadata that has any effects on
+processing or portrayal. If such additions are considered essential they
+should be proposed as an extension to the S-100 framework itself using the
+maintenance mechanism described in S-100 and related documents.
+Display-only metadata (that is, where the application is only expected to
+display the content of the added attribute) may be added but is
+discouraged.

@@ -1,0 +1,13 @@
+[[cls-10c-12]]
+== Catalogue and metadata files
+
+Exchange set catalogues and metadata files must conform to the standard
+XML schemas for catalogues and metadata defined for this edition of S-100
+and the relevant ISO standards. The files must be named as follows:
+
+[source%unnumbered]
+----
+CATALOG.XML (or .xml) Exchange catalogue XML file.
+
+MD_<HDF5 data file base name>.XML (or .xml) ISO metadata
+----

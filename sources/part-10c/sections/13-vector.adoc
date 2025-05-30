@@ -1,0 +1,35 @@
+[[cls-10c-13]]
+== Vector spatial objects, features, and information types
+
+In some circumstances it may be necessary to use vector spatial objects,
+such as area of influence polygons. This edition of the profile does not
+encode vector spatial objects directly in the HDF5 data file. Instead, the
+spatial objects should be defined in an external file (either GML or
+<<ISO8211>> format) and a reference to the spatial object encoded. The
+reference must be a string of the form:
+
+[source%unnumbered]
+----
+extObjRef:<fileName>:<recordIdentifier>
+----
+
+where `<fileName>` is the base name of the <<ISO8211>> or GML file, and
+`<recordIdentifier>` is the record identifier of the vector object record
+within that file.The extension part of the file name is not used. The
+record identifier is the gml:id for GML datasets, or the record
+identification number (RCID) for <<ISO8211>> datasets. The file must be
+present in the same exchange set.
+
+This method can be used to reference polygons, etc, defined in external
+files in GML or <<ISO8211>> format data files in the same exchange set. It
+can also be used to reference feature or information type instances in the
+GML or <<ISO8211>> file.
+
+[example]
+====
+USSFC00001:S093546 references the object with gml:id S093456 in the GML
+data file USSFC00001.GML (GML).
+
+USSFC00001:93546 references the object with record identifier 93456 in the
+ISO 8211 data file USSFC0000.000 (<<ISO8211>>).
+====

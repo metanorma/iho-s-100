@@ -1,0 +1,28 @@
+[[cls-10c-6]]
+== S-100 profile of HDF5
+
+The S-100 profile of HDF5 restricts the HDF5 datatypes and constructs which
+can be used in S-100 HDF5 datasets; describes correspondences between S-100
+and HDF5 datatypes and other constructs; and defines rules for how S-100
+HDF5 datasets must be structured.
+
+The S-100 HDF5 profile must apply to the kinds of information listed below
+-- noting that the types are not all mutually exclusive, though most
+individual Product Specifications will use only a subset of possible
+combinations:
+
+* data for one or more individual, fixed stations;
+* regularly-gridded data;
+* irregularly-gridded data;
+* grids with variable cell sizes;
+* ungeorectified gridded data (Part 8 clause 8-8.1.2);
+* TIN data;
+* moving platform (for example surface drifter) data;
+* either static data or time series data (for any of the other kinds), with
+fixed or variable intervals;
+* tiled and untiled coverages;
+* multiple feature classes in the same datafile;
+* multiple types of coverages in the same datafile.
+
+The restrictions, correspondences, and rules are described in the following
+sections.

@@ -1,0 +1,15 @@
+== Introduction
+
+HDF5 uses an open source format. It allows users such as the IHO to
+collaborate with The HDF Group regarding functionality requirements and
+permits users' experience and knowledge to be incorporated into the HDF
+product when appropriate.
+
+HDF5 is particularly good at dealing with data where complexity and
+scalability are important. Data of virtually any type or size can be stored
+in HDF5, including complex data structures and data types. HDF5 is
+portable, running on most operating systems and machines. HDF5 is scalable
+- it works well in high end computing environments, and can accommodate
+data objects of almost any size or multiplicity. It also can store large
+amounts of data efficiently - it has built-in compression. HDF5 is widely
+used in government, academia, and industry.

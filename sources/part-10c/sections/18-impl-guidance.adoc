@@ -1,0 +1,19 @@
+[[cls-10c-18]]
+== Implementation guidance
+
+The HDF5 C API includes interfaces for determining the types of compound
+type components. This suggests that the size of a datatype can be checked
+to mitigate possible conversion issues.
+
+The HDF5 C API also defines iterators for iterating over attributes or
+items in a group. These iterators can be used to discover profile
+datasets, groups, or attributes from datasets, groups, and attributes
+defined only in individual Product Specifications (the product-specific
+items will have names different from the profile items).
+
+The order in which objects are retrieved may not be the same as the
+creation order. Implementers should allow for this or investigate the
+availability of order-preserving functions in the HDF5 API.
+
+Linkage between the XML feature catalogue and objects in the HDF5 file is
+preserved by using the (camel case) codes for features, and attributes.
