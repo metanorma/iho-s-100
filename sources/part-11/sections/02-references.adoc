@@ -1,0 +1,42 @@
+== References
+
+The following referenced documents are required for the application of
+this document. For dated references, only the edition cited applies. For
+undated references, the latest edition of the referenced document
+(including amendments) applies.
+
+[bibliography]
+=== Normative
+
+* [[[ISO639-2,ISO 639-2:1998]]]
+
+* [[[ISO19115-1,ISO 19115-1]]]
+
+* [[[ISO19131,ISO 19131:2007]]]
+
+* [[[ISO19157,ISO 19157]]]
+
+[bibliography]
+=== Informative
+
+* [[[ISO8211,ISO/IEC 8211:1994]]]
+
+* [[[ISO19104,ISO/TS 19104]]]
+
+* [[[ISO19106,ISO 19106:2004]]]
+
+* [[[ISO19109,ISO 19109:2005]]]
+
+* [[[ISO19115,ISO 19115:2003]]]
+
+* [[[ISO19123,ISO 19123]]]
+
+* [[[ISO19136,ISO 19136]]]
+
+* [[[ISO19138,ISO/TS 19138]]]
+
+* [[[ISO19115-2,ISO 19115-2]]]
+
+* [[[ISO19115-3,ISO 19115-3]]]
+
+* [[[ISO19107,ISO 19107]]]

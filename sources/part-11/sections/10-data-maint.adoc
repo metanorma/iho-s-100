@@ -1,0 +1,32 @@
+[[cls-11-10]]
+== Data Maintenance
+
+The data product specification shall provide information on how the data
+is maintained. It should describe the principles and criteria applied in
+maintenance decisions, as well as the expected frequency of updates. The
+product specification shall include this information for each identified
+scope.
+
+Maintenance information shall also provide procedures regarding how known
+errors in the data shall be handled. Any organisation performing data
+maintenance for the data product defined by the data product
+specification shall provide a reference to the detailed maintenance guide
+used for the maintenance process. (See also Metadata / Maintenance
+Information). Information about maintaining the data product
+specification itself is included in the Overview.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[8] %}
+
+[[tab-11-9]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

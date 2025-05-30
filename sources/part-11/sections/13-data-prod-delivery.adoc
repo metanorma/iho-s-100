@@ -1,0 +1,24 @@
+[[cls-11-13]]
+== Data product delivery
+
+The data product specification may define the delivery medium for each
+identified scope. This is an optional section. If a data product can be
+delivered in different formats then the appropriate information for each
+shall be given. Data product delivery and medium information are
+specified in <<tab-11-12>>.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[11] %}
+
+[[tab-11-12]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

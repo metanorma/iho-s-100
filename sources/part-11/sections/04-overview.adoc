@@ -1,0 +1,72 @@
+[[cls-11-4]]
+== Overview
+
+The overview section provides a reader of a data product specification
+with general introductory information about the data product together
+with product specification metadata.
+
+[[fig-11-1]]
+.Content of the Overview Section
+image::img166.png[]
+
+The Overview shall include the following parts:
+
+. information about the creation of the data product specification;
++
+--
+NOTE: This shall include the title, a reference date, the responsible
+party and the language. Information about the maintenance regime for the
+product specification should also be included;
+--
+. terms and definitions;
+. abbreviations;
+. acronyms for the name of the data product
++
+--
+[example]
+AML Additional Military Layer;
+--
+. an informal description of the data product.
+
+The information shall contain general information about the data product
+which may include the following aspects shown in <<tab-11-1>>.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[0] %}
+
+[[tab-11-1]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
+
+The data product specification metadata shall provide information to
+uniquely identify the data product specification as well as information
+about the creation and maintenance of the data product specification. The
+maintenance description may indicate regular updates, or give contact
+details for reporting issues which need correction. The data product
+specification metadata shall include the following items in <<tab-11-2>>
+[extension to <<ISO19131>>].
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[1] %}
+
+[[tab-11-2]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

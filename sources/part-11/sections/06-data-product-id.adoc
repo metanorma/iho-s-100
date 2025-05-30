@@ -1,0 +1,22 @@
+[[cls-11-6]]
+== Data product identification
+
+This section describes how to identify data sets that conform to the
+specification. The information identifying the data product may include
+the following items in <<tab-11-4>>. [adopted from <<ISO19131>>].
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[3] %}
+
+[[tab-11-4]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

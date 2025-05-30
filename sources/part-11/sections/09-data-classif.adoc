@@ -1,0 +1,38 @@
+[[cls-11-9]]
+== Data Classification and Encoding Guide
+
+The data product specification shall provide information on how the data
+is to be captured. This should be as detailed and specific as necessary.
+The product specification shall include this information for each
+identified scope.
+
+The product specification includes the collection criteria for mapping
+real world objects to the conceptual objects of the dataset. Data
+products can carry information about their data sources (metadata lineage
+elements); the product specification and application schema will show
+whether this is expected, and how it is to be done.
+
+Any organization performing data capture for the data product defined by
+the data product specification shall provide references to any more
+detailed encoding guide used in addition to that indicated in the product
+specification for the capturing process.
+
+NOTE: A data capture and classification guide is an important part of a
+data product specification that has to be written before a capturing
+process can start.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[7] %}
+
+[[tab-11-8]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

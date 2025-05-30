@@ -1,0 +1,399 @@
+[[app-11-B]]
+[appendix,obligation=informative]
+== Example Product Specification
+
+[[cls-11-B-1]]
+=== Overview
+
+[[cls-11-B-1.1]]
+==== Product specification metadata
+
+[cols="a,a,a"]
+|===
+2+| Title | Tide Prediction Information Product Specification
+2+| Version | 1.0
+2+| Date | Created: 2008-01-18
+2+| Language | English
+2+| Classification | Unclassified
+.2+| Contact | Organisation Name | Data Product Owner
+| Role | Owner
+2+| Identifier | IHO:S100:PSExample1
+2+| Maintenance | Every five years
+|===
+
+[[cls-11-B-1.2]]
+==== Product description
+
+[cols="a,a,a"]
+|===
+2+| Name | Tide Prediction Information
+2+| Abstract | Encodes information and parameters for use in making tide predictions
+2+| Content | A conformant dataset may contain features associated with the prediction of tides. The specific content is defined by the Feature Catalogue and the Application Schema.
+.5+| Spatial Extent | Description | Global, marine areas only
+| East Bounding Longitude | 180
+| West Bounding Longitude | -180
+| North Bounding Latitude | 90
+| South Bounding Latitude | -90
+2+| Specific Purpose | The data shall be collected for the purpose of tide prediction.
+|===
+
+[[cls-11-B-1.3]]
+==== Specification scope
+
+This product specification defines only one general scope which applies
+to all its sections.
+
+[cols="a,a"]
+|===
+| Scope Identification | GeneralScope
+| Level Name | General Scope
+|===
+
+[[cls-11-B-1.4]]
+==== Data product identification
+
+[cols="a,a,a"]
+|===
+2+| Title | Tide Prediction Information
+2+| Abstract | Encodes information and parameters for use in making tide predictions
+.5+| Geographic Description | Description | Global, marine areas only
+| East Bounding Longitude | 180
+| West Bounding Longitude | -180
+| North Bounding Latitude | 90
+| South Bounding Latitude | -90
+| Spatial Resolution | Equivalent Scale | 10000
+2+| Purpose | The data shall be collected for the purpose of tide prediction.
+2+| Language | Not applicable
+|===
+
+Data Product Identification Scope: GeneralScope
+
+[[cls-11-B-2]]
+=== Data content and structure
+
+[[cls-11-B-2.1]]
+==== Data product identification
+
+TPI is a feature-based product. This section contains a feature catalogue
+and an application schema which is expressed in UML.
+
+[[cls-11-B-2.2]]
+==== Feature Catalogue
+
+*Name*:: Tide Prediction Information Feature Catalogue
+
+*Scope*:: Catalogue containing features associated with the prediction of
+tides.
+
+*Field of application*:: Marine navigation
+
+*Version Number*:: 1.0
+
+*Version Date*:: May 2009
+
+*Producer*:: International Hydrographic Organization
+
+*Functional Language*:: English
+
+*Feature Type*
+
+*Name*:: Tide Prediction
+
+*Definition*:: Method for calculating tidal motion.
+
+*CamelCase*:: TidePrediction
+
+*Remarks*:: -
+
+*Alias*:: -
+
+*Feature Attributes*
+
+*Name*:: Object Name
+
+*Attribute Type*:: Simple
+
+*Definition*:: The individual name of an object.
+
+*CamelCase*:: objectName
+
+*Cardinality*:: 0..1
+
+*Data Type*:: text
+
+*Name*:: National Object Name
+
+*Attribute Type*:: Simple
+
+*Definition*:: The individual name of an object in the national Language.
+
+*CamelCase*:: nationalObjectName
+
+*Cardinality*:: 0..1
+
+*Data Type*:: text
+
+*Name*:: Status
+
+*Attribute Type*:: Simple
+
+*Definition*:: The geometric primitive of the associated feature
+
+*camelCase*:: status
+
+*Cardinality*:: 1
+
+*Data Type*:: Enumeration
+
+*Values*::
+
+1::: Permanent
+2::: Occasional
+3::: Recommended
+4::: Not in use
+5::: Periodic/intermittent
+6::: Reserved
+
+*Name*:: Method of Tidal Prediction
+
+*Attribute Type*:: Simple
+
+*Definition*:: The technique employed to calculate tidal predictions
+
+*camelCase*:: methodOfTidalPrediction
+
+*Cardinality*:: 1
+
+*Data Type*:: Enumeration
+
+*Values*::
+
+1::: Simplified harmonic
+2::: Full harmonic
+3::: Time and height difference
+
+*Feature Type*
+
+*Name*:: Tide Harmonic Prediction
+
+*Definition*::
+
+*camelCase*:: TideHarmonicPrediction
+
+*Remarks*:: -
+
+*Alias*:: -
+
+*Feature Attributes*
+
+*Name*:: Value Of Harmonic Constituents
+
+*Attribute type*:: Complex
+
+*Definition*::
+
+*camelCase*:: valueOfHarmonicConstituents
+
+*Cardinality*:: 1
+
+*Data Type*:: Harmonic Constituent
+
+*Name*:: Harmonic Constituent
+
+*Attribute type*:: Complex
+
+*Definition*:: One of the harmonic elements in a mathematical expression
+of the tide-producing force, and in corresponding formulae for the tide
+or tidal stream. Each constituent represents a periodic change of
+relative position of the Earth, Sun and Moon.
+
+*CamelCase*:: harmonicConstituent
+
+*Cardinality*:: 1..*
+
+*Sub Attributes*
+
+*Name*:: CategoryOfHarmonicConstituents
+
+*Attribute Type*::  Simple
+
+*Data Type*:: Enumeration
+
+*Values*::
+
+1::: M2
+2::: S2
+3::: MM
+
+*Name*:: Constituent Amplitude
+
+*Definition*:: The amplitude of a tidal constituent for a given place in
+metres
+
+*Attribute Type*:: Simple
+
+*Data Type*:: Real
+
+*Name*:: Constituent Phase
+
+*Definition*:: The phase lag of a tidal constituent at a particular
+place in degrees
+
+*Attribute Type*:: Simple
+
+*Data Type*:: Real
+
+*Feature Type*
+
+*Name*:: Tide Non Harmonic Prediction
+
+*Definition*:: Method of tidal prediction made by applying the times of
+the moon's transits to the mean height of the tide systems of
+differences to take account of average conditions and various
+inequalities due to changes in the phase of the moon, declination and
+parallax of the moon and sun.
+
+*camelCase*:: TideNonHarmonicPrediction
+
+*Remarks*:: -
+
+*Alias*:: -
+
+*Name*:: English Chart Note
+
+*Definition*:: Textual information calling special attention to some
+fact.
+
+*CamelCase*:: EnglishChartNote
+
+*Remarks*:: -
+
+*Alias*:: -
+
+*Name*:: Reference Station
+
+*Definition*:: Station at which the tidal observations were made.
+
+*CamelCase*:: ReferenceStation
+
+*Remarks*:: -
+
+*Alias*:: -
+
+[[cls-11-B-2.3]]
+==== Application Schema
+
+[[fig-11-B-1]]
+.Application schema
+image::img168.png[]
+
+[[cls-11-B-3]]
+=== Data Content and Structure Scope: GeneralScope
+
+[[cls-11-B-3.1]]
+==== Coordinate Reference System
+
+[cols="a,a,a",options=header]
+|===
+3+^.^| Geodetic Coordinate Reference System
+
+| name | code | WGS 84
+2+| scope | Horizontal component of the 3D geodetic CRS used by the GPS satellite system.
+
+3+^.^| Geodetic Datum
+| scope | | Satellite navigation.
+.2+| Ellipsoid | semiMajorAxis | stem:[6378137 "unitsml(m)"]
+| inverseFlattening | number:298.257223563[]
+| primeMeridian | greenwichLongitude | stem:[0 "unitsml(deg)"]
+
+3+^.^| Ellipsoidal Coordinate System
+3+| Axis 1
+| name | code | Geodetic latitude
+2+| axisSymbol | Lat
+2+| axisDirection | north
+2+| unitOfMeasure | angle
+3+| Axis 2
+| name | code | Geodetic longitude
+2+| axisSymbol | Long
+2+| axisDirection | east
+2+| unitOfMeasure | angle
+|===
+
+Coordinate Reference System Scope: GeneralScope
+
+[[cls-11-B-4]]
+=== Data Quality
+
+Data Quality Scope: GeneralScope
+
+[[cls-11-B-5]]
+=== Data Capture
+
+[[cls-11-B-5.1]]
+==== Data source
+
+Tidal predictions are based on a proprietary mathematical model.
+
+[[cls-11-B-5.2]]
+==== Production process
+
+A data set conforming to this product specification shall cover an
+extent of one degree by one degree. Features with surface geometry that
+cross the edge of product cells shall be split and their geometry shall
+be specified in the following way, using the class Surface:
+
+.Surface geometry for features crossing cell boundaries
+[cols="a,a"]
+|===
+| Geometry | The polygon geometry specified as the <<ISO19107>> type GM_Surface
+| Closing Curve | The segment of the edge of the polygon geometry that coincides with the edge of the cell specified as the <<ISO19107>> type GM_Curve
+| Masked Curve | The segment of the edge of the polygon geometry that does not coincide with the edge of the cell specified as the <<ISO19107>> type GM_Curve
+|===
+
+Data Capture Scope: GeneralScope
+
+[[cls-11-B-6]]
+=== Data Maintenance
+
+Data are updated as deemed necessary.
+
+Data Maintenance Scope: GeneralScope
+
+[[cls-11-B-7]]
+=== Data Product Format
+
+==== Delivery format
+
+.Delivery format
+[cols="a,a"]
+|===
+| Format name | Geography Markup Language
+| Version | 3.1.1
+| Specification | Geography Markup Language -- GML -- 3.0, OpenGIS(R) Implementation Specification, 7 February 2004, OGC Document Number 03-105r1
+| Language | English
+| Character Set | utf8
+|===
+
+[[cls-11-B-8]]
+=== Data Product Delivery
+
+[[cls-11-B-8.1]]
+==== Delivery medium
+
+.Delivery medium
+[cols="a,a"]
+|===
+| Medium Name | Compact Disc (CD)
+|===
+
+Data Product Delivery Scope: GeneralScope
+
+[[cls-11-B-9]]
+=== Additional Information
+
+Not applicable.
+
+[[cls-11-B-10]]
+=== Metadata
+
+Not Applicable.

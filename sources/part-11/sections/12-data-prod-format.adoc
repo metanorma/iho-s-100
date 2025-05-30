@@ -1,0 +1,47 @@
+[[cls-11-12]]
+== Data Product format (encoding)
+
+The data product specification shall define the format (encoding) in
+which each scope within the data product is delivered.
+
+This section includes a description of file structures and format. The
+file structure (encoding) could be specified completely here, or by
+reference to a separate profile or standard. For example, S-100 gives
+guidance on GML (<<ISO19136>>) encoding; a given product would have a
+specific GML application schema, expressed in one or more XML Schema
+Definition Language files. Specialized products may use other encodings,
+for example S-100 contains a profile of <<ISO8211>> binary encoding.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[10] %}
+
+[[tab-11-11]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
+
+[[cls-11-12.1]]
+=== Descriptions of GML data formats
+
+Documentation of an encoding based on a GML application schema shall
+include a description of any constraints required. Examples are:
+
+. Whether geometry may be encoded only inline, only by reference, or
+using either method;
+. Any constraints on the order of object types in the dataset, for
+example whether information types must precede spatial and feature data
+objects;
+. Schema locations, namespaces, required imports;
+. Whether validation requires methods in addition to XML schema-based
+validation, and if so, specifications of the validation rules or a
+permanent Internet location where they are available for download. For
+example, rule-based validation may be needed for checking the values of
+conditional attributes.

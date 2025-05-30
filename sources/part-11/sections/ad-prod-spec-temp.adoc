@@ -1,0 +1,10 @@
+[[app-11-D]]
+[appendix,obligation=informative]
+== Product Specification Template
+
+=== Introduction
+
+*This Appendix is a template for builders of S-100 based Product
+Specifications. The word version of the template can be downloaded from
+the following
+https://iho.int/uploads/user/pubs/standards/s-100/Part%2011%20Appendix%20D_S-10n-ProductSpecificationTemplate_5.2.0.docx[link].*

@@ -1,0 +1,13 @@
+[[cls-11-15]]
+== Metadata
+
+The core metadata elements as defined in <<ISO19115-1>> and S-100 Part 4
+(Metadata) shall be included with the data product. Discovery and Quality
+metadata shall be structured as per S-100 Parts 4a and 4c, respectively.
+Any additional metadata items required for a particular product
+specification shall be documented in the data product specification.
+These should be defined using <<ISO19115-1>>, <<ISO19115-2>>,
+<<ISO19157>> (for data quality) and <<ISO19115-3>>, with extensions or
+restrictions if required. The application schema shall show how metadata
+is carried in the datasets. This information shall be specified for each
+identified scope.
