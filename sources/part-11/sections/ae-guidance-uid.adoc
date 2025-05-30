@@ -1,0 +1,87 @@
+[[app-11-E]]
+[appendix,obligation=informative]
+== Guidance on Unique Identifiers
+
+A major benefit of the S-100 framework is that products can be produced
+which can be displayed together on one screen such as in an ECDIS or VTS
+monitoring system. That necessarily requires a regime which enables an
+S-100 based system to operate with different products simultaneously.
+The challenging aspect of operating with different products
+simultaneously, is to find a solution that allows exactly one instance
+of a data within the system and which might be simultaneously included
+in various products. In an S-100 environment, the data originators
+provide the data and this data could be used in various products without
+direct influence of a hydrographic office. As long as the data is based
+on the same framework and if the multiple instances use the same
+identifier, the data exchange and data processing of this supply chain
+can be relatively simple.
+
+It is important to preserve original identifiers in data products to
+assist in identifying data objects which describe the same real-world
+entity between different datasets, especially datasets from different
+specifications. For example: Identify instances of the same restricted
+area between ENC (S-101) and Marine Protected Area (S-122) datasets in
+an ECDIS. Another principle for preserving instance identifiers is to
+assist in identifying associated instances between datasets, especially
+datasets from different specifications. For example: S-124 Navigational
+Warning marking a light as out of order. This one navigational warning
+could be used to mark the issue in S-201, S-125 and S-101. Note that
+this requires the identifiers to be preserved so that the system can
+link the related feature instances.
+
+Persistent unique Identifiers would reduce the workload and likely
+issues with translation tables which have to be developed and maintained
+if various stakeholders use different Identifiers for the same feature;
+for example, a light has an IALA Identifier (created by a coastal
+authority) and a HO Identifier. The use of unique Identifiers will
+likely become more important as interoperability between various
+products within an S-100 based environment evolves. Thinking
+interoperability to the last consequence, the clear and standardised
+definition of the Unique Identifier's structure becomes essential within
+that structure, and it is recommended that the Maritime Resource Name
+(MRN) concept, see Part 3 clause 3-10, be utilized as far as possible to
+have a common system of identifiers within the S-100 regime. S-100
+Product Specifications may implement an attribute called
+*interoperabilityIdentifier*. This attribute is intended to provide a
+persistent and unique identifier, to be expressed as an MRN, between
+features in datasets of different Product Specifications. In an S-100
+ECDIS context, for instance, this would allow feature interrogation to
+include related features from different Product Specifications.
+Implementation of interoperabilityIdentifier is optional, see S-100 Part
+3, clause 3-10.1.
+
+There are implications to establishing a regime of preserving persistent
+unique identifiers. These include;
+
+* Implications for data maintenance: Processes have to be established to
+preserve the persistent unique identifiers for features where the
+identifier is needed, and to do so through maintenance cycles. This
+means that the identifier remains static throughout the feature
+lifecycle, even when there are changes to the attributes of the feature.
+For example, the status of a conspicuous building may change over time,
+but the building is the same and the identifier should therefore remain
+static.
+* Production processes must be established to preserve the persistent
+unique identifiers of sources into product instances. If a source object
+is used to create an amalgamated feature (for example, built up area is
+made up of all the buildings in the area, but need not show them
+individually), then the new feature should get a new identifier, and it
+may not be necessary to preserve the source object identifiers into the
+product.
+* It may be prudent to establish product specific rules for when and how
+persistent unique identifiers change with object change. For example, a
+platform is removed; does the remaining obstruction retain the
+identifier, or is it given a new identifier?
+* Persistent unique identifiers may not give any indication of
+version/date of a feature instance. Guidelines should be established by
+stakeholders of products and object types for how to determine the most
+up to date instance if there are discrepancies between data objects
+which describe the same real-world entity between different datasets.
+
+Persistent unique identifiers are likely to only be unique from the
+source originator. It is theoretically possible that two source
+originators generate different feature instances from the same
+real-world item. It is therefore important that stakeholders
+communicate, especially among stakeholders that intend to provide data
+to the same end user systems. Communication should be aimed at
+understanding domains and working out interoperability issues.

@@ -1,0 +1,38 @@
+[[cls-11-8]]
+== Data Quality
+
+The data product specification shall identify the data quality
+requirements for each scope within the data product in accordance with
+S-100 Part 4c. For every data quality scope it is necessary to list all
+the data quality elements and data quality sub-elements defined in S-100
+Part 4c, even if only to state that a specific data quality element or
+data quality sub-element is not applicable for this data quality scope.
+
+Each product specification shall describe the data quality requirements.
+One aspect is the "data quality overview element" which should allow a
+user to decide whether this dataset is the one they want. The other
+aspect is the metadata allowed for specific feature collections, features
+and attributes within the dataset.
+
+The data quality overview element should include at least the intended
+purpose and statement of quality or lineage. Other data quality elements
+cover: completeness, logical consistency, positional accuracy, temporal
+accuracy, thematic accuracy, and anything specifically required for the
+product being specified.
+
+The product specification should comment on which of these are to be used
+and how, including a description of (or reference to) conformance tests.
+For example, should data only be published if it passes a particular
+test, or is it allowable to publish the data with a quality statement
+which indicates non-conformance? The product specification shall describe
+how each quality element is to be populated, for example, stating the
+mechanism to reference the quality evaluation procedure, and allowable
+values for the quality results.
+
+The application schema shall indicate how the data quality elements will
+be related to the data items, for example whether a particular dataset
+should have homogeneous quality, or whether quality elements can be
+related to feature collections, individual feature objects or attributes.
+
+Finally, the encoding description (clause 15) shall indicate how the
+quality elements will be encoded.

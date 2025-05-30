@@ -1,0 +1,173 @@
+[[cls-11-7]]
+== Data content and structure
+
+This profile mandates different requirements for data product
+specifications whether the data is feature- or coverage-based or imagery
+data. The product specification shall include this information for each
+identified scope.
+
+[[cls-11-7.1]]
+=== Feature-based data
+
+The content information of a feature-based data product is described in
+terms of a general feature model and a Feature Catalogue [adopted from
+S-100 Part 3 and S-100 Part 5].
+
+The data product specification shall contain an application schema. For
+all data product specifications in the realm of S-100, the application
+schema shall be expressed in UML. All other rules of S-100 Part 3
+concerning the creation of the general feature model and especially
+conformance to <<ISO19109>> apply as well. If the application schema is a
+separate document, then the product specification shall include a
+narrative summary. The product specification shall describe any fixed
+roles or other restrictions or conventions for default roles. If unique
+role names are required, it may also define conventions for generating
+these unique names.
+
+The data product specification shall include a feature catalogue, which
+provides a full description of each feature type including attributes,
+attribute values and relationships in the data product. The feature
+catalogue shall be realized in accordance with S-100 Part 5. The feature
+catalogue shall be available in both 'machine readable' (for example XML
+based on the S-100 Feature Catalogue XSD) and 'human readable' (for
+example textual derived by XSLT from the XML) forms.
+
+All the feature types, their attributes and attribute value domains, and
+the association types between feature types expressed in the application
+schema shall be described in a feature catalogue.
+
+The Product Specification for feature-based scopes shall include the
+elements in <<tab-11-5>>.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[4] %}
+
+[[tab-11-5]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
+
+[[cls-11-7.2]]
+=== Coverage-based and imagery data
+
+The content information of a coverage-based data product (including
+imagery data product) shall be described in accordance with S-100 Part 7.
+The content information shall be described in the following manner:
+
+A data product specification shall identify each coverage type and each
+image type that is included within the specification scope and shall
+provide a narrative description for each. Accordingly, the following
+components shall be identified to describe a coverage or an image
+(<<tab-11-6>>):
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[5] %}
+
+[[tab-11-6]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
+
+[[cls-11-7.3]]
+=== Coordinate Reference Systems
+
+The data product specification shall include information that defines the
+reference systems used in the data product. The spatial reference system
+used shall be a coordinate reference system (CRS) in conformance with
+S-100 Part 6 CRS Component. The application schema will show how CRS
+references are carried in the data sets; this may be by reference to a
+register of CRS parameters, such as the EPSG Geodetic Parameter Dataset.
+
+A product specification may express coordinate operation parameters for
+operations between particular CRSs. These parameters shall be recorded as
+described in S-100 Part 6.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[6] %}
+
+[[tab-11-7]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
+
+[[cls-11-7.4]]
+=== Object identifiers
+
+The specification of persistent global identifiers for feature and
+information objects is strongly recommended. Identifiers need not be
+defined where the physical realities dictate otherwise or it is known
+that a reference to the object will not be needed, even from an
+as-yet-unknown external dataset conforming to another product
+specification. For example, identifiers need not be defined for
+cartographic objects.
+
+Identifiers of instances should utilize the Maritime Resource Name (MRN)
+concept and namespace. The MRN namespace is administered by International
+Association of Lighthouse Authorities (IALA) through the
+websitehttp://mrnregistry.org/[http://mrnregistry.org], which also
+contains references to the full set of rules that apply to the MRN
+concept. The topmost namespace urn:mrn remains fixed, with subsequent
+name spaces separated by colons, and available through the application
+process explained on the website. Any organization wishing to issue MRN
+conformant identifiers should apply for a name space from IALA, or from
+an organization that already has a namespace registered.
+
+It is not required to encode all feature instances with the whole MRN
+string, provided the whole string can be recreated, for example by
+utilizing metadata. Significant data volume savings can be obtained by
+utilizing such mechanisms. Furthermore, technical issues such as
+restrictions in GML encoding with the use of ":", may be surmounted by
+this approach.
+
+If there are technical reasons why the MRN concept cannot be utilized,
+other means for persistent global identifiers should be established. One
+way to implement persistent global identifiers is by defining a namespace
+and a persistent unique local identifier for individual feature or
+information types. The persistent global identifier can beconstructed by
+combining the namespace with the local identifier. Local identifiers must
+be unique within the namespace for the lifetime of the feature or
+information object.
+
+The local identifier must be an attribute of feature and information data
+objects whenever it is defined. The persistent global identifier need not
+be a data object attribute if the namespace portion can be computed from
+metadata.
+
+Namespaces may be specified by construction, for example a rule
+describing how to construct a namespace from available metadata. Product
+Specifications must specify how persistent global identifiers are to be
+constructed from namespace and local identifiers.
+
+Product Specifications should note that location-based identifiers may
+not be sufficient to disambiguate data objects, because (for example) two
+agencies might issue AtoNs in the same area, for example physical buoys
+marking a channel and a virtual AtoN marking section of the channel with
+low air draft. Updating and normalizing the data in this case must take
+into consideration that the two items have similar characteristics
+(location, aids to navigation, etc), but are different items. Therefore a
+location based identifier is likely not enough to enable a link between
+data.

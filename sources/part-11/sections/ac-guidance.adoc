@@ -1,0 +1,222 @@
+[[app-11-C]]
+[appendix,obligation=informative]
+== Guidance on Codelists
+
+[[cls-11-C-1]]
+=== Introduction to Codelists
+
+Product specifications should balance all relevant considerations, for
+example implementation costs, application operational environment,
+cross-domain reuse, and reduction of maintenance and distribution
+efforts, when deciding which approach to use for any particular
+attribute.
+
+[[cls-11-C-2]]
+=== Modelling
+
+When deciding between using a codelist and enumeration, consider the
+completeness, stability, source, reuse, and application dependencies of
+the list of values.
+
+* If the set of allowed values is fixed and reasonably short (say, fewer
+than 20 values?), an enumeration must be used.
+* If the list is fixed but long, an enumeration is preferred but a
+"dictionary model" codelist may be used.
+* If only the likely values of an enumeration are known, or the list may
+be extended by data producers or the user community, a codelist must be
+used. Whether the "dictionary" or "open" form is preferable depends on
+who might add values -- if it is maintained by an organization, the
+dictionary form is preferable, if user communities or data producers may
+add values, the "open" form is preferable.
+* If the allowed values change frequently and the list should be updated
+without major revisions of the product specification, a codelist may be
+used. The "dictionary" form may be preferable under these circumstances.
+* If application logic or portrayal rules depend on values, an
+enumeration is preferred but a codelist may be used if the logic/rules
+can be written to cover all possible values (for example, using
+wildcards or defaults), or otherwise allow graceful recovery from
+unanticipated values.
+* Collections which have internal structure (e.g., types and subtypes of
+vessels) should be modelled as "dictionary" codelists, pending
+discussion of the matter by ISO/TC 211.
+
+[[cls-11-C-2.1]]
+==== Hierarchies of codelists
+
+A codelist may also be used as a super-type for more specific codelists.
+The vocabulary of the super-type is the union of the vocabularies of its
+sub-types{blank}footnote:[Note that the super-type cannot augment the
+union set with additional definitions. This conforms to the INSPIRE
+usage but it may be reconsidered if such augmentation is required at a
+later time.]. If additional values are permitted the super-type must be
+an "open enumeration" or "open dictionary" codelist. Practically, this
+allows vocabularies developed by different domain expert groups or
+organizations to be merged.
+
+[[cls-11-C-4]]
+=== Codelists maintained by external organizations
+
+If there is an existing well-established codelist maintained by a
+responsible source, it can be referenced in an application schema. The
+codelist should meet the following requirements{blank}footnote:[Adapted
+from INSPIRE guidelines.]:
+
+* It must be managed by a responsible source -- an official national or
+international standards body, long-established user community, group, or
+consortium;
+* The codelist and its values must be identified by persistent HTTP URIs;
+* The list should be well-maintained, meaning all its values must remain
+available forever, even if they have been deprecated, retired or
+superseded;
+* The list should be in a dictionary language accepted for use in S-10x
+product specifications.
+
+The IHO may be requested to arrange for the translation, reproduction,
+and maintenance of codelists meeting only some of the above
+requirements. Note that this may necessitate a discussion between the
+IHO and the source.
+
+[[cls-11-C-4.1]]
+==== Data formats of codelist typed attributes
+
+The codelist model in S-100 is designed to be flexible by decoupling
+application schema from data format to some extent. Data formats may use
+"codelist extractions" created by extracting codes or values from a
+codelist dictionary and treat them as ordinary enumerations. The effect
+is to allow data formats to use either an external dictionary or
+ordinary enumerations. For example, an XML data format might convert an
+_ISO3166CountryCodes_ codelist maintained by IHO into an XML Schema type:
+
+[source%unnumbered]
+----
+<xs:simpleType name="ISO3166CountryCodesType">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="EN"/>
+    <xs:enumeration value="FR"/>
+    ... other country codes ...
+----
+
+As far as implementations using that schema are concerned, it is
+indistinguishable from an ordinary enumeration. The decision as to which
+alternative(s) to use in any particular product specification should
+depend on the circumstances of the data product and its use environment.
+The decision should be made by the product specification authors when
+developing the data format. Obviously allowing different data formats to
+use different representations introduces additional maintenance
+requirements relating to some data formats, these would be limited to
+the formats which use "closed" representations (i.e., convert the
+codelist to an ordinary enumeration).
+
+[[cls-11-C-4.2]]
+==== GML and other XML data formats
+
+[underline]#Enumeration with pattern#: The data format in XML schemas
+must conform to <<ISO19136,section="E.2.4.9">>, i.e., a union of an
+enumeration and a pattern of the form:
+
+[source%unnumbered]
+----
+other: {{{*[a-zA-Z0-9]+*}}}{{{*([a-zA-Z0-9]+)**}}}
+----
+
+Examples of use (assuming a codelist which explicitly lists "Norwegian"
+but not Nynorsk and Bokmål):
+
+[source%unnumbered]
+----
+<language>nor</language>       <!-- Norwegian is an enumerated value -->
+
+<language>other: nno<language> <!-- Norwegian Nynorsk is not an enumerated value -->
+----
+
+[underline]#External Dictionary#: The data format in XML schemas must be
+the XML Schema built-in types _anyURI_. The use of spaces is discouraged.
+
+Example: (UN/LOCODEs, United Nations Code for Trade and Transport
+Locations)
+
+In XML schema: Type definition:
+
+[source%unnumbered]
+----
+<xs:simpleType name="unLoCodeType" type="xs:anyURI">
+----
+
+and later (in the feature definition):
+
+[source%unnumbered]
+----
+<xs:element name="unLoCode" type="unLoCodeType"/>
+----
+
+In a dataset:
+
+[source%unnumbered]
+----
+<unLoCode xlink:href="http://registry.iho.int/codelists/locode/2013/1/USNYC"/>
+----
+
+[underline]#for New York City, identified by code "US NYC" in the
+UN/LOCodelist version 2013-1 (published July 2013).#
+
+[[cls-11-C-4.3]]
+==== <<ISO8211>> encodings
+
+Enumeration with pattern: To accommodate producer-defined values
+("other: xyz") this can be encoded either as a "text" type (character
+string) or as a complex attribute with an integer sub-attribute (for the
+listed allowed values) and a text sub-attribute (the "other:..." values).
+
+External Dictionary: This can be encoded in two ways:
+
+. A URI data type with value a URI constructed by combining the URI for
+the vocabulary (dictionary) and the item code. For example:
++
+--
+http://registry.iho.int/codelists/locode/2013/1/USNYC for New York City
+(in the July 2013 edition of UN/LOCODEs list).
+--
+. A complex attribute with two sub-attributes: Vocabulary location (URI)
+and item code (text). To use the same example: sub-attributes are
+_vocabulary_ = http://registry.iho.int/codelists/locode/2013/1/ and
+_itemCode_ = USNYC.
+
+The first method is recommended as it reduces data complexity.
+
+[[cls-11-C-5]]
+=== Dictionary formats
+
+Use of GML dictionary or SKOS format is recommended. Other formats may
+be considered under compelling circumstances or after the development of
+standards in ISO or elsewhere.
+
+[[cls-11-C-6]]
+=== Dictionary distribution and discovery
+
+In order to remove dependence on Internet connectivity for interpreting
+codelist values, codelist dictionaries may be distributed as support
+files in exchange sets. For the purposes of distribution, discovery,
+management of updates, and version control, such local dictionary files
+can be treated as ordinary support files. Discovery metadata for support
+files is described in Part 4a (see class
+S100_SupportFileDiscoveryMetadata).
+
+[[cls-11-C-6.1]]
+==== Entity resolution with local dictionary files
+
+If mappings from namespaces to dictionary files are needed for a data
+product, the use of a catalogue file is suggested in which case the
+product specification may specify the catalogue file name and format.
+The catalogue file itself can be treated as another support file, having
+a fixed filename and location in the exchange set which are stated in
+the product specification.
+
+[example]
+A product specification uses XML catalogues for resolving codelist
+namespaces to local dictionary files. It specifies that the catalogue
+file shall conform to the OASIS standard for XML catalogues ("XML
+Catalogs V. 1.1"),
+
+URL: https://www.oasis-open.org/standards#xmlcatalogsv1.1). The product
+specification standardizes the name of the catalogue file as
+CODELSTCAT.XML.

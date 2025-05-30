@@ -1,0 +1,54 @@
+[[cls-11-5]]
+== Specification scopes
+
+Some parts of a product specification may apply to the whole product
+whereas other parts of the product specification may apply to parts of
+the product. Coordinate reference system will generally apply to the
+complete product; whereas maintenance regimes may be different for
+navigational features and contextual features. If a specification is
+homogeneous across the whole data product it is only necessary to define
+a general scope (root scope), to which each section of the data product
+specification applies. The data product specification may specify a
+partitioning of the data content of the product on the basis of one or
+more criteria. Such partitioning may be different for different parts of
+the data product specification. Each such part of the data content shall
+be described by a specification scope that may inherit or override the
+general scope specification.
+
+In principle, any or all of the remaining sections of the product
+specification may have variants which apply to the scopes within the
+product. Each variant must identify the scope(s) to which it applies.
+
+[example]
+Data products to support navigation often contain two sets of feature
+types: those that provide navigation information that changes rapidly and
+is essential for safety of navigation, and those that provide background
+reference information. Maintenance and delivery information would be
+partitioned on the basis of these groupings; reference system information
+would not.
+
+This section is only used where different parts of the product (e.g. by
+theme or geographical extent) have different specifications. For example,
+some aspects of the specification may be specific to bathymetry, or to
+non-tidal waters. If this is the case for the product being specified,
+this section defines the various "scopes" within the overall product
+specification, and how they should be identified in the datasets.
+
+Depending on the type of data product specification the scope may include
+items in <<tab-11-3>>.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[2] %}
+
+[[tab-11-3]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

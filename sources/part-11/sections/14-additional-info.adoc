@@ -1,0 +1,25 @@
+[[cls-11-14]]
+== Additional information
+
+This section of the data product specification is optional and may
+include any other aspects of the data product not provided elsewhere in
+this specification. Such aspects may include recommended training,
+creating or using the product, or details of related products. If this
+information only applies to a part of the data product, then the scope
+for this must be clearly identified (<<tab-11-13>>).
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[12] %}
+
+[[tab-11-13]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----

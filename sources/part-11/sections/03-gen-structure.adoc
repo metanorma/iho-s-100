@@ -1,0 +1,37 @@
+[[cls-11-3]]
+== General structure and content of a data product specification
+
+A data product specification defines the requirements for a data product
+and forms the basis for producing or acquiring data. The data product
+specification shall contain sections covering the following aspects of
+the data product:
+
+. Overview -- see <<cls-11-4>>;
+. Specification scopes -- see <<cls-11-5>>;
+. Data product identification -- see <<cls-11-6>>;
+. Data content and structure -- see <<cls-11-7>>;
+. Reference systems -- see <<cls-11-7.3>>;
+. Data quality -- see <<cls-11-8>>;
+. Data Capture -- see <<cls-11-9>>
++
+--
+NOTE: This section can be covered by an encoding guide, for example for
+the S-101 ENC Product Specification - the Data Classification and
+Encoding Guide;
+--
+. Data product format -- see <<cls-11-12>>;
+. Data product delivery -- see <<cls-11-13>>;
+. Metadata -- see <<cls-11-15>>.
++
+--
+A data product specification may also contain sections covering the
+following aspects of the data product:
+--
+. Data Maintenance -- see <<cls-11-10>>;
+. Portrayal -- see <<cls-11-11>>;
+. Additional Information -- see <<cls-11-14>>.
+
+Each of these sections of the data product specification is described in
+the following clauses.
+
+NOTE: Sections are adopted from <<ISO19131>>

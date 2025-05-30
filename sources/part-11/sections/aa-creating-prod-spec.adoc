@@ -1,0 +1,155 @@
+[[app-11-A]]
+[appendix,obligation=informative]
+== Creating an S-100 product specification
+
+[[cls-11-A-1]]
+=== Introduction
+
+A data product specification is a precise technical description which
+characterises a geospatial data product. It includes general information
+for data identification as well as information for data content and
+structure, reference system, data quality aspects, data capture,
+maintenance, delivery and metadata.
+
+The process described in this Appendix should be applied to each
+specification scope identified for the product. For example, if the
+product will contain a mixture of vector (feature) and coverage data,
+then the product specification would identify at least two scopes, and
+the process would be repeated for each scope. If the product contains
+more than one scope with the same geometry requirement (for example two
+scopes with vector geometry but different application schemas, or
+different maintenance regimes), then the process could still be followed
+twice, taking the same route.
+
+[[fig-11-A-1]]
+.Product specification process
+image::img167.png[]
+
+The main reason for creating a data product specification is to define
+the characteristics of a newly developed data product.
+
+[[cls-11-A-2]]
+=== General approach
+
+The general approach to creating an S-100 Based product specification is
+shown in the process flow diagram in <<fig-11-A-1>>. Further information
+on the processes is given in the following sections.
+
+[[cls-11-A-2.1]]
+==== Determine geometry requirement
+
+The first step is to determine whether the scope will be feature based
+(i.e. use vector geometry) or coverage-based. Certain aspects of a
+product specification apply only to feature-based data and certain
+aspects apply only to coverage-based data. A product specification may
+include both feature-based and coverage-based data, by using
+specification scopes.
+
+[[cls-11-A-3]]
+=== Feature-based product
+
+[[cls-11-A-3.1]]
+==== Determine feature attributes
+
+Determine which feature attributes are required in the product. Seek
+definitions in existing authoritative feature data dictionaries. If
+required definitions do not exist then define new feature attributes.
+
+[[cls-11-A-3.2]]
+==== Determine enumerates
+
+Determine which enumerates are required in the product. Seek definitions
+in existing authoritative feature data dictionaries. If required
+definitions do not exist then define new enumerates.
+
+[[cls-11-A-3.3]]
+==== Register definitions in appropriate dictionary
+
+If new definitions are required then seek to register them in the most
+appropriate feature concept dictionary. The IHO will hold one such
+dictionary. The S-100 Feature Catalogue component does allow for feature
+or attribute types to be defined locally, if it is not possible to
+register them in an external dictionary.
+
+[[cls-11-A-3.4]]
+==== Bind features and attributes
+
+Features and attributes that are defined in a feature concept dictionary
+shall be bound in a feature catalogue.
+
+[[cls-11-A-3.5]]
+==== Determine geometry types
+
+Determine which geometry types are required in the product. S-100
+includes definitions of 1D and 2D geometry types. If a geometry type is
+required that is not specified in S-100 Part 7 Spatial Component, then
+apply to S-100WG for it to be added to the framework.
+
+[[cls-11-A-3.6]]
+==== Create application schema
+
+It is possible to express an application schema in two different ways:
+
+* Using a conceptual schema language (a logical model);
+* Using an encoding specific language (a physical model).
+
+[example]
+An example of a conceptual schema language is the UML. An example of an
+encoding specific language is XML Schema Definition Language.
+
+An S-100 application schema may be expressed using the UML. The resulting
+model shall be included in the Product Specification so that the logical
+organisation of the data can be visualised easily. This will be
+particularly helpful where features have complex structures or
+relationships. An introduction to UML is included in the S-100 Main
+Document.
+
+In some cases it is possible to generate the physical application schema
+automatically from the logical application schema.
+
+[example]
+GML is an XML grammar for encoding geographic information. GML
+application schemas are written using XML Schema Definition Language
+which is itself a form of XML. Specific rules for designing GML
+application schemas using UML Class Diagrams are presented in
+<<ISO19136>> (the ISO/TC 211 standard for GML). The UML has a standard
+XML encoding that can be used for interchange of UML models between UML
+packages. Therefore, if the <<ISO19136>> rules for designing GML
+application schemas using UML are adhered to it is possible to export the
+resulting UML model as XML and to transform the resulting XML to the XML
+encoding of a GML application schema. The transformation between the UML
+XML and the GML application schema XML may be undertaken with an XML
+Stylesheet. Tools have been created that accomplish this task.
+
+Physical encoding mechanisms may define means by which the physical
+application schema can be used to validate data instances that claim
+conformance with the application schema in an automatic way.
+
+[example]
+GML schemas can be used for a certain amount of dataset validation. The
+feature and attribute definitions, referenced from the dictionaries, can
+be presented to the users. GML application schemas are written in XML
+Schema Definition Language. This is capable of expressing simple
+constraints, e.g. minimum and maximum values, character patterns. It is
+not capable of directly expressing constraints which involve more than
+one property type (for example, "if there is more than one value of
+'colour', 'colour pattern' must be set"). If these are included in the
+Application Schema, perhaps in a formal language such as Object
+Constraint Language, the ISO 19136 rules ignore them. Thus the GML schema
+associated with a given product can only be used for a limited validation.
+
+[[cls-11-A-4]]
+=== Coverage based product
+
+[[cls-11-A-4.1]]
+==== Content and structure of the coverage
+
+The content and structure of a coverage-based product shall be described
+in terms defined by <<ISO19123>>.
+
+[[cls-11-A-5]]
+=== Coordinate Reference System
+
+Determine the appropriate CRS for the data product. More than one CRS may
+be specified. If necessary, define coordinate operation methods and
+parameters that shall be used in conjunction with the data product.

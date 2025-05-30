@@ -1,0 +1,29 @@
+[[cls-11-1]]
+== Scope
+
+A data product specification is a precise technical description which
+defines a geospatial data product. It describes all the features,
+attributes and relationships of a given application and their mapping to
+a dataset. It includes general information for data identification as
+well as information for data content and structure, reference system,
+data quality aspects, data capture, maintenance, delivery and metadata.
+It may be created and used on different occasions, by different parties
+and for different reasons.
+
+This Part of S-100 describes data product specifications for hydrographic
+requirements for geographic data products. Its aim is to provide a clear
+and similar structure for any data product specification to be written.
+This profile shall be in conformance with all the other standards that
+have been developed within the IHO S-100 Geospatial Standard for
+Hydrographic Data.
+
+The product specification shall constitute a set of human readable
+documentation. Generally, it should also include machine readable files
+for information such as the feature catalogue, the application schema and
+the CRS parameters. An example of a compliant product specification is
+shown in <<app-11-B>>.
+
+In addition to a 'human readable' document, it is possible to create a
+machine readable (for example XML) summary of the Product Specification.
+The tables in the sections below indicate the structure for such a
+summary of the Product Specification.

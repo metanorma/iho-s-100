@@ -1,0 +1,62 @@
+= Universal Hydrographic Data Model -- Part 11: Product Specifications
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-references.adoc[]
+
+include::sections/03-gen-structure.adoc[]
+
+include::sections/04-overview.adoc[]
+
+include::sections/05-spec-scopes.adoc[]
+
+include::sections/06-data-product-id.adoc[]
+
+include::sections/07-data-content.adoc[]
+
+include::sections/08-data-quality.adoc[]
+
+include::sections/09-data-classif.adoc[]
+
+include::sections/10-data-maint.adoc[]
+
+include::sections/11-portrayal.adoc[]
+
+include::sections/12-data-prod-format.adoc[]
+
+include::sections/13-data-prod-delivery.adoc[]
+
+include::sections/14-additional-info.adoc[]
+
+include::sections/15-metadata.adoc[]
+
+include::sections/16-digital-signatures.adoc[]
+
+include::sections/aa-creating-prod-spec.adoc[]
+
+include::sections/ab-example-prod-spec.adoc[]
+
+include::sections/ac-guidance.adoc[]
+
+include::sections/ad-prod-spec-temp.adoc[]
+
+include::sections/ae-guidance-uid.adoc[]

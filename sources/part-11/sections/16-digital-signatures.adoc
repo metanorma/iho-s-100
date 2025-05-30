@@ -1,0 +1,7 @@
+[[cls-11-16]]
+== Digital Signatures
+
+Data exchange is implemented using S-100 Part 17. Exchange sets require
+the use of digital signatures as defined by S-100 Part 15. There is no
+requirement for Product Specifications to develop or implement other
+digital signature schemes for data exchange.

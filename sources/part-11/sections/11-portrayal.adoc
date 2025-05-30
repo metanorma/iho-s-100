@@ -1,0 +1,36 @@
+[[cls-11-11]]
+== Portrayal
+
+The data product specification may provide information on how the data is
+to be presented as graphic output, e.g. as a plot or as an image. This is
+an optional section; however it is strongly recommended that it is
+included where a product specification defines an IHO navigational
+product. Where included, this shall take the form of a reference to a
+portrayal library that contains a set of portrayal rules and a set of
+portrayal specifications (<<tab-11-10>>). The product specification shall
+include this information for each identified scope.
+
+Classes and attributes required to support portrayal for a particular
+product need to be registered in a feature catalog dictionary and the
+feature catalogue for that product specification. Examples could be
+cartographic object classes, scale maximum / minimum attributes,
+attributes which suggest layout for textual information (for example
+$TINTS, $JUSTH).
+
+The portrayal library shall be defined in accordance with S-100 Part 9.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign item = data[9] %}
+
+[[tab-11-10]]
+.{{item.table}}
+[cols="a,a,a,a",options=header]
+|===
+| Name | Description | Multiplicity | Type
+
+{% for row in item.rows %}
+| {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}}
+{% endfor %}
+|===
+----
