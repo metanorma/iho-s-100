@@ -1,0 +1,54 @@
+[[app-12-A]]
+[appendix,obligation=normative]
+== S-100 Maintenance - Change Proposal Form
+
+[%unnumbered,cols="1,1,1,1"]
+|===
+| Organization
+|
+| Date
+|
+
+| Contact
+|
+| Email
+|
+|===
+
+*Change Proposal Type* _Select only one option_
+
+[%unnumbered,cols="1,1,1"]
+|===
+| 1. Clarification | 2. Revision | 3. New Edition
+| | |
+|===
+
+*Location* _Identify all change proposal locations_
+
+[%unnumbered,cols="a,a,a,a"]
+|===
+| S-100 Version No. | Part No. | Section No. | Proposal Summary
+| | | |
+|===
+
+*Change Proposal*
+
+_Please provide a detailed change proposal._
+
+[%unnumbered,cols=1]
+|===
+|
+|===
+
+*Change Proposal Justification*
+
+_Please provide a suitable explanation for the change and where applicable
+supporting documentation._
+
+[%unnumbered,cols=1]
+|===
+|
+|===
+
+*Please send completed forms and supporting documentation to the IHO
+Secretariat (addt@iho.int).*

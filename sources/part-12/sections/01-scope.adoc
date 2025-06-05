@@ -1,0 +1,15 @@
+[[cls-12-1]]
+== Scope
+
+As users begin to implement S-100 and associated Product Specifications, errors
+and deficiencies in S-100 may be found and these will need to be handled in a
+uniform manner. This Part specifies procedures to be followed in updating,
+maintaining and publishing the various parts of S-100. It excludes the
+maintenance of the IHO Geospatial Information (GI) Registry, as each Register
+Manager will have their own specific procedures for updating their Register(s).
+Additionally, this Part excludes the maintenance regime of Product
+Specifications. However, S-100 versions must be backward compatible to ensure
+interoperability of Product Specifications.
+
+NOTE: All S-100 based Product Specifications shall include a maintenance
+section.
