@@ -1,0 +1,26 @@
+[[cls-12-3]]
+== Version Control
+
+The IHO shall release new versions of S-100 as necessary. New versions shall
+include _clarifications_, _revisions_ and _new editions_. Each version shall
+contain a change list that identifies the changes between versions of S-100.
+
+[[cls-12-3.1]]
+=== Clarification Version Control
+
+Clarifications shall be denoted as n.n._n_. Each clarification or set of
+clarifications approved at a single point in time shall increment _n_ by 1.
+
+[[cls-12-3.2]]
+=== Revision Version Control
+
+Revisions shall be denoted as n._n_.0. Each revision or set of revisions
+approved at a single point in time shall increment _n_ by 1. Revision version
+control shall set clarification version control to 0.
+
+[[cls-12-3.3]]
+=== New Edition Version Control
+
+New Editions shall be denoted as _n_.0.0. Each new edition approved at a single
+point in time shall increment _n_ by 1. New Edition version control shall set
+the clarification and revision version control to 0.

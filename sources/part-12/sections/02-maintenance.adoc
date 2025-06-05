@@ -1,0 +1,64 @@
+[[cls-12-2]]
+== Maintenance Procedures
+
+Change proposals for S-100 are coordinated by S-100WG and shall be made
+available via the IHO web site. Organizations that wish to make changes to
+S-100 must address their change proposals to the IHO Secretariat.
+
+Changes to S-100 are classified at one of three different levels: _new
+edition_, _revision_, or _clarification_. In each case, the development,
+consultation and approval process will be slightly different, ranging from a
+very comprehensive regime for _new editions_, to approval at the level of a
+subordinate body for _clarifications_. _New editions_ and _revisions_ are
+considered to be "significant changes" for the purposes of review, consultation
+and approval.
+
+All proposed changes shall be technically and commercially assessed before
+approval. All proposals shall be submitted to the secretary S-100WG using the
+S-100 Maintenance - Change Proposal Form in <<app-12-A>>.
+
+Changes to IHO technical standard S-100 shall be subject to the terms of
+Resolution 2/2007.
+
+[[cls-12-2.1]]
+=== Clarification
+
+Clarifications are non-substantive changes to S-100. Typically,
+_clarifications_: remove ambiguity; correct grammatical and spelling errors;
+amend or update cross references; insert improved graphics in spelling,
+punctuation and grammar. A clarification must not cause any substantive
+semantic change to S-100. _Clarifications_ are the responsibility of the
+relevant subordinate body and may be delegated to the responsible editor.
+
+[[cls-12-2.2]]
+=== Revision
+
+_Revisions_ are defined as substantive semantic changes to S-100. Typically,
+_revisions_ change existing specifications to correct factual errors; introduce
+necessary changes that have become evident as a result of practical experience
+or changing circumstances; or add new specifications within an existing
+section. _Revisions_ could have an impact on either existing users or future
+users of a revised standard. It follows that a full consultative process that
+provides an opportunity for input from as many stakeholders as possible is
+required. Proposed changes to S-100 should be evaluated and tested wherever
+practicable. The approval of Member States is required before any _revisions_
+to S-100 can enter into force. All cumulative _clarifications_ must be included
+with the release of approved corrections revisions.
+
+A _revision_ shall not be classified as a _clarification_ in order to bypass
+the appropriate consultation processes.
+
+[[cls-12-2.3]]
+=== New Edition
+
+_New Editions_ of S-100 introduce significant changes. _New Editions_ enable
+new concepts, such as the ability to support new functions or applications, or
+the introduction of new constructs or data types, to be introduced. _New
+Editions_ are likely to have a significant impact on either existing users or
+future users of the revised standard. It follows that a full consultative
+process that provides an opportunity for input from as many stakeholders as
+possible is required. Proposed changes to S-100 should be evaluated and tested
+wherever practicable. The approval of Member States is required before any _New
+Edition_ of S-100 can enter into force. All cumulative _clarifications_ and
+_revisions_ must be included with the release of an approved _New Edition_ of
+S-100.
