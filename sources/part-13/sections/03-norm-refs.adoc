@@ -1,0 +1,19 @@
+[bibliography]
+== Normative References
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including
+amendments) applies.
+
+* [[[lua,1]]],
+span:title[Lua 5.1 Reference Manual],
+span:uri[https://www.lua.org/manual/5.1/]
+
+* [[[ISO19125-1,ISO 19125-1:2004]]]
+
+* [[[ISO8601,hidden(ISO 8601)]]]
+
+* [[[RFC3986,hidden(IETF RFC 3986)]]]
+
+* [[[RFC2141,hidden(IETF RFC 2141)]]]

@@ -1,0 +1,86 @@
+[[cls-13-7]]
+== Hosting requirements
+
+This section defines the requirements imposed on a host in order to support
+scripting functionality. For example, a program written to display an S-101
+ENC using the S-100 Part 9A portrayal must conform to the requirements of
+this section.
+
+[[cls-13-7.1]]
+=== Lua version
+
+The host must provide a scripting engine; a Lua version 5.1 interpreter or
+virtual machine. The reference implementation is available from
+http://www.lua.org/[lua.org] (http://www.lua.org/). Embedding the reference
+implementation into the host is recommended. For maximum performance the host
+can embed or implement a Lua compiler such as http://luajit.org/[LuaJIT]
+(http://luajit.org/).
+
+Further guidance on embedding is provided in _Programming in Lua -- Part IV
+(The C API)_, details of which are available athttps://www.lua.org/pil/.
+
+[[cls-13-7.2]]
+=== Character encoding
+
+All strings exchanged between the host and the scripting catalogue must be
+UTF-8 encoded.
+
+[[cls-13-7.3]]
+=== Error handling
+
+When calling Lua scripting catalogue functions from the host, a return value
+of *LUA_OK* from _lua_pcall_ indicates success. Otherwise, the standard Lua
+error handling mechanism is used. An error code is returned to the host and a
+string detailing the error will be available on the top of the stack.
+
+[[cls-13-7.4]]
+=== Array parameters
+
+Several of the scripting catalogue functions expect arrays to be passed as
+parameters. The arrays are standard Lua arrays which should be created using
+the Lua C API array functions as documented in _Programming in Lua -- Part IV
+(The C API)_.
+
+[[cls-13-7.5]]
+=== Host functions
+
+The host must provide the standard host functions detailed in <<cls-13-8.2>>.
+
+The host must also provide domain specific host functions in order to support
+domain specific functionalities. Domain specific functionalities which are
+unused by the host do not need to be provided. Documentation for domain
+specific host functions is provided in the Part(s) of S-100 describing the
+domain specific functionality.
+
+[[cls-13-7.5.1]]
+==== Compatibility
+
+The host must guarantee backwards compatibility of the host provided
+functions with all previously published scripting catalogues. That is, when
+implementing function _X_, the host must only call scripting catalogue
+functions which were available in the version of S-100 when _X_ was added.
+
+Failure to conform to this requirement may result in incompatibilities when
+the host attempts to run older scripting catalogues.
+
+[[cls-13-7.5.1.1]]
+===== Scripting catalogue / host incompatibility
+
+As new versions of S-100 are published, scripting functions may be added.
+Scripting functions will never be removed from S-100, although the use of a
+particular function may be deprecated.
+
+Although backwards compatibility is guaranteed, newer scripting catalogues
+may attempt to call host functions which are unsupported by the current host.
+This situation is indicative of a host which has not been updated with the
+latest host scripting functions. To limit the occurrence of such cases,
+scripting catalogues should be written using the earliest subset of scripting
+functions possible.
+
+Scripting incompatibilities (missing host functions) are indicated during
+scripting initialization. Incompatibility is indicated to the host by
+returning *LUA_ERRERR* from _lua_pcall_; the error string at the top of the
+stack will detail the cause of the incompatibility. When this occurs the host
+should revert to an earlier version of the scripting catalogue if available.
+It is also recommended to alert the user to check for an update of the host
+software.

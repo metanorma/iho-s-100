@@ -1,0 +1,5 @@
+== Scope
+
+This Part defines a standard mechanism for including scripting support in
+S-100 based products. Scripting provides for processing of S-100 based
+datasets via script files written in the Lua programming language.

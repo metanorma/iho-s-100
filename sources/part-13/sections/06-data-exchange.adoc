@@ -1,0 +1,232 @@
+[[cls-13-6]]
+== Data exchange
+
+Data that is passed to the host from a scripting catalogue may be retrieved
+using the Lua C API functions that correspond to the data type. For the
+simple data types such as nil, boolean, string and number, retrieval of the
+data is trivial. For more complex data types, the scripting catalogue encodes
+the data using the Data Exchange Format (DEF) described in this section.
+
+[[cls-13-6.1]]
+=== DEF Schema
+
+The Data Exchange Format (DEF) is a string, formatted as described below.
+Host parsing of the DEF is simple to implement using the parsing capabilities
+built into all popular programming languages. Host parsing of the DEF should
+typically be implemented using string splitting operations such as
+String.split() in Java, or using simple scan parsing, such as strtok() in C
+or C++.
+
+A DEF string is a series of one or more elements separated by semicolons (;).
+Each element is comprised of an item string, followed optionally by a colon
+(:) and a parameter list. A parameter list is one or more parameter strings
+separated by commas (,).
+
+Note that string parameters are not surrounded by any delimiters such as
+quotation marks, however special characters within the string parameters will
+be escaped using an ampersand (&) as described in <<cls-13-6.1.2>>.
+
+[[cls-13-6.1.1]]
+==== Special characters
+
+<<tab-13-1>> lists the special characters used by the DEF.
+
+[[tab-13-1]]
+.Special Characters
+[cols="a,a"]
+|===
+| Special Character | Usage
+
+| Semicolon (;) | Separates the individual elements of a DEF.
+| Colon (:) | Separates each element into an item string and a parameter list.
+| Comma (,) | Separates the individual parameters of a parameter list.
+| Ampersand (&) | Escapes / encodes special characters contained within the DEF.
+|===
+
+[[cls-13-6.1.2]]
+==== String encoding
+
+Special characters contained within the DEF are escaped / encoded using the
+character sequences listed in <<tab-13-2>>.
+
+[[tab-13-2]]
+.String Encoding
+[cols="a,a"]
+|===
+| Special Character | Encoding
+| Semicolon (;) | &s
+| Colon (:) | &c
+| Comma (,) | &m
+| Ampersand (&) | &a
+|===
+
+For example, a notional DEF containing four elements that might be used to
+represent drawing instructions:
+
+[source%unnumbered]
+----
+{{{*PenWidth:0.64;PenColor:LANDF,0.75;DrawLine;DrawTextStrings:Hello&m world!,,Foo&cbar*}}}
+----
+
+The first element has one parameter (0.64), the second element has two
+parameters (LANDF and 0.75), the third element has no parameters, and the
+fourth element has three parameters (Hello, world!, null or empty, and
+Foo:bar).
+
+[[cls-13-6.1.3]]
+==== Parsing
+
+There are four steps to parsing the DEF: (1) get each element, (2) get the
+item and parameters for each element, (3) break the parameters into
+individual pieces, and then (4) decode each parameter. The notional DEF:
+
+_Item1:P1A;Item2:P2A,P2B;Item3:Hello&m world!_
+
+The host should first split the DEF into individual elements on each
+semicolon (;) boundary resulting in <<tab-13-3>>.
+
+[[tab-13-3]]
+.Parsing -- Step 1
+[cols="a,a"]
+|===
+| ELEMENT # | ELEMENT
+
+| 1 | _Item1:P1A_
+| 2 | _Item2:P2A,P2B_
+| 3 | _Item3:Hello&m world!_
+|===
+
+Each of the elements should then be divided into an item and the items
+parameter(s) by splitting on colon (:) boundaries, resulting in:
+
+[[tab-13-4]]
+.Parsing -- Step 2
+[cols="a,a,a,a",options=header]
+|===
+| ELEMENT # | ELEMENT | ITEM | PARAMETERS
+| 1 | _Item1:P1A_ | _Item1_ | _P1A_
+| 2 | _Item2:P2A,P2B_ | _Item2_ | _P2A,P2B_
+| 3 | _Item3:Hello&m world!_ | _Item3_ | _Hello&m world!_
+|===
+
+The parameters should then be individually extracted by splitting the
+parameters on each comma (,) boundary, resulting in:
+
+[[tab-13-5]]
+.Parsing -- Step 3
+[cols="a,a,a,a,a,a,a"]
+|===
+| ELEMENT # | ELEMENT | ITEM | PARAMETER 1 | PARAMETER 2 | ... | PARAMETER N
+
+| 1
+| _Item1:P1A_
+| _Item1_
+| _P1A_
+|
+|
+|
+
+| 2
+| _Item2:P2A,P2B_
+| _Item2_
+| _P2A_
+| _P2B_
+|
+|
+
+| 3
+| _Item3:Hello&m world!_
+| _Item3_
+| _Hello&m world!_
+|
+|
+|
+|===
+
+Once the DEF has been divided into its constituent parts, each parameter
+should be converted to its original string encoding by performing the
+substitutions listed in <<tab-13-2>>:
+
+[[tab-13-6]]
+.Parsing -- Step 4
+[cols="a,a,a,a,a,a,a"]
+|===
+| ELEMENT # | ELEMENT | ITEM | PARAMETER 1 | PARAMETER 2 | ... | PARAMETER N
+
+| 1
+| _Item1:P1A_
+| _Item1_
+| _P1A_
+|
+|
+|
+
+| 2
+| _Item2:P2A,P2B_
+| _Item2_
+| _P2A_
+| _P2B_
+|
+|
+
+| 3
+| _Item3:Hello&m world!_
+| _Item3_
+| _Hello, world!_
+|
+|
+|
+|===
+
+[[cls-13-6.2]]
+=== Attribute path
+
+Scripting catalogues need to be able to determine the value of the attributes
+on each feature instance contained within a dataset. In order to do so, a
+catalogue will query the host for each attribute value as needed. When
+querying a host, the catalogue must identify which attribute of a given
+feature is being queried. If a feature instance contains only simple
+attributes, identifying the feature instance and attribute code is sufficient
+for the host to uniquely identify the requested attribute.
+
+The host requires more information when the attribute value is contained
+within a complex attribute. For example, consider the following attribute
+value lookup:
+
+_feature.sectorCharacteristic[2].lightSector[1].valueOfNominalRange_
+
+Here the feature has a complex attribute __sectorCharacteristic__, which is
+an array. The second entry of _sectorCharacteristic_ contains the complex
+attribute __lightSector__, the first entry of which contains the simple
+attribute _valueOfNominalRange_.
+
+When requesting the value of __valueOfNominalRange__, scripting must provide
+the host with a path to the desired attribute, in addition to the _code_ of
+the desired attribute so that the host can return the actual value. The path
+is required because the feature instance may have multiple attribute
+instances with the same _code_ contained within alternate attribute paths --
+for example __feature.simpleAttribute__, vs.
+_feature.complexAttribute[n].simpleAttribute vs.
+feature.complexAttribute[n+1].simpleAttribute_.
+
+When the scripting catalogue requests an attribute value from the host, an
+attribute path is provided to the host using a DEF string. Each section of
+the path is encoded as an element containing the _AttributeCode_ and _Index.
+AttributeCode_ contains the code of a complex attribute; _Index_ stores the
+array index of the complex attribute.
+
+In the example above, the path to _valueOfNominalRange_ would be expressed in
+DEF as follows:
+
+[source%unnumbered]
+----
+{{{*sectorCharacteristic:2;lightSector:1*}}}
+----
+
+The DEF would be used in a call to the host from a scripting catalogue as
+follows:
+
+[source%unnumbered]
+----
+{{{*HostFeatureGetSimpleAttribute(featureID, sectorCharacteristic:2;lightSector:1, valueOfNominalRange)*}}}
+----
