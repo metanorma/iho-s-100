@@ -1,0 +1,11 @@
+[[cls-13-4]]
+== Purpose
+
+This Part is provided to permit the normative expression and processing of
+rules for S-100 based products. Possible usage examples include: portrayal
+rules, product interoperability rules, rules for detecting navigational
+hazards, data validation rules, etc.
+
+The use of scripting removes ambiguity from rule expression, ensures
+consistency among applications, and allows for rules to be modified or
+extended via catalogue updates.

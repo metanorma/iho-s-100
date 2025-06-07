@@ -1,0 +1,2049 @@
+[[cls-13-8]]
+== Standard script functions
+
+This section describes the set of standard script functions which constitute
+the scripting system. There are two sets of functions described: standard
+catalogue functions, and standard host functions. The realization of a
+scripting catalogue only exists within a scripting domain.
+
+Standard catalogue functions, as described in <<cls-13-8.1>>, are provided
+within each scripting catalogue. Standard host functions, as described in
+<<cls-13-8.2>>, are to be implemented by the program which is hosting the
+scripting environment.
+
+<<fig-13-3>> below shows the location of each type of scripting function
+within the scripting environment.
+
+[[fig-13-3]]
+.Location of script functions within the scripting environment
+image::img171.png[]
+
+Each standard script function is described below on its own sub-clause. A
+description of the functions purpose, along with a description of the
+parameters and return value are provided. For clarity, _void_ is used to
+indicate that a function has no return value.
+
+Function parameters which can accept multiple types will be indicated as
+_variant_. _variant_ will also be used if the function can return more than
+one type. For instance, a function which accepts both integers and strings
+for its first parameter, and returns either an integer or string dependent on
+the type passed for the first parameter, would have a signature of:
+
+[source%unnumbered]
+----
+variant {{{*Function*(variant _param1_)}}}
+----
+
+The function description will indicate the types which are permitted for the
+_variant_ parameter(s).
+
+Many of the standard script functions accept a _featureID, informationTypeID_
+or _spatialID_ parameter. The host must ensure that these various _ID_
+parameters uniquely identify a single instance among all datasets across all
+product types to be used by the host during a scripting session. Since each
+type of _ID_ is a string, one way to accomplish this is by prepending the
+relevant information to the _ID_; for example, "S101.101US003DE01M__.000.F1"
+to identify the first feature in the referenced S-101 dataset.
+
+[[cls-13-8.1]]
+=== Standard catalogue functions
+
+This section describes the standard set of functions which are provided by
+all scripting catalogues.
+
+All strings passed to these functions must be UTF-8 encoded.
+
+When calling these functions, attribute values are always passed from the
+host to the scripting environment using strings. This allows values which
+don't have Lua equivalents to be passed unambiguously. This also allows for
+decimal values to be passed without the loss of precision which can occur
+during conversion to IEEE floating point types.
+
+If an attribute value is present but unknown, the value returned from
+_GetUnknownAttributeString()_ should be used.
+
+The following Table shows the string representations of the Types defined by
+_S100_CD_AttributeValueType_.
+
+[[tab-13-7]]
+.String representation of types defined by _S100_CD_AttributeValueType_
+[cols="a,a"]
+|===
+| S100_CD_AttributeValueType | Representation
+
+| boolean | "0" represents False
+
+"1" represents True
+| enumeration | S100_FC_ListedValue:code. Do not use S100_FC_ListValue:label
+| integer | String representation of a signed integer
+| real | String representation of a decimal number. Trailing zeros are permitted only if significant
+| text | As provided
+| date | Character encoding shall follow the format for date as specified by <<ISO8601>>
+| time | Character encoding shall follow the format for time as specified by <<ISO8601>>
+| dateTime | Character encoding shall follow the format for date and time as specified by <<ISO8601>>
+| URI | Character encoding shall follow the format for URI as specified by <<RFC3986>>
+| URL | Character encoding shall follow the format for URL as specified by <<RFC3986>>
+| URN | Character encoding shall follow the format for URN as defined by <<RFC2141>>
+| S100_CodeList | As provided
+| S100_TruncatedDate | As provided
+|===
+
+[[cls-13-8.1.1]]
+==== Object creation functions
+
+These functions relieve the host from the burden of constructing Lua tables
+corresponding to complex types used within the scripting catalogue. They
+allow the host to create objects which will be passed into the scripting
+catalogue. The schema and contents of the created objects are opaque to the
+host -- they are only intended for use within the scripting catalogue.
+
+[[cls-13-8.1.1.1]]
+===== AttributeConstraints CreateAttributeConstraints(integer _stringLength_, string _textPattern_, string _rangeLower_, string _rangeUpper_, string _rangeClosure_, integer _precision_)
+
+*Return Value*
+
+_AttributeConstraints_::
+
+&nbsp;::: A Lua table containing an attribute constraints object.
+
+*Parameters*
+
+_stringLength_:: integer or nil
+
+&nbsp;::: The maximum number of characters that may be assigned to the text
+attribute type. If this value is nil, the length is unconstrained.
+
+_textPattern_:: string or nil
+
+&nbsp;::: A regular expression defining the structure of text values that may
+be assigned to the attribute. If this value is nil, the structure is
+unconstrained.
++
+--
+W3C XML Standard Part 2 Appendix F (Regular Expressions) shall be used to
+define the text pattern.
+--
+
+_rangeLower_:: string or nil
+
+&nbsp;::: Specifies the lower range of allowed values for the attribute. If
+this value is nil, there is no lower value constraint.
+
+_rangeUpper_:: string or nil
+
+&nbsp;::: Specifies the upper range of allowed values for the attribute. If
+this value is nil, there is no upper value constraint.
+
+_rangeClosure_:: string or nil
+
+&nbsp;::: Defines the closure operations for the lower and upper ranges. This
+is one of enumerated values as defined in Table 1-3. This must be specified
+if either or both the lower or upper ranges are specified.
+
+_precision_:: integer or nil
+
+&nbsp;::: If specified, indicates the precision of a real number.
+
+*Remarks*
+
+Called from the host to create attribute constraints for use by the scripting
+catalogue.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.2]]
+===== SpatialAssociation CreateSpatialAssociation(string _spatialType_, string _spatialID_, string _orientation_, variant _scaleMinimum_, variant _scaleMaximum_)
+
+[underline]#*Return Value:*#
+
+_SpatialAssociation_::
+
+&nbsp;::: A Lua table containing a spatial association object.
+
+[underline]#*Parameters:*#
+
+_spatialType_:: string
+
+&nbsp;::: The type of the spatial. One of: "Point", "MultiPoint", "Curve",
+"CompositeCurve", or "Surface".
+
+_spatialID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial.
+
+_orientation_:: string
+
+&nbsp;::: Orientation of the spatial. One of Forward or Reverse.
+
+_scaleMinimum_:: integer or nil
+
+&nbsp;::: Minimum display scale for the spatial or nil.
+
+_scaleMaximum_:: integer or nil
+
+&nbsp;::: Maximum display scale for the spatial or nil.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a spatial association for use by the scripting
+catalogue.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+===== Point CreatePoint(string _x_, string _y_, variant _z_)
+
+[underline]#*Return Value:*#
+
+_Point_::
+
+&nbsp;::: A Lua table containing a point object.
+
+[underline]#*Parameters:*#
+
+_x_:: string
+
+&nbsp;::: X coordinate for the point.
+
+_Y_:: string
+
+&nbsp;::: Y coordinate for the point.
+
+_Z_:: string or nil
+
+&nbsp;::: Z coordinate for the point. For 2D points, this value shall be
+_nil_.
+
+[underline]#*Remarks:*#
+
+_x, y_ and _z_ are expressed using the _real_ string representation as
+described in <<cls-13-8.1>>,
+
+Called from the host to create a point spatial object for use by the
+scripting catalogue.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.4]]
+===== MultiPoint CreateMultiPoint(Point[] _points_)
+
+[underline]#*Return Value:*#
+
+_MultiPoint_::
+
+&nbsp;::: A Lua table containing a multipoint object.
+
+[underline]#*Parameters:*#
+
+_points_:: Point[]
+
+&nbsp;::: A Lua array of points. The host creates each point by calling
+_CreatePoint_.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a multipoint spatial object for use by the
+scripting catalogue.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.5]]
+===== CurveSegment CreateCurveSegment(Point[] __controlPoints__, string _interpolation_)
+
+[underline]#*Return Value:*#
+
+_CurveSegment_::
+
+&nbsp;::: A Lua table containing a curve segment object.
+
+[underline]#*Parameters:*#
+
+_controlPoints_:: Point[]
+
+&nbsp;::: Array of points that define the control points of the curve
+segment. The host creates each controlPoint by calling _CreatePoint_.
+
+_Interpolation_:: string
+
+&nbsp;::: The interpolation to use when connecting the control points. One of
+S100_CurveInterpolationL:name.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a curve segment spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.6]]
+===== Curve CreateCurve(SpatialAssociation _startPoint_, SpatialAssociation _endPoint_, CurveSegment[] _segments_)
+
+[underline]#*Return Value:*#
+
+_Curve_::
+
+&nbsp;::: A Lua table containing a curve object.
+
+[underline]#*Parameters:*#
+
+_startPoint_:: SpatialAssociation
+
+&nbsp;::: Start point for the curve. Host creates by calling
+_CreateSpatialAssociation_.
+
+_endpoint_:: SpatialAssociation
+
+&nbsp;::: End point for the curve. Host creates by calling
+_CreateSpatialAssociation_.
+
+_segments_:: CurveSegment[]
+
+An array of curve segments comprising the curve. Each array entry is created
+by calling _CreateCurveSegment_.
+
+*Remarks*
+
+Called from the host to create a curve spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.7]]
+===== CompositeCurve CreateCompositeCurve(SpatialAssociation[] _curveAssociations_)
+
+[underline]#*Return Value:*#
+
+_CompositeCurve_::
+
+&nbsp;::: A Lua table containing a composite curve object.
+
+[underline]#*Parameters:*#
+
+_curveAssociations_:: SpatialAssociation[]
+
+&nbsp;::: Array of spatial associations that define the elements of the
+composite curve. The host creates each SpatialAssociation by calling
+_CreateSpatialAssociation_.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a composite curve spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.8]]
+===== Surface CreateSurface(SpatialAssociation _exteriorRing_, variant _interiorRings_)
+
+[underline]#*Return Value:*#
+
+_Surface_::
+
+&nbsp;::: A Lua table containing a surface object.
+
+[underline]#*Parameters:*#
+
+_exteriorRing_:: SpatialAssociation
+
+&nbsp;::: The spatial association of the ring that defines the exterior ring
+of the surface. Host creates by calling _CreateSpatialAssociation_.
+
+_interiorRings_:: SpatialAssociation[] or nil
+
+&nbsp;::: Defines the "holes" within the surface. Host creates each interior
+ring by calling _CreateSpatialAssociation_. If there are no holes, this
+parameter is nil.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a surface spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.9]]
+===== ArcByCenterPoint CreateArcByCenterPoint(SpatialAssociation _centerPoint_, real _radius,_ real _startAngle,_ real _angularDistance_)
+
+[underline]#*Return Value:*#
+
+_ArcByCenterPoint_::
+
+&nbsp;::: A Lua table containing an ArcByCenterPoint object.
+
+[underline]#*Parameters:*#
+
+_centerPoint_:: SpatialAssociation
+
+&nbsp;::: The spatial association of the point that defines the centre point
+of the arc. Host creates by calling _CreateSpatialAssociation_.
+
+_radius_:: real
+
+&nbsp;::: Defines the geodesic distance from the centre.
+
+_startAngle_:: real
+
+&nbsp;::: Starting bearing of the arc in degrees, range limited to [0.0,
+360.0].
+
+_angularDistance_:: real
+
+&nbsp;::: Angular distance of the arc in degrees, range limited to [-360.0,
+360.0]. Positive numbers indicate a clockwise direction.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an ArcByCenterPoint spatial object. The arc
+starts at the bearing given by the _startAngle_ parameter and ends at the
+bearing calculated by adding the value of the _angularDistance_ parameter to
+the start angle. The direction of the arc is given by the sign of the angular
+distance. Bearings are relative to true north except that arcs centred at
+either pole (where true north is undefined or ambiguous) shall use the prime
+meridian as the reference direction.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.10]]
+===== CircleByCenterPoint CreateCircleByCenterPoint(SpatialAssociation _centerPoint_, real _radius_, real _startAngle_, real _angularDistance_)
+
+[underline]#*Return Value:*#
+
+_CircleByCenterPoint_::
+
+&nbsp;::: A Lua table containing a CircleByCenterPoint object.
+
+[underline]#*Parameters:*#
+
+_centerPoint_:: SpatialAssociation
+
+&nbsp;::: The spatial association of the point that defines the centre point
+of the circle. Host creates by calling _CreateSpatialAssociation_.
+
+_radius_:: real
+
+&nbsp;::: Defines the geodesic distance from the centre.
+
+_startAngle_:: real
+
+&nbsp;::: Optional. Starting bearing of the arc in degrees, range limited to
+[0.0, 360.0]. Default is zero.
+
+_angularDistance_:: real
+
+&nbsp;::: Optional. Angular distance of the circle in degrees, must be either
+-360.0 (counter-clockwise) or 360.0 (clockwise). Positive numbers indicate a
+clockwise direction. Default is 360 (clockwise).
+
+[underline]#*Remarks:*#
+
+Called from the host to create a CircleByCenterPoint object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.11]]
+===== SplineCurve CreateSplineCurve(Point[] _controlPoints_, string _interpolation,_ integer _degree,_ Knot[] _knots_, KnotType _knotSpec_, boolean _isRational_)
+
+[underline]#*Return Value:*#
+
+_SplineCurve_::
+
+&nbsp;::: A Lua table containing a spline curve.
+
+[underline]#*Parameters:*#
+
+_controlPoints_:: Point[]
+
+&nbsp;::: Array of points that define the control points of the curve
+segment. The host creates each controlPoint by calling _CreatePoint_. The
+number of control points must be three or greater.
+
+_interpolation_:: string
+
+&nbsp;::: The interpolation to use when connecting the control points. One of
+S100_CurveInterpolation:name.
+
+_degree_:: integer
+
+&nbsp;::: The degree of the polynomials used for defining the interpolation.
+
+_knots_:: Knot[]
+
+&nbsp;::: Array of knots. Each knot defines a parameter in the parameter
+space of the spline that is used to define the spline basis function. Each
+knot is created by calling _CreateKnot._
+
+_knotSpec_:: KnotType
+
+&nbsp;::: Type of knot distribution in defining the spline. Defined by
+S100_GM_KnotType.
+
+_isRational_:: boolean
+
+&nbsp;::: Indicates whether the spline uses rational functions to define the
+curve.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a spline curve spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.12]]
+===== PolynomialSpline CreatePolynomialSpline(Point[] _controlPoints_, string _interpolation,_ integer _degree,_ Knot[] _knots_, KnotType _knotSpec_, Vector[] _derivativeAtStart_, Vector[] _derivativeAtEnd_, integer _numDerivativeInterior_)
+
+[underline]#*Return Value:*#
+
+_PolynomialSpline_::
+
+&nbsp;::: A Lua table containing a polynomial spline.
+
+[underline]#*Parameters:*#
+
+_controlPoints_:: Point[]
+
+&nbsp;::: Array of points that define the control points of the curve
+segment. The host creates each controlPoint by calling _CreatePoint_. The
+number of control points must be three or greater.
+
+_interpolation_:: string
+
+&nbsp;::: The interpolation to use when connecting the control points. One of
+S100_CurveInterpolation:name.
+
+_degree_:: integer
+
+&nbsp;::: The degree of the polynomials used for defining the interpolation.
+
+_knots_:: Knot[]
+
+&nbsp;::: Array of knots. Each knot defines a parameter in the parameter
+space of the spline that is used to define the spline basis function. Each
+knot is created by calling _CreateKnot._
+
+_knotSpec_:: KnotType
+
+&nbsp;::: Type of knot distribution in defining the spline. Defined by
+S100_GM_KnotType.
+
+_derivativeAtStart_:: Vector[]
+
+&nbsp;::: Array of Vector that defines the values used for the initial
+derivative used for interpolation in this curve at the start point of the
+spline. Up to _degree_ - 2 vectors can be defined. Each vector is created by
+calling _CreateVector._
+
+_derivativeAtEnd_:: Vector[]
+
+&nbsp;::: Array of Vector that defines the values used for the final
+derivative used for interpolation in this curve at the end point of the
+spline. Up to _degree_ - 2 vectors can be defined. Each vector is created by
+calling _CreateVector._
+
+_numDerivativeInterior_:: KnotType
+
+&nbsp;::: The number of continuous derivatives required at interior knots.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a polynomial spline spatial object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.13]]
+===== Knot CreateKnot(string _value_[, integer _multiplicity_])
+
+[underline]#*Return Value:*#
+
+_Knot_::
+
+&nbsp;::: A Lua table containing a knot object.
+
+[underline]#*Parameters:*#
+
+_value_:: string
+
+&nbsp;::: Value of the knot.
+
+_multiplicity_:: integer
+
+&nbsp;::: The multiplicity of the knot. If omitted, the multiplicity is one.
+
+[underline]#*Remarks:*#
+
+_value_ is expressed using the real string representation as described in
+<<cls-13-8.1>>.
+
+Called from the host to create a knot object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.1.14]]
+===== Vector CreateVector(Point _origin,_ string[] _offset_, integer _dimension_, string _coordinateSystem_)
+
+[underline]#*Return Value:*#
+
+_Knot_::
+
+&nbsp;::: A Lua table containing a knot object.
+
+[underline]#*Parameters:*#
+
+_origin_:: Point
+
+&nbsp;::: The location of the point on the GeometricReferenceSurface for
+which the vector is a tangent.
+
+_offset_:: string[]
+
+&nbsp;::: Local tangent vector in terms of the differentials of the local
+coordinates. The offset values are the magnitude of the vector along each
+coordinate axis.
+
+_dimension_:: integer
+
+&nbsp;::: The dimension of the origin.
+
+_coordinateSystem_:: string
+
+&nbsp;::: The coordinate system of the origin (e.g. EPSG:4326).
+
+[underline]#*Remarks:*#
+
+_offset_ values are expressed using the real string representation as
+described in <<cls-13-8.1>>.
+
+Called from the host to create a vector object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2]]
+==== Type information creation functions
+
+These functions relieve the host from the burden of constructing Lua tables
+corresponding to complex types used within the scripting catalogue. They
+allow the host to create objects used when calling into the scripting
+catalogue. The schema and contents of the created objects are opaque to the
+host -- they are only intended for use within the scripting catalogue.
+
+The complex types correspond to the classes described in S-100 Part 5 -
+_Feature Catalogue_. Each type information creation function described in
+this section specifies the corresponding S-100 Part 5 Feature Catalogue type.
+
+Creation functions for _FC_DefinitionReference_ and its dependent types,
+including the _CI_Citation_ class, are intentionally omitted. There are no
+identified use cases for _FC_DefinitionReference_, and the implementation of
+_CI_Citation_ would be more complicated than the entirety of this section as
+currently defined.
+
+[[cls-13-8.1.2.1]]
+===== Item CreateItem(string _code,_ string _name_, string _definition_, string _remarks_, string[] _alias_)
+
+[underline]#*Return Value:*#
+
+_Item_::
+
+&nbsp;::: A Lua table containing an item corresponding to an _S100_FC_Item_.
+
+[underline]#*Parameters:*#
+
+_code_:: string
+
+&nbsp;::: Code that uniquely identifies the named type within the Feature
+Catalogue.
+
+_name_:: string
+
+&nbsp;::: Name of the item.
+
+_definition_:: string
+
+&nbsp;::: Definition of the named type in a natural language.
+
+_remarks_:: string
+
+&nbsp;::: Optional. Further explanation about the item.
+
+_alias_:: string[]
+
+&nbsp;::: Equivalent name(s) of this item.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an item.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.2]]
+===== NamedType CreateNamedType(Item _item,_ boolean _abstract_, AttributeBinding[] _attributeBindings_)
+
+[underline]#*Return Value:*#
+
+_NamedType_::
+
+&nbsp;::: A Lua table containing a named type corresponding to an
+_S100_FC_NamedType_.
+
+[underline]#*Parameters:*#
+
+_item_:: Item
+
+&nbsp;::: Instance of an item created by calling _CreateItem()_.
+
+_abstract_:: boolean
+
+&nbsp;::: Indicates if instances of this named type can exist in a
+geographic data set. Abstract types cannot be instantiated but serve as base
+classes for other (non-abstract) types.
+
+_attributeBindings_:: AttributeBinding[]
+
+&nbsp;::: An array of zero or more bindings to attributes which describe the
+characteristic of this named type.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a named type.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.3]]
+===== ObjectType CreateObjectType(NamedType _namedType,_ InformationBinding[] _informationBindings_)
+
+[underline]#*Return Value:*#
+
+_ObjectType_::
+
+&nbsp;::: A Lua table containing an object type corresponding to an
+_S100_FC_ObjectType_.
+
+[underline]#*Parameters:*#
+
+_namedType_:: NamedType
+
+&nbsp;::: Instance of a named type created by calling _CreateNamedType()_.
+
+_informationBindings_:: InformationBinding[]
+
+&nbsp;::: An array of zero or more bindings to information types that can be
+associated to this object type by means of an information association.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an object type.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.4]]
+===== InformationType CreateInformationType(ObjectType _objectType_, string _superType_, string[] _subType_)
+
+[underline]#*Return Value:*#
+
+_InformationType_::
+
+&nbsp;::: A Lua table containing an information type corresponding to an
+S100_FC_InformationType.
+
+[underline]#*Parameters:*#
+
+_objectType_:: ObjectType
+
+&nbsp;::: Instance of a named type created by calling _CreateObjectType()_.
+
+_superType_:: string
+
+&nbsp;::: Optional. Indicates the code of the information type from which
+this type is derived.
+
+_subtype_:: string[]
+
+&nbsp;::: An array of zero or more information type codes which are derived
+from this type.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an information type.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.5]]
+===== FeatureType CreateFeatureType(ObjectType _objectType,_ string _featureUseType_, string[] _permittedPrimitives_, FeatureBinding[] _featureBindings_, string _superType_, string[] _subType_)
+
+[underline]#*Return Value:*#
+
+_FeatureType_::
+
+&nbsp;::: A Lua table containing a feature type corresponding to an
+_S100_FC_FeatureType_.
+
+[underline]#*Parameters:*#
+
+_objectType_:: ObjectType
+
+&nbsp;::: Instance of a named type created by calling _CreateObjectType()_.
+
+_featureUseType_:: string
+
+&nbsp;::: A _S100_CD_FeatureUseType:Name_.
+
+_permittedPrimitives_:: string[]
+
+&nbsp;::: An array specifying zero or more allowed spatial primitive types
+for the feature type. Each entry is a _S100_FC_SpatialPrimitiveType:Name_.
+
+_featureBindings_:: FeatureBinding[]
+
+&nbsp;::: An array of zero or more bindings to feature types that can be
+related to this feature type by means of a feature association.
+
+_superType_:: string
+
+&nbsp;::: Optional. Indicates the code of the feature type from which this
+type is derived. The sub-type will inherit all properties from its
+super-type: Name, definition and code will usually be overridden by the
+sub-type, although new properties may be added to the sub-type.
+
+_subType_:: string[]
+
+&nbsp;::: An array of zero or more feature type codes which are derived from
+this type.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a feature type.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.6]]
+===== InformationAssociation CreateInformationAssociation(NamedType _namedType,_ Role[] _roles_, string _superType_, string[] _subType_)
+
+[underline]#*Return Value:*#
+
+_InformationAssociation_::
+
+&nbsp;::: A Lua table containing an information association corresponding to
+an S100_FC_InformationAssociation.
+
+[underline]#*Parameters:*#
+
+_namedType_:: NamedType
+
+&nbsp;::: Instance of a named type created by calling _CreateNamedType()_.
+
+_roles_:: Role[]
+
+&nbsp;::: An array of zero to two roles of the association.
+
+_superType_:: string
+
+&nbsp;::: Optional. Indicates the code of the information association from
+which this association is derived.
+
+_subType_:: string[]
+
+&nbsp;::: An array of zero or more information association codes which are
+derived from this association.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an information association.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.7]]
+===== FeatureAssociation CreateFeatureAssociation(NamedType _namedType,_ Role[] _roles_, string _superType_, string[] _subType_)
+
+[underline]#*Return Value:*#
+
+_FeatureAssociation_::
+
+&nbsp;::: A Lua table containing a feature association corresponding to an
+S100_FC_FeatureAssociation.
+
+[underline]#*Parameters:*#
+
+_namedType_:: NamedType
+
+&nbsp;::: Instance of a named type created by calling _CreateNamedType()_.
+
+_roles_:: Role[]
+
+&nbsp;::: An array of zero to two roles of the association.
+
+_superType_:: string
+
+&nbsp;::: Optional. Indicates the code of the feature association from which
+this association is derived.
+
+_subType_:: string[]
+
+&nbsp;::: An array of zero or more feature association codes which are
+derived from this association.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a feature association.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.8]]
+===== Role CreateRole(Item _item_)
+
+[underline]#*Return Value:*#
+
+_Role_::
+
+&nbsp;::: A Lua table containing a role corresponding to a _S100_FC_Role_.
+
+[underline]#*Parameters:*#
+
+_item_:: Item
+
+&nbsp;::: Instance of an item created by calling _CreateItem()_.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a role.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.9]]
+===== SimpleAttribute CreateSimpleAttribute(Item _item_, string _valueType,_ string _uom_, string _quantitySpecification,_ AttributeConstraints _attributeContraints,_ ListedValue[] _listedValues_)
+
+[underline]#*Return Value:*#
+
+_SimpleAttribute_::
+
+&nbsp;::: A Lua table containing a simple attribute corresponding to a
+_S100_FC_SimpleAttribute_.
+
+[underline]#*Parameters:*#
+
+_item_:: string
+
+&nbsp;::: Instance of an item created by calling _CreateItem()_.
+
+_valueType_:: string
+
+&nbsp;::: The value type of this feature attribute. A
+_S100_CD_AttributeValueType:Name_.
+
+_uom_:: string
+
+&nbsp;::: Optional. Unit of measure used for values of this feature
+attribute. A _S100_UnitOfMeasure:Name_.
+
+_quantitySpecification_:: string
+
+&nbsp;::: Optional. Specification of the quantity. A
+_S100_CD_QuantitySpecification:Name_.
+
+_attributeContraints_:: AttributeConstraints
+
+&nbsp;::: Optional. Constraints which may apply to the attribute. Created by
+calling _CreateAttributeConstraints()_.
+
+_listedValues_:: ListedValue[]
+
+&nbsp;::: Array of zero or more listed values for an enumerated attribute
+domain. Each listed value is created by calling _CreateListedValue()_.
+Applies only if _valueType_ is _Enumeration_ or _S100_Codelist_ (with
+_codelistType_ of open enumeration).
+
+[underline]#*Remarks:*#
+
+Called from the host to create a simple attribute type info object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.10]]
+===== ComplexAttribute CreateComplexAttribute(Item _item_, AttributeBinding[] _subAttributeBindings_)
+
+[underline]#*Return Value:*#
+
+_ComplexAttribute_::
+
+&nbsp;::: A Lua table containing a complex attribute corresponding to a
+_S100_FC_ComplexAttribute_.
+
+[underline]#*Parameters:*#
+
+_item_:: Item
+
+&nbsp;::: Instance of an item created by calling _CreateItem()_.
+
+_subAttributeBindings_:: AttributeBinding[]
+
+&nbsp;::: An array of one or more of attribute bindings to the
+sub-attributes.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a complex attribute type info object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.11]]
+===== ListedValue CreateListedValue(string _label_, string _definition_, integer _code_, string _remarks_, string[] _aliases_)
+
+[underline]#*Return Value:*#
+
+_ListedValue_::
+
+&nbsp;::: A Lua table containing a listed value corresponding to an
+_S100_FC_ListedValue_.
+
+[underline]#*Parameters:*#
+
+_label_:: string
+
+&nbsp;::: Descriptive label that uniquely identifies one value of the
+feature attribute.
+
+_definition_:: string
+
+&nbsp;::: Definition of the listed value in a natural language.
+
+_code_:: integer
+
+&nbsp;::: Numeric code that uniquely identifies the listed value for the
+corresponding feature attribute. Positive integer.
+
+_remarks_:: string
+
+&nbsp;::: Optional. Further explanation about the listed value.
+
+_aliases_:: string[]
+
+&nbsp;::: [underline]#Optional. Array of zero or more equivalent name(s) of
+this listed value.#
+
+[underline]#*Remarks:*#
+
+Called from the host to create a listed value type info object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.12]]
+===== AttributeBinding CreateAttributeBinding(string _attributeCode_, integer _lowerMultiplicity,_ integer _upperMultiplicity_, boolean _sequential_, integer[] _permittedValues_)
+
+[underline]#*Return Value:*#
+
+_AttributeBinding_::
+
+&nbsp;::: A Lua table containing an attribute binding corresponding to an
+_S100_FC_AttributeBinding_.
+
+[underline]#*Parameters:*#
+
+_attributeCode_:: string
+
+&nbsp;::: The code of the complex or simple attribute that is bound to the
+item or complex attribute.
+
+_lowerMultiplicity_:: integer
+
+&nbsp;::: The minimum number of required occurrences of this attribute. This
+is zero for optional attributes.
+
+_upperMultiplicity_:: integer
+
+&nbsp;::: The maximum number of allowed occurrences of this attribute. This
+is nil for an infinite number of allowed attributes.
+
+_sequential_:: boolean
+
+&nbsp;::: Describes if the sequence of the attributes is meaningful or not.
+Applies only to attributes which may occur more than once.
+
+_permittedValues_:: integer[]
+
+&nbsp;::: Array of zero or more permissible values of the attribute. Each
+entry is a _S100_FC_ListedValue:code_. Applies only to attributes of data
+type enumeration.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an attribute binding object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.13]]
+===== InformationBinding CreateInformationBinding(string[] _informationTypeCode_, integer _lowerMultiplicity,_ integer _upperMultiplicity_, string _roleType_, string _role_, string _association_)
+
+[underline]#*Return Value:*#
+
+_InformationBinding_::
+
+&nbsp;::: A Lua table containing an information binding corresponding to a
+_S100_FC_InformationBinding_.
+
+[underline]#*Parameters:*#
+
+_informationTypeCode_:: string[]
+
+&nbsp;::: An array containing one or more _S100_FC_InformationType:code_
+indicating the target information type(s).
+
+_lowerMultiplicity_:: integer
+
+&nbsp;::: The minimum number of required occurrences of this attribute. This
+is zero for optional attributes.
+
+_upperMultiplicity_:: integer
+
+&nbsp;::: The maximum number of allowed occurrences of this attribute. This
+is nil for an infinite number of allowed attributes.
+
+_roleType_:: string
+
+&nbsp;::: The nature of the association end. A _S100_FC_RoleType:Name_.
+
+_role_:: string
+
+&nbsp;::: Optional. The code of the role used for the binding. It must be
+part of the association used for the binding and defines the end of the
+association.
+
+_association_:: string
+
+&nbsp;::: The code of the information association used for the binding;
+defining also the role.
+
+[underline]#*Remarks:*#
+
+Called from the host to create an information binding object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.2.14]]
+===== FeatureBinding CreateFeatureBinding(string[] _featureTypeCode_, integer _lowerMultiplicity_, integer _upperMultiplicity_, string _roleType_, string _role_, string _association_)
+
+[underline]#*Return Value:*#
+
+_FeatureBinding_::
+
+&nbsp;::: A Lua table containing a feature binding corresponding to a
+_S100_FC_FeatureBinding_.
+
+[underline]#*Parameters:*#
+
+_featureTypeCode_:: string[]
+
+&nbsp;::: An array containing one or more S100___FC_FeatureType:code__
+indicating the target feature type(s).
+
+_lowerMultiplicity_:: integer
+
+&nbsp;::: The minimum number of required occurrences of this attribute. This
+is zero for optional attributes.
+
+_upperMultiplicity_:: integer
+
+&nbsp;::: The maximum number of allowed occurrences of this attribute. This
+is nil for an infinite number of allowed attributes.
+
+_roleType_:: string
+
+&nbsp;::: The nature of the association end. A _S100_FC_RoleType:Name_.
+
+_role_:: string
+
+&nbsp;::: The code of the role used for the binding. It must be part of the
+association used for the binding and defines the end of the association.
+
+_association_:: string
+
+&nbsp;::: The code of the feature association used for the binding.
+
+[underline]#*Remarks:*#
+
+Called from the host to create a feature binding object.
+
+It is not intended that the host manipulate the returned object; the object
+is intended to be passed from the host back to the scripting catalogue.
+
+[[cls-13-8.1.3]]
+==== Miscellaneous functions
+
+The functions described on the following pages do not fall under one of the
+previously described functionalities.
+
+[[cls-13-8.1.3.1]]
+===== string GetUnknownAttributeString()
+
+[underline]#*Return Value:*#
+
+_string_::
+
+&nbsp;::: A string that represents an attribute value that is present but
+unknown.
+
+[underline]#*Remarks:*#
+
+Intended to permit differentiation of unknown string values from empty
+string values. This function returns a constant value.
+
+[[cls-13-8.1.3.2]]
+===== string EncodeDEFString(string _input_)
+
+[underline]#*Return Value:*#
+
+_string_::
+
+&nbsp;::: An encoding of _input_ as described in <<cls-13-6.1.2>>.
+
+*Parameters*
+
+_input_:: string
+
+&nbsp;::: The unencoded string.
+
+[underline]#*Remarks:*#
+
+Encodes the input string as described in <<cls-13-6.1.2>>.
+
+[[cls-13-8.1.3.3]]
+===== string DecodeDEFString(string _encodedString_)
+
+[underline]#*Return Value:*#
+
+_string_::
+
+&nbsp;::: A decoded version of _encodedString_.
+
+*Parameters*
+
+_encodedString_:: string
+
+&nbsp;::: The encoded string.
+
+[underline]#*Remarks:*#
+
+Decodes an input string which was previously encoded as described in
+<<cls-13-6.1.2>>.
+
+[[cls-13-8.1.3.4]]
+===== void TypeSystemChecks(boolean _enabled_)
+
+[underline]#*Return Value:*#
+
+None
+
+*Parameters*
+
+_enabled_:: boolean
+
+&nbsp;::: Enables or disables type checking.
+
+[underline]#*Remarks:*#
+
+Indicates the data type of each parameter should be verified on each
+function call. Disabled by default. Type system checks may be enabled during
+catalogue development as a debugging aid.
+
+[[cls-13-8.2]]
+=== Standard host functions
+
+The host must provide a set of "callback" functions that provide the
+scripting environment with: Access to the host's realization of the S-100
+General Feature Model; access to type information for any entity defined by
+the model; and access to spatial operations which can be used to perform
+relational tests and operations on spatial elements defined by the model.
+The host may optionally provide a callback function used to interact with a
+debugger.
+
+Offloading these tasks to the host, rather than providing rigid data
+structures which are passed between the host and scripting, allows the host
+to interact with scripting using the hosts optimal representation of the
+General Feature Model. Host translation of its internal data model to a
+particular input schema is not necessary when using scripting.
+
+Any of the standard host functions may be called from the scripting
+catalogue during the execution of a script.
+
+[[cls-13-8.2.1]]
+==== Data access functions
+
+The host must implement the functions described on the following pages to
+allow the scripting environment to access data the host has loaded from a
+dataset. These functions provide the scripting environment with access to
+features, spatials, attribute values, and information associations.
+
+[[cls-13-8.2.1.1]]
+===== string[] HostGetFeatureIDs()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing all of the feature IDs in the dataset.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return all feature IDs relevant to the current
+scripting catalogue operation. This would typically be all of the features
+in an _S100_Dataset_ or _S100_DataCoverage_.
+
+As discussed in <<cls-13-8>>, the host is responsible for ensuring each
+feature ID uniquely identifies a single feature instance among all product
+types and datasets to be used during the current scripting session.
+
+[[cls-13-8.2.1.2]]
+===== string HostFeatureGetCode(string _featureID_)
+
+[underline]#*Return Value:*#
+
+_string_::
+
+&nbsp;::: The code defined by the Feature Catalogue for the feature type of
+the feature instance.
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return the feature type codefor the feature instance
+identified by _featureID_.
+
+[[cls-13-8.2.1.3]]
+===== string[] HostGetInformationTypeIDs()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing all of the information type IDs in the
+dataset.
+
+[underline]#*Remarks:*#
+
+Allows scripts to query the host for a list of information types contained
+within a given dataset.
+
+Instructs the host to return an array containing all information IDs in the
+given dataset.
+
+[[cls-13-8.2.1.4]]
+===== string HostInformationTypeGetCode(string _informationTypeID_)
+
+[underline]#*Return Value:*#
+
+_string_::
+
+&nbsp;::: The code defined by the Feature Catalogue for the information type
+of the information type instance.
+
+[underline]#*Parameters:*#
+
+_informationTypeID_:: string
+
+&nbsp;::: Used by the host to uniquely identify an information type instance.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return the information type codefor the information
+type instance identified by _informationTypeID_.
+
+[[cls-13-8.2.1.5]]
+===== string[] HostFeatureGetSimpleAttribute(string _featureID_, path _path_, string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: The textual representation of each attribute value, as described
+in <<cls-13-8.1>>. An array is returned even if the attribute has a single
+value.
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+_path_:: path
+
+&nbsp;::: An attribute path as described in <<cls-13-6.2>>
+
+_attributeCode_:: string
+
+&nbsp;::: One of the attribute codes defined in the Feature Catalogue for
+the feature type identified by _featureID_.
+
+[underline]#*Remarks:*#
+
+Instructs the host to perform a simple attribute lookup on the attribute
+_attributeCode_ at the path _path_ for the feature instance identified by
+_featureID_. An empty array is returned if the requested attribute is not
+present.
+
+[[cls-13-8.2.1.6]]
+===== integer HostFeatureGetComplexAttributeCount(string _featureID_, path _path_, string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_integer_::
+
+&nbsp;::: The number of matching complex attributes that exist at the path
+for the feature instance.
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+_path_:: path
+
+&nbsp;::: An attribute path as described in <<cls-13-6.2>>.
+
+_attributeCode_:: string
+
+&nbsp;::: One of the attribute codes defined in the Feature Catalogue for
+the feature type identified by _featureID_.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return the number of attributes matching
+_attributeCode_ at the given attribute path for the given feature instance.
+The given path will always be valid for the feature instance. The returned
+integer can be zero.
+
+[[cls-13-8.2.1.7]]
+===== SpatialAssociation[] HostFeatureGetSpatialAssociations(string _featureID_)
+
+[underline]#*Return Value:*#
+
+_SpatialAssociation[]_::
+
+&nbsp;::: A Lua array containing all of the spatial associations for the
+feature instance represented by _featureID._
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return an array containing the spatial associations
+for the given feature instance. For each spatial association the feature
+contains, the host calls the standard catalogue function
+_CreateSpatialAssociation_ to create the _SpatialAssociation_ object.
+
+The host should return an empty array if the feature has no spatial
+associations.
+
+[[cls-13-8.2.1.8]]
+===== string[] HostFeatureGetAssociatedFeatureIDs(string _featureID_, string _associationCode_, variant _roleCode_)
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing the associated features IDs.
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+_associationCode_:: string
+
+&nbsp;::: Code for requested association as defined by the Feature Catalogue.
+
+_roleCode_:: string or nil
+
+&nbsp;::: Code for requested role as defined by the Feature Catalogue. Can
+be nil if _associationCode_ by itself is enough to specify the association
+or if all roles defined by _associationCode_ are desired.
+
+[underline]#*Remarks:*#
+
+When called, the host returns an array containing the feature IDs associated
+with the given feature instance that match _associationCode_ and _roleCode_.
+If no matches are found the host returns an empty array.
+
+The _roleCode_ may be nil, in which case only the _associationCode_ should
+be used for lookup.
+
+[[cls-13-8.2.1.9]]
+===== string[] HostFeatureGetAssociatedInformationIDs(string _featureID_, string _associationCode_, variant _roleCode_)
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing the associated information IDs.
+
+[underline]#*Parameters:*#
+
+_featureID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a feature instance.
+
+_associationCode_:: string
+
+&nbsp;::: Code for requested association as defined by the Feature Catalogue.
+
+_roleCode_:: string or nil
+
+&nbsp;::: Code for requested role as defined by the Feature Catalogue. Can
+be nil if _associationCode_ by itself is enough to specify the association
+or if all roles defined by _associationCode_ are desired.
+
+[underline]#*Remarks:*#
+
+When called, the host returns an array containing the information IDs
+associated with the given feature instance that match _associationCode_ and
+_roleCode_. If no matches are found the host returns an empty array.
+
+The roleCode may be nil, in which case only the _associationCode_ is used
+for lookup.
+
+[[cls-13-8.2.1.10]]
+===== string[] HostInformationGetAssociatedInformationIDs(string _informationID_, string _associationCode_, variant _roleCode_)
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing the associated information IDs.
+
+[underline]#*Parameters:*#
+
+_informationID_:: string
+
+&nbsp;::: Used by the host to uniquely identify an information instance.
+
+_associationCode_:: string
+
+&nbsp;::: Code for requested association as defined by the Feature Catalogue.
+
+_roleCode_:: string or nil
+
+&nbsp;::: Code for requested role as defined by the Feature Catalogue. Can
+be nil if _associationCode_ by itself is enough to specify the association
+or if all roles defined by _associationCode_ are desired.
+
+[underline]#*Remarks:*#
+
+When called, the host returns an array containing the information IDs
+associated with the given information instance that match _associationCode_
+and _roleCode_. If no matches are found the host returns an empty array.
+
+The roleCode may be nil, in which case only the _associationCode_ is used
+for lookup.
+
+[[cls-13-8.2.1.11]]
+===== string[] HostGetSpatialIDs()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing all of the spatial IDs in the dataset.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return all spatial IDs relevant to the current
+scripting catalogue operation. This would typically be all of the spatial
+objects in an _S100_Dataset_ or _S100_DataCoverage_.
+
+As discussed in <<cls-13-8>>, the host is responsible for ensuring each
+spatial ID uniquely identifies a single spatial instance among all product
+types and datasets to be used during the current scripting session.
+
+[[cls-13-8.2.1.12]]
+===== Spatial HostGetSpatial(string _spatialID_)
+
+[underline]#*Return Value:*#
+
+_Spatial_::
+
+&nbsp;::: A spatial object created via a standard catalogue function as
+listed in the remarks.
+
+[underline]#*Parameters:*#
+
+_spatialID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial.
+
+[underline]#*Remarks:*#
+
+Queries the host for a given spatial.
+
+The host returns a spatial object created by one of the standard catalogue
+functions defined in <<cls-13-8.1.1>>.
+
+[[cls-13-8.2.1.13]]
+===== variant HostSpatialGetAssociatedInformationIDs(string _spatialID_, string _associationCode_, variant _roleCode_)
+
+[underline]#*Return Value:*#
+
+_nil_::
+
+&nbsp;::: The information association is not valid for this spatial.
+
+_String[]_::
+
+&nbsp;::: A Lua array containing the associated information IDs.
+
+[underline]#*Parameters:*#
+
+_spatialID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial.
+
+_associationCode_:: string
+
+&nbsp;::: Code for requested association as defined by the feature catalogue.
+
+_roleCode_:: string or nil
+
+&nbsp;::: Code for requested role as defined by the feature catalogue. Can
+be nil if _associationCode_ by itself is enough to specify the association
+or if all roles defined by _associationCode_ are desired.
+
+[underline]#*Remarks:*#
+
+When called, the host returns an array containing the information IDs for
+the given spatial instance that match _associationCode_ and _roleCode_. If
+the information association is not valid for this feature according to the
+feature catalogue, the host returns nil. If no matches are found the host
+returns an empty array.
+
+The _roleCode_ may be nil, in which case only the _associationCode_ is used
+for lookup.
+
+[[cls-13-8.2.1.14]]
+===== string[] HostSpatialGetAssociatedFeatureIDs(string _spatialID_)
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: A Lua array containing the requested associated feature IDs for
+the spatial identified by _spatialID._
+
+_Nil_::
+
+&nbsp;::: No features are associated to the spatial identified by
+_spatialID._
+
+[underline]#*Parameters:*#
+
+_spatialID_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial.
+
+[underline]#*Remarks:*#
+
+When called, the host returns an array of all feature instances that
+reference the given spatial. A feature instance is considered to be
+associated to a spatial either directly through the spatial associations on
+the feature, or indirectly in the case of curves referenced by composite
+curves or surface rings.
+
+[[cls-13-8.2.1.15]]
+===== string[] HostInformationTypeGetSimpleAttribute(string _informationTypeID_, path _path_, string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_string[]_ or _nil_::
+
+&nbsp;::: The textual representation of each attribute value, as described
+in <<cls-13-8.1>>. An array is returned even if the attribute has a single
+value. The host should return nil if the requested attribute is not present.
+
+[underline]#*Parameters:*#
+
+_informationTypeID_:: string
+
+&nbsp;::: Used by the host to uniquely identify an information instance.
+
+_path_:: path
+
+&nbsp;::: An attribute path as defined in <<cls-13-6.2>>.
+
+_attributeCode_:: string
+
+&nbsp;::: One of the attribute codes defined in the Feature Catalogue for
+the information type identified by _informationTypeID_.
+
+[underline]#*Remarks:*#
+
+Instructs the host to perform a simple attribute lookup on the attribute
+_attributeCode_ at the indicated _path_ for the information instance
+identified by _informationTypeID_. Nil is returned if the requested
+attribute is not present.
+
+[[cls-13-8.2.1.16]]
+===== integer HostInformationTypeGetComplexAttributeCount(string _informationTypeID_, path _path_, string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_integer_::
+
+&nbsp;::: The number of matching complex attributes that exist at the path
+for the information instance.
+
+[underline]#*Parameters:*#
+
+_informationTypeID_:: string
+
+&nbsp;::: Used by the host to uniquely identify an information instance.
+
+_path_:: path
+
+&nbsp;::: An attribute path as described in <<cls-13-6.2>>.
+
+_attributeCode_:: string
+
+&nbsp;::: One of the attribute codes defined in the Feature Catalogue for
+the information type identified by _informationTypeID_.
+
+[underline]#*Remarks:*#
+
+Instructs the host to return the number of attributes matching
+_attributeCode_ at the given attribute path for the given information
+instance. The given path will always be valid for the information instance.
+The returned integer can be zero.
+
+[[cls-13-8.2.2]]
+==== Type information access functions
+
+These functions allow the scripting environment to query the type
+information for any entity from any dataset. The type information provided
+by the host must match the information from the relevant feature catalogue.
+
+[[cls-13-8.2.2.1]]
+===== string[] HostGetFeatureTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all feature type codes as defined in the Feature
+Catalogue.
+
+[underline]#*Remarks:*#
+
+[[cls-13-8.2.2.2]]
+===== string[] HostGetInformationTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all information type codes as defined in the
+Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.3]]
+===== string[] HostGetSimpleAttributeTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all simple attribute type codes as defined in the
+Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.4]]
+===== string[] HostGetComplexAttributeTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all complex attribute type codes as defined in
+the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.5]]
+===== string[] HostGetRoleTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all role type codes as defined in the Feature
+Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.6]]
+===== string[] HostGetInformationAssociationTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all information association type codes as defined
+in the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.7]]
+===== string[] HostGetFeatureAssociationTypeCodes()
+
+[underline]#*Return Value:*#
+
+_string[]_::
+
+&nbsp;::: Array containing all feature association type codes as defined in
+the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.8]]
+===== FeatureType HostGetFeatureTypeInfo(string _featureCode_)
+
+[underline]#*Return Value:*#
+
+_FeatureType_::
+
+&nbsp;::: Lua data structure created by the _CreateFeatureType_()
+function.
+
+[underline]#*Parameters:*#
+
+_featureCode_:: string
+
+&nbsp;::: Feature code matching an entry in the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.9]]
+===== InformationType HostGetInformationTypeInfo(string _informationCode_)
+
+[underline]#*Return Value:*#
+
+_InformationType_::
+
+&nbsp;::: Lua data structure created by the _CreateInformationType_()
+function.
+
+[underline]#*Parameters:*#
+
+_informationCode_:: string
+
+&nbsp;::: Information code matching an entry in the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.10]]
+===== SimpleAttribute HostGetSimpleAttributeTypeInfo(string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_SimpleAttribute_::
+
+&nbsp;::: Lua data structure created by the _CreateSimpleAttribute_()
+function.
+
+[underline]#*Parameters:*#
+
+_attributeCode_:: string
+
+&nbsp;::: Simple attribute code matching an entry in the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.11]]
+===== ComplexAttribute HostGetComplexAttributeTypeInfo(string _attributeCode_)
+
+[underline]#*Return Value:*#
+
+_ComplexAttribute_::
+
+&nbsp;::: Lua data structure created by the _CreateComplexAttribute_()
+function.
+
+[underline]#*Parameters:*#
+
+_attributeCode_:: string
+
+&nbsp;::: Complex attribute code matching an entry in the Feature Catalogue.
+
+*Remarks*:
+
+[[cls-13-8.2.2.12]]
+===== Role HostGetRoleTypeInfo(string roleCode)
+
+[underline]#*Return Value:*#
+
+_Role_::
+
+&nbsp;::: Lua data structure created by the _CreateRole_ function
+
+[underline]#*Parameters:*#
+
+_roleCode_:: string
+
+&nbsp;::: Role code matching an entry in the feature catalogue.
+
+[underline]#*Remarks:*#
+
+[[cls-13-8.2.2.13]]
+===== InformationAssociation HostGetInformationAssociationTypeInfo(string informationAssociationCode)
+
+[underline]#*Return Value:*#
+
+_InformationAssociation_::
+
+&nbsp;::: Lua data structure created by the _CreateInformationAssociation_
+function
+
+[underline]#*Parameters:*#
+
+_informationAssociationCode_:: string
+
+&nbsp;::: Information association code matching an entry in the feature
+catalogue.
+
+[underline]#*Remarks:*#
+
+[[cls-13-8.2.2.14]]
+===== FeatureAssociation HostGetFeatureAssociationTypeInfo(string featureAssociationCode)
+
+[underline]#*Return Value:*#
+
+_FeatureAssociation_::
+
+&nbsp;::: Lua data structure created by the _CreateFeatureAssociation_
+function
+
+[underline]#*Parameters:*#
+
+_featureAssociationCode_:: string
+
+&nbsp;::: Feature association code matching an entry in the feature
+catalogue.
+
+[underline]#*Remarks:*#
+
+[[cls-13-8.2.3]]
+==== Spatial operations functions
+
+These functions allow the scripting environment to perform relational tests
+and operations on spatial elements.
+
+The host must implement the functions described on the following pages to
+provide the scripting environment with the ability to relate spatial
+entities to one another.
+
+[[cls-13-8.2.3.1]]
+===== boolean HostSpatialRelate(string _spatialID1_, string _spatialID2_, string _intersectionPatternMatrix_)
+
+[underline]#*Return Value:*#
+
+_boolean_::
+
+&nbsp;::: Returns _true_ if the geometries represented by the two spatials
+are related as specified in the DE-9IM matrix.
+
+[underline]#*Parameters:*#
+
+_spatialID1_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial instance.
+
+_spatialID2_:: string
+
+&nbsp;::: Used by the host to uniquely identify a spatial instance.
+
+_intersectionPatternMatrix_:: string
+
+&nbsp;::: DE-9IM intersection matrix expressed as nine characters in row
+major order. For example, when testing for overlap between two areas:
+"T*T\*\**T**"
+
+[underline]#*Remarks:*#
+
+Spatially relates the geometries represented by _spatialID1_ and
+_spatialID2_ using the DE-9IM intersection specified via the
+_intersectionPatternMatrix_ string.
+
+For details on DE-9IM string representation refer to
+<<ISO19125-1,section="6.1.14.2">>.
+
+[[cls-13-8.2.4]]
+==== Debugger support functions
+
+These functions allow the scripting environment to interact with a debugger
+which may be running on the host. A debugger may be desired as an aide in
+developing the required standard host functions.
+
+Host implementation of the debugger support functions is optional. Scripts
+will execute normally regardless of whether the host implements these
+functions.
+
+[[cls-13-8.2.4.1]]
+===== void HostDebuggerEntry(string _debugAction_, variant _parameters_)
+
+[underline]#*Return Value:*#
+
+None
+
+[underline]#*Parameters:*#
+
+_debugAction_:: string
+
+&nbsp;::: Indicates the requested debugger action:
+
+*break*:::: Pause execution of the script.
+
+*trace*:::: Display a string in the debugging console, as provided in the
+first parameter.
+
+*start_performance*:::: Begin line by line profiling of the script code.
+
+*stop_performance*:::: Stop line by line profiling of the script code. The
+name of the performance counter is in the first parameter.
+
+*first_chance_error*:::: Notifies the host of an impending error function
+call in the script. The parameter is the message passed to the error
+function. The second parameter is the depth passed to the error function.
+
+_parameters_:: variant
+
+&nbsp;::: Zero or more parameters for use by the debug action.
+
+[underline]#*Remarks:*#
+
+Host implementation of this function is optional.

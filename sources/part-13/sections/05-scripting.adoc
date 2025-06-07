@@ -1,0 +1,65 @@
+[[cls-13-5]]
+== Scripting catalogue
+
+A scripting catalogue (see <<fig-13-1>>) is a collection of script files
+written for use within a scripting domain.
+
+For instance, portrayal is a scripting domain. The rule files contained
+within a Lua Portrayal Catalogue comprise a scripting catalogue.
+
+All scripting catalogues are guaranteed to contain the standard catalogue
+functions defined in <<cls-13-8.1>>. Scripting catalogues may additionally
+contain domain specific catalogue functions. The standard catalogue functions
+simplify the creation, integration, and testing of scripts within a scripting
+domain.
+
+[[fig-13-1]]
+.Composition of a Scripting Catalogue
+image::img169.png[]
+
+In order to apply rules within a scripting domain, scripting catalogues
+interact with host functions. The relationship between the scripting
+catalogue and the host functions is shown in <<fig-13-2>> below. The host
+functions serve to decouple the scripting catalogue from the host's
+implementation of S-100 concepts and functionalities.
+
+[[fig-13-2]]
+.Scripting Catalogue / Host interaction within a Scripting Domain
+image::img170.png[]
+
+[[cls-13-5.1]]
+=== Distribution
+
+The distribution mechanism of a scripting catalogue is defined within the
+scripting domain. For example, S-100 Part 9A includes a scripting catalogue
+within the Portrayal Catalogue;distribution of the scripting catalogue is
+accomplished via distribution of the Portrayal Catalogue.
+
+Each instance of a scripting catalogue must include all standard catalogue
+functions.
+
+[[cls-13-5.2]]
+=== Domain specific catalogue functions
+
+The standard scripting functions are always available within a scripting
+catalogue. Parts of S-100 which use scripting may provide additional
+scripting functions as needed to support domain-specific functionality. In
+this case, the additional functions are referred to as "domain specific
+functions".
+
+Domain specific functions intended for host / scripting catalogue interaction
+(see <<fig-13-2>>) must be specified within the relevant Part of S-100.
+Domain specific functions used internally within a scripting catalogue need
+not be specified within S-100.
+
+For example, assume S-100 Part _N_ uses scripting and requires the addition
+of scripting functions _X_, _Y_, and _Z_. If functions _X_ and _Y_ are called
+from the host, but function _Z_ is only called from functions _X_ and _Y_,
+S-100 Part _N_ must specify required functions _X_ and _Y_, and provide the
+documentation for each function. Since function _Z_ is only used internally
+by the scripting catalogue, it does not need to be documented.
+
+Domain specific functions used for interaction between a host and scripting
+catalogue are referred to as "domain specific host functions" or "domain
+specific catalogue functions", depending on whether they are implemented by
+the host or within the scripting catalogue.
