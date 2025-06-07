@@ -1,0 +1,59 @@
+[[app-14-C]]
+[appendix,obligation=informative]
+== Operations
+
+Descriptions of the StartSession, EndSession, KeepAlive and GetMetaData
+Operations can be found in <<cls-14-9>> and are therefore not explained
+here.
+
+[[cls-14-C.1]]
+=== Get_NW_NM_Service
+
+operationType: SYNCHRONOUS
+
+operationOwner: SERVICE_PROVIDER
+
+.Get_NW_NM_Service
+[cols="a,a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Direction | Encoding
+
+| Operation
+| Get_NW_NM_Messages
+| Provides NW and NM messages for a specific area
+| -
+| -
+| -
+|
+
+| Parameter
+| sessionID
+| To identify the active session
+| 1
+| CharacterString
+| in
+|
+
+| Parameter
+| areaDataSet
+| The area definition
+| 0..1
+| CharacterString
+| in
+| WKT
+
+| Parameter
+| nw_nm_messages
+| The messages returned for the area
+| 1
+| CharacterString
+| return
+| GML
+|===
+
+This operation uses the additional encoding field for a parameter binding
+to further specify the content and format of two parameters. That is, the
+return message will return a CharacterString that uses GML to encode the
+content of the String and thus defines its meaning. The input parameter
+"areaDataSet" expects the String to be encoded as Well Known Text
+geometry, at least if not empty.

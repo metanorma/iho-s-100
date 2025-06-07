@@ -1,0 +1,91 @@
+[[cls-14-9]]
+== Communication management data types
+
+The client requests the creation of a session from the service provider
+that returns a session ID. The subsequent communication, whose operations
+are not part of these recommendations, is always carried out using the
+SessionID. A second operation closes the active session. <<fig-14-8>>
+below shows this minimum set of Operations. The Operation _GetMetaData_
+allows to request metadata for the data sets at runtime. KeepAlive is
+called in order to prevent the session from timing out.
+
+[[fig-14-8]]
+.Minimum set of Operations for session based, interactive services
+image::img179.png[]
+
+[[cls-14-9.1]]
+=== Types
+
+[[cls-14-9.1.1]]
+==== StartSession
+
+operationType: SYNCHRONOUS
+
+operationOwner: SERVICE_PROVIDER
+
+.StartSession
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Direction
+
+| Operation | StartSession | Request to start a new session | - | - | -
+
+| Parameter | identifier | World wide unique identification of the requester | 1 | URN | in
+
+| Parameter | sessionID | Service unique identification for the session, that shall match ITU-T Rec X.667 \| <<ISO9834-8>>
+
+If this parameter is empty the login has failed and the parameter "message" contains the reason for failure | 1 | CharacterString | return
+|===
+
+[[cls-14-9.1.2]]
+==== EndSession
+
+operationType: SYNCHRONOUS
+
+operationOwner: SERVICE_PROVIDER
+
+.EndSession
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Direction
+
+| Operation | EndSession | Request to close the session | - | - | -
+| Parameter | sessionID | Session to be closed, shall match ITU-T Rec X.667 \| <<ISO9834-8>> | 1 | CharacterString | in
+|===
+
+[[cls-14-9.1.3]]
+==== GetMetaData
+
+operationType: SYNCHRONOUS
+
+operationOwner: SERVICE_PROVIDER
+
+.GetMetaData
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Direction
+
+| Operation | GetMetaData | Request for MetaData of the exchanged datasets | - | - | -
+| Parameter | sessionID | To identify the active session | 1 | CharacterString | in
+| Parameter | exchangeSet | The exchange set describing the datasets. | 1 | CharacterString | return
+|===
+
+[[cls-14-9.1.4]]
+==== KeepAlive
+
+operationType: SYNCHRONOUS
+
+operationOwner: SERVICE_PROVIDER
+
+.KeepAlive
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Direction
+
+| Operation | KeepAlive | Prevent the session from timing out | - | - | -
+| Parameter | sessionID | To identify the active session | 1 | CharacterString | In
+| Parameter | sessionID | To identify the active session | 1 | CharacterString | return
+|===
+
+[%portrait]
+<<<

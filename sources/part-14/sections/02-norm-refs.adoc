@@ -1,0 +1,65 @@
+[bibliography]
+== Normative references
+
+The following referenced documents are required for the application of
+this document. For dated references, only the edition cited applies. For
+undated references, the latest edition of the referenced document
+(including amendments) applies.
+
+* [[[IEC61162,IEC 61162 (all parts)]]]
+
+* [[[IEC61174,IEC 61174]]]
+
+* [[[ISO8211,ISO/IEC 8211:1994]]]
+
+* [[[ISO7498,ISO/IEC 7498 (all parts)]]]
+
+* [[[ISO8859-1,ISO/IEC 8859-1:1998]]]
+
+* [[[IHO-draft,6]]],
+_span:title[IHO Draft on S-124 for Maritime Safety Information]_
+span:uri[http://www.iho.int/mtg_docs/com_wg/CPRNW/S100_NWG/2016/S-124NW-CG-01_2016-Draft_Product_Specification-03.12.2015.zip]
+
+* [[[OGS-sos,7]]],
+_span:title[OGC Sensor Observation Service]_
+span:uri[http://www.opengeospatial.org/standards/sos]
+
+* [[[w3c-soap,8]]],
+_span:title[W3C Recommendation "SOAP Version 1.2 Part 1: Messaging Framework (Second Edition)"]_
+span:uri[https://www.w3.org/TR/soap12/]
+
+* [[[w3c-rec,9]]],
+_span:title[W3C Recommendation "Web Services Description Language (WSDL)"]_
+span:uri[https://www.w3.org/TR/wsdl20/]
+
+* [[[ISO19115-1,hidden(ISO 19115-1:2014)]]]
+
+* [[[ISO19103,hidden(ISO 19103)]]]
+
+* [[[ISO9834-8,hidden(ISO/IEC 9834-8)]]]
+
+[[cls-14-2.1]]
+== Open Systems Interconnection (OSI)
+
+This Part makes references to the ISO/OSI standard reference model for
+open systems interconnection <<ISO7498>>, but it does not adhere to that
+standard with regard to the exact services provided. The ISO/OSI standard
+is used as a reference for the naming of the individual layers in the
+protocol stack (see <<fig-14-1>>).
+
+The following conventions apply:
+
+* with respect to functionality, the protocol definitions cover the
+session, the presentation and the application layers of the OSI model (the
+A-profile);
+* the protocol requires a set of transport services. The services can
+possibly be supplied by any number of different transport protocol stacks
+(T-profiles);
+* this Part does not describe the A-profile as layered. This Part merges
+all the upper three layers of the ISO/OSI model into one protocol;
+* this Part refers to the companion standards or user layer as a distinct
+protocol layer on top of the application layer.
+
+[[fig-14-1]]
+.Protocol Layering
+image::img172.png[]

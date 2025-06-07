@@ -1,0 +1,8 @@
+== Scope
+
+This Part describes the components and processes needed to specify an
+online exchange of information. It could be a set of data or data which
+may have a continuous nature. The latter is also known as "streaming
+data", wherein the data requires a more dynamic information flow to be
+available; that is, beyond that found with the exchange of static datasets
+mostly handled as files.

@@ -1,0 +1,18 @@
+[[cls-14-6]]
+== Message streams
+
+Message streams are a unidirectional flow of messages containing
+well-defined sets of data. The used communication medium can ensure
+sequence and completeness of the message stream.
+
+Contrary to the session concept broadcasted messages are mostly context
+agnostic. It is possible but not necessary that the message stream from
+the server is triggered by a message from a client. Therefore, clients can
+broadcast an undirected request for information followed by an undirected
+answer by a server. An identifier has to be provided to associate a
+response message to a request. Message stream messages have to include
+metadata about the transferred datasets.
+
+[[fig-14-5]]
+.Message streaming communication
+image::img176.png[]

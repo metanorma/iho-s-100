@@ -1,0 +1,46 @@
+[[cls-14-4]]
+== Session oriented communication
+
+To define the context for information exchange the concept of a session
+shall be used.
+
+A session oriented service typically contains three components, each
+handling other types of data:
+
+* Session component: Describing the handling of the session data (service
+request, service response, login, login response, logout).
+* Service component: Describing the information to maintain the service
+(for example keep alive messages, service status).
+* Data component: Describing the data itself; for example Vessel Traffic
+Image data (objects).
+
+Further Metadata required for each component can be detailed in a Product
+Specification.
+
+In a session oriented service the interfaces are point-to-point
+connections between client and server. Client and server manage the
+session (see <<fig-14-3>>) and exchange information bi-directionally. The
+service description should contain an interaction model. The interaction
+model should describe the life span of a session (initiation, maintenance
+and termination of the session).
+
+[[fig-14-3]]
+.Example of session interaction model
+image::img174.png[]
+
+For each element in the interaction model a detailed description shall be
+provided in the Product Specification of the service. This is to ensure
+that the service interaction is harmonized and reliable. For example, a
+description of the protocol used in a service may provide sufficient
+feedback to ensure full reception of the data, if this is essential for
+the service.
+
+For each service using the session concept interactions can be defined.
+For example the following messages:
+
+* Initiate the Session
+** Initiate and confirm Sessions
+* Maintenance of Session
+** Keep alive messages
+* Termination of the Session
+** Closing Session Request
