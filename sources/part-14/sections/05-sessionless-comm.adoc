@@ -1,0 +1,18 @@
+[[cls-14-5]]
+== Session-less interactive communication
+
+Interactive communication is broadly used in application to application
+data exchange. Mostly the client server communication pattern is applied.
+Clients initiate communication with a server and both partners exchange
+messages as (defined) sets of data.
+
+Following the concepts of stateless communication paradigms a session-less
+message exchange requires an encapsulation of all relevant information
+within a request. Based solely on this information, the server shall be
+able to formulate an appropriate response. Metadata will either be part of
+this response or shall be provided within the service specification. All
+operations are service-specific and are therefore not considered here.
+
+[[fig-14-4]]
+.Session-less client-server communication
+image::img175.png[]

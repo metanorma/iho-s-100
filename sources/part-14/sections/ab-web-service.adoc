@@ -1,0 +1,93 @@
+[[app-14-B]]
+[appendix,obligation=informative]
+== Example: Session Based Web Service
+
+This example describes a session based concept (see <<cls-14-4>>) for the
+transmission of Navigational Warnings. The data structure for such
+messages is defined in the Product Specification S-124 and will be
+provided as an XML schema.
+
+The service described here enables a consumer to request messages related
+to a specific area. At the technological level, SOAP is used.
+<<fig-14-B-1>> shows the attribute values of the ServiceInterface. As
+described in <<cls-14-8>>, a ServiceInterface contsists of a formal and a
+technology-specific part. The formal specification of all the necessary
+operations is shown in <<fig-14-B-2>>.
+
+[[fig-14-B-1]]
+.ServiceInterface instance values
+image::img181.png[]
+
+[[fig-14-B-2]]
+.NW-NM Service formal definition of the Operations
+image::img182.png[]
+
+As defined in the ServiceInterface, the technology-specific part is
+described by a WSDL file. This is shown below.
+
+Once a client wishes to access Nautical Warnings and Notices to Mariners,
+it starts a session by using the StartSession operation, to which the
+Server will reply by issuing a sessionID. The client then starts
+requesting the messages for a specific area using the Get_NW_NM_Messages
+operation. The server's response will be the nw_nm_messages data-set,
+which the client will be able to interpret through the S-124 Product
+Specification.
+
+.S124_NW_NM_Service.wsdl
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:tns="http://www.example.org/S124_NW_NM_Service/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="S124_NW_NM_Service"
+    targetNamespace="http://www.example.org/S124_NW_NM_Service/">
+
+  <wsdl:types>
+    <xsd:schemaxmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:importid="S124.xsd"schemaLocation="http://www.iho.int/S124/gml/1.0"namespace="S124"*/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:messagename="StartSessionRequest">
+    <wsdl:partname="identifier"type="xsd:string"/>
+  </wsdl:message>
+      ...
+  <wsdl:messagename="Get_NW_NM_Request">
+    <wsdl:partname="sessionID"type="xsd:string" />
+    <wsdl:partname="areaDataSet"type=" xsd:string" />
+  </wsdl:message>
+  <wsdl:messagename="Get_NW_NM_Response">
+    <wsdl:partname="nw_nm_messages"type=" xsd:string " />
+  </wsdl:message>
+  <wsdl:portTypename="S124_NW_NM_Service">
+    <wsdl:operationname="StartSession">
+      <wsdl:inputmessage="tns:StartSessionRequest"name=""/>
+      <wsdl:outputmessage="tns:StartSessionResponse"/>
+    </wsdl:operation>
+      ...
+    <wsdl:operationname="Get_NW_NM_Messages">
+      <wsdl:inputmessage="tns:Get_NW_NM_Request" />
+      <wsdl:outputmessage="tns:Get_NW_NM_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+
+<wsdl:binding name="S124_NW_NM_ServiceSOAP" type="tns:S124_NW_NM_Service">
+  <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StartSession">
+      <soap:operation
+        soapAction="http://www.example.org/S124_NW_NM_Service/StartSession" />
+      <wsdl:input name="">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="S124_NW_NM_Service">
+    <wsdl:port binding="tns:S124_NW_NM_ServiceSOAP" name="S124_NW_NM_ServiceSOAP">
+      <soap:address location="http://www.example.org/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
+----

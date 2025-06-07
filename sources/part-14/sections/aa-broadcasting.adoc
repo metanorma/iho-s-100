@@ -1,0 +1,28 @@
+[[app-14-A]]
+[appendix,obligation=informative]
+== Example: Efficient Data Broadcasting
+
+This example describes a service providing data broadcasting. The service
+embeds the data structure given by an external Product Specification. The
+data items, structured according to the Product Specification are
+broadcast via a communication medium (for example VDES). Therefore they
+are serialized and sent in conformity with the <<ISO8211>> encoding
+defined within the standard S-100 (Part 10a).
+
+<<fig-14-A-1>> shows how to exchange information efficiently. Static data,
+such as the data structure according to the product definition, is
+considered part of the service specification (StaticData_ISO8211). Since
+the client must already know this information in order to use the
+service, only an exchange of the dynamic data is necessary
+(DynamicData_ISO8211). The service provider reduces the data set
+serialized in <<ISO8211>> by removing all static data that has already
+been covered within the service specification. The client receives the
+data and merges it with the static data record. In this way, the entire
+data set can be reconstructed. The basis for such a concept is the
+Insert, Delete, and Modify mechanism as described in S-100 Part 10a.
+Therefore, it is possible to represent both static and dynamic data
+separately as <<ISO8211>> compliant.
+
+[[fig-14-A-1]]
+.Example defining a static data exchange service in a Product Specification
+image::img180.png[]

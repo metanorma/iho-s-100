@@ -1,0 +1,561 @@
+[[cls-14-8]]
+== Service definition model
+
+In <<fig-14-6>> the service definition model is shown. It defines how to
+describe the service operations in a generic way. The central part of the
+model is the S100_OC_ServiceMetaData class. This class defines all
+information required to implement and use a service. Therefore it
+references an S100_FC_FeatureCatalogue, which contains all necessary
+metadata about the datasets exchanged via the service API. This API is
+defined by one or more interface definitions (by using the
+S100_OC_ServiceInterface Class). They are composed of a set of operations
+which are represented in two ways:
+
+. A formal description: Each of the Operations shall be described in a
+technology agnostic way, specifying the parameters for the operation as
+well as its results. A S100_OC_ParameterBinding is a buildup of a
+direction that defines whether the parameter is read only, write only or
+both, by the service.
++
+--
+An additional S100_OC_ParameterBinding (direction: return) specifies the
+result data type of an operation.
+--
+
+. A technology dependent description: Each S100_OC_ServiceInterface is
+composed of a technology identifier (REST, SOAP, etc.) and one or more
+external technology dependent description files, referenced via the
+interfaceDescription URLs. In addition, the S100_OC_ServiceInterface can
+specify the encoding of the data, in case this is not defined through the
+used technology. When utilized, the encoding attribute has to define the
+name of the used encoding, for example <<ISO8211>>, GML as specified for
+S100, etc. While these encoding attributes applies to the data within the
+dataset, it can be overwritten by an encoding attribute of the parameter
+binding. This allows further specifying the content of a parameter value.
+
+[[fig-14-6]]
+.Data model to describe a service
+image::img177.png[]
+
+[%landscape]
+<<<
+
+[[cls-14-8.1]]
+=== Types
+
+[[cls-14-8.1.1]]
+==== S100_OC_ServiceMetaData
+
+Defines all information required to implement the service.
+
+.S100_OC_ServiceMetaData
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_ServiceMetaData
+| Root Entry point to formal describe a service including its interaction models and data products
+| -
+| -
+| -
+
+| Composition
+| serviceDataModel
+| Describes the logical data model of the service
+| 1
+| S100_OC_ServiceDatamodel
+| Mandatory
+
+| Composition
+| serviceInterfaces
+| Describe the technology agnostic and technology specific interfaces for a service
+| 1..*
+| S100_OC_ServiceInterface
+| Mandatory
+
+| Attribute
+| featureCatalogueURL
+| URL to the used Feature Catalogue. This URL should if possible, point to a machine readable representation of the FeatureCatalogue, referred in Exchange Set
+| 0..1
+| URL
+| Mandatory
+
+| Association
+| requirements
+| Refers to requirements specifications for the service. Business requirements, functional and non-functional requirements should be listed here. At least one requirement shall be given
+| 0..*
+| S100_OC_Requirement
+|
+
+| Attribute
+| name
+| The human readable service name. The service name shall be at maximum a one-line brief label for the service. Newer versions of the same service specification shall not change the name
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| description
+| A human readable short description of the service. The description shall contain an abstract of what a service implementing this specification would do
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| version
+| Version of the service specification. A service specification is uniquely identified by its name and version. Any change in the service data model or in the service interface definition requires a new version of the service specification
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| status
+| Status of the service specification
+| 0..1
+| S100_OC_StatusType
+|
+
+| Attribute
+| keywords
+| A list of keywords associated with the service
+| 0..*
+| CharacterString
+|
+|===
+
+[[cls-14-8.1.2]]
+==== S100_OC_ServiceInterface
+
+Specifies the given technology, as well as a reference to a technology
+dependent description for that interface. The interfaceDescription has to
+point to a technology dependent interface definition file that matches the
+operations, defined through the "operations" aggregation. In addition, the
+ServiceInterface can specify the encoding of the data, in case this is not
+defined by the used technology.
+
+.S100_OC_ServiceInterface
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_ServiceInterface
+| Describe the technology agnostic and technology specific interfaces for an service
+| -
+| -
+| -
+
+| Attribute
+| technology
+| Used technology
+| 1
+| S100_OC_ServiceTechnology
+| Mandatory
+
+| Attribute
+| interfaceDescription
+| Technology depended definition file for the operations. Has to match with the "operations" aggregation
+| 1..*
+| URL
+| Mandatory
+
+| Attribute
+| encoding
+| Encoding of the data sets used in this interfaceDefinition. Has to be set if the encoding is not defined through the used technology
+| 0..1
+| CharacterString
+| Conditional, has to be set if the encoding is not defined through the used technology
+
+| Attribute
+| exchangePattern
+| Describes the type of interaction that is supported
+| 1
+| S100_OC_ExchangePattern
+| Mandatory
+
+| Association
+| operations
+| Technology agnostic description of operations provided by this service
+| 1..*
+| S100_OC_Operation
+| Mandatory
+
+| Association
+| consumerInterface
+| Optional reference to an interface definition that shall be provided by the service consumer to complement the service interface. Especially if a publish/subscribe service interface is designed, it is necessary to describe what the service expects to be available on the subscriber side
+| 0..1
+| S100_OC_ConsumerInterface
+| Optional
+|===
+
+[[cls-14-8.1.3]]
+==== S100_OC_Operation
+
+Defines the operations possible on the specified service in a technology
+agnostic way. Specifies the Parameters as well as the results of the
+operations (see <<cls-14-8.1.5>>).
+
+.S100_OC_Operation
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_Operation
+| Specifies on operation that can be performed by a service
+| -
+| -
+| -
+
+| Generalisation
+| -
+| Use the same description methodology for Features, Attributes, ... and Operations
+| 1
+| S100_FC_Item
+| Mandatory
+
+| Composition
+| parameters
+| List of owned parameter bindings. Its obligation is defined by the semantic of the operation, for example if input / output is required
+| 0..*
+| S100_OC_ParameterBinding
+|
+
+| Composition
+| returnType
+| Parameter to deliver results of an operation back to the caller
+| 0..1
+| S100_OC_ParameterBinding
+|
+|===
+
+[[cls-14-8.1.4]]
+==== S100_OC_Parameter
+
+.S100_OC_Parameter
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_Parameter
+|
+| -
+| -
+| -
+|===
+
+Further information regarding S100_OC_Parameter will be included in a
+future Edition of S-100.
+
+[[cls-14-8.1.5]]
+==== S100_OC_ParameterBinding
+
+Assigns an S100_OC_Parameter to an Operation. It follows the S-100 concept
+for the assignment and restriction of attributes and supplements it with
+the definition of a direction (see <<cls-14-8.2>>).
+
+.S100_OC_ParameterBinding
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_ParameterBinding
+| Class that is used to describe how an Attribute can be bound to an operation
+| -
+| -
+| -
+
+| Attribute
+| direction
+| Specifies how the operation uses the parameter
+| 1
+| S100_OC_DirectionKind
+| Mandatory
+
+| Attribute
+| encoding
+| If set, this attribute specifies the encoding used for this parameter. If not set, the technology dependent encoding is used
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| multiplicity
+| Minimum and maximum number of provided instances, where the maximum number may be infinitive. If no multiplicity is provided a multiplicity of 1 is assumed
+| 0..1
+| S100_Multiplicity
+|
+
+| Aggregation
+| parameter
+| Used to describe the type of the parameter
+| 1..*
+| S100_OC_Parameter
+|
+|===
+
+[[cls-14-8.1.6]]
+==== S100_OC_Requirement
+
+.S100_OC_Requirement
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_Requirement
+| A requirement that the service shall fulfil
+| -
+| -
+| -
+
+| Attribute
+| id
+| Globally unique requirement identification
+| 1
+| CharacterString
+| Mandatory
+
+| Attribute
+| name
+| Human readable requirement name/summary. Shall not be longer than one line
+| 1
+| CharacterString
+| Mandatory
+
+| Attribute
+| text
+| The human readable requirement text. Usually formulated in form of a 'shall'-statement
+| 1
+| CharacterString
+| Mandatory
+
+| Attribute
+| rationale
+| Rationale for this requirement. Textual explanation of why this requirement exists. Provides background information about the need of the service
+| 1
+| CharacterString
+| Mandatory
+
+| Attribute
+| Reference
+| Optional information about where the requirement was originally stated. If the requirement comes from external documents, this attribute shall refer to this source
+| 0..1
+| CharacterString
+| Optional
+
+| Attribute
+| Author
+| Optional reference(s) to administrative information about the author(s) of the requirement
+| 0..1
+| CI_Responsibility
+| Optional
+|===
+
+[[cls-14-8.1.7]]
+==== S100_OC_ConsumerInferface
+
+.S100_OC_ConsumerInferface
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_OC_ConsumerInterface
+| Interface specification that is expected to be provided by the service consumer. For example, if a request/callback service interface is designed, it is necessary to describe the interface the service expects on the client side
+| -
+| -
+| -
+
+| Attribute
+| Name
+| Human readable interface name. The name shall be no longer than one line
+| 1
+| CharacterString
+| Mandatory
+
+| Attribute
+| description
+| Human readable description of the interface
+| 1
+| CharacterString
+| Mandatory
+
+| Association
+| operations
+| Refers to the specification of service operations supported by the consumer interface
+| 1..*
+| S100_OC_Operation
+| Mandatory
+|===
+
+[[cls-14-8.1.8]]
+==== S100_OC_ServiceDataModel
+
+.S100_OC_ServiceDataModel
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Aggregation
+| featureCatalogue
+| Describes the service data model
+| 1
+| S100_FC_FeatureCataogue
+| -
+
+| Attribute
+| encoding
+| The encoding of the machine-readable representation of the featureCatalogue
+| 0..1
+| CharacterString
+| This refers to the Feature Catalogue provided via the featureCatalogueURL in S100_OC_ServiceMetaData
+|===
+
+[[cls-14-8.2]]
+=== Codelists and enumerations
+
+[[cls-14-8.2.1]]
+==== S100_OC_ServiceTechnology
+
+.S100_OC_ServiceTechnology
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Mult | Type | Remarks
+
+| S100_CodeList | S100_OC_ServiceTechnology | List of commonly used service (description / implementation) Technologies | - | - | -
+| Literal | SOAP | Simple Object Access Protocol | - | - | SOAP Version 1.2 2007, W3C (https://www.w3.org/TR/soap12-part1)
+| Literal | REST | Representational State Transfer | - | - | Fielding, Roy Thomas (2000). https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm[Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST) (uci.edu)]
+| Literal | CORBA | Common Object Request Broker Architecture | - | - | Object Management Group (OMG) Feb 2021 v3.4 (https://www.omg.org/spec/CORBA/)
+|===
+
+[[cls-14-8.2.2]]
+==== S100_OC_DirectionKind
+
+.S100_OC_DirectionKind
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Mult | Type | Remarks
+
+| Enumeration | S100_OC_DirectionKind | Describes how an operation uses an parameter | - | - | -
+| Literal | in | In(put) parameters can only be read by the owning operation but they will never be changed | - | - | -
+| Literal | out | Out(put) parameters can be used by the owning operation to store additional information for the caller, their initial content will neither be read nor removed (cleared) | - | - | -
+| Literal | inout | In(put)/Out(put) parameters can be used by the owning operation to store additional information for the caller, however the content of those parameters also affects the operations execution | - | - | -
+|===
+
+[[cls-14-8.2.3]]
+==== S100_OC_StatusType
+
+.S100_OC_StatusType
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Mult | Type | Remarks
+
+| Enumeration | S100_OC_StatusType | Describes the status of a service specification, design or instance | - | - | -
+| Literal | provisional | The service specification/design is not officially released, the service instance is available, but not in official operation | - | - | -
+| Literal | released | The service specification/design/instance is officially released | - | - | -
+| Literal | deprecated | The service specification/design/instance is still available, but end of life is already envisaged | - | - | -
+| Literal | deleted | The service specification/design/instance is not available any more | - | - | -
+|===
+
+[[cls-14-8.2.4]]
+==== S100_OC_ExchangePattern
+
+.S100_OC_ExchangePattern
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Mult | Type | Remarks
+
+| Enumeration | S100_OC_ExchangePattern | Defines operation processing types | - | - | -
+| Literal | ONE_WAY | Data are sent in one direction, from service consumer to service provider, without confirmation | - | - | -
+| Literal | REQUEST_RESPONSE | Service consumer sends request to service provider and expects to receive a response from the service provider | - | - | -
+| Literal | REQUEST_CALLBACK | (asynchronous REQUEST_RESPONSE) Service consumer sends a request to service provider; response is provided asynchronously in an independent call to the service | - | - | -
+| Literal | PUBLISH_SUBSCRIBE | Service consumer subscribes at service provider for receiving publications sent out by the service provider | - | - | -
+| Literal | BROADCAST | Service provider distributes information independently of any consumers | - | - | -
+|===
+
+[[cls-14-8.3]]
+=== Service identification
+
+[[fig-14-7]]
+.Service metadata information classes
+image::img178.png[]
+
+[.source]
+<<ISO19115-1>>, adapted
+
+[[cls-14-8.3.1]]
+==== S100_SV_ServiceIdentification
+
+.S100_SV_ServiceIdentification
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_SV_ServiceIdentitification
+| Identification of capabilities which a service provider makes available to a service user through a set of interfaces which define a behaviour
+| -
+| -
+| Specialization of SV_ServiceIdentification (<<ISO19115-1>>) and thereby a specialization of MD_Identification
+
+(The ISO attributes coupledResource and couplingType are not used.)
+
+| (Inherited properties)
+5+| (Inherited from SV_ServiceIdentification.)
+
+| Attribute
+| serviceType
+| A service type name
+| 1
+| Class GenericName | GenericName is an abstract class for all names in a NameSpace. Each instance of a GenericName is either a LocalName or a ScopedName. A LocalName references a local object directly accessible from the NameSpace. A ScopedName is a composite of a LocalName for locating another NameSpace and a GenericName valid in the NameSpace. (<<ISO19103>>). In short: A name that is defined in a namespace.
+
+For S-100 services, the recommended namespace is the IALA/IMO/IHO list of Maritime Services (TBD as of May 2018)
+
+| Attribute
+| serviceTypeVersion
+| The version of the service, supports searching based on the version of serviceType
+| 0..*
+| CharacterString
+|
+
+| Attribute
+| accessProperties
+| Information about the availability of the service, including fees, planned available date and time, ordering instructions, turnaround
+| 0..1
+| MD_StandardOrderProcess
+| <<ISO19115-1,section="B.11.5">>
+
+| Attribute
+| operatedDataset
+| Provides a reference to the resource on which the service operates
+| 0..*
+| CI_Citation
+| For any single resource referenced, only one of operatedDataset or operatesOn is allowed to be documented (not both for the same resource)
+
+| Attribute
+| profile
+| Profile to which the service adheres
+| 0..*
+| CI_Citation
+| Profile of the standard cited in serviceStandardThe specification for the data product can be identified here
+
+| Attribute
+| serviceStandard
+| Standard to which the service adheres
+| 0..*
+| CI_Citation
+| For example, citation for OGC WFS, WMS, etc.
+
+| Role
+| operatesOn
+|
+| 0..*
+| MD_DataIdentification
+| For any single resource referenced, only one of operatedDataset or operatesOn is allowed to be documented (not both for the same resource)
+
+| (Inherited properties) 5+| (Inherited from MD_Identification.) (not shown)
+|===

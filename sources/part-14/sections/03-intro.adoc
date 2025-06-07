@@ -1,0 +1,44 @@
+[[cls-14-3]]
+== Introduction
+
+Online data exchange between applications/devices will follow different
+communication patterns to support the variety of maritime operational
+needs.
+
+Multiple clients can interact with a service to interchange data which is
+modelled with S-100. It can be distinguished between unidirectional
+message streams and interactive information exchange.
+
+Context for a communication can be given by using the concept of session
+oriented communication.&nbsp;Therefore, the communication between
+distinguished communication partners can be assigned to a logical entity --
+a session. This allows to store metadata for the interactions assigned to
+the session.
+
+The means of communication for the use of a service should be defined in a
+communication stack. Specifying a communication stack will ensure that
+communication for the service is harmonized and will make implementation
+easier.
+
+[[cls-14-3.1]]
+=== Communication stack
+
+The communication is organized by a stack as defined by the ISO-OSI
+Reference Model and cover at the A-profile for example:
+
+* Session protocols (for example WSDL, SOAP, REST, SoS) to define message
+types;
+* Encoding and compression (for example GML, XML, ISO8211, HDF, ....) to
+serialize data;
+* Communication protocol (for example HTTP) with encryption (for example
+HTTPS) to define interaction between gateways;
+* Transportation Layer (for example TCP/IP) with encryption (for example
+SSL) to define transportation node between gateways.
+
+[[fig-14-2]]
+.Communication Stack
+image::img173.png[]
+
+This Part only addresses the concepts in the application and the
+presentation layer. The lower layers covering the T-Profile are out of
+scope of S-100. This could be Internet Protocol or VDES based for example.

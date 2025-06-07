@@ -1,0 +1,113 @@
+[[cls-14-7]]
+== IP based technologies
+
+Generally online data exchange is applicable on different ISO/OSI Service
+Stacks. For IP based communication it is recommended that S-100 compliant
+data be communicated using Web Service technologies.
+
+In the following sub-sections two common Web Service technologies are
+introduced.
+
+[[cls-14-7.1]]
+=== SOAP
+
+SOAP relies on the Web Service Definition Language (WSDL) and on XML to
+provide web services over the internet. The W3C standardized SOAP. SOAP
+specification can be broadly defined to be consisting of the following
+three conceptual components: Protocol concepts, Encapsulation concepts and
+Network concepts. It is designed to support expansion and provides
+concepts such as:
+
+* WS-Addressing is a specification of transport-neutral mechanisms that
+allows web services to communicate addressing information. It essentially
+consists of two parts: a structure for communicating a reference to a Web
+Service endpoint; and a set of messages addressing properties which
+associate addressing information with a particular message;
+* WS-Policy represents a set of specifications that describe the
+capabilities and constraints of the security (and other business) policies
+on intermediaries and end points (for example, required security tokens,
+supported encryption algorithms, and privacy rules) and how to associate
+policies with services and end points;
+* WS-Security is an extension to SOAP to apply security to Web services;
+* WS-Federation is part of the larger Web Services Security framework.
+WS-Federation defines mechanisms for allowing different security realms to
+broker information on identities, identity attributes and authentication;
+* WS-ReliableMessaging describes a protocol that allows SOAP messages to
+be reliably delivered between distributed applications in the presence of
+software component, system, or network failures;
+* WS-Coordination describes an extensible framework for providing
+protocols that coordinate the actions of distributed applications;
+* WS-AtomicTransaction consists of protocols and services that together
+ensure automatic activation, registration, propagation and atomic
+termination of Web services. The protocols are implemented via the
+WS-Coordination context management framework and emulate ACID transaction
+properties
+
+The SOAP message is an XML document consisting of a SOAP-Envelope
+containing an optional SOAP-Header, the SOAP-Body and optional SOAP-Fault
+information on errors that occurred while processing a message. The
+envelope creates the namespace for the message; the optional header can
+contain meta-data concerning, for example, routing and encryption; and the
+body contains the data of the message to the SOAP-receiver.
+
+[source%unnumbered,xml]
+----
+<?xmlversion="1.0"?>
+<s:Envelopexmlns:s="http://www.w3.org/2003/05/soap-envelope">
+  <s:Header>
+  </s:Header>
+  <s:Body>
+  </s:Body>
+  <s:Fault>
+  </s:Fault>
+</s:Envelope>
+----
+
+Using SOAP in the context of S-100 will require using a reference of the
+Service Definition Model in the SOAP-Header and placing the S100_DataSet
+into the SOAP-Body. See <<app-14-B>> for an example.
+
+[[cls-14-7.2]]
+=== REST
+
+REST is acronym for REpresentational State Transfer. It is an
+architectural style for distributed hypermedia systems and was first
+presented by Roy Fielding in 2000. REST has six guiding constraints which
+must be satisfied if an interface needs to be referred as RESTful. These
+principles are listed below.
+
+Guiding Principles of REST:
+
+* Client--server: By separating the user interface from data storage, REST
+improves the portability of the user interface across multiple platforms
+and improves scalability by simplifying the server components.
+* Stateless: Each request from client to server must contain all of the
+information necessary to understand the request, and must not take
+advantage of any stored context on the server. Session state is therefore
+kept entirely on the client.
+* Cacheable: Cache constraints require that the data within a response to
+a request be implicitly or explicitly labeled as cacheable or
+non-cacheable. If a response is cacheable, then a client cache is given
+the right to reuse that response data for later, equivalent requests.
+* Uniform interface: By applying the software engineering principle of
+generality to the component interface, the overall system architecture is
+simplified and the visibility of interactions is improved. In order to
+obtain a uniform interface, multiple architectural constraints are needed
+to guide the behavior of components. REST is defined by four interface
+constraints: identification of resources; manipulation of resources
+through representations; self-descriptive messages; and hypermedia as the
+engine of application state.
+* Layered system: The layered system style allows an architecture to be
+composed of hierarchical layers by constraining component behavior such
+that each component cannot "see" beyond the immediate layer with which
+they are interacting.
+* Code on demand (optional): REST allows client functionality to be
+extended by downloading and executing code in the form of applets or
+scripts. This simplifies clients by reducing the number of features
+required to be pre-implemented.
+
+The key abstraction of information in REST is a resource. Any information
+that can be named can be a resource: a document or image; a temporal
+service; a collection of other resources; a non-virtual object (for
+example a person); and so on. REST uses a resource identifier to identify
+the particular resource involved in an interaction between components.
