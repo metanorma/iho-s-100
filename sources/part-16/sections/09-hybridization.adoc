@@ -1,0 +1,61 @@
+[[cls-16-9]]
+== Hybridization rules
+
+Hybridization rules define how a set of feature instances are combined to
+create a hybrid feature type. In the simplest form of hybridization, and
+assuming that there are no collisions between the thematic attributes of
+the input types, the hybrid feature would bind all the attributes of the
+input types to a single output feature type. More complex hybridization
+rules can handle collisions, for example by defining a preference order
+for colliding attributes, including all the values if the input types bind
+the same enumerated attribute, or adding uncertainty metadata if numeric
+attribute values are different. The hybridization rules require two
+feature instances as input and produce a single feature instance as output.
+
+NOTE: The formal specification and rule language for hybridization will be
+described in a subsequent version of this document.
+
+[[cls-16-9.1]]
+=== Simple hybridization rule
+
+Simple rules treat thematic attributes uniformly, for example by binding
+the attributes of both primary and secondary input instances to the output
+instance, or preferring the attribute bindings of the primary instance to
+those of the secondary instance in case of a difference in the values of
+common attributes. Location/extent spatial attributes of all input
+instances must be spatially equal and are passed through unchanged.
+
+[[cls-16-9.2]]
+=== Thematic hybridization rule
+
+Thematic rules treat thematic attributes on an individual basis, for
+example, use specified attributes from the primary input instance and
+specified attributes from the secondary input instance. Combination
+operations on attribute values may be specified, for example,
+OutputFeature.depthValue = maximum(ProductA.FeatureX.depthValue,
+ProductB.FeatureY.depthValue. Location/extent spatial attributes of all
+input instances must be spatially equal and are passed through unchanged.
+
+[[cls-16-9.3]]
+=== Complete hybridization rule
+
+Complete rules allow selection of input sets using complex spatial queries
+as well as spatial equality and selector expressions on attribute values.
+The output can combine thematic attributes in any of the ways allowed by
+thematic hybridization rules. In addition, it may generate complex spatial
+objects from the input spatial primitives by applying selected spatial
+operations to the input instances. The allowed spatial operations will be
+identified in a future edition of this specification (tentatively, the
+spatial operations defined in <<S-58,section=2>>).
+
+[[cls-16-9.4]]
+=== Hybrid Feature and Portrayal Catalogues
+
+Hybrid Feature and Portrayal Catalogues are physically separate files from
+the main Interoperability Catalogue, but the main Catalogue links to them
+by encoding the names of the hybrid catalogue files which are used by the
+feature creation rules defined in it. The hybrid Feature and Portrayal
+Catalogues conform to the structures required by S-100 Parts 5 and 9
+respectively. It is recommended that hybrid Feature and Portrayal
+Catalogues be bundled with the Interoperability Catalogue in an exchange
+set as support files, see <<cls-16-10>> below.

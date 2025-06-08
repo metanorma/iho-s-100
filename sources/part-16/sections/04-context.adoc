@@ -1,0 +1,1441 @@
+[[cls-16-4]]
+== Context
+
+This Part provides a framework for specifying machine-readable rules
+governing the interaction of data products in an S-100 compatible systems.
+A system that utilises different data products needs a prescribed algorithm
+to determine how these different data products should interact within the
+system. Interaction in this context means the manner in which the
+simultaneous display of data products affects the appearance of the
+combined display compared to the appearance of each product displayed in
+isolation. Interoperability of products includes issues such as ensuring
+that additional information overlay products do not obscure other
+significant information, or managing the presence of same or similar
+feature instances in different products, which can leave the user
+questioning which instance is the most accurate and appropriate for use.
+
+The rules governing interoperability are not expected to be the same for
+all product interactions and therefore must be managed for groupings of
+products that are expected to be used together under specific
+circumstances, for example when performing specific navigational tasks.
+Rules that manage the information according to these principles, are
+captured in a machine-readable XML format, so that systems can be updated
+with new sets of rules in events such as additional products becoming
+available or alterations to the existing combinations becoming necessary.
+The set of rules is called an Interoperability Catalogue.
+
+[[cls-16-4.1]]
+=== Overview of approach to implementing interoperability
+
+Interoperability processing works in combination with regular portrayal
+processing (see S-100 Part 9 - Portrayal). Depending on the system
+architecture designed by developers of system software, it may for example
+function as a pre-processing or post-processing stage to regular portrayal
+processing.
+
+An Interoperability Catalogue basically describes a transformation from an
+input stream of feature data to an output stream of prioritized feature
+data. The input stream consists of feature data from S-100 based datasets
+(either in the form of feature objects from the input data, or feature
+objects transformed to drawing instructions by portrayal processing). The
+output feature stream consists of feature data that may contain some input
+features in their original form; combine versions of other features; and
+remove other features from the stream altogether. Features in the output
+stream also have assigned (or revised) priorities in relation to other
+features, depending on feature type.
+
+[[cls-16-4.2]]
+=== Overview of an Interoperability Catalogue
+
+An Interoperability Catalogue is a collection of rulesets for filtering
+and/or combining feature objects from different input streams corresponding
+to different data products into feature objects in a combined output
+stream. The Interoperability Catalogue provides means of describing the
+conditions under which a ruleset is active -- that is, each ruleset applies
+to a particular combination of products.
+
+Within each ruleset, there may be rules whose antecedents specify the
+combinations of features from different products to which they apply, and
+what the result of applying the rule is; that is, given a particular
+combination of features in the input stream, what feature or features
+should be emitted into the output stream.
+
+The interoperability processor applies the rules which are assigned to the
+loaded combination of data products, and outputs a stream of feature data
+which contains both original feature instances and any new instances, when
+applicable, which conform to new hybrid feature types that are defined in a
+Hybrid Feature Catalogue. The selection process is shown in <<fig-16-1>>,
+and consists only of selecting the applicable predefined combination (PDC)
+that corresponds to the user or system settings and which lists exactly the
+currently loaded products. There should be only one applicable PDC after
+these steps; however, if there is a tie it must be broken by external
+tie-breaking methods such as allowing the user to select a combination
+based on the use conditions and description attributes of the PDC.
+
+[[fig-16-1]]
+.Process for selecting rules
+image::img191.png[]
+
+Product combinations are lists of data products. When associated with a
+ruleset or an individual rule, it means that the ruleset or single rule
+applies to the combinations of the data products listed. Each product
+combination may be assigned an interoperability level, if implemented, and
+descriptive attributes which indicate its purpose and applicability to the
+human end-user and catalogue developer. Levels are used to break up the
+functionality of the Interoperability Catalogue model into logical modules
+as appropriate for the use case. If the use case does not call for breaking
+up the functionality of the Interoperability Catalogue model only a single
+level 1 is required.
+
+Display planes act as a means of layering features in the end-user's
+display. Each feature in the output stream is assigned to a display plane.
+Each plane is assigned a display order relative to other planes. The
+Interoperability Catalogue uses display planes for interleaving features
+from different products, with features in higher priority planes overlying
+those in lower priority planes wherever they overlap. In the case of
+coincident or overlapping symbols, the implementer may use appropriate
+methods to avoid displaying partial symbols, or "grafting" part of
+lower-layer symbols onto symbols in upper layers.
+
+The Interoperability Catalogue allows suppression of feature classes where
+the presence in one product of features of a given feature type causes the
+removal of all features of a specified feature type from another specified
+data product. This is supposed to be used when the two feature types
+represent the same kind of data but one data product is preferred over the
+other. For example, level of detail in the preferred data product,
+additional feature characteristics in the preferred product, etc.
+
+The Interoperability Catalogue also allows suppression of feature instances
+whereby only feature instances meeting specified conditions are suppressed
+in favour of feature instances from a different product. The conditions are
+described in terms of specific characteristics such as attribute values or
+combinations of values of different attributes, or the use of specific
+classes of spatial primitives such as all point features of the specified
+type.
+
+[example]
+Restricted area features from type A datasets with category attribute =
+(nature reserve), (bird sanctuary), (seal sanctuary), (ecological reserve),
+or (coral sanctuary) are suppressed in favour of restricted area features
+from type B datasets due to more details.
+
+Advanced interoperability functionality includes hybridization of features.
+Hybridization consists of combining feature data from different products in
+the input stream into a new type in the output stream -- new in the sense
+that the output feature type is not defined in any Feature Catalogue of the
+input products. Such combined types are intended for producing resultant
+features with enhanced characteristics, for example by enhancing the
+attribute set from one product with additional attributes derived from
+another data product.
+
+[example]
+Water level information from one product is combined with bathymetry in
+another and with high definition bathymetry in a third product to create go
+and no-go areas that increase and decrease with changing water level.
+
+The hybrid feature is defined in a hybrid Feature Catalogue (must comply
+with Part 5) and its portrayal is defined in a hybrid Portrayal Catalogue
+(must comply with Part 9) that is bundled with the Interoperability
+Catalogue in an exchange set.
+
+[[cls-16-4.3]]
+=== Overview of processing
+
+Interoperability processing can either precede or follow portrayal
+processing (except rendering, which converts feature data into graphics and
+is necessarily the step just before actual display). A mixed processing
+model, where interoperability processing is done both before and after
+portrayal processing, is also possible.
+
+* Interoperability before regular portrayal processing: Feature data from
+S-100-based datasets is an input to the interoperability processor, along
+with the Interoperability Catalogue and context parameters. The
+interoperability processor filters and interleaves feature data according
+to the Interoperability Catalogue and interoperability level selected by
+the user and passes the resultant feature data to the portrayal processor,
+which uses the Portrayal Catalogue for individual products to generate
+drawing instructions for the display processor.
+* Interoperability after regular portrayal processing: Feature data from
+S-100-based datasets flows to the portrayal processor. The portrayal
+processor transforms them into drawing instructions. The drawing
+instructions flow to the interoperability processor. The interoperability
+processor filters and interleaves the drawing instructions according to the
+Interoperability Catalogue and interoperability level selected by the user
+and passes the resultant drawing instructions to the display processor.
+
+The two processing options described above are shown in <<fig-16-2>>.
+
+[[fig-16-2]]
+.Basic interoperability processing
+image::img192.png[]
+
+In any level of processing except Level 0 (interoperability off), data
+products to be loaded are selected by the system according to the list in
+the predefined combination selected by the user selection from among those
+listed in the catalogue.
+
+Feature data from products not listed in the Interoperability Catalogue are
+passed through to portrayal processing as described in S-100 Part 9 (stage
+_Portrayal Processing_) without any intermediate stages in interoperability
+processing, and displayed by ordinary S-100 portrayal processing according
+to their individual Portrayal Catalogues.
+
+[[cls-16-4.4]]
+=== Interoperability Catalogue Data Model
+
+[[cls-16-4.4.1]]
+==== Introduction
+
+The Interoperability Catalogue specifies the relative display
+prioritization of feature types and feature instances, as defined in
+individual Product Specifications, in relation to other feature types and
+feature instances, which may be defined in any of the data products
+declared to be within the scope of the Interoperability Catalogue.
+
+An Interoperability Catalogue describes display planes, predefined
+combinations, feature instance and feature layer suppression rules.
+
+The Interoperability Catalogue (IC) utilizes the ISO *CT_Catalogue* class
+defined in <<ISO19139>> (implemented in <<ISO19115-3>>) as a super-type for
+header information. The body of the Interoperability Catalogue consists of
+subsections encoding the rules for display planes, feature priorities,
+feature interleaving, and available predefined combinations:
+
+* display planes, indicating order of planes, viewing group, and drawing
+priority;
+* predefined combinations and operations on feature types or feature
+instances for each combination;
+
+An Interoperability Catalogue must be an XML document which conforms to the
+Interoperability Catalogue Schema which can be downloaded from the IHO
+website. <<fig-16-3>> shows the Interoperability Catalogue model.
+
+[%landscape]
+<<<
+
+[[fig-16-3]]
+.Interoperability Catalogue Model
+image::img193.png[width=100%]
+
+[[cls-16-4.4.2]]
+==== Interoperation conceptual types
+
+The following clauses describe the different conceptual elements that may
+be used in an Interoperability Catalogue.
+
+[[cls-16-4.4.2.1]]
+===== S100_IC_InteroperabilityCatalogue
+
+An Interoperability Catalogue contains operations and rules for the
+interoperation of a set of S-100-based data products.
+
+[[tab-16-1]]
+.S100_IC_InteroperabilityCatalogue
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_InteroperabilityCatalogue
+| Class that holds header information about an Interoperability Catalogue
+| -
+| -
+| Specialization of CT_Catalogue (<<ISO19115-3>>)
+
+| Attribute
+| description
+| Description of the catalogue
+| 1
+| CharacterString
+|
+
+| Attribute
+| comment
+| Any additional comments
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| interoperabilityLevel
+| The highest level of interoperability functionality encoded within an instance of this type
+| 0..1
+| Integer
+|
+
+| Attribute
+| requirementType
+| The type of authority or requestor responsible for the specifications, rules, or requirements based on which this catalogue was prepared
+| 1
+| Enumeration
+|
+
+| Attribute
+| requirementDescription
+| Description of the source of the requirements or specifications upon which this catalogue is based. This might be the name of the country, company, OEM, port, pilot, etc
+| 1
+| CharacterString
+|
+
+| Attribute
+| productCovered
+| The products covered by this catalogue
+| 2..*
+| dataProduct
+|
+
+| Attribute
+| name
+| The name for the catalogue
+| 1
+| CharacterString
+| Inherited from CT_Catalogue
+
+| Attribute
+| scope
+| Subject domain of the catalogue
+| 1..*
+| CharacterString
+| Inherited from CT_Catalogue
+
+| Attribute
+| fieldOfApplication
+| Description of the use to which this catalogue may be put
+| 0..*
+| CharacterString
+| Inherited from CT_Catalogue
+
+| Attribute
+| versionNumber
+| The version number of the Product Specification
+| 1
+| CharacterString
+| Inherited from CT_Catalogue
+
+| Attribute
+| versionDate
+| The version date of the Product Specification
+| 1
+| Date
+| Inherited from CT_Catalogue
+
+| Attribute
+| language
+| The language used for this catalogue
+| 0..1
+| CharacterString
+| Inherited from CT_Catalogue
+
+| Attribute
+| locale
+| provides information about alternatively used localized character strings
+| 0..1
+| PT_Locale (<<ISO19115-1>>)
+| Inherited from CT_Catalogue
+
+| Attribute
+| characterSet
+| Character set used in the catalogue
+| 0..1
+| MD_CharacterSetCode (<<ISO19115-1>>)
+| Inherited from CT_Cataloguemust have value=utf8
+
+| Composition
+| displayPlanes
+| Container for one or more S100_IC_DisplayPlane elements
+| 1..*
+| <sequence>S100_IC_DisplayPlane
+| Ordered list of one or more S100_IC_DisplayPlane elements
+
+| Composition
+| predefinedProductCombinations
+| Container for predefined product combinations and the interoperability operations for each
+| 0..*
+| <sequence>S100_IC_PredefinedCombination
+| Sequence of S100_IC_PredefinedCombination elements
+
+| Composition
+| hybridizationRules
+| Container for hybridization rules
+| 0..*
+| <sequence>S100_IC_HybridizationRule
+|
+
+| Role
+| hybridFC
+| Reference to hybrid Feature Catalogue used by operations in this Interoperability Catalogue
+| 0..*
+| CharacterString
+|
+
+| Role
+| hybridPC
+| Reference to hybrid Portrayal Catalogue used by operations in this Interoperability Catalogue
+| 0..*
+| CharacterString
+|
+|===
+
+[[cls-16-4.4.2.2]]
+===== S100_IC_DisplayPlane
+
+A display plane element acts as a container for display information for
+specified feature classes. The display order for the plane as a whole is
+provided in the S100_IC_DisplayPlane element. All the types within an
+instance of S100_IC_DisplayPlane have the same display order (encoded in
+attribute order) relative to feature types in another instance of
+S100_IC_DisplayPlane. Instances of display plane can be characterized by
+interoperability level, which allows the encoding of different sets of
+operations depending on how tightly integrated the user desires the
+products to be on the resultant display.
+
+Assigning feature types to display planes enables the interleaving of
+feature layers during portrayal by indicating the display plane, priority,
+and rendering order of the types assigned to a display plane.
+*S100_IC_DisplayPlane* assigns subsets of feature types to display planes
+and defines the viewing group, drawing priority, and significance for each
+feature type in the plane. An *S100_IC_DisplayPlane* element may include
+more than one feature type.
+
+A feature type may be referenced in more than one **S100_IC_DisplayPlane**,
+but the entries in different display planes must be distinguished by
+different attribute-value combinations or spatial primitives so that the
+actual instances of features are partitioned unambiguously between
+different display planes.
+
+The portrayal of feature types not mentioned in any S100_IC_DisplayPlane
+component is undefined until ordinary portrayal processing.
+
+An instance of *S100_IC_DisplayPlane* must contain at least one instance of
+*S100_IC_Feature* or *S100_IC_DrawingInstruction*. An instance of
+*S100_IC_DisplayPlane* may contain both *S100_IC_Feature* and
+*S100_IC_DrawingInstruction*, subject to the constraint below.
+
+For *S100_IC_Feature* and *S100_IC_DrawingInstruction* with the same
+combination of [featureCode, product, geometryType, and
+attributeCombination] and in the same *S100_IC_DisplayPlane* container:
+
+* *S100_IC_Feature.drawingPriority* and
+*S100_IC_DrawingInstruction.drawingPriority* must have the same values.
+* *S100_IC_Feature.viewingGroup* and
+*S100_IC_DrawingInstruction.viewingGroup* must have the same values.
+
+[[tab-16-2]]
+.S100_IC_DisplayPlane
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_DisplayPlane
+| Each display plane identifies all features and their drawing priority within the plane. The order in which display planes are rendered is also given.
+| -
+| -
+| Composition component of S100_IC_InteroperabilityCatalogue, container displayPlanes
+
+| Attribute
+| identifier
+| Unique identifier of the display plane
+| 1
+| CharacterString
+| Must be unique
+
+| Attribute
+| name
+| Name of display plane
+| 1
+| CharacterString
+| Under radar, over radar, etc.
+
+| Attribute
+| order
+| Used to sort the rendering order of display planes. Display planes with larger values are drawn above those with lower values.
+| 1
+| Integer
+| Refer S-100 Part 2, clause 2b-4.2.23 and Part 9, clauses 9-11.1.5, 9-13.3 & 9-13.3.20
+
+Positive: Above RADAR +
+Zero: Reserved for RADAR +
+Negative: Below RADAR
+
+| Attribute
+| description
+| description of the display plane
+| 1
+| CharacterString
+|
+
+| Attribute
+| interoperabilityLevel
+| The highest level of interoperability functionality encoded within an instance of this type
+| 0..1
+| Integer
+|
+
+| Composition
+| features
+| Container for S100_IC_Feature elements
+| 0..*
+| <sequence>S100_IC_Feature
+| At least one S100_IC_Feature or S100_IC_DrawingInstruction element must be included in a display plane element
+
+| Composition
+| drawingInstructions
+| Container for S100_IC_DrawingInstruction elements
+| 0..*
+| <sequence>S100_IC_DrawingInstruction
+| At least one S100_IC_Feature or S100_IC_DrawingInstruction element must be included in a display plane element
+|===
+
+[[cls-16-4.4.2.3]]
+===== S100_IC_Feature
+
+The *S100_IC_Feature* element describes the display parameters for all
+features of a specific feature type in a specific product. The
+*S100_IC_Feature* element determines the order of drawing the feature type
+identified by its featureCode attribute relative to other feature types in
+the same display plane. It also specifies the viewing group to which the
+feature is assigned. Its applicability can be optionally restricted to a
+subset of instances of the feature type by additional attributes that
+specify the type of spatial primitive and indicate specific values of
+thematic attributes.
+
+The *S100_IC_Feature* element in Interoperability Catalogues is similar in
+operation to the layering and priority aspects of the *DrawingInstruction*
+element in Portrayal Catalogues (see S-100 Part 9 - Portrayal), and
+therefore has attributes that are equivalent to some of the attributes and
+roles of the Portrayal Catalogue element. Where there is an exact
+correspondence with a Portrayal Catalogue element, the element in the
+Interoperability Catalogue element supersedes the Portrayal Catalogue
+element. The correspondences are summarized in <<tab-16-19>> at
+<<cls-16-5>>.
+
+[[tab-16-3]]
+.S100_IC_Feature
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_Feature
+| Information that guides the relative layering and drawing priority of feature types during portrayal
+| -
+| -
+|
+
+| Attribute
+| identifier
+| Internal identifier of the catalogue element
+| 1
+| CharacterString
+|
+
+| Attribute
+| featureCode
+| The code assigned to the feature type in Feature Catalogue for the product indicated in the product attribute
+| 1
+| CharacterString
+|
+
+| Attribute
+| product
+| A data product
+| 1
+| dataProduct
+|
+
+| Attribute
+| geometryType
+| The type of spatial primitive that indicates the location
+| 0..*
+| S100_FC_SpatialPrimitiveType
+|
+
+| Attribute
+| attributeCombination
+| Describes attribute-value filters to be applied to the specified features
+| 0..*
+| CharacterString
+| See <<cls-16-4.4.3>>
+
+| Attribute
+| drawingPriority
+| Drawing priority of feature type in the display plane
+| 1
+| Integer
+| Refer S-100 Part 9, clause 9-11.2.2
+
+| Attribute
+| viewingGroup
+| The viewing group of the feature type
+| 1
+| Integer
+| Refer S-100 Part 9, clause 9-13.3
+|===
+
+NOTE: *S100_IC_Feature* and *S100_IC_DrawingInstruction* elements operate
+in essentially the same way as far as assignment of drawing priority, and
+display planes is concerned. They differ in that
+*S100_IC_DrawingInstruction* provides an optional attribute to substitute
+the symbolization elements of the drawing instruction. *S100_IC_Feature*
+should be used for Interoperability Catalogues that are designed for
+systems where interoperability processing precedes the generation of
+drawing instructions. *S100_IC_DrawingInstruction* should be used for
+Interoperability Catalogues that are designed for systems where
+interoperability processing precedes the generation of drawing
+instructions. It should also be used in all catalogues where substitution
+of symbolization is necessary.
+
+[[cls-16-4.4.2.4]]
+===== S100_IC_DrawingInstruction
+
+Drawing instructions specify the display order used by the rendering engine
+in producing the portrayal output of a given feature type/geometric
+primitive type/attribute value combination. The
+*S100_IC_DrawingInstruction* element determines the order of drawing the
+feature type identified by its *featureCode* attribute relative to other
+feature types in the same display plane. The applicability of an
+*S100_IC_DrawingInstruction* to feature types can be further restricted by
+the type of spatial primitive and values of thematic attribute, using
+*geometryType* and *attributeCombination* attributes of the
+*S100_IC_DrawingInstruction* class.
+
+The *S100_IC_DrawingInstruction* element in Interoperability Catalogues is
+similar in operation to the layering and priority aspects of the
+*DrawingInstruction* element in Portrayal Catalogues (see S-100 Part 9 -
+Portrayal), and therefore has attributes that are equivalent to some of the
+attributes and roles of the Portrayal Catalogue element. Where there is an
+exact correspondence with a Portrayal Catalogue element, the element in the
+Interoperability Catalogue element supersedes the Portrayal Catalogue
+element. The correspondences are summarized in <<tab-16-19>> in
+<<cls-16-5>>. (Definitions of the Portrayal Catalogue attributes are
+provided in S-100 Part 9).
+
+The *S100_IC_DrawingInstruction* element contains the
+*substituteSymbolization* attribute that allows substitution of
+symbolization instructions generated by portrayal processing. Note that the
+display instruction XML elements defined in the presentation XML Schema
+S-100 Part 9 (*pointInstruction*, *lineInstruction*, etc.) cannot be used
+directly because, being extensions of the base type *DrawingInstruction* in
+that Schema, they: (a) reference individual feature and spatial instances,
+and (b) contain viewing group, display plane, and drawing priority as
+mandatory elements, which would be redundant.
+
+[[tab-16-4]]
+.S100_IC_DrawingInstruction
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_DrawingInstruction
+| Information that guides the relative layering and drawing priority of drawing instruction during portrayal.
+| -
+| -
+|
+
+| Attribute
+| identifier
+| Internal identifier of the instruction group
+| 1
+| CharacterString
+|
+
+| Attribute
+| featureCode
+| The code assigned to the feature type in Feature Catalogue for the product indicated in the product attribute
+| 1
+| CharacterString
+| Corresponds to the feature reference for drawing instructions in S-100 Part 9
+
+| Attribute
+| product
+| A data product
+| 1
+| dataProduct
+|
+
+| Attribute
+| geometryType
+| The type of spatial primitive that indicates the location
+| 0..*
+| S100_FC_SpatialPrimitiveType
+|
+
+| Attribute
+| attributeCombination
+| Describes attribute-value filters to be applied to the specified features
+| 0..*
+| CharacterString
+| See <<cls-16-4.4.3>>
+
+| Attribute
+| drawingPriority
+| The drawing priority of the group
+| 1
+| Integer
+| Refer S-100 Part 9, clause 9-11.2.2
+
+| Attribute
+| viewingGroup
+| The viewing group of the feature type
+| 1
+| Integer
+| Refer S-100 Part 9, clause 9-13.3
+
+| Attribute
+| substituteSymbolization
+| Substitute for the symbolization content of drawing instructions. This can be any element of the drawing instruction not defined in the abstract class DrawingInstruction defined in S-100 Part 9, clause 9-11.2, but defined in the relevant descendant of that class
+| 0..1
+| CharacterString
+| The string must consist of one or more XML fragments constructed according to the Presentation Schema in S-100 Part 9 or the equivalent in a non-XML syntax. A CDATA section may be used to avoid the explicit encoding of character entities for special characters
+|===
+
+NOTE: Even if the Presentation Schema in S-100 Part 9 is used, specific
+code may need to be provided to validate the content of the
+*substituteSymbolization* attribute instead of depending on purely XML
+Schema validation. The content of this attribute is not prescribed by this
+specification and may be a fragment of XML, or interpretable code or rules,
+etc., in a non-XML syntax. It may be enclosed in a `<![CDATA[...]]>`
+section so that XML validators treat it as character data instead of XML.
+If the content is XML, it must be well-formed (for example have balanced
+opening and closing tags).
+
+[[cls-16-4.4.2.5]]
+===== S100_IC_SuppressedFeatureLayer
+
+Each instance of this element identifies a feature type in a specific data
+product.
+
+[[tab-16-5]]
+.S100_IC_SuppressedFeatureLayer
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_SuppressedFeatureLayer
+| Describes operations for suppressing all instances of a feature type in one product by features from another product
+| -
+| -
+|
+
+| Attribute
+| identifier
+| Internal identifier of the catalogue element
+| 1
+| CharacterString
+|
+
+| Attribute
+| featureCode
+| Feature type code in the FC for the product mentioned in attribute *product*
+| 1
+| CharacterString
+|
+
+| Attribute
+| product
+| The data product for the type being replaced
+| 1
+| dataProduct
+|
+
+| Role
+| featureRef
+| References to replacement features' display specifications in the display planes section of the Interoperability Catalogue
+| 0..*
+| <reference>S100_IC_Feature
+| Replacement by multiple feature types is intended for associated feature types, for example different feature types that make up a traffic separation scheme.
+
+| Role
+| drawingInstructionRef
+| Reference to S100_DrawingInstruction element
+| 0..*
+| <reference>S100_IC_DrawingInstruction
+|
+|===
+
+NOTE: Only one of featureRef or drawingInstructionRef can be used in an
+instance.
+
+NOTE: If both feature and drawing instruction references are empty, the
+type is suppressed without being replaced.
+
+[[cls-16-4.4.2.6]]
+===== S100_IC_PredefinedCombination
+
+A predefined combination element defines a collection of data products for
+which a common set of interoperability operations have been defined in the
+Interoperability Catalogue. Instances of predefined combinations can be
+characterized by interoperability level, which allows the segmentation of
+different sets of interoperability operations depending on how tightly
+integrated the user desires the products to be on the resultant display,
+see <<cls-16-8>> for more details.
+
+Predefined combination element can specify the following types of
+interaction between its listed products.
+
+* Operations on selected instances of a feature type or conversion of input
+feature data into new feature data involving only thematic attributes.
+* Operations involving operations on spatial attributes and possibly
+thematic attributes as well.
+
+The simplest operations on instances are replacement of selected instances
+from one product by selected instances from another product. These are
+described by associated *S100_IC_SuppressedFeatureInstance* elements. More
+complex operations, including conversion of input feature instances into
+new features (hybridization) are described by associated
+*S100_IC_HybridFeature* elements. The replacement and hybridization rules
+are described in <<cls-16-6>>.
+
+Predefined combinations can be linked to *S100_IC_DisplayPlane* elements by
+means of references in the *S100_IC_PredefinedCombination* elements.
+
+[[tab-16-6]]
+.S100_IC_PredefinedCombination
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_PredefinedCombination
+| Pre-defined combinations are identifiable pre-set collections of recommended and optional S-NNN data products which are expected to be loaded by the user under specific conditions or for specified tasks. Each pre-defined combination is basically a package of data products, display priorities, context parameters, user settings, Portrayal Catalogues, etc.
+| -
+| -
+| Composition component of S100_IC_InteroperabilityCatalogue
+
+| Attribute
+| identifier
+| Identifier of the predefined combination
+| 1
+| CharacterString
+| For example, a sequence number, UUID or URN unique to the PDC in the catalogue. May be globally unique, but must be unique within the catalogue at least
+
+| Attribute
+| name
+| Name of combination
+| 1
+| CharacterString
+|
+
+| Attribute
+| description
+| Brief description of combination
+| 1
+| CharacterString
+|
+
+| Attribute
+| useConditions
+| Conditions for which the combination is designed
+| 1
+| CharacterString
+|
+
+| Attribute
+| interoperabilityLevel
+| The highest level of interoperability functionality encoded within an instance of this type
+| 0..1
+| Integer
+|
+
+| Attribute
+| includedProduct
+| Products loaded in this combination and referenced by operations and rules that apply to this combination
+| 2..*
+| dataProduct
+| A combination must use at least 2 data products
+
+| Role
+| displayPlaneRef
+| Reference to an S100_IC_DisplayPlane element in this Interoperability Catalogue
+| 0..*
+| <reference>S100_IC_DisplayPlane
+|
+
+| Composition
+| derivedFeatures
+| Container for S100_IC_SuppressedFeatureInstance or S100_IC_HybridFeature elements (concrete specializations of S100_IC_FeatureDerivation)
+| 0..*
+| <sequence> of sub-classes of S100_IC_FeatureDerivation
+|
+
+| Composition
+| suppressedFeatureLayers
+| Container for S100_IC_SuppressedFeatureLayer
+| 0..*
+| <sequence> S100_IC_SuppressedFeatureLayer
+|
+|===
+
+NOTE: A system can allow the user to initiate the loading of multiple data
+products and activate multiple parameter settings as a single action, by
+selecting from a list of pre-defined combinations, instead of loading and
+unloading individual data products.
+
+[[cls-16-4.4.2.7]]
+===== S100_IC_FeatureDerivation
+
+S100_IC_FeatureDerivation is an abstract super-class for different types of
+feature hybridization operations.Individual primary and secondary inputs
+are suppressed from being rendered and only the resulting derived feature
+is added to the data stack.
+
+The resulting derived feature does not need to have any hybrid
+characteristics, that is, one restricted area replaced with another
+restricted area will use the regular PC/FC of the primary product. However,
+if the result feature needs to be supported by any custom FC or PC
+elements, they must be defined under hybrid FC and hybrid PC accordingly.
+
+A rule for creating the feature must be described in the rules section
+
+[[tab-16-7]]
+.S100_IC_FeatureDerivation
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_FeatureDerivation
+| Derived features are created by consolidating features from 2 or more different products into one final view, so the changes can include geometry, attribution and/or portrayal (depending on the interoperability level)
+| -
+| -
+| Abstract class.
+
+| Attribute
+| identifier
+| Internal identifier of the catalogue element
+| 1
+| CharacterString
+|
+
+| Attribute
+| primaryProduct
+| One of the two interoperating data products
+| 1
+| dataProduct
+|
+
+| Attribute
+| primaryFeatureCode
+| Feature type code in the FC for the product mentioned in primaryProduct
+| 1
+| CharacterString
+|
+
+| Attribute
+| primarySelector
+| Selection expression for instances of the first feature type
+| 0..1
+| FeatureSelector
+| If omitted, all instances of the type are included.
+
+Example 1: categoryOfObstruction = 5
+
+Example 2: waterLevelEffect = 4 AND WITHIN(<primary>, <secondary>)
+
+| Attribute
+| secondaryProduct
+| The other interoperating data product
+| 1
+| dataProduct
+|
+
+| Attribute
+| secondaryFeatureCode
+| Feature type code in the FC for the product mentioned in secondaryProduct
+| 1
+| CharacterString
+|
+
+| Attribute
+| secondarySelector
+| Selection expression for instances of the second feature type
+| 0..1
+| FeatureSelector
+| If omitted, all instances of the type are included.
+
+[example]
+expositionOfSounding = 3
+
+[example]
+categoryOfPile = 2 AND WITHIN(<primary>, <secondary>)
+
+| Attribute
+| outputProduct
+| Data product of the resulting hybrid feature
+| 1
+| dataProduct
+| Default value = HYBRID, to indicate the result is a hybrid feature. This is a default -- it can be set to other allowed values from the dictionary in specific cases.
+
+| Attribute
+| outputFeatureCode
+| Feature type code in the hybrid FC
+| 1
+| CharacterString
+|
+
+| Role
+| featureRef
+| Reference to the output feature's display specification in the display planes section of the Interoperability Catalogue
+| 1
+| <reference>S100_IC_Feature
+|
+|===
+
+[[cls-16-4.4.2.8]]
+===== S100_IC_SuppressedFeatureInstance
+
+*S100_IC_SuppressedFeatureInstance* is a class for suppressing feature
+instances according to attribute combinations in one product with features
+instances in another product. The primary product attribute combination
+specifies the feature instance(s) that will be replaced. The secondary
+product combination is the product to replace the suppressed instance(s)
+and should be identical to the output product attribute combination. If
+two different set of features instances are to be suppressed by one common
+set of feature instances, two instances of
+*S100_IC_SuppressedFeatureInstance* are needed.
+
+[[tab-16-8]]
+.S100_IC_SuppressedFeatureInstance
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_SuppressedFeatureInstance
+| Operations for replacement of feature instances in one product by instances in another product.
+| -
+| -
+| Sub-class of S100_IC_FeatureDerivation
+
+The "secondary" product replaces the "primary".
+
+| Role
+| creationRule
+| Reference to a rule defined in the hybridization rules section of the catalogue
+| 0..1
+| <reference>S100_IC_SimpleRule
+|
+|===
+
+NOTE: If attributes bindings of the output are the same as secondary
+product type, the *outputProduct* and *outputFeatureCode* should be the
+same as the *secondaryProduct* and *secondaryFeatureCode.* If the
+attribute bindings change in a way that is incompatible with the Feature
+Catalogue for the secondary product, *S100_IC_HybridFeature* must be used
+instead.
+
+[[cls-16-4.4.2.9]]
+===== S100_IC_HybridFeature
+
+*S100_IC_HybridFeature* is a class for selecting primary and secondary
+inputs that will be suppressed from being rendered and replaced by a
+feature derived from the inputs.
+
+[[tab-16-9]]
+.S100_IC_HybridFeature
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_HybridFeature
+| Class used to create a feature by combining feature types from two or more products for the purposes of an interoperable display
+| -
+| S100_IC_FeatureDerivation
+| Sub-class of S100_IC_FeatureDerivation
+
+| Role
+| creationRule
+| Reference to a rule defined in the hybridization rules section of the catalogue
+| 0..1
+| <reference>S100_IC_CompleteRule
+|
+
+| Role
+| creationRule
+| Reference to a rule defined in the hybridization rules section of the catalogue
+| 0..1
+| <reference>S100_IC_ThematicRule
+|
+|===
+
+NOTE: Only one creationRule can be used in an instance.
+
+[[cls-16-4.4.2.10]]
+===== S100_IC_HybridFeatureCreationRule
+
+*S100_IC_HybridFeatureCreationRule* is an abstract super-class for
+different types of hybridization rules. _This functionality needs to be
+worked out but OGC Filter seems to be the ideal option for defining data
+filtering logic._ Overall, the output from execution of
+*S100_IC_HybridFeatureCreationRule* is a set of hybrid features for which
+predefined FC, PC and display plane definitions already exist so such
+feature will be suitable for passing to the portrayal engine for
+processing just like any other S-100 features. Instances of
+*S100_IC_HybridFeatureCreationRule* can be characterized by
+interoperability level, which allows the segmentation of different sets of
+interoperability operations depending on how tightly integrated the user
+desires the products to be on the resultant display, see <<cls-16-8>> for
+more details.
+
+[[tab-16-10]]
+.S100_IC_HybridFeatureCreationRule
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_HybridFeatureCreationRule
+| Class to capture hybrid feature creation rule captures the entire data filtering logic (that is, finding all features to be operated on) as well as the entire processing logic.
+| -
+| -
+| Abstract class
+
+| Attribute
+| interoperabilityLevel
+| The highest level of interoperability functionality encoded within an instance of this type
+| 0..1
+| Integer
+|
+
+| Attribute
+| ruleIdentifier
+| Rule identifier
+| 1
+| CharacterString
+| Mandatory unique ID used for references
+|===
+
+[[cls-16-4.4.2.11]]
+===== S100_IC_CompleteRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Complete rules may operate on
+both thematic and spatial attributes.
+
+[[tab-16-11]]
+.S100_IC_CompleteRule
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_CompleteRule
+| Class to capture rule describing how a set of feature instances is combined to create a hybrid feature type.
+| -
+| -
+| Subclass of S100_IC_HybridFeatureCreationRule
+|===
+
+[[cls-16-4.4.2.12]]
+===== S100_IC_ThematicRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Thematic rules may operate on
+only thematic attributes. The input features are required to have
+spatially equal geometry within a tolerance set by the system.
+
+[[tab-16-12]]
+.S100_IC_ThematicRule
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_ThematicRule
+| Rule describing how aset of feature instances is combined to create a hybrid feature type.
+| -
+| -
+| Subclass of S100_IC_HybridFeatureCreationRule
+|===
+
+[[cls-16-4.4.2.13]]
+===== S100_IC_SimpleRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Simple rules may operate only on
+thematic attributes. Simple rules treat thematic attributes uniformly
+during hybridization and therefore do not mention specific attributes.
+Location/extent spatial attributes of all input features must be spatially
+equal.
+
+[[tab-16-13]]
+.S100_IC_SimpleRule
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_SimpleRule
+| Rule describing how a set of feature instances is combined to create a hybrid feature type
+| -
+| -
+| Subclass of S100_IC_HybridFeatureCreationRule
+|===
+
+[[cls-16-4.4.2.14]]
+===== S100_IC_HybridFC
+
+Class for holding reference to a Feature Catalogue defining any "hybrid
+feature types" that are created by combining feature types from two or
+more products for the purposes of an interoperable display.
+
+[[tab-16-14]]
+.S100_IC_HybridFC
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_HybridFC
+| Feature Catalogue defining any "hybrid feature types" that are created by combining feature types from two or more products for the purposes of an interoperable display.
+| -
+| S100_FC_FeatureCatalogue
+| The Interoperability Catalogue contains references to local resources (files) containing hybrid Feature Catalogues
+
+| Attributes and Roles
+| (See S-100 Part 5)
+|
+|
+|
+|
+|===
+
+[[cls-16-4.4.2.15]]
+===== S100_IC_HybridPC
+
+Class for holding reference to a Portrayal Catalogue defining portrayal
+rules for the "hybrid feature types" defined in a Hybrid Features
+Catalogue.
+
+[[tab-16-15]]
+.S100_IC_HybridPC
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_IC_HybridPC
+| Portrayal Catalogue defining portrayal rules for the "hybrid feature types" defined in a Hybrid Features Catalogue.
+| -
+| (S-100 Part 9) PortrayalCatalog
+| The Interoperability Catalogue contains references to local resources (files or folders) defining hybrid PCs
+
+| Attributes and Roles
+| (See S-100 Part 9)
+|
+|
+|
+|
+|===
+
+[[cls-16-4.4.2.16]]
+===== FeatureSelector
+
+A data type for holding a template, logical expression, or match condition
+that, given a feature instance as parameter, can be evaluated to produce a
+TRUE/FALSE result.
+
+[[tab-16-16]]
+.FeatureSelector
+[cols="a,a,a,a,a",options=header]
+|===
+| Type | Name | Description | Derivation | Remarks
+
+| datatype
+| FeatureSelector
+| A template, logical expression, or match condition that, given a feature instance as parameter, can be evaluated to produce a TRUE/FALSE result
+| subtype of CharacterString
+| Example: XSLT match condition
+|===
+
+NOTE: Format and expression language must be defined in the implementation.
+
+[[cls-16-4.4.2.17]]
+===== requirementType
+
+A code list for sources of the Interoperability Catalogue or the person or
+party according to whose recommendations the catalogue was prepared.
+
+[[tab-16-17]]
+.requirementType
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| S100_Codelist
+| requirementType
+| The source of the catalogue or the person or party according to whose recommendations the catalogue was prepared
+| -
+|
+
+| Literal
+| IHO
+| Original IHO Interoperability Catalogue
+| 1
+|
+
+| Literal
+| OEM
+| Prepared according to requirements specified by OEM or systems integrator
+| 2
+|
+
+| Literal
+| national
+| Prepared according to requirements specified by a national government, group of national governments (for example the European Union), or governmental agency such as a national shipping authority or the Coast Guard.
+| 3
+|
+
+| Literal
+| local
+| Prepared according to requirements specified by a sub-national governmental authority such as a state, province, or county
+| 4
+|
+
+| Literal
+| port
+| Prepared according to requirements specified by a harbormaster's office or port authority
+| 5
+|
+
+| Literal
+| company
+| Prepared according to requirements specified by the owner, charterer, or operator
+| 6
+|
+
+| Literal
+| pilot
+| Prepared according to requirements specified by the vessel's master
+| 7
+|
+
+| Literal
+| master
+| Prepared according to requirements specified by a pilot
+| 8
+|
+
+| Literal
+| other
+| Other source
+| 9
+|
+|===
+
+Codelist Type: open enumeration
+
+Encoding for extra values: other: <CharacterString> (Format of
+<CharacterString>: [a-zA-Z0-9]+( [a-zA-Z0-9]+)* - See S-100 Part 3, clause
+3-6.7).
+
+[[cls-16-4.4.2.18]]
+===== dataProduct
+
+A closed dictionary codelist of S-100 based products.
+
+The allowed values are defined in the dictionary file, which is a
+component of individual interoperability specifications implementing this
+Part. If any operations or rules in an Interoperability Catalogue produce
+a hybrid feature, one of the entries in the dictionary must correspond to
+a notional "HYBRID" data product for such features.
+
+[[tab-16-18]]
+.dataProduct
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| S100_Codelist
+| dataProduct
+| List of data products
+| -
+| Data products conforming to the Specification identified by the item name, in the IHO list of S-100 based Product Specifications.
+
+This is a closed dictionary codelist (see S-100 1-4.8, 3-5.3.11, 3-6.7).
+
+| Literal(s)
+| (see individual specifications)
+| ...
+| ...
+| ...
+|===
+
+Codelist Type: closed dictionary, URI format: urn:mrn:...
+
+URI tags must be fully specified in the implementation specification. E.g.
+urn:mrn:iho:prod:s98:1:0:0:products for a master list of products that is
+specified in S-98 as being covered by S-98 Version 1.0.0 Interoperability
+Catalogues.
+
+The dictionary format used in Interoperability Catalogues is the
+<<ISO19115-3>> "codelist catalogue" format. An example using this format
+is depicted in <<fig-16-4>>. The whole data products codelist is contained
+in the _CT_Codelist_ XML element, identified by the XML ID
+"urn.mrn.iho.prod.s98.1.0.0.products" (the _id_ attribute of
+_CT_Codelist_). Individual data products are listed in _codeEntry_
+elements within the __CT_Codelist__, identified by their own _id_
+attributes. In the example, S-101 is identified by the XML ID "s101" in
+the expanded _codeEntry_ element. Note that the ":" characters in the
+codelist URI are replaced by "." in the corresponding XML id elements, due
+to XML syntax constraints. The combination of _id_ values of _CT_Codelist_
+and _CT_CodelistValue_ elements is sufficient to identify a data product
+[underline]#within a given dictionary file#. The name (or other identifier) of the
+dictionary file must be specified in the individual interoperability
+specification. The Product Specification must also describe how dictionary
+files are made available to individual end user systems.
+
+[[fig-16-4]]
+.Example of data products dictionary entry
+image::img194.png[]
+
+[%portrait]
+<<<
+
+[[cls-16-4.4.3]]
+==== Filters
+
+Attribute-value combination filters (the *attributeCombination* attribute
+of S100_IC_Feature) are strings of the form `<attr><op><value>`, where:
+
+. `<attr>` is the camel case code of the attribute;
+. `<op>` is one of "=", "!=", "in", "notIn", "gt", "ge", "lt", "le",
+"null";
+. `<value>` is a decimal number, integer, numeric code, or string, or a
+list of values. Strings must be enclosed in double quotes: "" with embedded double-quotes or \ characters preceded by a \ character.
+
+The `<attr>`, `<op>`, and `<value>` components are separated by blank or
+tab characters{blank}footnote:[More expressive filter expressions can be
+developed if required for advanced interoperability.].
+
+Sub-attributes of complex attributes can be indicated in <attr> fields
+using a restricted subset of relative path expressions as specified in the
+W3C XPath specification (§ 3.3.1 XML Path Language (XPath) 3.1). The
+restrictions are:
+
+* Paths are relative to the individual feature as the context node.
+* Only the "child" axis is permitted and the optional "child::" prefix is
+not used.
+* Predicates as described in the XPath specification are not used.
+
+The effect is to allow <attr> fields to describe sub-attributes in terms
+of camel case codes separated by "/_"_ characters. (It also allows a
+simple attribute to be designated by its camel case code alone as
+described above.)
+
+[example]
+An *attributeCombination* with value _categoryOfRadioStation = 20_ selects
+features with *categoryOfRadioStation* attributes that have the value 20
+(AIS Base station).
+
+[example]
+An *attributeCombination* with value _featureName/language = "eng"_
+selects features with *featureName* attributes that have a language
+sub-attribute having the value "eng".
+
+NOTE: Selectors may relax these restrictions and use a larger subset of
+XPath. Details should be elaborated in the implementation specification.

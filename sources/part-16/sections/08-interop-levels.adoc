@@ -1,0 +1,32 @@
+[[cls-16-8]]
+== Interoperability Levels
+
+The *interoperabilityLevel* attribute (*S100_IC_InteroperabilityCatalogue,
+S100_IC_DisplayPlane, S100_IC_PredefinedCombination,*
+_*S-100_IC_HybridFeatureCreationRule*_) is used to indicate a level of
+interoperability. The value 0 means interoperability is off and all layers
+are portrayed according to their stacking order. When a value of 1 or
+higher is assigned to the interoperabilityLevel attribute it means the
+interoperability functionality is on. The exact meaning of any value of 1
+or higher must be described in the Interoperability Catalogue
+specification where model is implemented.
+
+Different product combinations may require different types of
+interoperability in order to work as intended in a system. For example, a
+product combination may require the ability to turn off a feature in
+product A to give prominence to a feature in product B. Another example
+may be that a product combination requires the ability to place product C
+in-between layers within product D. Within the same Interoperability
+Catalogue these different types of interoperability can be distinguished
+using different values in the *interoperabilityLevel* attribute of the
+classes that make up the functions.
+
+[example]
+A specification has defined four levels of interoperability in addition to
+the so-called Level 0. The four levels start out with simple interleaving
+at Level One to virtually combing data at Level Four as seen in the
+example <<fig-16-7>> below.
+
+[[fig-16-7]]
+.Example of how to separate interoperability functions into levels
+image::img197.png[]

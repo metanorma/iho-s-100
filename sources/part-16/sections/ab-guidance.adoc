@@ -1,0 +1,468 @@
+[[app-16-B]]
+[appendix,obligation=informative]
+== Guidance on How to Make Product Specifications Interoperable
+
+[[cls-16-B-1]]
+=== How to make Product Specifications interoperable
+
+This appendix gives guidelines for how to identify concepts that should be
+factored into the development of an Interoperability Catalogue and
+suggestions for how to write rules to address associated interoperability
+issues. Moreover, these guidelines can be useful in the development of
+Product Specifications that will be included in an Interoperability
+Catalogue and its specification, in order to make these ready for
+interoperability in user systems.
+
+Due to the interconnected nature of the Product Specifications that are
+under an interoperability Schema, a form of overarching change and content
+management is a necessity. It is recommended that a management structure
+aimed at harmonization of Product Specifications that are under an
+interoperability Schema is established.
+
+For portrayal considerations, see <<cls-16-11>>.
+
+For interoperation requirements for Product Specifications, see
+<<cls-16-C-3>>.
+
+[[cls-16-B-2]]
+=== Duplicated features
+
+Perhaps the most significant issue to deal with when considering
+interoperability is how to deconflict duplicated features between layers.
+The following paragraphs deal with major categories of duplicate features.
+
+[[cls-16-B-2.1]]
+==== Duplicated features, same model
+
+Where there are equivalent models with same feature concept and attribute
+bindings, there still may be different attribute values due to issues with
+maintaining the same update sequence between different products. Both the
+production and end user sides can impact this issue. When considering this
+issue in the creation of an Interoperability Catalogue, priority should be
+given to the product that is most likely to be up to date with the latest
+information.
+
+NOTE: IC_SuppressedFeatureLayer elements only have feature code and
+product as attributes for suppression, this means that all instances of a
+listed feature class will be suppressed. This is important to remember
+when creating rules that promote alternative instances. IC_Feature and
+IC_DrawingInstruction can have attribute combinations and spatial
+primitives to select the alternative instances. There is therefore, a risk
+that unless sufficient attention to details is given, important instances
+may be omitted.
+
+Developers of Product Specifications that are expected to be used in a
+system in interoperability mode should consider if the features within the
+specifications are likely to be more frequently updated than those
+products that may serve as a base layer or base layer combination for the
+product being developed. These considerations should be factored in when
+describing the production of the product and envisioned future use of the
+product.
+
+[example]
+If *Restricted Area Navigational* in one product is suppressed, and
+*Restricted Area Navigational* with attribute *category of restricted area
+= 4 (nature reserve)* in another product is promoted in its place, there
+is a risk that only instances with that combination will be visible, and
+all others supressed.
+
+[[cls-16-B-2.2]]
+==== Duplicated features, different models
+
+Where the feature concept, attribute bindings, and values of selected
+attributes are mostly the same but there are minor differences in the
+different products, such as extra attribute bindings, developers of an
+Interoperability Catalogue should consider which version of the feature is
+the higher value for the end user, and give that version priority. There
+may be different answers depending on the operational situation that a
+predefined combination tries to support, and this must be considered as
+part of constructing an Interoperability Catalogue.
+
+[example]
+Interoperability Catalogue developers compare the specifications and data
+samples of *Pilot Boarding Place* features from a "Piloting Information"
+data product and the Pilot Boarding Place features in another product and
+decide that features from the "Piloting Information" datasets have more
+value in approach and harbour entry scenarios.
+
+Developers of Product Specifications should consider how their data model
+is similar and/or different from other related Product Specifications and
+the justification for this; and make recommendations to the developers of
+an Interoperability Catalogue for how to best select between the versions
+of related features.
+
+[[cls-16-B-2.3]]
+==== Duplicate feature domains
+
+Where feature concepts are different, but the information content is
+equivalent, considerations should include the update cycle of the
+information and when creating an Interoperability Catalogue, priority
+should be given to the concept that is most likely to be updated most
+frequently. Other considerations should include any relations that the
+concepts has with other feature concepts, and any consequences of breaking
+these must be considered when choosing which concept to give the priority
+and which concept to suppress.
+
+[example]
+Developers investigate the update cycles of real-time current data
+products and discover that they are updated more frequently than a chart
+product with *Current -- Non-Gravitational* and *Tidal stream --
+Flood/Ebb* features, and features from the real-time current datasets are
+therefore preferred over the chart product current features. Note that the
+question is decided not by comparing dates encoded in features, but on the
+basis of real-time data that is available on an ongoing basis vs.
+historical information gathered at a past date.
+
+Where it is not practical to avoid concept overlaps, Product Specification
+developers should strive to maintain a data model that is as harmonized
+with related data models as possible. Due considerations should be taken
+before developing a concept that is different but functionally equal to
+similar concepts in other Product Specifications.
+
+[[cls-16-B-2.4]]
+==== Geometry
+
+The geometry of a feature is a significant attribute that must be
+considered when developing an Interoperability Catalogue, as it defines
+the 'where-part' of the feature object. Similar to other attributes,
+decisions may have to be made to address issues such as select one feature
+over another, for example where types in one product is affected by small
+scale, while another by large scale, or if merging the two is a better
+approach. The following paragraphs give more details about options for
+deconflicting geometry between products with the help of an
+Interoperability Catalogue.
+
+[[cls-16-B-2.4.1]]
+===== Combined geometry
+
+Where there is a feature in one dataset that effectively augments the
+geometry of a conceptually different feature in another dataset,
+developers of an Interoperability Catalogue need to specify a hybrid
+feature with portrayal that can correctly portray the combined
+information. Moreover, it should be considered if it is appropriate for
+clarity in the user system to supress the features in the origin datasets.
+
+[example]
+A dredged area augmented with high definition bathymetry from survey of
+recent dredging operations giving more water and wider area than dredged
+area in a navigation product, combine to give a bigger (new boundary)
+dredged area than present in the navigation product.
+
+Developers of Product Specifications that may result in hybrid features
+when interacting with certain other products, should cooperate with the
+developers of the related Product Specifications to correctly define the
+conditions for appropriate use of hybrid features, and communicate these
+specifications to the Interoperability Catalogue developers.
+
+[[cls-16-B-2.4.2]]
+===== Spatial discrepancy, unrelated to scaled or cartographic smoothing
+
+If the same feature instances exist in different data products, and are
+expected to have discrepant geometries, developers of an Interoperability
+Catalogue should establish the cause of the discrepancy. The cause will
+likely influence the solution to be implemented in the specific
+Interoperability Catalogue. For example, if one of the data products has
+more detailed information due to differences in the scopes of the Product
+Specifications, the developers of an Interoperability Catalogue should
+consider suppressing the feature class in the less-detailed product giving
+preference to the same feature class in the product with greater detail.
+On the other hand, if the discrepancy is found to occur irregularly, it
+may be more appropriate to suppress the less-detailed instances and prefer
+the more-detailed instances, independently of the data products to which
+they belong.
+
+[example]
+A navigation product has Restricted Area features, while an environmental
+product has Marine Protected Area features which show greater details for
+a sub class of restricted areas.
+
+Developers of Product Specifications should examine their Specification
+scope and consider if it is likely that resulting data products include
+information that will be superior or inferior to the same, or similar,
+information in other products. For example, if information is only for
+contextual purposes, it is likely that better information is available in
+another product and in an interoperability ready system these contextual
+features should be supressed in the presence of more accurate information.
+Such expectations should be communicated with the Interoperability
+Catalogue developerswhere the products are included.
+
+[[cls-16-B-2.4.3]]
+===== Spatial discrepancies, related to scale or cartographic smoothing
+
+Where there is the expectation of differences of geometry for same feature
+instance in different products it is important to establish the cause, as
+this will likely impact the solution implemented in an Interoperability
+Catalogue. If the cause is related to scale or cartographic smoothing in
+one product over another due to issues such as different scopes (intended
+use) of the Specifications, the Interoperability Catalogue developers
+should consider supressing the lesser detailed product and promoting the
+product with greater detail. If it is irregular occurrences of spatial
+discrepancies, it may be appropriate to supress the instances where there
+are less detail and promote the more detailed instances.
+
+[example]
+A navigation product has approximate surface current instances using
+climatic data that is omitted at smaller scales; A surface current gridded
+data product has greater details and is daily updated. The surface current
+information in the navigation product may be suppressed to give preference
+to the information from the surface current gridded data product
+
+Developers of Product Specifications should examine the Specification
+scope and consider if it is likely that resulting data products include
+information that will be superior or inferior than the same information in
+other products. For example, if information is only for contextual
+purposes or is reduced in detail due to scale, it may be that better
+information is available in another product and in an interoperability
+ready system these lesser detailed features should be supressed in the
+presence of more accurate information. Such expectations should be
+communicated with the Interoperability Catalogue developerswhere the
+products are included.
+
+[[cls-16-B-2.5]]
+==== Display of text
+
+For details about display of text, including placement, display selection
+and management of long text, see <<cls-16-11.5>>. The Interoperability
+Catalogue does not address these issues in general terms.
+
+Developers of Product Specifications should be aware that the instructions
+they place within the Product Specification generally carry through even
+when the product is used in a user system in interoperability mode.
+Moreover, text placement issues in interoperability mode are expected to
+occur at the border between two products which may result in text being
+partially obscured due to priority issues. Developers of user systems with
+interoperability capabilities will likely have experience with solving
+such issues and advice should be sought with them in how to mitigate such
+issues. Additionally, <<cls-16-11.5>> recommends OEMs to provide
+functionality that seek to address most of the issues that cause text to
+be partially obscured.
+
+[[cls-16-B-2.6]]
+==== Skin of the Earth replacement
+
+Some systems implement a Skin of the Earth concept that require the system
+to always provide continuous coverage of select data elements to make up a
+surface of the earth. These data elements are usually drawn first in
+portrayal processing. In some circumstances, it may be necessary to
+replace some of these select data elements with more appropriate data. In
+the interoperability model, Skin of the Earth replacement is a
+specialization of combined geometry, see <<cls-16-B-2.4.1>> for details.
+
+[[cls-16-B-2.6.1]]
+===== Skin of the Earth feature adjusting
+
+When combining feature instances into new Skin of the Earth feature
+instances, considerations should be given to the attributes of the
+resulting Skin of the Earth feature, as a combined feature may have
+altered geographical representation, attribute combinations or attribute
+values that may impact its inclusion in the Skin of the Earth.
+
+[example]
+Shoaling in a channel in a navigation product may be indicated by a high
+definition bathymetry product, and a shallower channel hybrid feature
+replaces the navigational product feature instance, which also has an
+amended shape. Adjacent depth areas grow due to the shoaling.
+
+[[cls-16-B-2.7]]
+==== Blended feature concepts
+
+Blended feature concepts or blended portrayals can be produced by using
+transparency between related features; or creating a temporary blended
+feature; or blended portrayal (rule and/or symbol) of specific
+combinations of features from different products. See <<cls-16-11.6>> for
+portrayal considerations and example of use case. Blended concepts will
+typically be created by using *S100_IC_PredefinedCombination* which link
+to a hybrid Portrayal Catalogue that includes the features to be combined
+and a suppression rule, for example by using
+*S-100_IC_SuppressedFeatureLayer*, for the features that are to be
+replaced.
+
+Developers of Product Specifications that are likely to be used in blended
+feature concepts by ECDIS in interoperability mode should communicate
+their intentions with developers of related Specifications so that
+awareness is created about the inter-dependencies of these types of
+relationships. Such communication is especially important when revisions
+to these Specifications are considered. Doing so will help manage risks to
+breaking the relationships as the related Product Specifications
+transition through their life cycle.
+
+[[cls-16-B-2.8]]
+==== Hierarchy of data
+
+In this context, hierarchy of data means the stacking of data products
+(layers) within a predefined combination. Predefined combinations are
+generally created with a particular type of operational view in mind, and
+therefore the hierarchy of data may vary between predefined combinations.
+
+For example, in ECDIS, the ENC will be the base layer; that is, the lowest
+layer in a predefined combination.
+
+[[cls-16-B-2.8.1]]
+===== Predefined combinations
+
+Predefined combinations are used to define the hierarchy of data between
+different S-100 based specifications. An instance of
+*IC_PredefinedCombination* is associated to *IC_DisplayPlane* instances to
+give the hierarchy of the data products that are intended to be used. The
+attribute *displayPriority* within the *IC_DisplayPlane* gives the order
+in which the layers are drawn. See <<cls-16-4.4.2.6>> for more details on
+predefined combinations.
+
+[[cls-16-B-2.9]]
+==== New datasets
+
+New datasets that are added to a system with interoperability mode will be
+managed in accordance to any loaded Interoperability Catalogue that
+includes the Product Specification that relevant data product is
+conformant with. Data producers should therefore be encouraged to perform
+sufficient tests to ensure new datasets perform as envisioned in an
+interoperability environment.
+
+[[cls-16-B-2.9.1]]
+===== New datasets -- coverages
+
+New datasets may alter the available coverages of particular data that is
+used for interoperability views; and any new dataset should therefore be
+sufficiently tested to ensure performance is as envisioned.
+
+[[cls-16-B-2.9.2]]
+===== New datasets -- maximum and minimum display scales
+
+New datasets may alter the available data in particular scales and/or
+scale bands, for example, by adding or removing data coverage.
+Considerations should therefore be given to harmonization of maximum and
+minimum display scales when a new dataset is produced.
+
+[[cls-16-B-2.9.3]]
+===== New datasets -- feature geometry
+
+New datasets may alter the available feature geometry of available data
+that is used for interoperability views. Changes include extending or
+reducing size of areas, changing geometry type from area to point, point
+to area, area to line or line to area. Therefore, any new dataset should
+be sufficiently tested to ensure performance is as envisioned.
+
+[[cls-16-B-2.9.4]]
+===== New datasets -- types and attributes
+
+New datasets may change type and attributes of instances in the user
+system, for example a platform may be removed and an obstruction remain.
+These changes may impact the situational view created by the
+Interoperability Catalogue as changes to feature classes and attribute
+combinations may mean objects are no longer covered by conditions specific
+to a predefined combination, or new objects are new covered. Therefore,
+any new dataset should be sufficiently tested to ensure performance is as
+envisioned.
+
+[[cls-16-B-2.10]]
+==== Dataset loading and unloading due to scale
+
+Developers of Product Specifications and producers of data should make
+every effort to harmonize effects of maximum and minimum display scales at
+loading/unloading time between related product to control over-scale
+indicators and datasets, in order to avoid situations where one overlay is
+in scale but not another.
+
+[[cls-16-B-2.11]]
+==== New data products
+
+When a new product is added to an existing Interoperability Catalogue, a
+new version will be required, see <<cls-16-10.4>>. During the development
+of the new version, the Interoperability Catalogue developers will need to
+review existing predefined combinations for impact in addition to
+developing the new predefined combinations to manage the situational views
+that the new product is intended for. Close coordination between the
+authors of the Product Specification and the Interoperability Catalogue
+producer is highly recommended to ensure all relevant changes to the
+Interoperability Catalogue are accounted for.
+
+[[cls-16-B-2.12]]
+==== Metadata
+
+This edition of the Specification does not provide for comparing
+information that is not encoded as attributes of feature (or information
+type) instances. This means that metadata cannot be used in interleaving,
+filters, or rules unless it is encoded in feature attributes (for example
+"horizontal position uncertainty" attributes) or meta-features (for
+example *Quality of Bathymetric Data*). If Product Specification authors
+envisage a need to use metadata in interoperability, the Product
+Specification Application Schema should be designed so as to make the
+relevant metadata available as feature attributes or meta-features.
+
+Note that using information from meta-features in interoperability
+operations may involve spatial operations.
+
+[[cls-16-B-3]]
+=== Portrayal distinguishability -- colour set-asides
+
+Special consideration must be made when creating portrayal rules related
+to colour choices for a Product Specification. Depending on the context
+certain colours have specific meaning. For example, for marine navigation,
+<<S-4>> gives indications for magenta line meaning something non-physical,
+while black colour implies a physical item. See <<S-4,clause="B-141">> to
+<<S-4,clause="B-145">> for additional details.
+
+[example]
+On ENC the light sectors marking intricate inshore channels in, such as in
+Scandinavian waters are shown in red, green, and yellow.
+
+[[cls-16-B-3.1]]
+==== Black (S-4 -- B-141)
+
+Black is normally used for all physical (solid) features, including depth
+information.
+
+[[cls-16-B-3.2]]
+==== Magenta (S-4 -- B-142)
+
+The general principles for the use of magenta are that it should be reserved for:
+
+* Drawing attention to symbols for features which have a significance
+extending beyond their immediate location.
+* Distinguishing information superimposed on the physical features and not
+implying any permanent physical obstruction (see <<S-4,clause="B-145">>
+for the use of green for environmental information).
+
+[[cls-16-B-3.3]]
+==== Buff (yellow) or grey (S-4 -- B-143)
+
+A colour, usually buff (yellow) or grey, must be used as a land tint in
+paper charts. ENC portrayed with S-52 in an ECDIS uses a yellow/brown
+colour (LANDA).
+
+[[cls-16-B-3.4]]
+==== Blue (S-4 -- B-144)
+
+The colour blue has been used as a tint to emphasize shallow water. Two
+(or more) densities of blue tint may be used to show different depth bands
+of shallow water, the darkest tint showing the shallowest water.
+
+[[cls-16-B-3.5]]
+==== Green (S-4 -- B-145)
+
+The colour green may be used as a tint for inter-tidal areas. Green may
+also be used, instead of magenta, for environmental information and
+limits; see <<S-4,clause="B-437.2b">>.
+
+[[cls-16-B-3.6]]
+==== Red
+
+It should be noted that any symbology using red may be an issue for
+navigation equipment operated in night mode, and therefore the use of red
+should be avoided as much as possible.
+
+[[cls-16-B-3.7]]
+==== Day/night/dusk modes
+
+It may be required that for every Product Specification that is intended
+for a navigation system to have colours specified for day, dusk, and night
+modes. The system may be required to utilize these colours depending on
+the mode the viewing system is set to.
+
+[[cls-16-B-4]]
+=== Rendering order steps
+
+Product Specifications that are in scope of an Interoperability Catalogue
+should have at least ten rendering order steps between display groups.
+This allows more flexibility when configuring interleaving with other
+products in an Interoperability Catalogue.

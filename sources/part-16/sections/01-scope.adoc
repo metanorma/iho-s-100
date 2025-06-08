@@ -1,0 +1,16 @@
+== Scope
+
+Users of S-100-based data products are likely to receive and use different
+S-100-based data products simultaneously and those data products are likely
+to contain features which may have some common elements or be different
+expressions of similar underlying concepts. Other data layers such as radar
+overlays may also be present. The smooth interoperation and harmonized,
+user-friendly graphical presentations of these various products is
+necessary. This Part defines a framework for creating rules for the
+interoperation of S-100 data products, including harmonized graphical
+presentations and handling of alarms and indications.
+
+This framework can be used to establish system specific rules which are
+contained in an Interoperability Catalogue, a type of meta-product that
+describes how groups of products are to be used and displayed
+simultaneously.

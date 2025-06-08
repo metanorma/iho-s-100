@@ -1,0 +1,241 @@
+[[app-16-C]]
+[appendix,obligation=informative]
+== User Interaction Constraints and Expectations
+
+[[cls-16-C-1]]
+=== Introduction
+
+S-100 based products are developed for a variety of uses but generally
+define only the product itself and its use, not how it will be used in in
+combination with other S-100-based data products or sensor information. It
+is anticipated that most S-100-based systems, like ECDIS and other ship
+and shore-based systems, will use several different products
+simultaneously, each providing one or more information layers. Other data
+layers such as real-time sensor information from sources like radar and
+AIS are also expected to be present. The smooth interoperation and
+harmonized user-friendly graphical presentations of these various products
+is necessary for safety and efficiency. This annex gives some guidance to
+principles that should be considered when developing smooth interoperation
+and harmonized graphical presentation of S-100 data products
+
+[[cls-16-C-2]]
+=== Structured interoperation
+
+IMO has issued recommendations and guidelines on how to present navigation
+related information. Of particular significance are the documents noted
+below.
+
+MSC.191(79), Recommendation on Performance Standards for the Presentation
+of Navigation-Related Information on Shipborne Navigational Displays,
+specify the presentation of navigational information on the bridge of a
+ship, including the consistent use of navigational terms, abbreviations,
+colours and symbols, as well as other presentation characteristics. It
+also addresses the presentation of navigation information related to
+specific navigational tasks by recognizing the use of user selected
+presentations in addition to presentations required by the individual
+performance standards adopted by the Organization.
+
+MSC.1/Circ.1512, Guideline on Software Quality Assurance and Human-Centred
+Design for E-Navigation, gives guidance in achieving trustworthy software
+and usability in the development of complex systems requires a disciplined
+and structured approach. The guideline encourages particular focus on
+Software Quality Assurance (SQA) and Human-Centred Design (HCD) that
+includes Usability Testing (UT). Systems so designed, developed and
+managed throughout their life cycle deliver improved user performance,
+being stable and resilient, and, most importantly, support users in low
+and high workload environments, such as during challenging navigation and
+environmental conditions when users are most vulnerable to making mistakes
+and when error management and recovery is essential. Other important
+benefits include limiting the amount of operator familiarization training
+that is needed and the time and resources required for system maintenance
+and support.
+
+MSC.1/Circ.1609, Guidelines for the Standardization of User Interface
+Design for Navigation Equipment, apply to Integrated Navigation Systems
+(INS), Electronic Chart Display and Information Systems (ECDIS) and radar
+equipment. The guidelines may also be useful to other electronic
+navigation equipment, and navigation sensors to improve standardization
+and usability. The aim of the Guidelines is to promote standardization of
+user interfaces to help meet user needs.
+
+IMO SN.1/Circ.243/Rev.2, Guidelines for the Presentation of
+Navigational-Related Symbols, Terms and Abbreviations, stems from a
+compelling user need for greater standardization to enhance usability
+across navigation equipment and systems. Significant variation between
+systems and equipment produced by different manufacturers has led to
+inconsistency in the way essential information is presented, understood
+and used to perform key navigation safety functions. Improved
+standardization of navigation systems will provide users with more timely
+access to essential information and functions that support safe navigation.
+
+[[cls-16-C-3]]
+=== Interoperation requirements for Product Specifications
+
+Responsible parties for Product Specifications that are included in an
+Interoperability Catalogue should consider the impact on this
+Interoperability Catalogue and associated Product Specifications
+throughout the lifecycle of the Product Specification. The general
+principles of Software Quality Assurance (SQA) as found in section 4 of
+the Annex to MSC.1/Circ.1512 should be applied.
+
+[[fig-16-C-1]]
+.Generic life cycle (from MSC.1/Circ.1512)
+image::img218.png[width=80%]
+
+<<fig-16-C-1>> shows a typical generic life cycle with the stages
+recommended as a minimum for the management of the development of Product
+Specifications that are used with the Interoperability Catalogue:
+
+* Analysis of operational system feedback;
+* Stage 1: Concept development;
+* Stage 2: Planning and analysis;
+* Stage 3: Design;
+* Stage 4: Integration and testing;
+* Stage 5: Operation; and
+* Disposal.
+
+[[cls-16-C-4]]
+=== Customization -- user level
+
+S-100 compatible systems that support the IHO Interoperability Catalogue
+may include functionality that allow end users (including ship owners,
+operators, and shipboard officers) to add new predefined combinations
+according with their needs. These added combinations must not interfere or
+degrade the official IHO Interoperability Catalogue functions.
+
+[[cls-16-C-5]]
+=== Support Human-Centred Design
+
+As noted in MSC.1/Circ.1512, HCD helps to ensure that human
+factors-related knowledge and techniques in system design and development
+processes are addressed, thus ensuring that user needs and safety are met.
+Implementers of this Specification should perform Usability Testing (UT)
+and follow the principles stated in MSC.1/Circ.1512 when designing the
+user interface for interoperability in ECDIS, including the following HCD
+activities that are carried out to inform development throughout the life
+cycle:
+
+* Pre-activity: Conduct Early Human Element Analysis (EHEA);
+* Activity 1: Understand and specify the context of use;
+* Activity 2: Identify the user requirements;
+* Activity 3: Produce and/or develop design solutions to meet user
+requirements;
+* Activity 4: Evaluate the design against usability criteria; and
+* Activity 5: Maintain operational usability.
+
+Note that fundamental to HCD is the collection of user feedback through
+Usability Testing.
+
+[[fig-16-C-2]]
+.Overview of HCD for e-navigation systems (from MSC.1/Circ.1512)
+image::img219.png[]
+
+The details of recommended activities at each stage are found in section 6
+of the Annex to MSC.1/Circ.1512.
+
+[[cls-16-C-5.1]]
+==== Human-Centred Design and user interface
+
+MSC.1/Circ.1609, Guidelines for the Standardization of User Interface
+Design for Navigation Equipment notes in section 15 principles utilized in
+the formation of the guidelines. These and the resulting appendixes may be
+of benefit for any system implementing support for an Interoperability
+Catalogue.
+
+[[cls-16-C-5.2]]
+==== Human-Centred Design and text
+
+MSC.191(79) as amended, notes in section 5.2.3 that use of text should be
+presented using simple unambiguous language that is easy to understand.
+Navigation terms and abbreviations should be presented using the
+nomenclature defined in IMO SN.1/Circ.243/Rev.2 and MSC.1/Circ.1609 and
+encouraged their use for all shipborne navigational systems and equipment.
+Shore based equipment that interact with shipborne system may also benefit
+from guidance in these guidelines.
+
+[[cls-16-C-6]]
+=== User control over loaded set
+
+Users of systems with interoperability capabilities may have functionality
+to load additional products, or turn off one or more of the data products
+in a predefined combination.
+
+Data from such additional products which are not mentioned in an
+Interoperability Catalogue should be treated by the system according to
+the priorities and viewing groups encoded in the product's own Portrayal
+Catalogue (for example interleaved with layers from products controlled by
+the Interoperability Catalogue according to their relative rendering
+orders and drawing priorities).
+
+When a user turns off a data product, the portrayal should treat it as if
+the relevant datasets are not available on the system at all. For example,
+interoperability rules that are made inapplicable due to one of the data
+products in their conditions being turned off are unavailable.
+
+[[cls-16-C-7]]
+=== User control over interoperation level
+
+The system should allow the user to change the interoperation level (see
+<<cls-16-8>>) and/or pick a predefined combination by means of simple
+operations. Any options offered to the user must be valid in context; for
+example, if the Interoperability Catalogue supports more than one
+interoperability level, the user interface should offer the user a choice
+of predefined combinations at an interoperability level. The listed
+combinations should be only those defined at that level in the
+Interoperability Catalogue.
+
+The system should minimise demands for user interaction when changing
+interoperability level or predefined combinations, subject to constraints
+imposed by the platform and interface. Some implications of this guidance
+are:
+
+. When the interoperability level alone is changed and the
+Interoperability Catalogue contains a predefined combination of the new
+level that lists the currently displayed product set, the system should
+apply the rules of the new level to the product set immediately.
+Alternative predefined combinations for the level may be offered in an
+unobtrusive way.
++
+--
+[example]
+Product A and Product B data are both on-screen when Level 1 (no
+suppression) is changed to Level 2 (suppression supported), and the
+catalogue includes a "Level 2 Product B + Product A" predefined
+combination. Interleaving of Product A and Product B features (Level 1)
+immediately changes to suppression of Product A navigation aids by Product
+B navigation aid features (Level 2).
+
+Optionally, an indication may be provided to inform the user of the active
+predefined combinations defined at the new level in the Interoperability
+Catalogue.
+--
+. When the predefined combination alone is changed and the
+Interoperability Catalogue contains the new predefined combination at the
+current level, the system should apply the rules of the current level to
+the new predefined combination.
++
+--
+[example]
+The system is in Level 2 (suppression supported) and the Product B +
+Product A predefined combination is changed to Product B + Product A +
+Product C. The system suppresses Product A Restricted Area features of
+type "nature reserve" in favour of Marine Protected Areas from Product C.
+--
+. When the Interoperability Catalogue does not contain a predefined
+combination at a newly selected level, the user interface should provide
+an indication of this to the user (though not necessarily by disabling the
+choice or blocking the transition). Strategies for dealing with this
+situation are left to interface designers. For example, systems may offer
+to use the closest fit in an Interoperability Catalogue with any residual
+on-screen products as ordinary overlays.
+
+[[cls-16-C-8]]
+=== Priority overrides for user-specified settings
+
+Where user action amends a setting, which then conflicts with a system
+setting, the user setting should override the system setting. The system
+may give indication of this override.
+
+[example]
+Feature rendering order set by a user should override settings in an
+Interoperability Catalogue or Portrayal Catalogue.

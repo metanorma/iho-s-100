@@ -1,0 +1,285 @@
+[[app-16-D]]
+[appendix,obligation=normative]
+== Data Encoding Guide
+
+[[cls-16-D-1]]
+=== Introduction
+
+This appendix contains encoding guidance on syntax, content, and catalogue
+structure for Interoperability Catalogue developers. Guidance on how to
+make Product Specifications interoperable and what principles to apply
+when developing an Interoperability Catalogue is provided in <<app-16-B>>.
+For definitions of catalogue elements, their attributes, and associations,
+refer to <<cls-16-4>>.
+
+[[cls-16-D-2]]
+=== General encoding notes
+
+[[cls-16-D-2.1]]
+==== Identifiers and references
+
+Several catalogue elements have an _identifier_ attribute. The value of
+this attribute must conform to the syntax for a Uniform Resource
+Identifier (URI). This means it may be a URL, an integer, alphanumeric
+character string without whitespace, or a URN. Any additional restrictions
+are mentioned in the encoding notes for the appropriate element, which
+make up the rest of this appendix.
+
+Some catalogue classes in the catalogue data model (<<cls-16-4>>) have
+associations that act as references to the element at the other end of the
+association. This is encoded in the data format as an XML child element of
+the referrer, whose XML tag is the same as the role name in the UML model.
+The value of such a reference must be equal to the value of the
+_identifier_ attribute of the referenced element.
+
+[example]
+====
+The tag `<featureRef>urn:mrn:iho:chart:CURENT</featureRef>` in an
+*S100_IC_SuppressedFeatureLayer* element is a reference to the
+*S100_IC_Feature* element with tag
+`<identifier>urn:mrn:iho:chart:CURENT</identifier>.`
+====
+
+[[cls-16-D-2.2]]
+==== Feature codes
+
+Some catalogue elements have a _featureCode_ attribute. The value of
+attribute _featureCode_ must be the camel case code of the feature as
+encoded in the Feature Catalogue for the product named in the _product_
+co-attribute.
+
+[[cls-16-D-2.3]]
+==== Element S100_IC_InteroperabilityCatalogue
+
+Any product mentioned in any attribute of type _dataProduct_ of a
+catalogue element (for example **S100_IC_Feature.**__product__,
+**S100_IC_PredefinedCombination.**__includedProduct__, etc.) must also be
+mentioned in a _productCovered_ attribute of this element.
+
+The attribute _productCovered_ will be used by the system in deciding
+whether to apply interoperability rules or fall back on ordinary overlay
+portrayal and therefore all products taken into account when developing
+the catalogue must be listed.
+
+The _name_, _description,_ and _requirementDescription_ attributes should
+be populated with text values of appropriate size that are meaningful to
+people developing, configuring, or using Interoperability Catalogues,
+including end users. These attributes, especially
+_requirementDescription,_ will potentially be displayed to end users when
+they select an Interoperability Catalogue for a particular task supported
+by a system, and should be populated with this use in mind.
+
+The attribute _interoperabilityLevel_ may be used to indicate highest
+level of interoperability functionality encoded within the catalogue.
+
+[[cls-16-D-2.4]]
+==== Element S100_IC_DisplayPlane
+
+A *S100_IC_DisplayPlane* element must contain at least one instance of
+*S100_IC_DrawingInstruction* or *S100_IC_Feature*. It may contain multiple
+instances of either or both. The choice depends on whether symbols or
+other components of drawing instructions are being substituted.
+
+The _name_ and _description_ attributes should be populated with text
+values that indicate the purpose and feature content of the display plane
+to people developing, configuring, or using Interoperability Catalogues,
+including end users.
+
+[[cls-16-D-2.5]]
+==== Element S100_IC_DrawingInstruction
+
+Drawing instruction elements in the Feature Catalogue override the drawing
+instructions generated directly from the data product's Portrayal
+Catalogue. Details of this overriding are described in <<cls-16-4.4.2.4>>.
+
+The attributes _product_, _featureCode_, _geometryType_, and
+_attributeCombination_ values together make up a [underline]#filter
+condition# determining the subset of instances of a feature type to which
+the drawing priority and viewing group encoded in
+*S100_IC_DrawingInstruction* apply. They are to be applied in conjunction
+("AND") -- that is, the *S100_IC_DrawingInstruction's* viewing group and
+drawing priority apply only when the conditions expressed by all these
+attributes are satisfied. (Attributes _geometryType_ and
+_attributeCombination_ being optional are ignored if not encoded.)
+
+If an instance of *S100_IC_DisplayPlane* contains both *S100_IC_Feature*
+and *S100_IC_DrawingInstruction* elements with the same "filter
+condition", their drawing priority and viewing group must also be the same.
+
+Features (drawing instructions) not satisfying a filter condition in an
+instance of *S100_IC_DrawingInstruction* are treated according to any
+other interoperability rules which may apply to them, or if none, they
+treated according to the data product's Portrayal Catalogue.
+
+[underline]#Distinction:# S100_IC_Feature.
+
+[[cls-16-D-2.6]]
+==== Element S100_IC_Feature
+
+*S100_IC_Feature* elements in the Interoperability Catalogue override the
+drawing priority and viewing group in the data product's Portrayal Catalogue. Details of this overriding are described in <<cls-16-4.4.2.3>>.
+
+*S100_IC_Feature* elements have the same four filter condition attributes
+as *S100_IC_DrawingInstruction* and the same rules and constraints
+described in <<cls-16-D-2.4>> apply.
+
+[underline]#Distinction:# S100_IC_DrawingInstruction.
+
+[[cls-16-D-2.7]]
+==== Element S100_IC_DisplayPlane
+
+As noted in <<cls-16-D-2.5;and!cls-16-D-2.6>> an instance of
+*S100_IC_DisplayPlane* must contain at least one of *S100_IC_Feature* or
+*S100_IC_DrawingInstruction*.
+
+[[cls-16-D-2.8]]
+==== Element S100_IC_PredefinedCombination
+
+A *S100_IC_PredefinedCombination* includes at least two different data
+products. The attribute _includedProduct_ must be populated with all data
+products referenced directly or indirectly in this predefined combination,
+including:
+
+* The _product_ attribute of a *S100_SuppressedFeatureLayer* contained in
+this element;
+* The _product_ attribute of a *S100_Feature* or
+*S100_IC_DrawingInstruction* referenced by an
+*S100_IC_SuppressedFeatureLayer* element contained in this element.
+* When a *S100_SuppressedFeatureLayer* is included, a reference to the
+replacement *S100_IC_DrawingInstruction* should also be present.
+
+The _name_, _description,_ and _useConditions_ attributes should be
+populated with text values of appropriate size that are meaningful to
+people developing, configuring, or using Interoperability Catalogues,
+including end users. These attributes, especially _useConditions_, will
+potentially be displayed to end users when they select an Interoperability
+Catalogue for a particular task supported by a system, and should be
+populated with this use in mind.
+
+[[cls-16-D-2.9]]
+==== Element S100_IC_SuppressedFeatureLayer
+
+The _featureCode_ and _product_ attributes identify a feature type which
+will be suppressed in its entirety; that is, all instances of the feature
+from that product will be hidden. They will be replaced by instances of
+the feature type and product indicated by the referenced *S100_IC_Feature*
+(or *S100_IC_DrawingInstruction*). Both elements may include conditions
+pertaining to attribute values and geometry type, as described in
+<<cls-16-5>>. The implications should be carefully considered when
+referencing instances of *S100_IC_Feature* or
+*S100_IC_DrawingInstruction*, for example:
+
+* Consider whether all feature instances of the indicated feature type
+from the replacing product will be displayed, or only a subset selected by
+attribute values.
+* Consider what happens to the excluded instances and if these should be
+displayed or not. (Note that the model allows replacement of one feature
+type by multiple feature subsets, for example a Chart layer Ice Area may
+be replaced by multiple ice features from a Sea Ice layer).
+* Consider whether the spatial attributes change and implications if they
+do. For example, does the replacing product include features of both point
+and surface while the replaced product includes only point features.
+
+[[cls-16-D-2.10]]
+==== Element S100_IC_SuppressedFeatureInstance
+
+The *S100_IC_SuppressedFeatureInstance* element is used by
+*S100_IC_PredefinedCombination* for selecting instances from one product
+to be replaced by instances from another product.
+
+The attributes _primaryProduct_, _primaryFeatureCode_ and
+_primarySelector_ specify the primary feature and product, which is to be
+suppressed.
+
+The attributes _secondaryProduct_, _secondaryFeatureCode_ and
+_secondarySelector_ specify the secondary feature and product, which
+should replace the suppressed instance(s).
+
+The attributes _outputProduct_ and _outputFeatureCode_ specify the
+replacement feature and product, and should be identical to the secondary
+product. The output feature does not need to have any hybrid
+characteristics, see <<cls-16-4.4.2.7>>.
+
+The reference to a *S100_IC_Feature* gives the resulting feature's display
+specification in the display planes section of the Interoperability
+Catalogue.
+
+The optional reference to a S100_IC_SimpleRule gives the rules describing
+how a set of feature instances are combined to create a hybrid feature
+type.
+
+Where two different set of features instances are to be suppressed by one
+common feature instance, two instances of
+S100_IC_SuppressedFeatureInstance is needed.
+
+[underline]#Distinction:# S100_IC_HybridFeature.
+
+[[cls-16-D-2.11]]
+==== Element S100_IC_HybridFeature
+
+Complex operations, including conversion of input feature instances into
+new features (hybridization) are described by associated
+*S100_IC_HybridFeature* elements. The replacement and hybridization rules
+are described in <<cls-16-4>>.
+
+The attributes _primaryProduct_, _primaryFeatureCode_ and
+_primarySelector_ specify the primaryinputs that will be suppressed from
+rendering.
+
+The attributes _secondaryProduct_, _secondaryFeatureCode_ and
+_secondarySelector_ specify the secondaryinputs that will be suppressed
+from rendering.
+
+The attributes _outputProduct_ and _outputFeatureCode_ specify The
+attributes _outputProduct_ and _outputFeatureCode_ specify the replacement
+feature and product, which may be defined in a hybrid FC and hybrid PC.
+
+The reference to a *S100_IC_Feature* gives the resulting feature's display
+specification in the display planes section of the Interoperability
+Catalogue.
+
+The reference to either a *S100_IC_ThematicRule* or a
+*S100_IC_CompleteRule* gives the rules describing how a set of feature
+instances are combined to create a hybrid feature type.
+
+[underline]#Distinction:# S100_IC_SuppressedFeatureInstance.
+
+[[cls-16-D-2.12]]
+==== Element S100_IC_CompleteRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Complete rules may operate on
+both thematic and spatial attributes.
+
+[[cls-16-D-2.13]]
+==== Element S100_IC_ThematicRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Thematic rules may operate on
+only thematic attributes. The input features are required to have
+spatially equal geometry within a tolerance set by the system.
+
+[[cls-16-D-2.14]]
+==== Element S100_IC_SimpleRule
+
+This class is used for rules describing how a set of feature instances is
+combined to create a hybrid feature type. Simple rules may operate only on
+thematic attributes. Simple rules treat thematic attributes uniformly
+during hybridization and therefore do not mention specific attributes.
+Location/extent spatial attributes of all input features must be spatially
+equal.
+
+[[cls-16-D-2.15]]
+==== Element S100_IC_HybridFC
+
+Class for holding a reference to a Feature Catalogue defining any "hybrid
+feature types" that are created by combining feature types from two or
+more products for the purposes of an interoperable display. The Feature
+Catalogue must conform to S-100 Part 5.
+
+[[cls-16-D-2.16]]
+==== Element S100_IC_HybridPC
+
+Class for holding a reference to a Portrayal Catalogue defining portrayal
+rules for the "hybrid feature types" defined in a Hybrid Features
+Catalogue. The Portrayal Catalogue must conform to S-100 Part 9.
