@@ -359,7 +359,7 @@ instant is a 0-dimensional geometric primitive representing position in time
 | Class
 | S100_TM_Instant
 | A point in time. Multiple points may be specified as truncated dates used to represent recurring instants
-| --
+| -
 |
 | One of __date__, _time_ or _dateTime_ must be populated
 
@@ -396,7 +396,7 @@ is a one-dimensional geometric primitive representing extent in time. <<ISO19108
 | Class
 | S100_TM_Period
 | An extent in time.
-| --
+| -
 |
 | Single value intervals are encoded with _begin_ = _end_ and _closure_ = _closedInterval_ (or omitted)
 
