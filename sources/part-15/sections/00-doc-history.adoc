@@ -1,0 +1,99 @@
+[.preface]
+== metanorma-extension
+
+=== user-css
+
+[source]
+----
+.blue { color: blue}
+----
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Amended specification to allow Permit files to have multiple pairs of header/products elements relating to different end user systems.
+      location: part=15
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated 2^nd^ paragraph to ensure S-100 is aligned with S-63 in terms of permitting duplicate HW_ID and therefore shared / duplicated UPN.
+      location: part=15,clause="15-4.4"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated Figure 15-5 and associated guidance to allow Permit files to have multiple pairs of header/products elements relating to different end user systems.
+      location: part=15,clause="15-7.4.1"
+      location: part=15,clause="15-7.4.3"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected Table 15-6, entry for XML element issueDate to be consistent with Figure 15-5 and the Part 15 Schema.
+      location: part=15,clause="15-7.4.2"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Replaced example PERMIT.XML file with a corrected version.
+      location: part=15,clause="15-7.4.6"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated clause to clarify the length of the q parameter in keys generated for digital signatures; and amended setup specifications and examples accordingly.
+      location: part=15,clause="15-8.4"
+      location: part=15,clause="15-8.5"
+      location: part=15,clause="15-8.6"
+      location: part=15,clause="15-8.7"
+      location: part=15,clause="15-8.10"
+      location: part=15,clause="15-8.11"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Corrected incorrect clause numbers (15-8.4.1.and 15-8.4.2 in S-100 Edition 5.1.0).
+      location: part=15,clause="15-8.5.1"
+      location: part=15,clause="15-8.5.2"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Clarified that the IHO will have both a Scheme Administrator certificate to create scheme Data Server certificates, and an IHO Data Server certificate used to digitally sign and distribute, for example, S-100 Portrayal/Feature/Interoperability catalogues.
+      location: part=15,clause="15-8.5.1"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated the examples of digital signatures to use XML examples conforming to the Part 17 Exchange Catalogue model.
+      location: part=15,clause="15-8.8"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated Figure 15-8 to change S100_SE_DigitalSignatureReference enumeration value to ECDSA-384-SHA2 (value 8).
+      location: part=15,clause="15-8.11"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Clarified the character string to be populated for attribute schemeAdministrator on class S100_SE_CertificateContainerType where IHO is the Scheme Administrator.
+      location: part=15,clause="15-8.11.1"
+----

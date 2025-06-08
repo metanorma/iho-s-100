@@ -1,0 +1,38 @@
+[[cls-15-5]]
+== Data compression and packaging
+
+[[cls-15-5.1]]
+=== Overview
+
+The content of products based on the S-100 Data Model will, because of their
+structure, contain repeating patterns of information. Examples of this are small
+variations in the coordinate information within the file.
+
+If compression is applied, the files are always compressed before they are
+encrypted as the effectiveness of any compression algorithm relies on the
+existence of structured data contents. The individual S-100 based Product
+Specifications will specify in metadata whether compression is being used.
+
+*All exchange set files must be digitally signed before any compression is
+applied.*
+
+[[cls-15-5.2]]
+=== Compression Algorithm
+
+The Protection Scheme uses the ZIP algorithm to compress and uncompress files. The
+compression method is DEFLATE. Each file is compressed into a single file archive
+with the same name as the source file. If it is required to compress multiple
+files (for example, a Portrayal Catalogue) then they shall be located in a single
+root folder and the name of the compressed file set to the name of the root folder.
+
+The encryption and digital signature features of ZIP are not used.
+
+[[cls-15-5.3]]
+=== Encoding
+
+The individual S-100 based Product Specifications will provide more details if
+compression is being used, and which files will be compressed.
+
+The use of compression will be encoded:
+
+* S-100_ExchangeCatalogue-compressionFlag with value *1*.

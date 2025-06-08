@@ -1,0 +1,864 @@
+[[cls-15-8]]
+== Data authentication
+
+This section specifies the mechanisms, structures and content required for the
+implementation of copy protections and/or authentication methods by S-100 Product
+Specifications. It defines standardized methods for the encryption of file based
+components of datasets as well as Feature and Portrayal Catalogues. Algorithms
+and methods for digital signature implementation are defined as well as the
+surrounding infrastructure required for key management and identity assurance
+within the IHO Data Protection Scheme.
+
+[[cls-15.8.1]]
+=== Introduction to data authentication and integrity checking
+
+The digital signature technique in S-100 uses a standard algorithm and key
+exchange mechanism widely available and used. Digital signatures use asymmetric
+public key algorithms within a PKI-like infrastructure scheme to unbreakably bind
+a data file with the identity of the issuer.
+
+The Scheme relies on asymmetric encryption{blank}footnote:[Asymmetric
+cryptography relies on algorithms where encryption and decryption take place with
+different cryptographic keys. Therefore one person can encrypt data and make
+available a decryption key for others to decrypt it. These keys are referred to
+as the "private key" and the "public key", collectively known as a "key pair".]
+of a checksum of a data file. By verifying the signature against the issuer's
+public key, and also verifying the issuer's public key against a top level
+identity, the user is assured of the signer's identity. A detailed technical
+description of digital signatures is beyond the scope of this document and the
+reader is referred to the Digital Signature Standard (DSS -- <<FIPS186>>) for a
+more detailed and accessible explanation. This Part of S-100 assumes a basic
+knowledge of digital signature terms and the operation of PKCS (public key
+cryptography standards) authentication schemes.
+
+The IHO Data Protection Scheme can be considered to have three distinct phases:
+
+. A Scheme Administrator (SA) verifies the identity of a Data Server of S-100
+products and provides the supplier with information to allow them to digitally
+sign their products.
+. A Data Server issues products signed with their identity (and their identity's
+verification by the SA).
+. The subsequent verification by the Data Client of the Data Server's identity;
+its association with the SA; and the integrity of the product data.
+
+A Domain Coordinator may also act as an intermediary between the Data Server and
+the SA. The SA certifies the identity of the Domain Coordinator who then, in
+turn, can certify the identities of Data Servers they are responsible for.
+
+It should be noted that the S-100 digital signature mechanism is not intended
+solely for S-100 Product Specifications' data files. It is possible to both
+encrypt (and issue permits for) and digitally sign any file based data and the
+mechanisms described in this Part will be used to sign catalogues and other
+supplementary files, including Feature and Portrayal Catalogues.
+
+[[fig-15-6]]
+.The process of data server and digital signature creation
+image::img188.png[]
+
+[[cls-15-8.2]]
+=== Data Protection Scheme setup, Data Server signup and authentication sequence
+
+The following is a list of the steps taken by each body in the Data Protection
+Scheme during the digital signing of data files.
+
+. Scheme Creation and Setup (once only, at the instigation of the Data Protection
+Scheme):
+.. The SA creates their own public/private key pair and self-signs it.
+.. The SA puts their self-signed Public Key (also known as their "certificate")
+in the public domain.
+.. The SA Public Key is embedded where required in OEM systems.
+. Data Server setup (once only):
+.. The Data Server creates a Public and Private Key pair.
+.. The Data Server signs their Public Key (with their Private Key) creating a
+Self Signed Key (also sometimes called a "certificate signing request").
+.. The Data Server's Self Signed Key (SSK) is sent to the SA (or Domain
+Coordinator) for validation when applying to join the IHO S-100 Data Protection
+Scheme. Any other requirements and duties within the Data Protection Scheme are
+issued to the prospective Data Server at this stage.
+. Data Server Identity Verification:
+.. If accepted the SA verifies the Data Server's SSK and identity.
+.. The SA signs the Data Server's SSK with its own Private Key to produce an SA
+signed Data Server Certificate.
+.. The Data Server certificate is then returned to the Data Server.
+.. The Data Server verifies that the certificate signs their Public Key against
+the SA Public Key.
+. The Data Server can then produce digital signatures of data files. Digital
+signatures of Feature and Portrayal Catalogues can also be produced by some
+Scheme participants as required.
+
+[[cls-15-8.3]]
+=== Verification of digital signatures
+
+The verification of digital signatures by a client system takes the following
+steps:
+
+[[fig-15-7]]
+.The process of data authentication by a client system
+image::img189.png[]
+
+[[cls-15-8.4]]
+=== Data Formats and standards for digital signatures, keys and certificates
+
+The following categories of content are required for data authentication:
+
+. Key pairs, Private and Public Keys. These are all PEM encoded Elliptical Curve
+Digital Signature Algorithm (ECDSA) keys together with their elliptic curve
+domain parameters. The formats are described in the <<RFC5915>> (Private Keys)
+and <<RFC5480>> (identifier and Public Key format). The 'unrestricted' algorithm
+identifier must be set to:
++
+--
+[source%unnumbered]
+----
+id-ecPublicKey OBJECT IDENTIFIER ::= {
+ iso(1) member-body(2) us(840) ansi-X9-62(10045) keyType(2) 1 }
+----
+
+The parameter namedCurve must be set to:
+
+[source%unnumbered]
+----
+secp384r1 OBJECT IDENTIFIER ::= {
+ iso(1) identified-organization(3) certicom(132) curve(0) 34 }
+----
+--
+. Certificate signing requests and digitally signed Public Keys. When a Public
+Key is itself digitally signed it is referred to as a "certificate" (because the
+Public Key is "certified" by the use of the Private Key to authenticate it). When
+the Public Key is signed by its corresponding Private Key it is referred to as a
+"self-signed" certificate. These are laid out as X.509 records and can be either
+DER or PEM encoded to be sent to the SA for signing. When embedded within XML
+files keys should be PEM encoded so that the plain text can be inserted as an XML
+element. To conform with this standard the CSRs and the certificates should
+define the hash algorithm to be used for the creation of the digital signatures
+to SHA384 (also known as SHA2-384).
+. The digital format of the SA signed Public Keys ("certificates") is X509v3
+format encoded as PEM.
+
+The distinguished name (DN) in the X.509 certificate forms part of the immutable
+content of the certificate (that is, it cannot be changed without invalidating
+the certificate). The roles of the scheme participants and the domains they are
+assigned to may be encoded in the DN. The IHOs operational procedures for the
+Data Protection Scheme will implement whatever specific procedures are required
+for the formatting of this content. The SA may place restrictions on the values
+allowed in the DN's components (for example, the Common Name or the Organization)
+and the format of such identifiers in order to manage the operation of the Data
+Protection Scheme amongst its participants.
+
+The policies and procedures implemented by the SA are not within scope of this
+Part of S-100 and shall be defined elsewhere. Using the DN to define the
+certificateRef fields can also assist implementers in selecting the correct
+certificate when verifying a digital signature. This may also be mandated by the
+SA as it specifies how the Data Protection Scheme is operated.
+
+PEM format defines a textual encoding of the multiple large numbers required by
+the ECDSA algorithm (along with the ECDSA parameters required by the ECDSA
+algorithm). PEM encoding (originally developed for email encoding but used
+extensively in the encryption community for encoding of long integers used for
+keys and digital signatures) allows the embedding of Public Keys and Data Server
+certificates within XML files for permit file XML creation, the creation of
+catalogue and support file metadata and the production of digital signatures of
+Portrayal and Feature Catalogues. Digital signatures of S-100 data files must be
+embedded in the catalogue metadata and serve the dual purpose of a checksum
+against the unencrypted data file and the authentication of its source. Therefore
+they must be produced prior to any compression and encryption mechanism as copy
+protection is itself optional.
+
+The SA Certificate represents an ECDSA Public Key provided as a PEM encoded text
+file. The S-100 Part 15 SA Certificate will always be available in a file called
+IHO.PEM. The IHO.PEM file is available from IHO at
+http://www.iho.int/[http://www.iho.int].
+
+Digital Signatures in S-100 are implementations of the Digital Signature Standard
+(DSS). The DSS uses an approved hash function to create a message digest (hash)
+of the file content. The message digest is then input to the Elliptic Curve
+Digital Signature Algorithm (ECDSA) to generate the digital signature for the
+message using an asymmetric encryption algorithm and the 'Private Key' of the
+signer's key pair. S-100 file based authentication uses the curve NIST P-384 and
+the hashing function SHA384. Other frameworks or data streaming via APIs may use
+different curves and hashing functions.
+
+In the ECDSA algorithm a signature is a sequence of two integers. By convention
+these are referred to as R and S (an "R,S pair"). The format of digital
+signatures when embedded in XML files is as follows:
+
+[source%unnumbered]
+----
+<digitalSignature id="primar" certificateRef="root">
+
+MGQCMDP17NEJXU7gzwTQAp2lgyDzJd1agCeoZ6FZOMGFRmV4sPfzAUhlC3hdj+DF3n2n/QIwPYzh15YiBgJ5Aph11kFUjLywzjDZGHYm/GyjxeCL/8FnOviMwccTlxh65fNkL0eg==</digitalSignature>
+----
+
+The encoding of the two R,S large integers is a Base64 ASN.1 byte
+sequence{blank}footnote:[Abstract Syntax Notation One (ASN.1) is a standard
+interface description language for defining data structures that can be
+serialized and deserialized in a cross-platform way. It is broadly used in
+telecommunications and computer networking, and especially in cryptography.
+https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One]. These are produced
+natively by the openssl implementation and can be generated and verified without
+the need to unpack the individual R and S integers. This encoding conveniently
+wraps the two values unambiguously into a byte array. The ASN.1 sequence
+representing the R,S pair is then Base64 (<<RFC4648>>) encoded for representation
+in the XML digital signature elements.
+
+The ASN.1 schema for the above example is:
+
+SEQUENCE (2 elem)::
+
+INTEGER (382 bit)::: span:blue[*33F5ECD1095D4EE0CF04D0029DA58320F325DD5A8027A867*] +
+span:blue[*A15938C185466578B0F7F30148650B785D8FE0C5DE7DA7FD*]
+
+INTEGER (382 bit)::: span:blue[*3D8CE1D79622060279029875D641548CBCB0CE30D9187626*] +
+span:blue[*FC6CA3C5E08BFFC1673AF88CC1C71397187AE5F3642F47A0*]
+
+The digital signature also contains the following attributes:
+
+. An "id" attribute to act as an identifier.
+. A certificateRef attribute identifying the dataserver certificate with the
+correct public key in it for authentication. If the signature is authenticated by
+the SA then the certificateRef is the identifier of the SA, defined in the
+schemeAdministrator element of the XML container type.
+
+These attributes are described in <<cls-15-8.8>>.
+
+[[cls-15-8.5]]
+=== Creation of key material and certificate signing requests (signed Public Keys)
+
+The commonly used "openssl package" provides a public domain, open source tool
+for production of key material in the required open standards specified within
+this Part.
+
+<<tab-15-8>> below shows basic command line examples for creation of the Public
+and Private Key pairs, certificate production and digital signing of data files.
+
+[[cls-15-8.5.1]]
+==== SA setup
+
+This procedure is performed once only. The command SA-1 in the Table sets up a
+new set of ECDSA parameters and the SA-2 command creates the SA's "root
+certificate" - their self-signed key which self-certifies their identity.
+
+When a Data Server creates an X509 certificate signing request (CSR), the SA
+signs it using command SA-3. This creates a signed version of the Data Server's
+Public Key. The PEM encoded version of the "ds.crt" file is what is embedded in
+both permit files and catalogue metadata as the "Data Server certificate". The SA
+may also issue a Data Server certificate to itself.
+
+[[tab-15-8]]
+.Creation of Public and Private Key pairs -- basic commands
+[cols="a,a",options=header]
+|===
+| Task | Command
+
+| SA-1 create the SA Private Key | `openssl ecparam -name secp384r1 -genkey -out sa-priv.pem`
+| SA-2 create the SA self-signed certificate | `openssl req -new -x509 -key sa-priv.pem -sha384 -out sa.crt -days 365`
+| SA-3 create and sign a Data Server certificate | `openssl x509 -req -in ds.csr -CA sa.crt -CAkey sa-priv.pem -out ds.crt -sha384 -days 365`
+|===
+
+[[cls-15-8.5.2]]
+==== Data Server setup
+
+The Data Server sets up their identity with the SA by using the once only process
+described by commands DS-1 to DS-4. This delivers an SA signed certificate to the
+Data Server which is included with every delivery of signed material to the Data
+Client.
+
+[[tab-15-9]]
+.Data Server setup commands
+[cols="a,a",options=header]
+|===
+| Task | Command
+
+| DS-1 create the Data Server Private Key
+| `openssl ecparam -name secp384r1 -genkey -out ds-key.pem`
+
+| DS-2 split Public Key from Private Key
+| `openssl ec -outform pem -in ds-key.pem -out ds-public-key.pem -pubout`
+
+| DS-3 create a signing request
+| `openssl req -new -sha384 -out ds.csr -key ds-key.pem`
+
+| DS-4 verify received certificate from SA
+| `openssl verify -verbose -CAfile sa.crt ds.crt`
+
+| DS-5 make data file
+| `echo "hello world" > hw.txt`
+
+| DS-6 sign data file
+| `openssl dgst -sha384 -sign ds-key.pem -out signature.bin hw.txt`
+
+| DS-7 encode signature as Base 64
+| `openssl enc -base64 -in signature.bin -out signature.b64`
+
+| DS-8 verify signature
+| `openssl enc -d -base64 -in signature.b64 -out signature.bin`
+
+`openssl dgst -sha384 -verify ds-public-key.pem -signature signature.bin hw.txt`
+|===
+
+The commands DS-5 to DS-8 show how a simple text file "hello world" can be
+created, signed with the Data Server's private key to create an ECDSA-P384
+signature, and then verified. DS-7 creates a base 64 encoded signature which can
+be usedfor embedding in an XML file (either PERMIT.XML or the catalogue metadata
+as required) according to the relevant Part of S-100.
+
+[source%unnumbered]
+----
+<digitalSignature>
+  MGQCMDP17NEJXU7gzwTQAp2lgyDzJd1agCeoZ6FZOMGFRmV4sPfzAUhlC3hdj+DF
+  3n2n/QIwPYzh15YiBgJ5Aph11kFUjLywzjDZGHYm/GyjxeCL/8FnOviMwccTlxh6
+  5fNkL0eg==
+</digitalSignature>
+----
+
+[[cls-15-8.6]]
+=== Digital certificate example
+
+Digital certificates will be PEM encoded for easy exchange and embedding in XML
+files. The following is an example of a PEM encoded Data Server certificate. The
+commands listed in the previous section format the public keys and the
+certificate signing request appropriately for communication between the SA and
+the DS. When embedding the digital certificates in XML elements, the header and
+footer lines are omitted.
+
+The catalogue file of a S-100 based Exchange Set will contain a copy of all the
+Data Server certificates in use by all the files included in the Exchange Set
+with the exception of the SA root certificate which is installed separately by
+the end user. An identifier representing the SA root certificate is included in
+the exchange catalogue certificates by a "schemeAdministrator" element with an
+"id" attribute.
+
+Each XML element containing a certificate will have a unique identifier attribute
+"id". Each XML certificate definition will also include an attribute, "issuer"
+defining the id of the issuer, either the SA (identified by the
+schemeAdministrator id) or a domain coordinator (whose certificate will also be
+included in the Exchange Set). The example below shows an extract from an
+Exchange Set Catalogue header with the SA certificate (not included) given the id
+"root". An SA signed Data Server certificate with id "DS1" is then included with
+the PEM encoded certificate.
+
+[source%unnumbered]
+----
+  <S100XC:certificates>
+    <S100CE:schemeAdministrator id="root"/>
+    <S100CE:certificate id="DS1" issuer="root">
+
+MIICDjCCAZMCFEvCGmio4FLGYU9VtSiIjkR3n+i6MAoGCCqGSM49BAMDMFoxCzAJ
+BgNVBAYTAk1DMRUwEwYDVQQHDAxEZWZhdWx0IENpdHkxHDAaBgNVBAoME0RlZmF1
+bHQgQ29tcGFueSBMdGQxCjAIBgNVBAsMAS8xCjAIBgNVBAMMAWQwHhcNMjMxMTMw
+MTczOTA0WhcNMjQxMTI5MTczOTA0WjB7MQswCQYDVQQGEwJNQzEWMBQGA1UECAwN
+REFUQV9QUk9EVUNFUjEwMC4GA1UECgwnSW50ZXJuYXRpb25hbCBIeWRyb2dyYXBo
+aWMgT3JnYW5pc2F0aW9uMSIwIAYDVQQDDBl1cm46bXJuOmlobzpvcmc6MDBBQTox
+ODEwMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEfnOz0pGcPnvTXIYVhfvWsFm5+gf0
+5QRlfCtfswveUijttUHrZJUDZSBf5s15tEEAaseQqDpJJcR9z354GN4uzpqHPELL
+zNaahZ+oYBois44W4Y5Qo+NfH5iaRHbmsNOiMAoGCCqGSM49BAMDA2kAMGYCMQDc
+lFEyN3iFINm/5O1mKp/8HwPxnDwkH7tgBnY8PBLQk69vTqPOow3cieJN44EM9rsC
+MQCo+v/K7P1eanGRurkLOstFoEcNySgErIDFQ7sCYF8/E3/onf5/q81wMH66DBJF
+IHU=
+  </S100CE:certificate>
+----
+
+[[cls-15-8.7]]
+=== Creation of digital signatures by a Data Server
+
+The Data Server creates a digital signature for the required data files using the
+ECDSA algorithm and their Private Key, see <<cls-15-8.4>>.
+
+All files included in an S-100 Exchange Set must have their signatures encoded in
+either the S100_DatasetDiscoveryMetaData-digitalSignature or
+S100_SupportFileDiscoveryMetadata-digitalSignature elements.
+
+The digitalSignatureReference field must be encoded "**ECDSA-384-SHA2**".
+
+The Data Server certificate must always be provided with a digital signature. It
+enables the OEM to authenticate the certificate using the SA public key and
+checking the certificate validity. The Data Server public key can be extracted
+from the certificate and used to authenticate the dataset file.
+
+The individual id attributes can be used as a look-up by an OEM when a digital
+signature is defined. It reduces the need to repeat a Data Server certificate
+every time a signature is encoded.
+
+The same XML elements for a Data Server certificate and digital signature defined
+in the Exchange Set catalogue are also used for digitally signing auxiliary files
+not included in the catalogue metadata; for example, catalogue and permit files.
+These are included in the S-100 XML Schemas and are self-contained with all
+necessary Data Server certificates included in them.
+
+Since it is possible for Domain Coordinators (for example, IMO) to create Data
+Server certificates for participants of their domain, the following mechanism
+must be used to ensure the Data Client system can perform a certificate path
+validation:
+
+. The Data Server must always include the digital certificate of its Domain
+Coordinator to ensure the Data Client OEM has all the certificates required to
+perform a full certificate path validation without any external access.
+. When a Data Server certificate is defined in the catalogue metadata, it will
+include a data server ID and a reference to the issuer. The OEM should look up
+the issuer certificate and use it for Data Server authentication.
+. The OEM should verify the identity of the certificate issuer to verify the
+correct domain certificate to be used for Data Server certificate authentication.
+This is done prior to verification of the signature in accordance with ECDSA. All
+certificates in the Exchange Set shall be authenticated by the SA, either
+directly or through indirect authentication by one or more Domain Coordinators.
+
+The digital signature is used in the catalogue metadata (and support file
+metadata) in two areas:
+
+* The ECDSA digital signature of the data file, the R,S pair is embedded within
+the appropriate XML element according to the S-100 XML Schemas and base64
+encoded; for example:
++
+--
+[source%unnumbered]
+----
+<digitalSignature id="sig1" certificateRef="PRIMAR">
+MGQCMDP17NEJXU7gzwTQAp2lgyDzJd1agCeoZ6FZOMGFRmV4sPfzAUhlC3hdj+DF3n2n/QIwPYzh15YiBgJ5Aph11kFUjLywzjDZGHYm/GyjxeCL/8FnOviMwccTlxh65fNkL0eg==
+</digitalSignature>
+----
+--
+* The Data Server certificate (which remains constant). This is encoded as per
+<<cls-15-8.4>> and should be embedded in the header of the catalogue metadata.
+This certificate provides the Public Key against which the digital signature (and
+the file content) is verified. The Data Server certificate is itself signed by
+the Scheme Administrator (or an intermediate Domain Coordinator) and it is the
+responsibility of the implementer to ensure that a separately installed root
+certificate from the SA is available on the implementing system. Data Server
+certificates should be authenticated prior to authentication of the dataset file.
+
+The Data Server certificate only needs to be included in full a single time in
+the Exchange Set metadata. Since the certificate does not change it can be
+referred to by its "id" attribute when referenced by multiple digital signatures.
+
+Another encoding of a digital signature is the PERMIT.SIGN file which holds a
+standalone signature of permit file content created by the Data Server issuing
+the permit. The PERMIT.SIGN file is a self-contained digital signature containing
+elements defining the file name, the digital signature and any certificates (and
+intermediate Domain Coordinator certificates) required.
+
+Data Client systems shall verify the authenticity of the permit file to ensure
+the signature is valid and authenticated by the SA prior to installation of any
+permits.
+
+[[cls-15-8.8]]
+=== Additional digital signatures
+
+Additional digital signatures can be added by appending extra digital signature
+entries to the catalogue entry. This can express a list of certified identities
+signing an individual resource. This is an optional enhancement to the
+digitalSignature, the minimum being a single digitalSignature, verifying the
+content of a single resource (for example, a permit, catalogue, dataset or
+supplementary dataset file) against a named certificate.
+
+* Additional digital signatures have their own XML type and can either sign the
+resource itself, or an existing signature of the resource.
+* Additional digital signatures of the resource are appended to the exchange
+catalogue entry and have the same format as existing digital signatures. The
+dataStatus element denotes whether the signature refers to unencrypted,
+compressed or encrypted (and compressed) resources.
+* Chains of digital signatures are implemented by use of a signatureRef
+attribute. A chained digitalSignature signs the content of another digital
+signature of the resource in the exchange catalogue. In this case the content
+signed is the ASN.1 byte array representing the R,S pair of the referenced
+signature.
+* Each signature in the chain requires a valid certificateRef and an identifying
+"id" attribute.
+
+These attributes are summarized in <<tab-15-10>> below:
+
+[[tab-15-10]]
+.Additional digital signature attributes
+[cols="a,a",options=header]
+|===
+| Attribute | Purpose
+
+| id | Unique identifier of the digital signature value
+| certificateRef |The public key which the signature can be verified against. This is only optional if the signed public key is included in a digital signature element itself, otherwise it is mandatory
+| dataStatus | [For data signatures only] whether the signature is of an unencrypted resource, one which is compressed only (such as an archive of multiple resources) or encrypted (and compressed)
+|===
+
+A full example, contained within a datasetDiscoveryMetadata element, follows. In
+this example the dataset discovery metadata specified a datafile. The first
+signature "s1" signs the dataset resource (no "ref" attribute is required),
+signature "s2" signs the encrypted data and signature "s3" signs signature s2.
+
+[source%unnumbered]
+----
+[datasetDiscoveryMetadata entry]
+<S100XC:digitalSignatureValue>
+  <S100SE:S100_SE_SignatureOnData id="s1" certificateRef="PROD1"
+    dataStatus="unencrypted">(sig. omitted)</S100SE:S100_SE_SignatureOnData>
+</S100XC:digitalSignatureValue>
+
+<S100XC:digitalSignatureValue>
+  <S100SE:S100_SE_SignatureOnData id="s2" certificateRef="RENC1"
+    dataStatus="encrypted">(sig. omitted)</S100SE:S100_SE_SignatureOnData>
+</S100XC:digitalSignatureValue>
+
+<S100XC:digitalalSignatureValue>
+  <S100SE:S100_SE_SignatureOnSignature id="s3" certificateRef="DIST1"
+    signatureRef="s2">(sig. omitted)</S100SE:S100_SE_SignatureOnSignature>
+</S100XC:digitalSignatureValue>
+----
+
+[[cls-15-8.9]]
+=== Verifying Data Integrity and Digital Identity with an S-100 digital signature
+
+Digital signature verification is an algorithm which operates on three
+independent pieces of data (all formatted in line with this Part of S-100):
+
+. Some *content* which requires validation (the format of this content is
+arbitrary);
+. A **Public Key**, suitably encoded. In the ECDSA algorithm adopted this Public
+Key is a single number together with a set of ECDSA parameters (three numbers);
+. A *signature*. In the ECDSA algorithm a signature is composed of two numbers;
+by convention these are referred to as R and S (an R,S pair).
+
+A signature verification process identifies whether the R,S pair authenticate the
+content against the given Public Key. This can only result in a true or false
+result.
+
+ECDSA digital signature verification achieves two results:
+
+* *[underline]#Authentication#*: The implementing system verifies the Data Server
+Public Key ("*content*") and the signature in the Data Server certificate
+("*signature*") against the SA Public Key (or Domain Coordinator) ("*Public
+Key*") to confirm that the supplier's Public Key in the certificate is valid and
+that the Data Server is a bona fide member of the S-100 Data Protection Scheme.
+If a Domain Coordinator is provided then the identity of the Domain Coordinator
+must also be checked against the SA Public Key.
+* *[underline]#Integrity Check#*: The implementing system verifies the data
+signature ("*signature*") and the Data Server Public Key in the Data Server
+certificate ("*Public Key*") against the data file ("*content*"). This verifies
+the content of the data file.
+
+If this validation check is successful then it proves that the data has not been
+corrupted in any way and that the identity of the Data Server within the dataset
+signatures is validated by the SAs identity as defined in the SA root
+certificate. The SA root certificate containing its public key must be installed
+separately on the end user system and is not packaged with the Exchange Set
+metadata.
+
+[[cls-15-8.10]]
+=== MRN specifications
+
+In order to support discoverability of Part 17 Exchange Set resources the
+following MRN namespaces are defined by this Part of S-100. These are intended to
+be used to enable discovery of dataset supplementary resources by unique
+cryptographic hash or digital signature. The algorithm used to define the hash or
+signature is embedded in the MRN.
+
+<<tab-15-11;and!tab-15-12>> below show the specifications for digital signature
+and hash MRNs in S-100. All fields are mandatory and case-insensitive.
+
+[[tab-15-11]]
+.S-100 digital signature MRN
+[cols="a,a,a",options=header]
+|===
+| Name | Value | Example
+
+| Prefix
+| `urn:mrn:iho:s100:dsig`
+|
+
+| Algorithm
+| From digitalSignatureReference (<<cls-15-8.11.7>>)
+| `ECDSA-384-SHA2`
+
+| Value
+| Computed digital Signature value
+| *`MGUCMQCd9T4ggpAeVA/6zB0HWCXTsUOaD56lM4Ui`* +
+*`tkNXrYa5rURtLwiWH2D/ZkmYRY1LTO8CMHIYHpBX`* +
+*`vr7HwY6+W36bXnR5ylc8QTN7vc9WH/Zmo5Ck1IH0`* +
+*`2RUbS286RnYXUEP3WQ==`*
+
+| Example
+2+| `urn:mrn:iho:s100:dsig:ecdsa:MGUCMQCd9T4ggpAeVA/6zB0HWCXTsUOaD56lM4UitkNXrYa5rURtLwiWH2D/ZkmYRY1LTO8CMHIYHpBXvr7HwY6+W36bXnR5ylc8QTN7vc9WH/Zmo5Ck1IH02RUbS286RnYXUEP3WQ==`
+|===
+
+[[tab-15-12]]
+.S-100 cryptographic hash MRN
+[cols="a,a,a",options=header]
+|===
+| Name | Value | Example
+
+| Prefix
+| `urn:mrn:iho:s100:hash`
+|
+
+| Algorithm
+| digitalSignatureReference (<<cls-15-8.11.7>>)
+| `SHA-256`
+
+| Value
+| Computed cryptographic hash expressed as hexadecimal
+| *`a948904f2f0f479b8f8197694b30184b0d2`* +
+*`ed1c1cd2a1ec0fb85d299a192a447`*
+
+| Example
+2+| `urn:mrn:iho:s100:hash:sha256:a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447`
+|===
+
+[%landscape]
+<<<
+
+[[cls-15-8.11]]
+=== Exchange catalogue metadata and standalone schema element specification
+
+[[fig-15-8]]
+.Data protection -- class details
+image::img190.png[]
+
+[[cls-15-8.11.1]]
+==== S100_SE_CertificateContainerType
+
+.S100_SE_CertificateContainerType
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class | S100_SE_CertificateContainerType | A set of signed Public Key certificates | - | - | Used in S-100 Part 17 Exchange Catalogues
+| Attribute | schemeAdministrator | The Scheme Administrator identity | 0..1 | CharacterString | The identity of the Scheme Administrator is contained in the "id" attribute of the schemeAdminstrator element. The Scheme Adminstrator certificate is NOT included in catalogue metadata as it is independently verified by the implementing systemThe encoding of IHO as schemeAdministrator is <S100SE:schemeAdministrator id="IHO"/>
+| Attribute | certificate | A signed Public Key certificate | 1..* | Base 64 encoded Character String | Conforms to X.509 encoding. Contains a digitally signed identifier of an entity
+|===
+
+[[cls-15-8.11.2]]
+==== StandaloneDigitalSignature
+
+.StandaloneDigitalSignature
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| StandaloneDigitalSignature
+| A single digital signature
+| -
+| -
+| -
+
+| Attribute
+| filename
+| The filename of the content signed
+| 1
+| CharacterString
+| The filename of the resource signed
+
+| Attribute
+| certificates
+| Any certificates required to authenticate the signature against the Scheme Administrator
+| 1
+| S100_SE_CertificateContainerType
+|
+
+| Attribute
+| signature
+| A single digital signature
+| 1
+| S100_SE_DigitalSignature
+| The signature of the file resource
+|===
+
+[[cls-15-8.11.3]]
+==== S100_SE_DigitalSignature
+
+The class S100_SE_DigitalSignature is realized as one of either
+S100_SE_SignatureOnData (a digital signature of a particular identified resource)
+or an additional digital signature defined using the class
+S100_SE_AdditionalSignature, each of which is either a S100_SE_SignatureOnData or
+S100_SE_SignatureOnSignature element as described in <<cls-15-8.8>>. S-100 Part
+17 metadata thus allows for multiple digital signatures, a single mandatory
+S100_SE_SignatureOnData and any number of additional signatures, either of the
+data or other signatures.
+
+[[cls-15-8.11.4]]
+==== S100_SE_SignatureOnData
+
+.S100_SE_SignatureOnData
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_SE_SignatureOnData
+|
+| -
+| Base64 encoded digital signature value (<<cls-15-8.4>>)
+| -
+
+| Attribute
+| id
+| Identifier of the digital signature
+| 1
+| CharacterString
+| Every signature entry has a unique identifier
+
+| Attribute
+| certificateRef
+| Signed Public Key
+| 1
+| CharacterString
+| Identifier of the certificate against which the digital signature validates
+
+| Attribute
+| dataStatus
+| The digital signature
+| 1
+| DataStatus
+| The digital signature value, calculated from the specified algorithm
+|===
+
+[[cls-15-8.11.5]]
+==== S100_SE_SignatureOnSignature
+
+.S100_SE_SignatureOnSignature
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Data Type | Remarks
+
+| Class
+| S100_SE_SignatureOnSignature
+|
+| -
+| Base64 encoded digital signature value (<<cls-15-8.4>>)
+| -
+
+| Attribute
+| id
+| identifier of the digital signature
+| 1
+| CharacterString
+| Every signature entry has a unique identifier
+
+| Attribute
+| certificateRef
+| Signed Public Key
+| 1
+| CharacterString
+| Identifier of the certificate against which the digital signature validates
+
+| Attribute
+| signatureref
+| The digital signature referenced.
+| 1
+|
+|
+|===
+
+[[cls-15-8.11.6]]
+==== DataStatus
+
+.DataStatus
+[cols="a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Remarks
+
+| Enumeration
+| DataStatus
+| The state of data when a digital signature is created
+|
+
+| Value
+| Unencrypted
+| The data is unencrypted and uncompressed | For example, supporting resources
+
+| Value
+| Encrypted
+| The data is compressed and encrypted
+| For example, copy protected datasets
+
+| Value
+| Compressed.
+| The data is compressed only
+| For example, archives of multiple resources
+|===
+
+[[cls-15-8.11.7]]
+==== S100_SE_DigitalSignatureReference
+
+.S100_SE_DigitalSignatureReference
+[cols="a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_SE_DigitalSignatureReference
+| A reference to a cryptographic algorithm used in an implementation of Part 15
+|
+| Only ECDSA is currently used in implementations of S-100 for file based transfer of data to ECDIS. Other values are included for interoperability with other implementations by external standards. See <<cls-15-8.4>>
+
+| Value
+| RSA
+|
+| 1
+| RSA with key length >= 2048 bits
+
+| Value
+| DSA
+|
+| 2
+| DSA with key length >= 2048 bits
+
+| Value
+| ECDSA
+|
+| 3
+| ECDSA with key length >= 224 bits.
+
+| Value
+| ECDSA-224-SHA2-224
+|
+| 4
+| 224 bits ECDSA with SHA2-224 hashing
+
+| Value
+| ECDSA-224-SHA3-224
+|
+| 5
+| 224 bits ECDSA with SHA3-224 hashing
+
+| Value
+| ECDSA-256-SHA2-256
+|
+| 6
+| 256 bits ECDSA: SHA2-256
+
+| Value
+| ECDSA-256-SHA3-256
+|
+| 7
+| 256 bits ECDSA: SHA3-256
+
+| *Value*
+| *ECDSA-384-SHA2*
+|
+| *8*
+| *384 bits ECDSA: SHA2-384*
+
+| Value
+| ECDSA-384-SHA3
+|
+| 9
+| 384 bits ECDSA: SHA3-384
+
+| Value
+| AES-128
+|
+| 10
+| AES 128 bit keys
+
+| Value
+| AES-192
+|
+| 11
+| AES 192 bit keys
+
+| Value
+| AES-256
+|
+| 12
+| AES 256 bit keys
+|===
+
+[%portrait]
+<<<

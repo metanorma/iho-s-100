@@ -1,0 +1,34 @@
+[[cls-15-9]]
+== Glossary of S-100 Data Protection Scheme and computing terms
+
+For a list of general abbreviations used throughout S-100, see Part 0, clause
+0-2. For a list of general terms and definitions used throughout S-100, see
+Annex A.
+
+[[tab-15-13]]
+.S-100 Data Protection Scheme terms
+[cols="a,a"]
+|===
+| AES | Advanced Encryption Standard, encryption algorithm used in the scheme
+| Data Permit | File containing encrypted product keys required to decrypt the licensed products. It is created specifically for a particular user
+| Data Client | Term used to represent an information consumer receiving the encrypted information. The Data Client will be using a software application (for example ECDIS) to perform many of the operations detailed within the scheme.
+| Data Server | Term used to represent an organization producing encrypted data files or issuing Dataset Permits to end-users
+| M_ID | The unique identifier assigned by the SA to each manufacture. Data Servers use this to identify which M_KEY to use when decrypting the Userpermit
+| M_KEY | System manufacturer's unique identification key provided by the Scheme Administrator to the OEM. It is used by OEMs to encrypt the HW_ID when creating a userpermit
+| HW_ID | The identifier assigned by an OEM to each implementation of their system. This value is encrypted using the OEM's unique M_KEY and supplied to the data client as a userpermit. This method allows data clients to purchase licences to decrypt datasets
+| PKCS | Public Key Cryptography Standards
+| IV | Initialization Vector used by the AES-CBC encryption algorithm
+| SA | Scheme Administrator. IHO is responsible for maintaining and coordinating all operational aspects and documentation of the Protection Scheme
+| SHA | Secure Hash Algorithm
+| SSK | Self Signed Key (Self Signed Certificate File)
+| User Permit | Encrypted form of HW-ID uniquely identifying the Data Client system
+|===
+
+[[tab-15-14]]
+.Computing terms
+[cols="a,a"]
+|===
+| CRC | Cyclic Redundancy Check
+| XOR | Exclusive OR
+|===
+

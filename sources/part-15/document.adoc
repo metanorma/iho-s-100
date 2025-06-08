@@ -1,0 +1,38 @@
+= Universal Hydrographic Data Model -- Part 15: Data Protection Scheme
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-norm-refs.adoc[]
+
+include::sections/03-general.adoc[]
+
+include::sections/04-participants.adoc[]
+
+include::sections/05-data-compression.adoc[]
+
+include::sections/06-data-encryption.adoc[]
+
+include::sections/07-data-licensing.adoc[]
+
+include::sections/08-data-auth.adoc[]
+
+include::sections/09-glossary.adoc[]

@@ -1,0 +1,9 @@
+== Scope
+
+S-100 part 15, later referred to as 'the Data Protection Scheme' or 'Protection
+Scheme', describes the recommended standard for the protection of hydrographic or
+spatial information based on the IHO S-100 Universal Hydrographic Data Model. It
+defines security constructs and operating procedures that must be followed to
+ensure that the Protection Scheme is operated correctly and to provide
+specifications that allow participants to build compliant systems and distribute
+data in a secure and commercially viable manner.
