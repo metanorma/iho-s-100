@@ -1,0 +1,52 @@
+[[cls-16-7]]
+== Interoperability Catalogue Data Model and the General Feature Model
+
+This clause elaborates on how General Feature Model (Part 3) elements are
+managed by the Interoperability Catalogue Data Model.
+
+[[cls-16-7.1]]
+=== Geographic feature types
+
+The relative prioritization for display purposes of geographic feature
+types is at the core of the Interoperability Catalogue Data Model. For the
+Interoperability Catalogue concept, feature types can be considered as the
+"domain" of the Data Model, just as feature concepts form the domain of an
+ordinary Product Specification.
+
+Feature instances are not encoded in Interoperability Catalogues since an
+Interoperability Catalogue is a catalogue-based product that is
+functionally a collection of rules which adjust the display of information
+from feature datasets; an Interoperability Catalogue is not itself a
+feature-based data product.
+
+References to feature types may appear as attribute values in
+Interoperability Catalogues. The reference will identify the Product
+Specification in which the feature type is defined. It may also identify
+the version of the Product Specification; if the version is not identified
+the reference is to the indicated feature type in all versions of the
+Product Specification.
+
+A reference to a feature type must be interpreted as applying to all
+instances of the feature type in datasets conforming to the indicated
+Product Specification and version. (Additional conditions limiting
+applicability to subsets of feature instances may be encoded in other
+attributes.)
+
+[[cls-16-7.2]]
+=== Meta feature types
+
+The suppression, interleaving, and replacement operations in the
+Interoperability Catalogue do not affect meta features in individual
+Product Specifications. Display of meta features if requested by the
+mariner is as specified by individual Portrayal Catalogues.
+
+[[cls-16-7.3]]
+=== Feature and Information associations
+
+Feature and information associations are not directly used in an
+Interoperability Catalogue.
+
+[[cls-16-7.4]]
+=== Information types
+
+Information types are not directly used in an Interoperability Catalogue.

@@ -1,0 +1,227 @@
+[[cls-16-11]]
+== Portrayal
+
+This clause gives guidelines and instruction to portrayal considerations
+related to the use of the Interoperability Catalogue in a user system. An
+Interoperability Catalogue must apply to the specific Product
+Specifications listed in its metadata, specifically the *productCovered*
+attribute under *S100_IC_InteroperabilityCatalogue*.
+
+There may be additional data products present in the user system that are
+external to the Interoperability Catalogue; in such cases the
+Interoperability Catalogue should continue to function in presence of
+product not defined in the Catalogue. Data products that are outside of
+the interoperability scope must be treated as overlays (see
+<<cls-16-10.4>>).
+
+[[cls-16-11.1]]
+=== Display of significant features
+
+Significant features in a display plane should have the highest drawing
+priority value within the *S100_IC_DisplayPlane*. Care should also be
+given to assigning significant features with high drawing priority values
+within the relevant *S100_IC_Feature* and *S100_IC_DrawingInstruction*.
+This ensures that less significant features in one data product are not
+displayed more prominently than more significant features in another
+product.
+
+[[cls-16-11.1.1]]
+==== Switching to original
+
+User systems should include means to easily switch on and off the
+interoperability functionality.
+
+[[cls-16-11.2]]
+=== Impacts on viewing groups
+
+The viewing group is a concept to control the content of the display. It
+works as an on/off switch for any drawing instruction assigned to the
+corresponding viewing group. The concept can be seen as a filter on the
+list of drawing instructions [S-100 Part 9, clause 9-11.1.3].
+
+Viewing groups in Interoperability Catalogues take precedence over the
+applicable viewing groups for any feature instances from a supported
+Product Specification, and that are included in a
+*S100_IC_DrawingInstruction*, or *S100_IC_Feature* instance.
+
+[[cls-16-11.3]]
+=== Impacts on Portrayal Catalogues
+
+Viewing systems must manage the visibility and drawing order of data
+products, especially relative to radar/ARPA, AIS display or other sensor
+data. Moreover, systems must ensure significant features with over radar
+flag, in all products, are distinguishable in the presence of radar/ARPA,
+AIS or other sensor data. In navigation systems tracks and vessel position
+information are likely high priority while some AIS ASM (application
+specific messages) may carry lower-priority information, including data
+described by an S-100 based Product Specification, for example
+meteorological and hydrographic information.
+
+[[cls-16-11.4]]
+=== Meta-features
+
+It is recommended that viewing systems allow display of meta features for
+only one product at a time. This is in order to minimize risks of display
+clutter, user confusion, and the possibility of interpreting meta-features
+for one product as applying to a different product.
+
+For example, data quality meta features for different on-screen products
+should not be displayed simultaneously, and that only the top most product
+data quality should be shown at any given time. This also applies in areas
+of the screen where the topmost product does not cover.
+
+[[cls-16-11.4.1]]
+==== Data quality for individual products
+
+This clause applies to the case where multiple products are on-screen and
+quality meta-features are enabled. Only one set of quality features should
+be displayed at any given time to avoid clutter and misreading the meaning
+of the quality metadata.
+
+Interoperability Catalogues do not specify means of distinguishing data
+quality portrayals for individual products. Product Specifications must
+provide rules for display of data quality metadata (including data quality
+meta-feature information), which the user system will utilise to portray
+data quality.
+
+Means of distinguishing data quality portrayals for individual products is
+left to the Product Specification authors (in particular, Portrayal
+Catalogue authors) and OEMs, and can be handled by distinguishing
+portrayal rules or symbology for different products' data quality
+meta-features, such as colour coding or special line symbol. There should
+also be a clear on-screen message saying what data quality features are
+displayed in order to give users a firm indication of the layer to which
+the currently displayed quality metadata applies.
+
+[[cls-16-11.4.2]]
+==== Portrayal of data quality for combinations
+
+Interoperability Catalogues do not include combining data quality
+portrayals. The recommendation in <<cls-16-11.4>> about displaying only
+one set of meta-features is strengthened for data quality in particular.
+It is recommended that simultaneous portrayal of data quality from
+different products be avoided.
+
+It is therefore recommended that user systems include functions to let the
+user select which product's data quality should be displayed.
+
+[[cls-16-11.5]]
+=== Display of text
+
+Text is typically the last item drawn. In general, rules for placement,
+display selection, and management of long text are defined in the
+individual Product Specification and associated Portrayal Catalogue. An
+Interoperability Catalogue would, in general, only govern when a feature
+that text is generated from is displayed.
+
+NOTE: Developers of user systems with interoperability capabilities should
+consider adding functions for enhanced automatic text placement to limit
+clutter.
+
+[[cls-16-11.6]]
+=== Blended feature concepts or blended portrayals
+
+This clause describes the interoperability solution for blended feature or
+blended portrayal. These can be produced by using transparency or creating
+a temporary blended feature or blended portrayal (rule and/or symbol) of
+specific combinations of features from different products. Such blended
+concepts will typically be created by using
+*S100_IC_PredefinedCombination* which links to a hybrid Portrayal
+Catalogue that includes the features to be combined and a suppression rule
+(using *S100_IC_SuppressedFeatureLayer*) for the features that are to be
+replaced.
+
+An example where a blended concept could be used is where winds blowing
+from the west cause fairways to some west coast ports of Finland to get
+layered ice (wind pushes ice layers on top of each other until there is
+ice from the sea bottom up to the surface). When an ice-breaker makes a
+path through some ice remains between the sea bottom and the keel of the
+ice-breaker. Ice thickness in such a place could be up to 11 m while the
+ice-breaker draught is around 7-8 meters. In such cases a simultaneous
+display of both ice coverage and underlying depth area is required. Other
+depth area features such as spot soundings, rocks, wrecks, etc., are also
+still important.
+
+[[cls-16-11.7]]
+=== Blended portrayal's effect on symbols and area patterns
+
+When combining various layers, that may be of different compilation scale
+and coverage, it is likely that symbols and area patterns will end up at
+borders, or conflict with symbols and area patterns in other layers. It is
+important that symbols remain legible, and that user systems include
+appropriate methods to avoid displaying partial symbols, or "grafting"
+part of lower-layer symbols onto symbols in upper layers.
+
+For area fills the symbols of a pattern fill must be closer together for a
+small or narrow area, to ensure enough symbols are seen, and farther apart
+for a large area, to avoid clutter. An area pattern may be substituted by
+a single centred symbol if sufficient space is not available for a pattern
+to be shown.
+
+[[cls-16-11.8]]
+=== Hierarchy of data
+
+Hierarchy between different Product Specifications is influenced by
+several factors such as intended use within the in-scope user system, for
+example usefulness a product in navigational operation in a navigation
+system. It may not be possible to prescribe a fixed hierarchy list as a
+universal standard, and the Interoperability Catalogue model therefore
+offers a flexible approach. Within the Interoperability Catalogue the
+hierarchy of data between different S-100 based Product Specifications is
+determined using predefined combinations. The *S100_IC_DisplayPlanes*
+referenced within a *S100_IC_PreDefinedCombination* give the order of
+feature layers. This approach also allows for different stacking orders of
+the same products within the same Interoperability Catalogue should there
+be a user need for this. Care should be used (for example by using
+descriptive names and allowing users to see these when selecting) to
+ensure the risk of users unintentionally selecting the wrong stacking
+order.
+
+[[cls-16-11.9]]
+=== Interacting gridded information
+
+If two or more gridded data types are to interact, the hierarchy between
+them should be established using predefined combinations as with other
+data types. Particular care has to be taken depending on how the
+presentation of the data is to be done when deciding which gridded data
+type has the highest priority, considering items such as will one gridded
+data type obscure the other.
+
+For example, gridded bathymetry may obscure gridded surface currents and
+therefore the gridded surface currents should be given the highest
+priority between the two when they are to be displayed simultaneously.
+
+[[cls-16-11.10]]
+=== Pick reports
+
+Pick reports may be defined in the individual Product Specification. The
+Interoperability Catalogue model permits reuse of these specifications as
+it does not specify pick report design for the individual supported
+Product Specification.
+
+Complete data from all products visible on the screen should be available
+to the system user, irrespective of all these products being in the scope
+of the Interoperability Catalogue in use or not.
+
+Features that have been visually suppressed should not be included in the
+pick report.
+
+[[cls-16-11.11]]
+=== User control over loaded set
+
+It is recommended that users have the option to load additional products
+in scope for the system, even when these are out of scope for the
+Interoperability Catalogue, or turn off one or more of the data products
+in a predefined combination. Portrayal must adjust to the loaded set as
+appropriate, for example if an additional product is loaded, it should be
+interleaved with layers from data products in the predefined combination
+according to the drawing order and drawing priority in its Portrayal
+Catalogue.
+
+[[cls-16-11.12]]
+=== User control over interoperation level
+
+If more than one interoperability level is supported by the
+Interoperability Catalogue (see <<cls-16-8>>), it is recommended that
+users have the option to select the interoperability levels they wish to
+use. Portrayal must adjust to the new interoperation level.

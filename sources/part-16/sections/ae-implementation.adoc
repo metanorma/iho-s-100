@@ -1,0 +1,108 @@
+[[app-16-E]]
+[appendix,obligation=informative]
+== Implementation Guidance
+
+[[cls-16-E-1]]
+=== Implementation guidance
+
+This appendix provides guidance on implementation issues that should be
+considered when developing an Interoperability Catalogue for an end-user
+system. Individual interoperability specifications may elaborate and
+modify this guidance as appropriate.
+
+[[cls-16-E-2]]
+=== Reduce demand on user attention -- display adjustment
+
+It is recommended that implementers of end user systems supporting
+Interoperability Catalogues include decluttering techniques, such as
+minimizing overlaps of both symbols and text and minimization of the
+number of colours simultaneously on the display.
+
+[[cls-16-E-3]]
+=== Reduce demand on user attention -- avoid text overload
+
+It is recommended that implementers of end user systems provide means for
+text notes to be shown in a manner that limits the obscuring other for
+example by including for separate text display from graphic display.
+
+It is recommended that means are provided for limiting the amount of text
+shown simultaneously both in-graphic, over-graphic, and in a separate
+auxiliary display.
+
+Where possible it is recommended that in-line text is kept shorter than
+text from a support file. This may be done through limiting the allowed
+text in some attributes in Product Specifications. For example, allow as
+many as 300 characters in any attribute intended for in-line text.
+
+Interoperability Catalogue developers should review text handing of in
+scope Product Specifications, including what individual Data
+Classification and Encoding Guides say and what Portrayal Catalogues do
+with text attributes. This review should be done in collaboration with
+Product Specifications developers, since they can be expected to know
+which attributes can be expected to contain long text and which contain
+short text.
+
+[[cls-16-E-4]]
+=== Support for novice users
+
+It is recommended that end user implementations are permitted to have
+"novice" modes or user interface controls, which provide shortcuts for
+inexperienced users.
+
+[[cls-16-E-5]]
+=== Reduce demand on user attention -- planning and monitoring modes in navigational systems
+
+Navigational systems with planning mode should be permitted to provide
+more powerful information search or processing functionality at the
+expense of more user attention.
+
+Navigational systems with route monitoring mode should provide means for
+showing the information required for route monitoring while allowing users
+to also focus on other tasks.
+
+[[cls-16-E-6]]
+=== Interoperability and data coverage
+
+The interoperability rules and interleaving operations described in an
+Interoperability Catalogue should only apply in areas where the products
+referenced in the rule or interleaving operation have data coverage at the
+current display scale on the navigation system.
+
+If data coverage for some of the products in the selected predefined
+combination is absent in an area, the rules and interleaving operations
+referring to products which do have data coverage in the area in question
+should continue to apply in that area. Rules and interleaving operations
+referring to products which do not have data coverage in the area should
+not apply in the area in question.
+
+Implementations in end user systems should be capable of indicating parts
+of the display screen where (a) interoperability is partially applicable
+because some of the data products in a predefined combination do not have
+data coverage while others do have coverage; (b) interoperability is not
+applicable at all because the data products in the selected predefined
+combination do not have coverage.
+
+NOTE: Depiction and symbols for such distinguished parts of the screen may
+be a matter for Performance Standards but an off-graphic message on the
+system, or an adaptation of appropriate warning symbology may be suitable.
+
+[[cls-16-E-7]]
+=== Other significant information
+
+The inclusion in Interoperability Catalogues of data products whose
+interoperability has not been discussed with the relevant Product
+Specification development team is recommended [underline]#against#.
+
+There should be a dialogue between interoperability teams and Product
+Specification teams, so that new changes to Product Specifications are
+ensured to be covered by Interoperability Catalogues.
+
+Feature Catalogue and Portrayal Catalogue development teams should be
+considered stakeholders for hybrid catalogues.
+
+[[cls-16-E-8]]
+=== Phased implementation
+
+Implementation of interoperability may be done in phases and this can be
+done by utilizing the interoperability level attributes (see <<cls-16-8>>)
+to segment different functionalities of an Interoperability Catalogue.

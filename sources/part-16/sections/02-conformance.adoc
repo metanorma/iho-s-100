@@ -1,0 +1,7 @@
+[[cls-16-2]]
+== Conformance
+
+This Part is not a profile of an ISO or other standard because the concept
+of S-100 interoperability as used in this Part is unique to S-100. The
+S-100 Interoperability Model is a specialization of the CT_Catalogue class
+defined in <<ISO19139>>, as implemented in <<ISO19115-3>>.

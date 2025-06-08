@@ -1,0 +1,244 @@
+[[cls-16-10]]
+== Production process of Interoperability Catalogues
+
+Interoperability Catalogues are created in an XML editor environment. It
+is generally expected that any off-the-shelf XML Editor can perform this
+task. The creation process of any new versions may benefit from starting
+from the previous version when available. Another alternative is to
+develop a dedicated Interoperability Catalogue Editor that can create and
+maintain Interoperability Catalogues with dedicated functions for creating
+the various components, such as display planes and predefined combinations.
+
+Due to the interconnected nature of the Product Specifications that are
+under the Interoperability Schema, a form of overarching change management
+is a necessity. Any revision or New Edition required in a Product
+Specification should be announced well in advance, giving the whole
+stakeholder community ample time to review the impact before it goes into
+effect. Any revisions and New Editions to a supported Product
+Specification may require a new version of an Interoperability Catalogue
+and the party responsible for the maintenance of an Interoperability
+Catalogue needs to be informed and involved to assess any impacts. This
+includes updates to dataset metadata, as metadata changes such as Product
+Specification references may impact the link between the dataset and the
+Interoperability Catalogue.
+
+It is recommended that Interoperability Catalogues be distributed in an
+exchange set structure, see Part 17. Discovery metadata for
+Interoperability Catalogues must be provided in XML format conforming to
+S-100 dataset discovery as specified in S-100 Part 17, with the extensions
+described in this clause.
+
+[[cls-16-10.1]]
+=== Management of Feature Catalogue and Portrayal Catalogues updates
+
+Changes to a supported Product Specification may have impacts on an
+Interoperability Catalogue. Revisions to the Feature Catalogue or
+Portrayal Catalogue are the most likely to require a revision of the
+Interoperability Catalogue in order to support the change. These types of
+changes will generally require a new version (n.n.0) of the
+Interoperability Catalogue to ensure support. It should be noted that
+revisions to a supported Feature Catalogue or Portrayal Catalogue may be
+ignored by previous versions of an Interoperability Catalogue and it is
+therefore necessary to consider this as part of the change management
+process, especially if the change is a matter of navigational safety.
+Major changes to Product Specifications, such as adding functionality or
+adding new Product Specifications to the supported list will result in a
+new edition (n.0.0) of an Interoperability Catalogue.
+
+Versions of an Interoperability Catalogue within the same edition are
+considered a compatible group. When a New Edition is issued, this
+compatibility is broken; and efforts should be undertaken to update all
+impacted systems as soon as possible.
+
+[[fig-16-8]]
+.Examples of how Feature Catalogue change may impact Interoperability Catalogue lifecycle
+image::img198.png[]
+
+Several types of changes to supported Product Specifications may impact an
+Interoperability Catalogue in such a way that a new version is needed to
+maintain full support. These include:
+
+* New feature added to a supported Product Specification that requires a
+new feature combination to be added to an Interoperability Catalogue;
+* New attribute added to a feature in a supported Product Specification
+that requires a new attribute combination to be added to an
+Interoperability Catalogue;
+* New Product Specification is added to the list of supported Product
+Specifications in an Interoperability Catalogue. This could also require
+new feature and attribute combinations to be added;
+* Removal of feature or attribute from a supported Product Specification
+that are present in a feature or attribute combination within an
+Interoperability Catalogue;
+* A correction to a supported Product Specification that triggers a
+version increment (n.*n*.0), which may break links from an
+Interoperability Catalogue to the supported Product Specification;
+* Matters of navigational safety as they arise.
+
+Adding new functions in either a supported Product Specification or an
+Interoperability Specification may require a new version of an
+Interoperability Catalogue.
+
+[[cls-16-10.2]]
+=== Product Specification updates other than FC/PC
+
+Updates to dataset metadata, such as Product Specification references, may
+impact the link between a dataset and an Interoperability Catalogue and
+therefore require a revision to the Interoperability Catalogue (n.*n*.0).
+Some changes to an interoperability-ready Product Specification may not
+require any changes to an Interoperability Specification or an
+Interoperability Catalogue. This includes amendments to the definitions of
+features, attributes or attribute values. It also includes minor changes
+to Product Specifications, such as clarifying language. Other changes may
+only require an update to the metadata of an Interoperability
+Specification and/or Interoperability Catalogue, such as in case of
+supported Product Specification version references. Such minor changes to
+an Interoperability Specification and/or Interoperability Catalogue may be
+collected and be applied at a later time when a more substantial revision
+is required.
+
+[[cls-16-10.3]]
+=== Unpredictable Product Specification updates
+
+Unpredictable changes to an interoperability-ready Product Specification,
+or its Feature Catalogues and Portrayal Catalogues, should be avoided.
+Great care should be taken in coordinating changes among all stakeholders
+to avoid any unforeseen consequences. Product Specifications that are
+under the same interoperability umbrella should be considered
+interconnected. The responsible groups should therefore coordinate changes
+with other groups that issue interoperability-ready Product
+Specifications. Such coordination can be done, for example, by having an
+agreed fixed period between releases in which all pending changes are
+collected, implemented and issued in a coordinated fashion.
+
+NOTE: If a situation arises where a product is not compatible with an
+Interoperability Catalogue, this product will only be available as an
+overlay that may obscure any data below the incompatible product, or the
+overlay may be obscured by any data with higher priority.
+
+[[cls-16-10.4]]
+=== Additional data products to be defined in the Catalogue
+
+An Interoperability Catalogue should in theory be extensible to products
+not yet defined, provided these are within the same S-100 Edition. New
+products can be included in a Catalogue, but such scenarios will require a
+New Edition of an Interoperability Catalogue. The default processing for
+any Interoperability Catalogue is that any new product follows the default
+rule of being used as an overlay, generally stacked in a user defined
+order and with default viewing groups in effect.
+
+[[cls-16-10.5]]
+=== Backward compatibility
+
+Different versions of data products may be simultaneously active; the
+Interoperability Catalogue design allows for backward-compatible updates
+if and when the Interoperability Catalogue has to be updated, within the
+same major Edition. <<fig-16-9>> below shows an example of how the
+Interoperability Catalogue may evolve with change over time.
+
+[[fig-16-9]]
+.Example life cycle of Interoperability Catalogue
+image::img199.png[]
+
+[[cls-16-10.6]]
+=== Interoperability Catalogue product
+
+Each Interoperability Catalogue product should by itself be considered a
+whole unit. New versions -- either clarification, correction, or New
+Edition -- should be updated by replacement with a newer version. The
+update process should be specified in detail when defining an
+Interoperability Specification. The following clauses give some principles
+to consider for the specific update process.
+
+[[cls-16-10.6.1]]
+==== Updating the Interoperability Catalogue
+
+It is recommended that new versions of the Interoperability Catalogues be
+distributed using an Exchange Set structure, see Part 17.
+
+Interoperability Catalogues may remain active after a new version has been
+issued. Systems receiving new versions within the same major edition
+should retain all versions. Store these in separate folders to avoid any
+issues, such as when the same support files have been reused between
+versions.
+
+Due to issues with broken backwards compatibility, all previous versions
+of the Interoperability Catalogue should be cancelled when a New Edition
+is issued.
+
+[[cls-16-10.6.2]]
+==== Cancelling a version of the Interoperability Catalogue
+
+In order to cancel a version of the Interoperability Catalogue it is
+recommended that the methodology used for exchange set as defined in Part
+17 metadata is utilized.
+
+[[cls-16-10.7]]
+=== Support files
+
+Support files to an Interoperability Catalogue are generally the hybrid
+Feature Catalogues and hybrid Portrayal Catalogues. Methods for managing
+these are described below.
+
+[[cls-16-10.7.1]]
+==== Updating the Interoperability Catalogue support files
+
+It is recommended that support files are updated using the methodology
+used for exchange set as defined in Part 17 metadata is utilized.
+
+Support files should be stored in a separate folder within the exchange
+set.
+
+[[cls-16-10.7.1.1]]
+===== New Edition of the support files
+
+New Editions of the support files introduce significant changes. New
+Editions enable new concepts, such as the ability to support new
+functions, or the introduction of new constructs. New Editions are likely
+to have a significant impact on either existing users or future users of
+an Interoperability Catalogue Specification.
+
+[example]
+A new product is added to Interoperability Catalogue, and all support
+files should be updated to support the new product. This would require a
+New Edition of the support files.
+
+[[cls-16-10.7.1.2]]
+===== Revisions of the support files
+
+Revisions are defined as substantive semantic changes to the support
+files. Typically, revisions will change the support file to correct
+factual errors; introduce necessary changes that have become evident as a
+result of practical experience or changing circumstances. A revision must
+not be classified as a clarification. Revisions could have an impact on
+either existing users or future users of an Interoperability Catalogue
+Specification. All cumulative clarifications must be included with the
+release of approved revisions.
+
+Changes in a revision are minor and ensure backward compatibility with the
+previous versions within the same Edition. Newer revisions, for example,
+introduce new feature or attribute combinations. Within the same Edition,
+a support file created for an Interoperability Catalogue of one version
+could always be processed with a later revision.
+
+[example]
+Adding a new hybrid feature will require a revision increment to the
+support file.
+
+[[cls-16-10.7.1.3]]
+===== Clarifications to the support files
+
+Clarifications are non-substantive changes to the support file. Typically,
+clarifications: remove ambiguity; correct grammatical and spelling errors;
+amend or update cross references; insert improved graphics in spelling,
+punctuation and grammar. A clarification must not cause any substantive
+semantic change to an Interoperability Catalogue Specification.
+
+Changes in a clarification are minor and ensure backward compatibility
+with the previous versions within the same Edition. Within the same
+Edition, a support file created for an Interoperability Catalogue of one
+version could always be processed with a later clarification (or revision)
+of an Interoperability Catalogue.
+
+[example]
+Correcting a spelling error in a definition will require a clarification
+increment to the support file.

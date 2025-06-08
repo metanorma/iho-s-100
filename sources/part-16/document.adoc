@@ -1,0 +1,52 @@
+= Universal Hydrographic Data Model -- Part 16: Interoperability Catalogue Model
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-conformance.adoc[]
+
+include::sections/03-norm-refs.adoc[]
+
+include::sections/04-context.adoc[]
+
+include::sections/05-correspondence.adoc[]
+
+include::sections/06-feature-creation.adoc[]
+
+include::sections/07-interop-catalogue.adoc[]
+
+include::sections/08-interop-levels.adoc[]
+
+include::sections/09-hybridization.adoc[]
+
+include::sections/10-production-process.adoc[]
+
+include::sections/11-portrayal.adoc[]
+
+include::sections/aa-interop-xml.adoc[]
+
+include::sections/ab-guidance.adoc[]
+
+include::sections/ac-user-interaction.adoc[]
+
+include::sections/ad-data-encoding.adoc[]
+
+include::sections/ae-implementation.adoc[]

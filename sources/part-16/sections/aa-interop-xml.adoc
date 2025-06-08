@@ -1,0 +1,234 @@
+[[app-16-A]]
+[appendix,obligation=normative]
+== Interoperability Catalogue XML Schemas
+
+[[cls-16-A-1]]
+=== XML Schema
+
+[[cls-16-A-1.1]]
+==== Overview
+
+Developers of S-100 Interoperability Catalogues must develop their data
+format consist with the Interoperability Catalogue XML Schemas referenced
+in this Appendix. The Schemas have a root or container element
+*S100_IC_InteroperabilityCatalogue*, whose structure is shown in
+<<fig-16-A-1>> below.
+
+[[cls-16-A-1.2]]
+==== Unknown attribute values
+
+When a mandatory attribute code or tag is present but the attribute value
+is missing, it means that the producer wishes to indicate that this
+attribute value is unknown. Missing mandatory attributes must be "nilled".
+Optional attributes must be omitted altogether if the value is unknown or
+missing. They must not be "nilled". This rule also applies to metadata.
+
+[[cls-16-A-2]]
+=== Interoperability Catalogue structure
+
+An Interoperability Catalogue contains header information identifying the
+catalogue (a specialization from *CT_Catalogue* and extended with specific
+elements appropriate to S-100 interoperability, such as digital signatures
+and elements identifying the source of interoperability requirements). The
+header is followed by a list of products covered by the catalogue and
+containers for display planes, predefined combinations, hybridization
+rules and references to the hybrid portrayal and Feature Catalogues used
+by the results of hybridization rules. The general structure is depicted
+in <<fig-16-A-1>>.
+
+[[fig-16-A-1]]
+.Basic structure of an Interoperability Catalogue
+image::img200.png[width=70%]
+
+The _displayPlanes_ container is a collection of 1 or more
+*S100_IC_DisplayPlane* elements. The _predefinedProductCombinations_
+container is a collection of 0 or more *S100_IC_PredefinedCombination*
+containers. (The difference in the lower bound arises from the fact that
+it is possible for a catalogue to implement only interleaving but no
+higher level of interoperability.) The containers are depicted in
+<<fig-16-A-2;and!fig-16-A-3>> below.
+
+[[fig-16-A-2]]
+.Container for display planes
+image::img201.png[]
+
+[[fig-16-A-3]]
+.Container for predefined product combinations
+image::img202.png[]
+
+The elements in each *S100_IC_DisplayPlane* and
+*S100_IC_PredefinedCombination* correspond to the model described in
+<<cls-16-4>> and are depicted in <<fig-16-A-4;and!fig-16-A-5>> below. The
+contents of these elements are:
+
+* *S100_IC_DisplayPlane* element:
+** the interoperability level;
+** the priority for the plane (displayPriority);
+** identifying and descriptive elements (identifier, name, description);
+** containers for *S100_IC_Feature* and *S100_IC_DrawingInstruction*
+elements.
+
+* *S100_PredefinedCombination* element:
+** the interoperability level;
+** a list of the data products covered by this predefined combination
+(includedProduct elements);
+** references to *S100_IC_DisplayPlane* elements;
+** ptional containers for feature suppression rules and feature derivation
+rules;
+** identifying and descriptive elements (identifier, name, description,
+useConditions).
+
+[[fig-16-A-4]]
+.Structure of individual display plane element
+image::img203.png[width=70%]
+
+[[fig-16-A-5]]
+.Structure of individual predefined combination element
+image::img204.png[width=70%]
+
+The structures of *S100_IC_Feature*, *S100_DrawingInstruction*, and
+*S100_IC_SuppressedFeatureLayer* elements correspond to the model and
+documentation in <<cls-16-4>> and are depicted in <<fig-16-A-6>>,
+<<fig-16-A-7>> and <<fig-16-A-8>> below.
+
+[[fig-16-A-6]]
+.Structure of S100_IC_Feature
+image::img205.png[width=50%]
+
+[[fig-16-A-7]]
+.Structure of S100_IC_DrawingInstruction
+image::img206.png[width=50%]
+
+[[fig-16-A-8]]
+.Structure of S100_IC_SuppressedFeatureLayer
+image::img207.png[width=50%]
+
+The *S100_IC_FeatureDerivation* class is abstract and has two derived
+classes named *S100_IC_SuppressedFeatureInstance* and
+*S100_IC_HybridFeature.* The elements in each
+*S100_IC_SuppressedFeatureInstance* and *S100_IC_HybridFeature* correspond
+to the model described in <<cls-16-4>> and are depicted in
+<<fig-16-A-9;and!fig-16-A-10>> below. The contents of these elements are:
+
+* *S100_IC_SuppressedFeatureInstance* element:
+** primary product selectors;
+** secondary product selectors;
+** utput product indicators;
+** identifying and descriptive elements (identifier, name, description);
+** reference to optional S100_IC_SimpleRule.
+
+* *S100_IC_HybridFeature* element:
+** primary product selectors;
+** secondary product selectors;
+** utput product indicators;
+** identifying and descriptive elements (identifier, name, description);
+** references to one of S100_IC_CompleteRule or S100_IC_ThematicRule.
+
+[[fig-16-A-9]]
+.Structure of S100_IC_SuppressedFeatureInstance
+image::img208.png[width=60%]
+
+[[fig-16-A-10]]
+.Structure of S100_IC_HybridFeature
+image::img209.png[width=60%]
+
+The *S100_IC_HybridFeatureCreationRule* class is abstract and has three
+derived classes named *S100_IC_CompleteRule*, *S100_IC_ThematicRule* and
+*S100_IC_SimpleRule*. The elements in each
+*S100_IC_SuppressedFeatureInstance* and *S100_IC_HybridFeature* correspond
+to the model described in <<cls-16-4>> and are depicted in
+<<fig-16-A-11>>, <<fig-16-A-12>> and <<fig-16-A-13>> below. The contents
+of these elements are:
+
+* *S100_IC_CompleteRule* element:
+** the interoperability level;
+** identifier.
+* *S100_IC_ThematicRule* element:
+** the interoperability level;
+** identifier.
+* *S100_IC_SimpleRule* element:
+** the interoperability level;
+** identifier.
+
+[[fig-16-A-11]]
+.Structure of S100_IC_CompleteRule
+image::img210.png[]
+
+[[fig-16-A-12]]
+.Structure of S100_IC_ThematicRule
+image::img211.png[]
+
+[[fig-16-A-13]]
+.Structure of S100_IC_SimpleRule
+image::img212.png[]
+
+An example of the XML conforming to the structures is shown in
+<<fig-16-A-14>>. This figure shows the higher-level structure consisting
+of the catalogue header elements (_cat:name_ through _requirementType_),
+followed by exemplary display plane and predefined product combinations.
+The lower-level containers _features_, _drawingInstructions_, and
+_suppressedFeatureLayers_ are shown expanded in
+<<fig-16-A-15;and!fig-16-A-16>>.
+
+[[fig-16-A-14]]
+.Example of Interoperability Catalogue showing the higher level structure
+image::img213.png[]
+
+[[fig-16-A-15]]
+.S100_IC_Feature and S100_IC_DrawingInstruction - XML examples
+image::img214.png[]
+
+[[fig-16-A-16]]
+.S100_IC_PredefinedCombination and S100_IC_SuppressedFeatureLayer - XML examples
+image::img215.png[]
+
+<<fig-16-A-17>> shows an expanded example of a display plane showing one
+of the display planes for S-101 -- this one contains navigation aids. The
+specification for one feature has been expanded as an example.
+
+The drawing priority and viewing group given in a Portrayal Catalogue can
+be overridden for interoperation purposes by different values encoded in
+an Interoperability Catalogue, on a per-feature (type) basis.
+
+[[fig-16-A-17]]
+.Example of display plane with S-101 features (informative)
+image::img216.png[]
+
+<<fig-16-A-18>> depicts an example of the use of the substitution
+capabilities of an Interoperability Catalogue. The element
+substituteSymbolization for S-101 feature CurrentNonGravitational has its
+point and line symbols replaced by new symbols which are identified
+inline. The symbol and linestyle files are included in the Portrayal
+Catalogue identified by IHOICPCEXMP0001.
+
+[[fig-16-A-18]]
+.Example of substitution in a drawing instruction (informative)
+image::img217.png[]
+
+[[cls-16-A-3]]
+=== Location of Schema files
+
+The schema files are available from the locations listed in <<tab-16-A-1>>
+below.
+
+[[tab-16-A-1]]
+.Schema files locations
+[cols="a,a,a,a",options=header]
+|===
+| File | Description | Version | Location
+
+| S100_IC.xsd
+| XML Schema for Interoperability Catalogue
+| 5.0
+| https://github.com/IHO-S100WG
+
+| S100_IC.sch
+| Schematron file for validating Interoperability Catalogue
+| 5.0
+| https://github.com/IHO-S100WG
+|===
+
+NOTE: The XML Schema as distributed imports ISO metadata Schemas from the
+ISO Internet location encoded in the S100_IC.xsd file. Implementers may
+wish to store the ISO metadata Schemas locally and use the local
+installation instead.

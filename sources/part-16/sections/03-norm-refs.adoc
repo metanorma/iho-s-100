@@ -1,0 +1,24 @@
+[bibliography]
+== Normative References
+
+* [[[RFC2141,IETF RFC 2141]]]
+
+* [[[imo,2]]],
+span:title[IMO MSC.1/Circ.1512 Guideline on Software Quality Assurance and Human-Centred Design for e-Navigation].
+
+* [[[ISO19115-1,ISO 19115-1:2014]]]
+
+* [[[ISO19115-3,ISO/TS 19115-3:2016]]]
+
+* [[[xpath,5]]],
+span:title[XPath XML Path Language (XPath) 3.1 - W3C Recommendation 21]
+span:date[2017-03-01]
+(span:organization[World-Wide Web Consortium -- W3C]).
+URL: span:uri[https://www.w3.org/TR/2017/REC-xpath-31-20170321/]
+span:note[(Retrieved 2017-12-08)].
+
+* [[[S-4,hidden(IHO S-4)]]]
+
+* [[[S-58,hidden(IHO S-58)]]]
+
+* [[[ISO19139,hidden(ISO/TS 19139)]]]
