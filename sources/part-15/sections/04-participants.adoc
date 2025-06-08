@@ -1,0 +1,139 @@
+[[cls-15-4]]
+== Participants in the Protection Scheme
+
+There are several types of users of the Scheme; these are as follows:
+
+* The Scheme Administrator (SA), of which there is only one;
+* The Data Server (DS), of which there can be many;
+* The Data Client (DC), of which there are many;
+* The Original Equipment Manufacturer (OEM) of which there are many;
+* Domain Coordinators, of which there may be many.
+
+A more detailed explanation of these terms is given below. Details of the roles
+for each of the scheme participants are managed by the IHO acting as the Scheme
+Administrator.
+
+[[cls-15-4.1]]
+=== Scheme Administrator
+
+The Scheme Administrator (SA) is solely responsible for maintaining and
+coordinating the Protection Scheme. The SA role is operated by The International
+Hydrographic Organization (IHO) on behalf of the IHO Member States and other
+organizations participating in the Protection Scheme. These organizations can have
+a coordinating role for a maritime product domain; for example IMO and IALA. The
+IHO as the SA will establish procedures with product domain operators using the
+Protection Scheme to protect their products. These procedures will enable these
+domain coordinators to digitally sign the digital certificates used by their
+member organizations to participate in the Protection Scheme.
+
+The SA is responsible for controlling membership of the Scheme and ensuring that
+all participants operate according to defined procedures. The SA maintains the top
+level digital root certificate used to operate the Protection Scheme and which
+forms the root identity in the authentication chain.
+
+The SA is responsible for distributing the manufacturer ID (M_ID) and manufacturer
+key (M_KEY) directly to all registered Data Servers participating in the
+Protection Scheme.
+
+The SA is also the custodian of all documentation relating to the implementation
+of this part of S-100. All operational procedures are defined and managed by the
+SA.
+
+[[cls-15-4.2]]
+=== Data Servers
+
+Data Servers (DS) are responsible for the encryption and/or digital signing of the
+datasets in compliance with the procedures and processes defined in this Part.
+Data Servers may also issue Licenses (data permits) so that Data Clients, with
+valid user permits, can decrypt the product data.
+
+Data Servers will use the M_KEY and M_ID information, as supplied by the SA, to
+issue encrypted product keys to each specific installation. Even though the keys
+used to encrypt each dataset are the same for individual data clients, they will
+be encrypted using the HW_ID and therefore cannot be transferred between other
+system installations from the same manufacturer.
+
+The Scheme does not impede agents or distributors from providing data services to
+their customers. Agreements and structures to achieve this are outside the scope
+of this document. This document contains only the technical specifications to
+produce protected datasets compliant with this standard.
+
+Hydrographic Offices, data producers, Value Added Resellers and RENC Organizations
+are examples of Data Servers.
+
+[[cls-15-4.3]]
+=== Data Clients
+
+Data Clients (DC) are the end users of datasets and will receive protected
+information from the Data Servers to access and use the datasets and services. The
+Data Client's software application (OEM System) is responsible for authenticating
+the digital signatures applied to the product files and decrypting the dataset
+information in compliance with the procedures defined in the Scheme.
+
+Navigators with ECDIS/ECS systems are examples of Data Clients.
+
+[[cls-15-4.4]]
+=== Original Equipment Manufacturers
+
+Original Equipment Manufacturers (OEMs) subscribing to the S-100 Data Protection
+Scheme must build a software application according to the specifications set out
+in this document and self-verify and validate it according to the terms mandated
+by the SA. This Part will establish test data for the verification and validation
+of OEM applications for various S-100 based Product Specifications when products
+become available. The SA will provide successful OEM applicants with their own
+unique manufacturer key and identification (M_KEY and M_ID).
+
+The manufacturer must provide a secure mechanism within their software systems for
+uniquely identifying each end user installation. The Scheme requires each
+installation to have a hardware identifier (HW_ID) unless a Data Server has
+consented to duplication.
+
+The software application will be able to decrypt the product keys in the data
+permits using the HW_ID stored in either the hard lock or soft lock devices
+attached to or programmed within the application to subsequently decrypt and
+uncompress the dataset files. Product integrity can be verified by authenticating
+the digital signature provided with the dataset files.
+
+[[cls-15-4.5]]
+=== Domain Coordinator
+
+Domain Coordinators are nominated, trusted bodies of the SA, able to produce
+certificates and provide intermediate authentication of Data Servers within their
+domain. Domain Coordinators are appointed by the SA and have delegated authority
+to sign Data Server certificates within their own domain. When Data Clients
+authenticate the identity of digital signatures created by Data Servers the
+certificates form a "chain" to the SA's root level identity. If a Data Server is
+certified by a Domain Coordinator, then the Data Client should also verify their
+identity against the SA root providing an authentication chain from the dataset to
+the SA.
+
+[[cls-15-4.6]]
+=== Participant Relationships
+
+The Scheme Administrator (SA), of which there can only be one, authenticates the
+identity of the other participants within the scheme. All Data Servers, Domain
+Coordinators and System Manufacturers (OEMs) must apply to the SA to become
+participants in the Scheme and, on acceptance, are supplied with proprietary
+information unique to them. Data Clients are customers of Data Servers and OEMs,
+where Data Servers supply data services and OEMs the equipment to decrypt and
+display these services.
+
+The SA will sign the public key of Data Servers to create their digital
+certificate to be used in the operation of the Protection Scheme. It is also
+possible for Domain Coordinators to sign the public key of their member
+organizations to create their digital certificates. The Domain Coordinators will
+inform the SA of each Data Server's identity and contact details and sign their
+certificates. The SA and Domain Coordinators will distribute M_ID and M_KEY
+information directly to all Data Servers participating in the Protection Scheme
+when they join the scheme and as more Data Clients are added.
+
+[[fig-15-1]]
+.Relationship between Protection Scheme participants
+image::img183.png[]
+
+Since the Protection Scheme does not rely on Data Clients always having an
+internet connection to authenticate certificates or for certificate path
+validation, sufficient information shall be included in the Exchange Set Metadata
+to perform these functions. In all cases the SA certificate is installed on end
+user systems separately and not distributed in the exchange set metadata to
+provide independent verification of the SA certificate.

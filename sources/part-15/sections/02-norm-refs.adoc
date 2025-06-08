@@ -1,0 +1,51 @@
+[bibliography]
+== Normative References
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including amendments)
+applies.
+
+* [[[FIPS81,NIST FIPS 81]]],
+span:title[FIPS Publication 81, DES Modes of Operation],
+span:organization[National Institute of Standards and Technology],
+span:uri[www.itl.nist.gov/fipspubs/fip81.htm]
+
+* [[[FIPS180-4,NIST FIPS 180-4]]]
+
+* [[[FIPS186,NIST FIPS 186]]]
+
+* [[[ISO18033-3,ISO/IEC 18033-3]]]
+
+* [[[ssl,5]]],
+_span:title[Open SSL Cryptography and SSL/TLS Toolkit]_,
+span:uri[https://www.openssl.org/]
+
+* [[[pkcs,IETF RFC 2986]]]
+
+* [[[RFC1423,IETF RFC 1423]]]
+
+* [[[RFC2451,IETF RFC 2451]]]
+
+* [[[RFC2459,IETF RFC 2459]]]
+
+* [[[RFC5651,IETF RFC 5651]]]
+
+* [[[RFC4647,IETF RFC 4647]]]
+
+* [[[osi,12]]],
+span:title[OSI networking and system aspects -- Abstract Syntax Notation One (ASN.1)],
+span:organization[ITU International Telecommunication Union],
+span:uri[https://www.itu.int/ITU-T/studygroups/com17/languages/X.680-0207.pdf]
+
+* [[[x509,13]]],
+span:title[X.509 Version 3, Information Technology -- Open Systems Interconnection -- The Directory: Authentication Framework],
+span:organization[International Telecommunication Union]
+
+* [[[ISO8211, hidden(ISO/IEC 8211)]]]
+
+* [[[RFC5915,hidden(IETF RFC 5915)]]]
+
+* [[[RFC5480,hidden(IETF RFC 5480)]]]
+
+* [[[RFC4648,hidden(IETF RFC 4648)]]]

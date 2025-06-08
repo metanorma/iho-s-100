@@ -1,0 +1,292 @@
+[[cls-15-6]]
+== Data encryption
+
+[[cls-15-6.1]]
+=== What Data is encrypted?
+
+Any Product Specification that is based on the S-100 Data Model must define
+whether encryption will be used and which files will be encrypted.
+
+When encrypted, the encryption algorithm must be the Advanced Encryption Standard
+(AES) in Cipher Block Chaining (CBC) mode of operation. It is always assumed that
+the complete file will be encrypted.
+
+In addition the OEM System HW_ID (hardware ID) will be encrypted and provided to
+the Data Client in the form of a user permit. The keys used to encrypt the files
+are themselves encrypted by the Data Server and supplied to Data Clients as data
+permits. Information about the encryption algorithm is available in
+<<cls-15-6.2.1>>.
+
+[[cls-15-6.2]]
+=== How is it encrypted?
+
+Each single product is encrypted using a unique key. The same key is used to
+encrypt all files associated with the product and all updates issued for the
+product edition. The Scheme, however, allows for the keys to be changed at the
+discretion of the Data Server. The keys are delivered to Data Clients in the form
+of data permits.
+
+[[cls-15-6.2.1]]
+==== Encryption algorithm
+
+For encryption of permits and data files the Advanced Encryption Standard (AES)
+block cipher algorithm is used. This is a symmetric-key algorithm. This means that
+the same key is used for encryption and decryption. The algorithm defines how one
+block of plain text is converted to one block of cipher text and vice versa. The
+block size of the AES is always 16 Bytes (128 bit). The key length can be chosen
+from 128 bit, 192 bit or 256 bit. The corresponding variants are named AES-128,
+AES-192, or AES-256. In this Part of S-100 a 128 bit key length is always used.
+
+The AES algorithm can only encrypt one block of plain text. For larger messages a
+block cipher mode of operation shall be used. This Protection Scheme chooses the
+Cipher Block Chaining (CBC) mode for encryption of more than one block of data. In
+this mode of operation it is required that the length of the plain text must be an
+exact multiple of the block size; padding is required.
+
+[[cls-15-6.2.2]]
+==== Encryption padding
+
+The padding methods that will be used is described in PKCS#7. It adds N bytes to
+the message until its length is a multiple of 16 Bytes. The value of each byte is
+N. Note that if the original plain text has already a multiple of 16 as length a
+full block of 16 bytes each having the value of 16 must be added.
+
+[[tab-15-1]]
+.Plain text padding
+[cols="a,a",options=header]
+|===
+| Plain text | Padded plain text
+
+| *xx*
+| xx **0F 0F 0F 0F 0F 0F 0F**
+
+**0F 0F 0F 0F 0F 0F 0F 0F**
+
+| *xx xx*
+| xx xx **0E 0E 0E 0E 0E 0E**
+
+**0E 0E 0E 0E 0E 0E 0E 0E**
+
+| *xx xx xx*
+| xx xx xx **0D 0D 0D 0D 0D**
+
+**0D 0D 0D 0D 0D 0D 0D 0D**
+
+| *xx xx xx xx*
+| xx xx xx xx **0C 0C 0C 0C**
+
+**0C 0C 0C 0C 0C 0C 0C 0C**
+
+| *xx xx xx xx xx*
+| xx xx xx xx xx **0B 0B 0B**
+
+**0B 0B 0B 0B 0B 0B 0B 0B**
+
+| *xx xx xx xx xx xx*
+| xx xx xx xx xx xx **0A 0A**
+
+**0A 0A 0A 0A 0A 0A 0A 0A**
+
+| *xx xx xx xx xx xx xx*
+| xx xx xx xx xx xx xx **09**
+
+**09 09 09 09 09 09 09 09**
+
+| *xx xx xx xx xx xx xx xx*
+| xx xx xx xx xx xx xx xx
+
+**08 08 08 08 08 08 08 08**
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx**
+| xx xx xx xx xx xx xx xx
+
+xx *07 07 07 07 07 07 07*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx *06 06 06 06 06 06*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx *05 05 05 05 05*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx xx *04 04 04 04*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx xx xx *03 03 03*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx xx xx xx *02 02*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx xx xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx xx xx xx xx *01*
+
+| **xx xx xx xx xx xx xx xx**
+
+**xx xx xx xx xx xx xx xx**
+| xx xx xx xx xx xx xx xx
+
+xx xx xx xx xx xx xx xx
+
+**10 10 10 10 10 10 10 10**
+
+**10 10 10 10 10 10 10 10**
+|===
+
+[%key]
+*xx*:: Arbitrary Bytes
+
+[[cls-15-6.2.3]]
+==== AES encryption CBC mode
+
+In CBC mode each block of plain text is XORed with the previous cipher text block
+before being encrypted. An initialization vector IV is required for the first
+block. The mathematical formula is:
+
+[[eq3a]]
+[stem]
+++++
+C_i = E_K (P_i o+ C_(i-1)); i>=1
+++++
+
+[[eq3b]]
+[stem]
+++++
+C_0 = IV
+++++
+
+stem:[C_i] is the stem:[i]^th^ block of cipher text; stem:[P_i] is the
+stem:[i]^th^ block of plain text. stem:[E_K] is the encryption method of AES
+encrypting exactly one block. stem:[IV] is the initialization vector, and
+stem:[o+] is the XOR operation.
+
+[[fig-15-2]]
+.Cipher Block Chaining (CBC) mode encryption (Source: Wikipedia)
+image::img184.png[]
+
+Decryption is defined as:
+
+[[eq4a]]
+[stem]
+++++
+P_i = D_K (C_i) o+ C_(i-1); i>=1
+++++
+
+[[eq4b]]
+[stem]
+++++
+C_0 = IV
+++++
+
+stem:[D_K] is the decryption method of AES decrypting exactly one block.
+
+[[fig-15-3]]
+.Cipher Block Chaining (CBC) mode decryption (Source: Wikipedia)
+image::img185.png[]
+
+[[cls-15-6.2.4]]
+==== AES CBC mode -- initialization vector
+
+Normally the initialization vector must be transferred from the encryption to the
+decryption. However an incorrect IV at the decryption will only corrupt the first
+plain text block. This can be easily recognized from the formulas and the
+diagrams. Each plain text block depends only on two adjacent cipher text blocks.
+
+This behaviour will be used in the following modification of the CBC mode.
+
+On encryption of data files the plain text will be prepended by a single random
+block. Then encryption is done as normal using a random initialization vector.
+This vector does not have to be transferred to the decryption at the Data Client.
+
+On decryption an arbitrary initialization vector can be used and after normal CBC
+decryption the first plain text block is discarded. The rest is the original plain
+text data file.
+
+This procedure does not require the transport of the IV or the use of a predicted
+IV. The first option would complicate the process of data transfer and the second
+would make it vulnerable to attacks especially if the first blocks of plain text
+are commonly known (as <<ISO8211>> Data Descriptive Records).
+
+[[cls-15-6.2.5]]
+==== AES examples
+
+The following examples are taken from the FIPS documentation.
+
+Encrypting and decrypting of exactly one block:
+
+Key~128~:: K = {00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 0a, 0b, 0c, 0d, 0e, 0f} +
+Plain Text:: P = {00, 11, 22, 33, 44, 55, 66, 77, 88, 99, aa, bb, cc, dd, ee, ff} +
+Cipher Text:: C = {69, c4, e0, d8, 6a, 7b, 04, 30, d8, cd, b7, 80, 70, b4, c5, 5a}
+
+Key~192~:: K = {00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 0a, 0b, 0c, 0d, 0e, 0f, 10, 11, 12, 13, 14, 15, 16, 17} +
+Plain Text:: P = {00, 11, 22, 33, 44, 55, 66, 77, 88, 99, aa, bb, cc, dd, ee, ff} +
+Cipher Text:: C = {dd, a9, 7c, a4, 86, 4c, df, e0, 6e, af, 70, a0, ec, 0d, 71, 91}
+
+Key~256~:: K = {00, 01, 02, 03, 04, 05, 06, 07, 08, 09, 0a, 0b, 0c, 0d, 0e, 0f, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 1a, 1b, 1c, 1d, 1e, 1f} +
+Plain Text:: P = {00, 11, 22, 33, 44, 55, 66, 77, 88, 99, aa, bb, cc, dd, ee, ff} +
+Cipher Text:: C = {8e, a2, b7, ca, 51, 67, 45, bf, ea, fc, 49, 90, 4b, 49, 60, 89}
+
+The following example documents the modified CBC mode:
+
+Key~128~:: K = {12, 34, 56, 78, 9a, bc, de, f0, 12, 34, 56, 78, 9a, bc, de, f0} +
+Plain Text:: P = {fe, dc, ba, 98, 76, 54, 32, 10}
+
+Plain Text after prepending a random block:
+
+P' = {48, d2, 4e, 7c, 00, 2f, 67, 4e, 93, 1d, ee, 27, 42, 17, a3, 4c} +
+{fe, dc, ba, 98, 76, 54, 32, 10}
+
+Plain Text (padded):
+
+_P"_ = {48, d2, 4e, 7c, 00, 2f, 67, 4e, 93, 1d, ee, 27, 42, 17, a3, 4c} +
+{fe, dc, ba, 98, 76, 54, 32, 10, 08, 08, 08, 08, 08, 08, 08, 08}
+
+Initialization vector (random):
+
+IV~E~ = {45, b5, 00, d7, 28, 39, 42, bb, 85, 61, 28, d5, 97, 15, ca, 25}
+
+Cipher Text using CBC Mode:
+
+C = {ba, 45, ee, 06, 02, a6, 29, 35, 7a, e3, 90, 2c, 22, 4d, d9, d5} +
+{dd, 3b, 07, 3b, 84, 7f, 4d, 43, 28, 71, 19, 43, 97, d9, a6, 03}
+
+For the decryption an arbitrary initialization vector can be used; for example:
+
+IV~D~ = {00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00}
+
+Decryption using the CBC will give the following plain text. The bytes added by
+the padding are already removed:
+
+P~D~' = {0d, 67, 4e, ab, 28, 16, 25, f5, 16, 7c, c6, f2, d5, 02, 69, 69} +
+{fe, dc, ba, 98, 76, 54, 32, 10}
+
+Note that the first block is different from the one in P'.
+
+After discarding the first block the original message is recovered.
+
+P~D~ = {fe, dc, ba, 98, 76, 54, 32, 10} = P

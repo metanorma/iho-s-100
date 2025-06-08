@@ -1,0 +1,45 @@
+[[cls-15-3]]
+== General Description
+
+This Part specifies a method of securing digital nautical, hydrographic and
+spatial related products and information. The purpose of data protection is
+threefold:
+
+. Piracy Protection: To prevent unauthorized use of data by encrypting the product
+information.
+. Selective Access: To restrict access to only the products that a customer has
+acquired a license for.
+. Authentication: To provide assurance that the products have come from approved
+sources.
+
+Piracy protection and selective access are achieved by encrypting the products and
+providing data permits to decrypt them. Data permits have an expiration date to
+enable access to the products for a licensed period. Data Servers will encrypt
+digital products before supplying them to the Data Client. The encrypted products
+are then decrypted by the end-user system (for example ECDIS/ECS) prior to use.
+Authentication is provided by means of digital signatures applied to the product
+files.
+
+The security scheme does not address how the product information is protected once
+it is within an end-user application. This is the responsibility of the Original
+Equipment Manufacturers (OEMs).
+
+The Scheme enables the mass distribution of protected datasets on hard media which
+can then be accessed and used by all customers with a valid license containing a
+set of data permits. Selective access to individual products is supported by
+providing users with a licensed set of data permits containing the encrypted
+dataset keys. This license is created using a hardware identifier of the target
+system and is unique to each Data Client. Consequently licenses cannot be
+exchanged between individual Data Clients.
+
+The Protection Scheme is designed for file based transfer of data between parties.
+Stream based transfer may use different methodologies. Data streaming is presented
+in S-100 Part 14. The S-100 Protection Scheme described in this Part is bound to
+the value "S100p15" in the protectionScheme element of the CATALOG.XML Exchange
+Set Catalogue.
+
+The Scheme uses an optional compression algorithm to reduce the size of the
+dataset. Unencrypted product files contain many repeating patterns of information;
+for example coordinate information. Compression is therefore always applied before
+the product file is encrypted and uncompressed after the corresponding decryption
+on the data client system.

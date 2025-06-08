@@ -1,0 +1,577 @@
+[[cls-15-7]]
+== Data encryption and licensing
+
+[[cls-15-7.1]]
+=== Introduction
+
+Data Clients generally do not buy S-100 based products but are licensed to use
+them. Licensing is the method that Data Servers use to give Data Clients selective
+access to up-to-date products for a given period of time.
+
+To operate the scheme effectively there must be a means where Data Client systems
+can unlock the encrypted data. To unlock the data the Data Clients system must
+have access to the keys that were used to encrypt the licensed data files. These
+keys are supplied to the Data Client, encrypted, in a permit file containing a set
+of permits. It is these data permits that contain the encryption keys. This method
+is used for file based exchange of data between the Data Client and Data Server.
+Other frameworks and methodologies, such as data streaming may use either
+variations of algorithms or different key lengths, specifying in metadata how they
+are defined.
+
+To make each set of data permits exclusive the keys must be encrypted using
+something that is unique to the Data Clients system. OEMs assign an identifier
+(HW_ID) to each of their systems and provide an encrypted copy of this, in the
+form of a user permit, to each Data Client. The HW_ID is encrypted and stored in
+the user permit.
+
+OEMs encrypt the HW_ID with their own unique manufacturer key (M_KEY) so that a
+HW_ID cannot be duplicated by another manufacturer. The IHO, as the Scheme
+Administrator, provides the Data Servers with access to the OEM M_KEYs and can
+therefore decrypt the HW_ID stored in the user permit. Data Servers encrypt their
+dataset keys with the manufacturers HW_ID when producing a set of data permits.
+
+[[fig-15-4]]
+.High level licensing diagram based on S-101 ENC products
+image::img186.png[]
+
+[[cls-15-7.2]]
+=== Conversion of bit strings to integers
+
+[[cls-15-7.2.1]]
+==== Converting bit strings to an integer
+
+A sequence of bits stem:[{b_1, b_2, ..., b_n}] defines an unsigned integer
+stem:[I] number by:
+
+[[eq1a]]
+[stem]
+++++
+I = b_1 2^(n-1) + b_2 2^(n-2) + ... + b_(n-1) 2^1 + b_n; b_i in {0,1}
+++++
+
+Or
+
+[[eq1b]]
+[stem]
+++++
+I = sum_(i=1)^n b_i 2^(n-i)
+++++
+
+The bit stem:[b_1] is the most significant bit and the bit stem:[b_n] is the least
+significant bit of the sequence. The integer will be in the range:
+stem:[0 <= I < 2^n].
+
+In most implementations the bit string will be organized as a sequence of bytes
+stem:[{B_0, B_1, ... B_m}], with:
+
+[[eq2]]
+[stem]
+++++
+B_(m-j) = {x_(n-8j-7),x_(n-8j-6),...,x_(n-8j)}; AA j in {0 ... m}
+++++
+
+with
+
+[stem%unnumbered]
+++++
+x_i = {b_i; AA i" "i > 0" "0; AA i" "i <= 0}" and " m = |~ n/8 ~|
+++++
+
+A possible implementation of converting such a byte sequence to an integer number
+is given by the following pseudo code.
+
+[pseudocode%unnumbered]
+----
+Input: Byte sequence {{{stem:[B = {B_0, B_1, ..., B_m}]}}}
+
+Output: non-negative integer number {{{stem:[I]}}}
+
+Let {{{stem:[I=0]}}}
+for {{{stem:[k] from stem:[0] to stem:[m]}}}
+  {{{stem:[I = I * 2^8]}}}
+  {{{stem:[I = I + B_k]}}}
+Return {{{stem:[I]}}}
+----
+
+[[cls-15-7.2.2]]
+==== Converting an integer number to a bit string
+
+<<eq1a;and!eq1b>> describe how a bit string is related to a corresponding
+(non-negative) integer number. Assuming that the bit string is organized as a
+sequence of bytes as defined by <<eq2>> the following algorithm shows how to
+transform an unsigned integer number to a bit string.
+
+[pseudocode%unnumbered]
+----
+Input: a non-negative integer number {{{stem:[I] with stem:[0 <= I < 2^n]}}}
+
+Output: a sequence of bytes {{{stem:[B] of length stem:[m = {1; I = 0 |~ n/8 ~|; I > 0}]}}}
+
+Let {{{stem:[B]}}} be an empty sequence
+If {{{stem:[I = 0]}}}
+  Append the byte {{{stem:[b=0] to stem:[B]}}}
+Else
+  While {{{stem:[I > 0] do}}}
+    Let {{{stem:[c = I mod 2^8]}}}
+    Prepend {{{stem:[c] to stem:[B]}}}
+    Let {{{stem:[I = I " div " 2^8]}}}
+  While the length of {{{stem:[B < m]}}}
+    Prepend {{{stem:[0] to stem:[B]}}}
+Return {{{stem:[B]}}}
+----
+
+Note that the division by stem:[2^8] is equivalent by the bit shift operation
+stem:[I > > 8]
+
+[[cls-15-7.2.3]]
+==== Converting an unsigned integer number to a hexadecimal text representation
+
+The following pseudo code shows how to convert an unsigned integer number to its
+hexadecimal text representation. In this text representation each digit can have
+16 different values.
+
+The integer stem:[I] is defined as:
+
+[[eq3]]
+[stem]
+++++
+I = d_n 16^(n-1) + d_(n-1)16^(n-2) + ... + d_2 16 + d_1
+++++
+
+[[tab-15-2]]
+.Conversion of unsigned integer to hexadecimal text
+[cols="a,a,a,a,a",options=header]
+|===
+| Digit stem:[d] | Bit string | Character | ASCII Code (Hex) | ASCII Code (dec)
+
+| *0* | 0000 | '0' | 30 | 48
+| *1* | 0001 | '1' | 31 | 49
+| *2* | 0010 | '2' | 32 | 50
+| *3* | 0011 | '3' | 33 | 51
+| *4* | 0100 | '4' | 34 | 52
+| *5* | 0101 | '5' | 35 | 53
+| *6* | 0110 | '6' | 36 | 54
+| *7* | 0111 | '7' | 37 | 55
+| *8* | 1000 | '8' | 38 | 56
+| *9* | 1001 | '9' | 39 | 57
+| *10* | 1010 | 'A' | 41 | 65
+| *11* | 1011 | 'B' | 42 | 66
+| *12* | 1100 | 'C' | 43 | 67
+| *13* | 1101 | 'D' | 44 | 68
+| *14* | 1110 | 'E' | 45 | 69
+| *15* | 1111 | 'F' | 46 | 70
+|===
+
+The algorithm is:
+
+[pseudocode%unnumbered]
+----
+Input: An unsigned integer number {{{stem:[I]}}}
+
+Output: The hexadecimal text representation {{{stem:[S]}}}
+
+Let {{{stem:[S]}}} be an empty sequence of characters.
+If {{{stem:[I = 0]}}}
+  Let {{{stem:[S = "0"]}}}
+Else
+  While {{{stem:[I>0]}}}
+    Let {{{stem:[c] be the character corresponding to the value stem:[d = I mod 16]}}}
+    Prepend {{{stem:[c] to stem:[S]}}}
+    Let {{{stem:[I = I" div "16]}}}
+Return {{{stem:[S]}}}
+----
+
+[[cls-15-7.2.4]]
+==== Converting a hexadecimal text representation to an unsigned integer number
+
+The following algorithm shows how to convert a hexadecimal text representation of
+an unsigned integer number to the integer number itself.
+
+[pseudocode%unnumbered]
+----
+Input: A hexadecimal text representation {{{stem:[S] of an unsigned integer number stem:[S = {s_1, s_2, ..., s_m}]}}}
+
+Output: An unsigned integer number {{{stem:[I]}}}
+
+Let {{{stem:[I = 0]}}}
+For {{{stem:[I = 1] to stem:[m]}}}
+  {{{stem:[I = I*16]}}}
+  {{{stem:[I = I + d]; where stem:[d] is the digit value corresponding to the character stem:[S_i]}}}
+Return {{{stem:[I]}}}
+----
+
+[[cls-15-7.3]]
+=== The User Permit
+
+The user permit is created by OEMs and supplied to Data Clients as part of their
+system so that they can obtain the necessary access to encrypted products from
+Data Servers. The following section defines the composition and format of the user
+permit.
+
+All Data Clients with systems capable of using data, protected in accordance with
+the IHO Data Protection Scheme, must have a hardware identification (HW_ID)
+defined by the data client built into their end-user system. Such a HW_ID is often
+implemented as a dongle or by other means ensuring a tamperproof identification
+for each installation.
+
+The HW_ID is unknown to the Data Client, but the OEM will provide a user permit
+that is an encrypted version of the HW_ID and unique to the Data Client's system.
+The user permit is created by taking the assigned HW_ID and encrypting it with the
+manufacturer key (M_KEY). The CRC32 algorithm is run on the encrypted HW_ID and
+the result appended to it. Finally the manufacturer attaches their assigned
+manufacturer identifier (M_ID) to the end of the resultant string. The M_KEY and
+M_ID values are supplied by the SA and are unique to each manufacturer providing
+IHO Data Protection Scheme compliant systems.
+
+The Data Client gains access to S-100 based encrypted products by supplying their
+user permit to the Data Server. This enables the Data Server to issue Data Permits
+specific to the Data Client's user permit. Since the user permit contains the
+manufacturers unique M_ID this can be used by Data Servers to identify which M_KEY
+to use to decrypt the hardware ID in the user permit. The M_ID is the last six
+characters of the user permit. A list of the manufacturer M_KEY and M_ID values is
+issued and updated by the SA to all Data Servers subscribing to the scheme. This
+list will be updated periodically as new OEMs join the scheme.
+
+[[cls-15-7.3.1]]
+==== Definition of user permit
+
+The user permit is 46 characters long and must be written as ASCII text with the
+following mandatory encoding format and field lengths:
+
+[[tab-15-3]]
+.User permit field structure
+[cols="a,a,a",options=header]
+|===
+| Encrypted HW_ID | Check SUM (CRC) | M_ID Manufacturer ID
+
+| 128 bits (32 characters) | 8 characters | 6 characters
+|===
+
+Any alphabetic character will be written in upper case.
+
+[example]
+.Encoded user permit
+====
+span:blue[*AD1DAD797C966EC9F6A55B66ED98281599B3C7B1859868*]
+====
+
+The structure of the user permit is explained in the following sub-clauses.
+
+[[cls-15-7.3.1.1]]
+===== HW_ID Format
+
+The HW_ID is a 16 byte hexadecimal number defined by the OEM. Such a HW_ID can be
+implemented as a dongle or by other means and must ensure a tamperproof
+identification of each installation.
+
+The HW_ID will be stored in an encrypted form in the user permit. It is encrypted
+using the AES algorithm with the OEM M_KEY as the key resulting in a 128 bit value
+(see <<cls-15-6.2.4>>). The 128 bit encrypted HW_ID is then represented in its
+ASCII form in the user permit as 32 hexadecimal digits, if necessary prepending
+0's to get the 32 required digits.
+
+Note that the size of the HW_ID is identical to the AES block size and does not
+require any padding.
+
+[example]
+.Example of HW_ID
+====
+span:blue[*40384B45B54596201114FE9904220101*]
+====
+
+[example]
+.Example of encrypted HW_ID
+====
+span:blue[*AD1DAD797C966EC9F6A55B66ED982815*]
+
+(M_KEY=span:blue[*4D5A79677065774A7343705272664F72*])
+====
+
+[[cls-15-7.3.1.2]]
+===== Check Sum (CRC) Format
+
+The Check Sum is an 8 digit hexadecimal number. It is generated by taking the
+encrypted HW_ID and converting it to a 32 character hexadecimal string. The string
+is then hashed using the algorithm CRC32 and the 4 bytes converted to an 8
+character hexadecimal string.
+
+The Check Sum is not encrypted and allows the integrity of the user permit to be
+checked.
+
+The Check Sum in the above example is calculated from:
+
+* Example HW_ID: span:blue[*40384B45B54596201114FE9904220101*]
+* Example Encrypted HW_ID: span:blue[*AD1DAD797C966EC9F6A55B66ED982815*]
+* CRC32 Checksum: span:blue[*99B3C7B1*]
+
+[[cls-15-7.3.1.3]]
+===== M_ID Format
+
+The M_ID is a 6-character alphanumeric code expressed as ASCII text provided by
+the SA to the OEM. The SA will provide all licensed manufacturers with their own
+unique Manufacturer Key and Identifier (M_KEY and M_ID) combination. The
+manufacturer must safeguard this information.
+
+The SA will provide all licensed Data Servers with a full listing of all
+manufacturer codes as and when new manufacturers subscribe to the scheme. This
+information is used by the Data Server to determine which key (M_KEY) to use to
+decrypt the HW_ID in the User permit during the creation of Data Client Dataset
+Permits.
+
+The M_ID in the above example is: span:blue[*859868*]
+
+[[cls-15-7.3.2]]
+==== M_KEY Format
+
+The M_KEY is a random 16 byte hexadecimal (128 bit) number assigned to the
+manufacturer and provided by the SA. The OEM uses this key to encrypt assigned
+HW_ID values to generate user permits. This key is also used by the Data Server to
+decrypt assigned HW_IDs. Note that the size of the M_KEY is identical to the AES
+block size and does not require any padding.
+
+Example of the M_KEY is: span:blue[*4D5A79677065774A7343705272664F72*]
+(Hexadecimal representation)
+
+The complete example is shown in <<tab-15-4>> below:
+
+[[tab-15-4]]
+.Complete user permit -- example
+[cols="a,a",options=header]
+|===
+| Field | Value
+
+| M_ID | span:blue[*859868*]
+| M_KEY | span:blue[*4D5A79677065774A7343705272664F72*]
+| HW_ID | span:blue[*40384B45B54596201114FE9904220101*]
+| Encrypted HW_ID | span:blue[*AD1DAD797C966EC9F6A55B66ED982815*]
+| CRC32 (Encrypted HW_ID) | span:blue[*99B3C7B1*]
+| Complete User Permit | span:blue[*AD1DAD797C966EC9F6A55B66ED98281599B3C7B1859868*]
+|===
+
+[[cls-15-7.4]]
+=== The data permit
+
+To decrypt a data file the Data Client must have access to the encryption key (see
+<<cls-15-6.2.1>>) used to encrypt it. Since the encryption keys are only known to
+the Data Server there needs to be a means of delivering this information to Data
+Clients in a protected manner. This information is supplied by the Data Server to
+the Data Client in an encrypted form known as a permit. A file is provided to
+deliver the data permit and it is named PERMIT.XML (see <<cls-15-7.4.1>>). This
+file may contain several permits based on the product coverage required by the
+Data Client.
+
+The PERMIT.XML file will be delivered either on hard media or using online
+services in accordance with the Data Servers operating procedures. These
+procedures will be made available to Data Clients when purchasing a license.
+
+Each record within the data permit file also contains additional fields that are
+supplied to assist OEM systems to manage the Data Clients license and permit files
+from multiple Data Servers, see <<cls-15-7.4.2>>.
+
+Data Clients can obtain a licence to access products by supplying the Data Server
+with their user permit (see <<cls-15-7.3>>). Data Servers can then extract the
+HW_ID from the user permit, using the Data Client's M_KEY, and create client
+specific permits based on this value. The format of a permit file record is
+described below in <<cls-15-7.4.1;to!cls-15-7.4.4>>.
+
+Since data permits are issued for a specific HW_ID they are not transferable
+between installations (Data Client Systems). This method of linking the permit to
+the installation supports the production of generically encrypted data which can
+be distributed to all Data Clients subscribing to a service.
+
+The Data Clients system decrypts the permit using the assigned HW_ID stored by
+hardware or software means. The decrypted keys can then be used by the system to
+decrypt the licensed products. Since several Data Servers can make permit files
+for a specific type of product, it is the responsibility of the Data Client system
+to manage permit files from multiple Data Servers.
+
+[[cls-15-7.4.1]]
+==== The permit file (PERMIT.XML)
+
+The filename will always be provided in UPPERCASE as will any alphabetic
+characters contained in the file. The file is completely encoded in ASCII and
+conforms to the S-100 XML schema for permits. OEMs should be aware that all ASCII
+text files generated by the Protection Scheme may contain ambiguous end-of-line
+markers such as CR or CRLF and should be able to deal with these.
+
+The XML schema structure is illustrated in <<fig-15-5>> below.
+
+[[fig-15-5]]
+.Structure of the permit file
+image::img187.png[]
+
+The PERMIT.XML file can contain multiple sections with a corresponding XML
+element as follows:
+
+[[tab-15-5]]
+.PERMIT.XML elements
+[cols="a,a",options=header]
+|===
+| XML element | Description
+
+| header | File creation date, the name of the Data Server and the format version
+| products | Permits from the Data Server for the specified product
+|===
+
+Note that the PERMIT.XML file can contain permits for multiple products provided
+by the Data Server. OEMs must ensure that their end-user software is able to
+merge permits from multiple data servers.
+
+[[cls-15-7.4.2]]
+==== The Permit File - Header content
+
+The following <<tab-15-6>> defines the content and format of each section within
+the permit XML file.
+
+[[tab-15-6]]
+.Contents and format of PERMIT.XML
+[cols="a,a,a",options=header]
+|===
+| Content | XML element | Description
+
+| File name
+| filename
+| Name of resource the permit is intended for, without pathname
+
+Format: Character string
+
+| Date
+| issueDate
+| Date
+
+XML format: xs:date
+
+Example: <issueDate>2018-03-20Z</issueDate>
+
+| Provider
+| dataserverName
+| Name of Data Server who has generated the permit file. The Data Server name should be consistent and use the same organizational contact as defined in S100_ExchangeCatalogue -- contact
+
+XML format: xs:string
+
+| Provider identifier
+| dataserverIdentifier
+| Short identifier of data server
+
+| Version
+| version
+| Version number of S-100. It will be compatible with the IHO version numbering scheme X.Y.Z. For example 4.0.0
+
+Format: Character string
+
+| User permit
+| userpermit
+| The user permit that the permit is intended for. This allows the client system or implementer to validate the destination. The end-user system must be capable of checking if the permit is for the designated system on a multi system bridge. Character string as defined in <<cls-15-7.3.1>>
+
+Format: Character string
+|===
+
+[[cls-15-7.4.3]]
+==== Product sections and permit records fields
+
+Each header element in the PERMIT.XML file is followed by a single element called
+"products" which contains multiple "product" records, each of which contain the
+actual permits for those products. This allows a single PERMIT.XML file to
+contain permits for multiple products all destined for an end user system. The
+attribute "id" for each product section contains the S-100 identifier of the
+Product Specification to which the permits relate; for example, `<product
+id="S-101">`. Permit files may contain multiple pairs of header/products elements
+relating to different end user systems.
+
+[[cls-15-7.4.4]]
+==== Definition of the permit record
+
+Each product element in the PERMIT.XML file contains a sequence of "permit"
+elements. These elements contain the actual permits for the products identified.
+The <<tab-15-7>> below defines the elements contained in the permit elements with a
+definition of the purpose of each; fields are mandatory unless otherwise stated.
+Note that permits are only issued for Base datasets and the same permit is used
+to decrypt incremental updates (if the Product Specification implements updates).
+
+[[tab-15-7]]
+.Permit record elements
+[cols="a,a,a",options=header]
+|===
+| Field | Purpose | Format
+
+| filename
+| The file name as defined in S100_DatasetDiscoveryMetadata -- fileName. It enables Data Client systems to link the correct encryption key to the corresponding encrypted file. The pathName to the file is defined in the Exchange Set Metadata
+| Character string
+
+| editionNumber
+| [Optional] The edition number of the product file as defined in S100_DatasetDiscoveryMetadata - editionNumber
+
+For products without an edition number the permit will apply to all issued datasets
+| Character string
+
+| issueDate
+| [Optional] If the product does not have an edition number then the issue date may be used as an alternative identifier
+| xs:date
+
+| expiry
+| This is the date when the Data Clients licence expires. Systems must prevent any new editions or updates issued after this date from being installed
+| xs:date
+
+| encryptedKey (EK)
+| EK contains the decryption key for the specified edition of the product file
+| 32 character hexadecimal string representing the 128 bit encrypted key
+|===
+
+[[cls-15-7.4.5]]
+==== Permit file signatures
+
+Each permit file will have a digital signature created by the Data Server. The
+digital signature will be stored in a separate file and will reuse the name of
+the permit file but will have ".SIGN" appended, for example permit.sign.
+
+The content of the signature file will be the Data Server certificate and the
+permit file signature and it shall be encoded in accordance with the S-100 XML
+Schemas. The OEM system shall authenticate the Data Server certificate before
+authenticating the permit file before the dataset permit keys are decrypted.
+
+[[cls-15-7.4.6]]
+==== An example PERMIT.XML file
+
+[source%unnumbered,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Permit xmlns="http://www.iho.int/s100/se/5.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.iho.int/s100/se/5.1 https://schemas.s100dev.net/schemas/S100/5.1.0/S100SE/20230327/Part15.xsd">
+  <header>
+    <issueDate>2018-03-20Z</issueDate>
+    <dataServerName>Primar</dataServerName>
+    <dataServerIdentifier>PR</dataServerIdentifier>
+    <version>1.0.0</version>
+
+<userpermit>267C3AD506E69B1ED18AA5ECC7FFDE6E7C330CE8859868</userpermit>
+  </header>
+  <products>
+    <product id="S-101">
+      <datasetPermit>
+        <filename>101GB40079ABCDEF.000</filename>
+        <editionNumber>10</editionNumber>
+        <expiry>2022-12-31</expiry>
+
+<encryptedKey>2E16E07E451FF1854156634DA3DD3FB8</encryptedKey>
+      </datasetPermit>
+      <datasetPermit>
+        <filename>101NO32802411223.000</filename>
+        <editionNumber>5</editionNumber>
+        <expiry>2022-06-10</expiry>
+
+<encryptedKey>C714B5C0FBDF14BFE4B1F12E62CE5FF6</encryptedKey>
+      </datasetPermit>
+    </product>
+    <product id="S-102">
+      <datasetPermit>
+        <filename>102NO329048208.h5</filename>
+        <editionNumber>1</editionNumber>
+        <expiry>2022-12-31</expiry>
+
+<encryptedKey>50BBC28B6793E1C3966B45FB2932E1BE</encryptedKey>
+      </datasetPermit>
+    </product>
+  </products>
+</Permit>
+----
