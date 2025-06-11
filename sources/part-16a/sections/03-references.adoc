@@ -1,0 +1,104 @@
+== References
+
+[bibliography,normative=true]
+=== Normative references
+
+* [[[A1021,A.1021(26)]]],
+_span:title[Code on Alerts and Indicators (2009), IMO Resolution A.1021(26)]_,
+span:date[2009-01-01].
+
+* [[[IEC61174,IEC 61174]]]
+
+* [[[IEC62288,IEC 62288]]]
+
+* [[[MSC191,MSC.191(79)]]],
+_span:title[Amendments to the Performance Standards for the Presentation of Navigation-Related Information on Shipborne Navigational Displays, IMO Resolution MSC.191(79)]_,
+span:date[2004-01-01].
+span:note[As amended by MSC 466(101).]
+
+* [[[MSC232,MSC.232(82)]]],
+_span:title[Revised Performance Standards for Electronic Chart Display And Information Systems (ECDIS), IMO Resolution MSC.232(82)]_,
+span:date[2006-01-01].
+
+* [[[MSC252,MSC.252(83)]]],
+_span:title[Performance Standards for Integrated Navigation Systems (INS), IMO Resolution 252(83)]_,
+span:date[2007-01-01].
+
+* [[[MSC302,MSC.302(87)]]],
+_span:title[Adoption of Performance Standards for Bridge Alert Management, IMO Resolution 302(87)]_,
+span:date[2010-01-01].
+
+* [[[MSC466,MSC.466(101)]]],
+_span:title[Amendments to the Performance Standards for the Presentation of Navigation-Related Information on Shipborne Navigational Displays (Resolution MSC.191(79))]_,
+span:date[2019-01-01].
+
+* [[[MSC1593,MSC.1593]]],
+_span:title[Interim Guidelines for the Harmonized Display of Navigation Information Received via Communication Equipment, IMO MSC.1/Circ.1593]_,
+span:date[2018-01-01].
+
+* [[[MSC1609,MSC.1609]]],
+_span:title[Guidelines for the Standardization of User Interface Design for Navigation Equipment, IMO MSC.1/Circ.1609]_,
+span:date[2019-01-01].
+
+* [[[solas,SOLAS V]]],
+_span:title[Safety of Life at Sea, Chapter V, Safety of Navigation, SOLAS Chapter V]_,
+span:date[2002-01-01].
+
+* [[[SN243,SN.243/2]]],
+_span:title[Guidelines for the Presentation of Navigational-Related Symbols, Terms and Abbreviations, IMO SN.1/Circ.243/Rev.2]_,
+span:date[2019-01-01].
+
+[bibliography,normative=false]
+=== Informative references
+
+* [[[CSS2,CSS2]]],
+_span:title[Cascading Style Sheets, Level 2 (CSS2) Specification, W3C Recommendation 12-May-1998, REC-CSS2-19980512]_,
+span:organization[World Wide Web Consortium],
+span:date[1998-05-01].
+span:uri[http://www.w3.org/TR/1998/REC-CSS2-19980512] (span:note[retrieved 2020-08-12]).
+
+* [[[CSS2.1,CSS2.1]]],
+_span:title[Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification, W3C Recommendation 07-June-2011, REC-CSS2-20110607]_,
+span:organization[World Wide Web Consortium],
+span:date[2011-06-07].
+span:uri[http://www.w3.org/TR/2011/REC-CSS2-20110607] (span:note[retrieved 2020-08-12]).
+
+* [[[G1105,IALA G1105]]],
+_span:title[Shore-side Portrayal Ensuring Harmonisation with E-Navigation Related Information]_,
+span:organization[International Association of Marine Aids to Navigation and Lighthouse Authorities],
+span:edition[1],
+span:date[2013-12-01].
+
+* [[[IEC60945,IEC 60945]]]
+
+* [[[IEC61924-2,IEC 61924-2]]]
+
+* [[[IMPA,IMPA-PPU]]],
+_span:title[Guidelines on the Design and Use of Portable Pilot Units]_,
+span:organization[International Maritime Pilots' Association],
+span:date[2016-01-01].
+
+* [[[ISO19117,ISO 19117]]]
+
+* [[[RTCM10900,RTCM 10900.6]]],
+_span:title[RTCM standard 10900.6 for Electronic Chart Systems (ECS)]_,
+span:organization[Radio Technical Commission for Maritime Services],
+span:date[2015-07-01].
+
+* [[[S4,IHO S-4]]]
+
+* [[[S52,IHO S-52]]]
+
+* [[[IEC62376,hidden(IEC 62376)]]]
+
+* [[[S57,hidden(IHO S-57)]]]
+
+* [[[S98,hidden(IHO S-98)]]]
+
+* [[[S32,hidden(IHO S-32)]]]
+
+* [[[S61,hidden(IHO S-61)]]]
+
+* [[[S63,hidden(IHO S-63)]]]
+
+* [[[S64,hidden(IHO S-64)]]]

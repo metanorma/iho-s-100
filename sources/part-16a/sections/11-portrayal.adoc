@@ -1,0 +1,19 @@
+[[cls-16a-11]]
+== Portrayal harmonisation between new versions of Product Specifications
+
+S-100 based Product Specifications are largely maintained using the S-100
+maintenance regime, which classifies revised versions as clarifications,
+corrections, or new editions. These categories correspond to increasing
+significance and complexity. New functions are generally recommended to be
+in a new edition. This means that new portrayal elements, such as new
+symbols, may require a new edition of a Product Specification. The reasons
+behind such new symbology can be varied, such as changes to IMO guidelines,
+new user requirements or new technology. When new editions are required, it
+is important to carefully consider the impact of any portrayal change, as
+significant changes may have major consequences on equipment and users. If
+there is proper justification for a significant change to portrayal between
+versions of a Product Specification, appropriate means should be taken to
+communicate these changes with sufficient time for users and systems to
+adapt. The standard lifecycle process detailed in IHO Resolution 2/2007, as
+amended, should be adhered to for IHO products; other organisations should
+either use the same process or adopt an equivalent process.

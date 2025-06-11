@@ -1,0 +1,33 @@
+[[cls-16a-9]]
+== Pick reports
+
+IMO Circular 1609 notes that "large variations in the user interfaces of
+electronic equipment can significantly inhibit an operator's effectiveness
+in performing navigational tasks. Where there is significant variation in
+buttons, icons, actions, workflows, processes, units of measure or location
+of information, there is a commensurate increase in the time required for
+equipment familiarization and the risk of operational error, particularly in
+challenging navigational situations". Pick reports have historically been
+defined for the individual Product Specification or by the implementor,
+leaving room for ambiguity that has led to difficulties for users.
+Additional challenges for the user may occur when two or more products that
+are being used simultaneously have conflicting configurations for pick
+reports. Similar complications can also be encountered when different
+systems in use have significantly different user interfaces for the same
+type of data. This would also require additional training to familiarize
+users with products that can be safety critical. Harmonised portrayal pick
+reports should therefore be a goal for any system that will use S-100 based
+products.
+
+Pick reports should allow access to information from all visible/enabled
+underlying products. Data should be organized to facilitate navigation
+through complex reports in a manner that is logical when considering the
+layer order displayed on the screen. Human Machine Interface (HMI)
+strategies should be well-thought-out to make the task of reviewing the pick
+report requiring as little effort as possible for the user. This can be
+facilitated by harmonised look and behaviour across products and systems
+when used in the same operational mode or same context. This implies that
+Product Specifications remain flexible on how pick reports are designed.
+Flexibility should also be given to permit some variation between operation
+modes where appropriate. Pick reports should have a sort order that reflects
+the priority of the products on the screen.

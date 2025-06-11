@@ -1,0 +1,16 @@
+== Conformance
+
+This Part is not a profile of an ISO or other standard. Instead, it is based
+on -- and, where possible, conforms to -- specifications for the portrayal
+of Electronic Nautical Charts (ENCs) and general principles for ergonomics
+and Human-Computer Interaction (HCI). Much of this document is derived from
+the <<S52>>, especially <<S52,clause=2>>, <<S52,clause=3>> and
+<<S52,clause=4>>.
+
+This Part is based on specifications that evolved from studies and
+discussions by IHO, IMO, International Electrotechnical Commission (IEC),
+and manufacturers. These efforts resulted in a set of related standards and
+specifications promulgated by IHO, IMO, and IEC, which are cited in the
+references section of this Part and summarised in <<cls-16a-4.1>>. The
+general principles for ergonomics and human-computer interaction (HCI) have
+been described in various HCI and ergonomics publications.

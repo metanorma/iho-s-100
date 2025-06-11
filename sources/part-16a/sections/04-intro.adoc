@@ -1,0 +1,202 @@
+[[cls-16a-4]]
+== Introduction
+
+In any system where several types of data products and sensor inputs will be
+used on a common screen, there is a need to harmonise their portrayal in the
+user interface. Harmonisation is needed to ensure users are not misled by,
+for example, contradictory symbology, text or colours. Harmonisation also is
+also needed reduce the risk of the screen becoming overloaded with
+information. Portrayal harmonisation is also needed to reduce the user
+burden in terms of training requirements and the quantity of visual
+variables which must be memorised and considered in assessing information
+displayed on screens, and to give improved predictability for system
+implementors. The IMO has developed guidance for presentation of
+e-Navigational related information and this guidance should be leveraged for
+any portrayal harmonisation framework.
+
+This Part contains portrayal harmonisation that describes how S-100-based
+products should be used and displayed simultaneously. It is an overarching
+statement of principles which applies generally to all S-100-based Product
+Specifications. Since this does not depend on particular Product
+Specifications, flexibility is possible in the approach to designing and
+developing portrayal, and user interfaces, which should make it unnecessary
+to amend all involved Product Specifications should any additional Product
+Specifications be identified, or any portrayal rules need amendment.
+
+One important aspect of this guidance is defining the classes of user system
+to which any guidance applies, as there are a great variety of potential
+users of S-100-based products. For purposes of portrayal harmonisation, this
+document divides applications and systems into the following broad
+categories (in practice often a matter of configuration and task rather than
+equipment or software):
+
+* ECDIS, INS, and similar navigation display systems and applications -
+primarily used for voyage planning and monitoring, and collision avoidance,
+with ENC as primary geographical data; covered by SOLAS and require type
+approval for meeting carriage requirements;
+* Electronic Charting Systems (ECS) and similar systems and applications
+(for example, Portable Pilot Units (PPU)) - primarily used for route
+monitoring and voyage planning, with ENC or equivalents as the primary data;
+type approval not required;
+* Other types of S-100 based user systems and applications, including shore
+systems.
+
+Most S-100 based Product Specifications to date have been developed for
+ECDIS. ECDIS is a long-established and well documented concept, and since
+other users of S-100-based products are likely to know how the ECDIS concept
+relates to their systems, ECDIS is therefore the best-known user system upon
+which to model the portrayal harmonisation guidance.
+
+Given the importance of ECDIS and other navigation displays (for route
+monitoring or voyage planning) to marine transport, this Part defines
+principles focused on such navigation displays as well as more general
+principles intended for other application domains.
+
+[[cls-16a-4.1]]
+=== Organisations and standards
+
+Several organisations are involved in developing standards and guidelines
+for portrayal, alerts and indications, and other user interface elements.
+<<fig-16a-1>> below depicts the main organisations which contribute to the
+development of user interface standards and other specifications, and the
+main influences between different kinds of standards/specifications. The
+current set of standards and specifications relevant to portrayal and the
+user experience can be characterised as follows:
+
+* Presentation, performance, and user experience standards for ECDIS and INS
+are generally developed under IMO control, and include standards and
+guidelines for display and user interaction, including alerts. Specification
+of navigation-related symbols, including chart symbols, have generally been
+assigned to IHO as the subject matter experts.
+* The framework for data content and display is defined in IHO standards,
+primarily in the form of the S-100 standard, supplemented by the IHO
+Geospatial Information (GI) registry as a repository of data object
+concepts, type definitions, and symbology. S-100 also provides an abstract
+specification for visual interoperability for displaying multiple products
+on the same screen; the only concrete specification for interoperability at
+the time of writing is S-98, which covers EDCIS interoperability.
+* Specifications for individual data products are produced by several
+organisations depending on the specific domain. Standards covering
+geographic data and marine services are developed by IHO, weather and
+ice-related Product Specifications is generally under WMO responsibility,
+navigational warnings are an IHO/IMO joint effort by the WWNWS
+sub-committee, specifications for Inland ENCs are produced by the Inland ENC
+Harmonisation Group (IEHG), and IEC manages a standard for route
+exchange{blank}footnote:[Other organisations are also developing S-100-based
+standards for information exchange, of varying relevance to portrayal and
+user interaction, shipboard or onshore. The list of Product Specifications
+in <<fig-16a-1>> is representative, not comprehensive.].
+* A Product Specification should include the symbols and portrayal rules for
+the data product, however where this is not included, the system can specify
+the portrayal rules for the resulting products. System specified portrayal
+rules should also follow the portrayal harmonisation guidance.
+* Standards for testing operation and performance of equipment and systems
+are developed under IEC control.
+
+The various categories of standards and specifications are generally
+interrelated and often co-dependent. IMO navigation and safety standards
+refer to IHO symbology for representing geographic features, IHO symbology
+is defined taking into account user interface guidelines in IMO standards,
+and the IEC operational, performance, and testing standards influence and
+are influenced by both IMO and IHO documents. Individual Product
+Specifications are based on the S-100 framework and are referenced by
+testing guidelines. Product Specifications are based on the S-100 framework
+and the features and attributes in their data models, as well as the symbols
+and colours they specify for portrayal of the data, should all be in
+registered in the IHO GI Registry. These interrelationships are depicted in
+<<fig-16a-1>>.
+
+*Developers must conform to the mandatory requirements of the particular
+standards which apply to an application or system. In case of a conflict
+between this Part and a mandatory requirement in an applicable cited
+standard, the requirement in the standard supersedes the guidance in this
+Part.*
+
+Summaries of the various standards and specifications are provided in
+<<app-16a-A>>.
+
+[[fig-16a-1]]
+.Overview of organisations, specifications, and user interface standards
+image::img220.png[]
+
+[[cls-16a-4.2]]
+=== Application systems concepts and limitations
+
+This clause describes the concept and limitations of the main types of
+application systems covered by this Part. ECDIS and INS are covered in S-98
+and the focus of this clause is on considerations that affect content and
+behaviour of other systems.
+
+[[cls-16a-4.2.1]]
+==== Electronic Chart Systems (ECS)
+
+ECS is a common denominator for all systems that portray electronic charts.
+<<RTCM10900>> defines Electronic Chart System as an electronic navigation
+system which complies with the requirements it sets or in <<IEC62376>>. ECS
+systems may meet the ECDIS requirements, have additional functionality or be
+a simple tablet or phone with a GNSS function and capabilty to show
+electronic charts. <<RTCM10900>> gives a grading of ECS systems from Class A
+through D; where Class A is equal to an ECDIS backup and Class D is any
+device "intended to plot the position of ships that do not operate offshore.
+They are not required to have all of the functionality of a Class C ECS.
+They are required to display electronic chart information and plot a ship's
+position, but are not required to display eMSI, or to monitor the ship's
+position or to provide voyage planning or voyage monitoring functionality".
+
+The graphical appearance of charted areas on the screen is usually similar
+to that of an ECDIS, with elements (for example, borders or off-graphic
+indicators) added. These systems will generally also have additional data
+products loaded, for example official products containing Marine Protected
+Areas or Marine Radio Services, or unofficial products such as points of
+interest (POI) to leisure craft users.
+
+ECS may provide functionality not available on ECDIS and while ECS may not
+be as constrained as ECDIS, such systems, if intended for shipboard use (for
+example, Portable Pilot Units (PPU)), should, as far as practicable, follow
+the same principles for symbology and colours. Their text display elements,
+display organisations, pick reports, and user interfaces may be more
+elaborate than ECDIS (so as to allow users more access to information or
+more detailed information), but should have compatible structure and
+functionality (for example, similar prominence for significant features,
+user interface labels and menu items should have the same meanings).
+
+This principle is based on reducing, as far as possible, the cognitive
+switching penalty{blank}footnote:[See, for example, "Multitasking: Switching
+costs", American Psychological Association
+<https://www.apa.org/research/action/multitask>.] when switching from
+planning to monitoring tasks on shipboard. The constraints in this clause
+are therefore less applicable to systems not intended for shipboard use
+(though _actual_ use versus _intended_ use must be considered).
+
+[[cls-16a-4.2.2]]
+==== Other systems
+
+Portrayal harmonisation is also beneficial in other systems, such as those
+that cover shore-side and specialised systems not intended for onboard route
+monitoring or ship movement monitoring or control, or other tasks allocated
+to an ECDIS, INS, or ECS. An example of such shore side systems is Vessel
+Traffic Management Information System (VTMIS). VTMIS can be regarded as an
+extension of a Vessel Traffic Service (VTS), since its main purpose is an
+Integrated Maritime Surveillance system. VTMIS incorporates other resources
+to allow associated services and other stakeholders to directly share VTS
+data or access to certain subsystems in order to increase the effectiveness
+of port or maritime activity operations as a whole, but may not relate to
+the purpose of the VTS itself.
+
+VTMIS are generally specified individually to the specific VTS but may be
+governed by national or regional regulations. For example, Directive
+2002/59/EC of the European Parliament governs VTS inspections of European
+Maritime Safety Authority (EMSA) member countries. IALA provides guidance
+about portrayal of data and information in shore-side systems, including
+VTMIS (for example, <<G1105>>).
+
+Generally, ENC charts form the base layer in a VTMIS and other data sources
+form layers of additional information or enhanced information to aid the
+VTMIS operator in monitoring and decision making. Examples of additional
+layers included radar and AIS for target tracking, AIS-ASM (AIS Application
+Specific Messages) for sensor information such as met-hydro information, air
+gaps and special zones such as irregular speed zones. Moreover, radio
+services may form an integral layer for service assistance. Other examples
+include MSI such as navigational warnings and meteorological warnings.
+Oceanographic information such as surface currents and water level may also
+be important layers.
