@@ -1,0 +1,141 @@
+[[app-16a-A]]
+[appendix,obligation=informative]
+== Organizations and Standards
+
+[[cls-16a-A-1]]
+=== International Organizations and Standards
+
+The IMO has issued recommendations and guidelines on how to present
+navigation related information. Of particular significance are the documents
+noted below.
+
+* <<MSC191>>, Recommendation on Performance Standards for the Presentation
+of Navigation-Related Information on Shipborne Navigational Displays,
+specifies the presentation of navigational information on the bridge of a
+ship, including the consistent use of navigational terms, abbreviations,
+colours and symbols, as well as other presentation characteristics. It also
+addresses the presentation of navigation information related to specific
+navigational tasks by recognizing the use of user selected presentations in
+addition to presentations required by the individual performance standards
+adopted by the Organization.
+* <<SN243>>, Guidelines for the Presentation of Navigational-Related
+Symbols, Terms and Abbreviations, stems from a compelling user need for
+greater standardization to enhance usability across navigation equipment and
+systems. Significant variation between systems and equipment produced by
+different manufacturers has led to inconsistency in the way essential
+information is presented, understood and used to perform key navigation
+safety functions. Improved standardization of navigation systems will
+provide users with more timely access to essential information and functions
+that support safe navigation.
++
+--
+<<MSC191>> and guidelines in <<SN243>> continue to apply as follows:
+
+** To radar equipment, electronic chart display and information system
+(ECDIS) and integrated navigation systems (INS) installed before 1 January
+2024; and
+** To all other navigational displays on the bridge of a ship installed
+before 1 July 2025.
+
+<<MSC191>>, as amended by resolution <<MSC466>>, and guidelines in <<SN243>>
+are to be applied to equipment installed on or after the dates specified
+above{blank}footnote:[Anticipated dates are as of March 2020. Dates may be
+revised by IMO, and should be confirmed from the latest relevant IMO
+resolution/circular.].
+--
+* <<MSC1593>>, Interim Guidelines for The Harmonized Display of Navigation
+Information Received Via Communication Equipment, provides interim
+guidelines for the display of navigation-related information received via
+communication equipment. It aims to ensure that information is displayed in
+an efficient, reliable and consistent format, in a manner that is easily
+interpreted to support decision-making. These Guidelines supplement the
+Performance standards for the presentation of navigation-related information
+on shipborne navigational displays (resolution <<MSC191>>) in regard to the
+presentation of navigation information received via communication equipment.
+The use of these Guidelines will ensure that navigation information received
+via communications equipment is displayed in a harmonised manner on the
+ships' navigational bridge.
+* <<MSC1609>>, Guidelines for the Standardization of User Interface Design
+for Navigation Equipment, apply to Integrated Navigation Systems (INS),
+Electronic Chart Display and Information Systems (ECDIS) and radar
+equipment. They may also be applied to other electronic navigation
+equipment, and navigation sensors, where applicable, to improve
+standardization and usability. The aim of the Guidelines is to promote
+standardization of user interfaces to help meet user needs. The Guidelines
+have been developed in close collaboration with an international association
+of equipment manufacturers to ensure its efficient implementation. These
+Guidelines also aim to leave room for future innovation and development
+while still addressing the primary user need for standardization and
+usability. Improved standardization of the user interface and information
+used by seafarers to monitor, manage and perform navigational tasks will
+enhance situation awareness and safe and effective navigation.
+* <<A1021>>, Code on Alerts and Indicators (2009), defines a classification
+of alerts (as emergency alarms, alarms, warnings, and cautions) and provides
+general design guidance and principles for achieving uniformity of type,
+location and priority for required alerts and indicators, as prescribed by
+SOLAS, other international conventions, shipping codes, and IMO performance
+standards and guidelines.
+* <<MSC302>>, Performance Standards for Bridge Alert Management, describes
+performance standards for harmonising the priority, classification,
+handling, distribution and presentation of alerts.
+* <<MSC252>>, Performance Standards for Integrated Navigation Systems (INS)
+describes requirements for the integration of navigational information,
+task-related requirements, alert management, and documentation requirements
+for an INS. These requirements supplement the performance standards for
+individual components. <<MSC232>> applies to equipment installed in 2011 and
+after; its predecessor, <<MSC86,annex=3>>, applies to equipment installed
+from 2000 to 2010.
+
+The IEC Technical Committee TC80 have developed standards for equipment,
+general and performance requirements, methods of testing, and symbols for
+selected non-geographic information (for example, ship activity, AIS, and
+radar information).
+
+* <<IEC61174>> specifies the performance requirements, methods of testing
+and required test results of equipment conforming to IMO performance
+standards. This standard is based upon the performance standards of IMO
+resolution <<MSC232>>. Reference is made, where appropriate, to IMO
+resolution <<MSC232>>. It also includes relevant extracts from IHO
+publications (<<S32>>, <<S52>>, <<S57>>, <<S61>>, <<S63>> and <<S64>>).
+* <<IEC62288>> specifies the general requirements, methods of testing, and
+required test results, for the presentation of navigation-related
+information on shipborne navigational displays in support of IMO resolutions
+<<MSC191>> and <<MSC302>>.
+* <<IEC60945>> describes testing methods, operational tests and required
+test results for shipborne navigational equipment and electronic
+navigational aids. It is based on IMO Resolution A.694(17).
+<<IEC60945>> also covers
+shipborne radio equipment as well as addressing potential electromagnetic
+interference from other types of equipment.
+* <<IEC61924-2>> describes requirements for the design, manufacture,
+integration, methods of testing and required test results for an INS to
+comply with the IMO requirements of <<MSC252>>.
+
+IHO standards and specifications describe data products, data content, data
+updating, and display, symbols and representations for geographic
+information, natural conditions, navigational hazards, and selected
+non-geographic information such as regulatory and administrative information.
+
+ECS is a common denominator for all systems that portray electronic charts.
+<<RTCM10900>> defines Electronic Chart System as an electronic navigation
+system which complies with the requirements set forth in this standard or in
+<<IEC62376>>. ECS systems may meet the ECDIS requirements (for example,
+backup ECDIS) or be a simple tablet with a GNSS function. <<RTCM10900>> gives
+a grading of ECS systems from Class A through D; where Class A is equal to
+an ECDIS backup and Class D is any device "intended to plot the position of
+ships that do not operate offshore. They are not required to have all of the
+functionality of a Class C ECS. They are required to display electronic
+chart information and plot a ship's position, but are not required to
+display eMSI, or to monitor the ship's position or to provide voyage
+planning or voyage monitoring functionality".
+
+Portable Pilot Units (PPU) -- The International Marine Pilots Association
+(IMPA) has issued a Guideline on the Design and Use of Portable Pilot Units.
+The guideline is high level, but stress that pilotage is a local mater and
+therefore no PPU solution can meet all needs in all pilotage areas.
+Therefore, PPUs are tailored to a particular pilotage area and there are a
+number of configurations that may be utilised.
+
+Shore-side and specialised systems not intended for onboard route monitoring
+or ship movement monitoring or control, or other tasks allocated to an
+ECDIS, INS, or ECS see <<G1105>>.

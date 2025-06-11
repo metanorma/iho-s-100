@@ -1,0 +1,45 @@
+[[cls-16a-6]]
+== Display Organisation and Operation
+
+Some systems have detailed specifications and requirments established; for
+example, ECDIS. Other systems may have less strict rules and requirements
+but may follow similar patterns in full or in parts of other performance
+standards. Examples of such systems can be Portable Pilot Units (PPU) which
+may follow some of the ECDIS performance standards because they are both
+used in the same environment and utilize much of the same data, additionally
+PPUs may have local adoptations to the regions they are utlized in. In
+general, the parts of portrayal guidance that relate to display organization
+and system operation are applicable to all S-100 based Product
+Specifications regardless of the intended systems that will use the S-100
+based data that derive from these Product Specifications (though systems may
+provide elaborations on basic organisations, as outlined in
+<<cls-16a-4.2.2>>).
+
+[[cls-16a-6.1]]
+=== Operating modes
+
+Some systems (for example, ECDIS) are designed with different colour modes
+to account for ambient light conditions on the bridge of the vessel. These
+modes support an operating environment that preserves the navigator's light
+sensitive vision which can be critical in spotting situations that impact
+safety of navigation, especially at night. All S-100 based Product
+Specifications that are intended for navigation screens should support the
+operating modes of the navigation system where the data product is intended
+to be used. Note that IMO/IEC performance requirements for certain systems,
+such as ECDIS, may require such support. Manufacturers and users of S-100
+products whose Portrayal Catalogue does not have a suitable colour mode for
+any combination of system type and lighting conditions are invited to
+discuss the matter with IHO.
+
+The IHO ENC Standards Maintenance Working Group (ENCWG) is tasked with
+managing <<S52>> which specify the portrayal rules for <<S57>> ENCs. The Nautical
+Cartography Working Group is tasked with coordinating portrayal. Jointly
+these two working groups may be a good source for advice on colour usage in
+different portrayal operating modes.
+
+Given IHO's leadership in defining the portrayal of the nautical chart with
+the Nautical Cartography Working Group (NCWG), all organizations that
+produce data products intended for the navigation screen should coordinate
+their colour usage with IHO. Recommendations for colour usage in different
+portrayal operating modes on ECDIS will be published in an Annex to the IHO
+ECDIS interoperability specification.

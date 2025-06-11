@@ -1,0 +1,56 @@
+[[cls-16a-12]]
+== Specifications for the display screen
+
+This clause describes general requirements for display screens. More
+detailed requirements are provided in specific standards applicable for
+different classes of systems. For example, <<MSC232>> specifies the
+requirements for ECDIS.
+
+[[cls-16a-12.1]]
+=== Physical display requirements
+
+The minimum effective size of the geographic portion of the display should
+be such that key information is generally visible without scrolling the
+display and user interaction directly with the geographic display, if any,
+is possible without requiring excessive user concentration under typical
+conditions.
+
+The details of how this principle applies to particular systems should be
+determined by analysing user tasks and user performance under expected and
+critical environmental conditions. Touch target sizes should take typical
+viewing distances into account.
+
+Particular classes of systems may have minimum sizes set by controlling
+standards, for example, <<MSC232>> requires for ECDIS that the minimum
+effective size of the chart presentation for route monitoring is at least
+stem:[270 "unitsml(mm)" xx 270 "unitsml(mm)"].
+
+[[cls-16a-12.2]]
+=== Colour display capability
+
+Colour displays should be capable of at least 256 luminance steps in each of
+red, green and blue.
+
+For night performance it is essential that the hardware has a graphics card
+capable of giving "blacker than black"; that is, complete control of colour,
+and that the software can control that function.
+
+Displays must be capable of maintaining colour discrimination between
+symbols defined in the Portrayal Catalogues for the data products which may
+be used for tasks performed on the display. Typical users should be able to
+distinguish between colours which may be specified for the symbols they
+encounter in the performance of the task using the display.
+
+Particular classes of systems may be subject to specific standards for
+colour conversion tolerances. For example, the ECDIS standards for colour
+conversion tolerances and colour calibration are described in the applicable
+ECDIS requirements, performance and test standards.
+
+Specifications for particular classes of systems (in particular, ECDIS) may
+include a colour differentiation test diagram. This diagram is intended:
+
+. for use by the mariner to check and if necessary, re-adjust the controls,
+particularly for use at night;
+. for use by the mariner to verify that an ageing display remains capable of
+providing the necessary colour differentiation;
+. for initial colour verification of the day, dusk and night colour tables.

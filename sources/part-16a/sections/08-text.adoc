@@ -1,0 +1,31 @@
+[[cls-16a-8]]
+== Text
+
+<<MSC191>>, as amended, requires in <<MSC191,section=5.2.3>> that text be
+presented using simple unambiguous language that is easy to understand.
+Navigation terms and abbreviations should be presented using the
+nomenclature defined in the Guidelines and encouraged their use for all
+shipborne navigational systems and equipment (see <<SN243>>, as revised and
+<<MSC1609,locality:appendix=2>>). Similarly, <<S4,section=500>> has defined
+common navigation terms and abbreviations that are used in the presentation
+of navigational information. This textual guidance should jointly with the
+IMO guidance be used as a reference for harmonising the use of text in S-100
+based Product Specifications intended for navigational use.
+
+It is recommended that the guidance in <<MSC1609>> be adhered to as it notes
+that when icons, terms and/or abbreviations are used, these must meet the
+requirements of the guideline. Moreover, it is noted that where a standard
+term, abbreviation, or icon is not available, another icon, term or
+abbreviation may be used, but these should not conflict with those listed in
+the aforementioned guideline. Therefore, where terms or abbreviations are
+not available in <<MSC1609>>; <<S4>> and <<SN243>>, as revised, should be
+examined for suitable alternatives. Only when these guidelines have been
+examined and found to not contain the suitable terms or abbreviations,
+should considerations be given to creating new terms or abbreviations. If
+new terms or abbreviations are created after due consideration of the above
+mentioned recommendations, efforts should be made to add the new terms or
+abbreviations to the suitable guideline to ensure harmonisation.
+
+While the above mentioned IMO instruments are specifically intended for
+ECDIS, other classes of systems or applications intended for use in the
+marine context should use the same terms and abbreviations.

@@ -1,0 +1,60 @@
+[[cls-16a-7]]
+== Colours
+
+Colours and combinations of colours often have specific meanings associated
+to them; this is also true for navigation displays. For example, on a chart
+black usually means a physical object or boundary (for example, coast line),
+while magenta usually means a non-physical object or boundary (for example,
+restricted area boundary). Other examples include buoyage systems marks
+where combinations of yellow and black bands are used to indicate a cardinal
+direction from a known danger.
+
+Another consideration with colour choices is that any symbology using red
+may be an issue for any system operated in night conditions as these symbols
+may become very difficult to distinguish in red ambient light often used to
+preserve night vision. Therefore the use of red should be avoided where
+possible and always used with a symbol shape that improves recognition.
+Adding text can also reduce risk of mix-ups.
+
+With so many implications on colour choices for portrayal, it is important
+to ensure that the use of colour is harmonised between layers and systems to
+reduce the risk of giving the user ambiguous information. Product
+Specifications should attempt to use existing colours registered within the
+IHO Portrayal Registry.
+
+Given IHO's experience and leadership in defining the portrayal of the
+chart, all organizations that produce data products intended for the
+navigation screen should coordinate their colour usage with IHO. Within IHO
+the Nautical Cartography Working Group is tasked with coordinating portrayal.
+
+[[cls-16a-7.1]]
+=== Colour assignment
+
+Colour assignments for ECDIS, INS, and any similar navigation systems
+covered by IMO Performance Standards must conform to <<S98>>.
+
+Colour assignments for bridge or charthouse systems not covered by IMO
+Performance Standards for navigation systems should conform to S-98 Colour
+Assignments, but may add other colour assignments as necessary for their
+purposes.
+
+Colour assignments for other systems may conform to S-98 Colour Assignments,
+but may depart from or extend it, depending on application requirements or
+user environments.
+
+[[cls-16a-7.2]]
+=== Colour tokens, profiles and palettes
+
+S-100 based Product Specifications use the S-100 portrayal concept which
+consists of several components that can be registered in the GI Registry and
+may therefore be shared among different Product Specifications. Colour
+tokens and colour profiles are examples of such shareable concepts. The
+colour tokens are used in Portrayal Catalogues to specify the particular
+variation of a general colour using an address in sRGB and/or CIE colour
+space coordinates. Historically, several colour tokens have been assigned to
+specific usages within ENC for concepts such as depth areas, land areas,
+regulated areas, buoys, lights, etc. These feature concepts may be reused in
+any S-100 based Product Specifications, which may also add their own colour
+tokens. This necessitates harmonisation of the use of colour tokens. When a
+feature concept is portrayed by two or more Product Specifications it is
+recommended that the same colour tokens are used in all Portrayal Catalogues.

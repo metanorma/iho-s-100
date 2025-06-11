@@ -1,0 +1,32 @@
+[[cls-16a-10]]
+== Alerts and Indications
+
+All Product Specifications that are intended for a navigation context should
+specify any feature combinations that match one or more of the areas for
+which alert or indication should be given to ensure there is a harmonised
+implementation in user systems. Such specification could be done using a
+machine-readable alerts and indication catalogue, but caution is needed as
+this catalogue will likely be developed for one specific system, such as
+ECDIS. Therefore, implementers may find that some of the content of an
+alerts and indication catalogue is not applicable for a non-ECDIS system and
+only a subset should be utilized. This may also necessitate development of
+additional system specific alerts or indications.
+
+<<MSC232>> states in <<MSC232,section=11.3>> and <<MSC232,section=11.4>> and
+their sub paragraphs how an ECDIS should respond to risk of crossing,
+dangers, prohibited areas or areas with special conditions. In
+<<MSC232,locality:appendix=4>> and <<MSC232,locality:appendix=5>> details of
+which areas ECDIS should detect and provide an alert or indication for are
+given. This guidance is sufficiently high level that it should be useful for
+most S-100 based products and other relevant systems, and should therefore
+be consulted when designing alerts and indications.
+
+Within IHO the ENC Standards Maintenance Working Group (ENCWG) is tasked
+with managing <<S52>> which specify the portrayal rules for <<S57>> ENC.
+This includes guidance for which feature attribute combinations should be
+considered to match the IMO ECDIS Performance Rules on alerts and
+indications. Given IHO's leadership in defining the portrayal of the chart,
+and the interdependence of portrayal with other safety critical behaviour of
+systems, all organizations that produce data products intended for the
+navigation screen should coordinate their alert and indication rules with
+IHO.

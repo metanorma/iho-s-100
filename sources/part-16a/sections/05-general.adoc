@@ -1,0 +1,175 @@
+[[cls-16a-5]]
+== General principles
+
+IMO Guidelines for the Presentation of Navigational-Related Symbols, Terms
+and Abbreviations (<<SN243>>) notes in <<SN243,section=15>>, the principles
+applied when designing the appendices to the guidelines. Not all these
+principles are directly applicable to harmonisation of portrayal between
+data products as they are mainly applicable for Human Machine Interfaces.
+However, even the principles that are not directly applicable still provides
+important indirect guidance that can positively influence portrayal
+harmonisation. Particularly noteworthy principles are:
+
+* Consistency in use of symbols and patterns referencing Appendix 2 which
+provides information on icons, symbols and abbreviations that require
+standardization. Consistency enables recognition and detectability across
+the user interfaces of different navigation systems. Humans react positively
+to patterns and logical groups of items, and use categories to search for
+individual bits of information. User testing can identify groupings and
+patterns of information that should be prioritized for consistency. Patterns
+incorporate the way in which someone uses information and the types of
+information that are grouped together.
+* Using location and grouping for consistency provides for recognition.
+Human perception and search work faster with cues than complete recall,
+especially when aided by consistency. The user must recognize where
+information is, or how to perform a process. In performing functions, the
+user should not need to recall where something is located, or the process
+for doing something. This is the ability for the user to recognize an event,
+process or information flow rather than recall the detail of how to get to
+that point. This is integral to usability.
+* Prevent errors by ensuring users always see navigational critical
+information. Prevent errors, emergency exit -- Continuous testing during
+development will identify possible error paths that can be removed. Users
+should be aware of how to navigate back to the start of a process, and also
+be aware of where they are in that process. The user should always be able
+to see navigation critical information even if layers of information are
+interwoven with the ENC/Radar.
+
+Portrayal harmonisation must also consider if there should be a fixed set of
+layers that must be within the scope of the rules or if the rules should be
+more flexible to accommodate additional layers, such as future products or
+regional specialities. For example:
+
+* A fixed list of layers gives predictability for implementers, since most
+variables are known and can be accounted for.
+* A fixed list of layers is inflexible since new layers cannot be added
+without creating a new version of the rules and implementers may need to
+update user systems to add new layers.
+* A flexible list of layers necessitates that the rules be more general and
+therefore easier to maintain, with less likelihood of having to create a new
+version of the rules for new layers. Also, users may create their own
+combinations and add layers as per need, such as in regional special
+circumstances.
+* A flexible list of layers gives implementors less predictability of what
+layers to expect with higher possibility of unexpected layer combinations.
+This necessitates more testing and more flexible user settings to
+accommodate user defined layer combinations, and avoid clutter that impact
+system usability.
+
+Portrayal harmonisation guidelines apply to both vector and coverage type
+data as far as practical.
+
+[[cls-16a-5.1]]
+=== Symbol harmonisation
+
+Symbols are used to visually convey information and when utilized in the
+same environment, for example, marine, need to convey consistent information
+regardless of which product they are used in. As noted in <SN243>>,
+"consistency enables recognition and detectability
+across the user interfaces of different navigation systems. Humans react
+positively to patterns and logical groups of items, and use categories to
+search for individual bits of information. User testing can identify
+groupings and patterns of information that should be prioritized for
+consistency. Patterns incorporate the way in which someone uses information
+and the types of information that are grouped together". Symbols should
+therefore be harmonised for products used in the same general class of
+system/application to ensure the risks of contradictory messages are reduced
+as much as possible.
+
+Symbols should be designed in accordance with the guidance within <<SN243>>
+and <<S4>>. These two documents should be the first source of finding
+portrayal for features that need visualization in a navigation system. If
+suitable symbology is not found in either of these documents, the IHO
+Nautical Cartography Working Group (NCWG) is tasked with coordinating
+portrayal for IHO related products and may be able to offer assistance.
+Given IHO's leadership in defining the portrayal of the chart, all
+organizations that produce data products intended for the navigation screen
+or related systems should coordinate the development of any new symbology
+with IHO NCWG.
+
+New symbology should be tested within the product itself, and also in all
+expected product combinations to ensure sufficient harmonisation and that
+any risk of ambiguities is sufficiently addressed.
+
+[[cls-16a-5.2]]
+=== Visual interoperability
+
+The Interoperability Catalogue Model, see Part 16, is a framework that can
+be used to create a catalogue of rules for how to combine a set of layers.
+This set can be a fixed list or a flexible approach.
+
+The S-100 Product Specifications may have only considered portrayal
+harmonisation with ENC, is also a S-100 Product Specification. Therefore,
+when several layers are visualized simultaneously there is a risk of clutter
+that may obscure significant features and increase the risk of unsafe
+operation. The Interoperability Catalogue Model framework should be utilized
+to limit the number of simultaneous on-screen layers to a logical set, for
+example by using the preconfigured combination function in normal operating
+mode, whilst permitting more flexibility for users with specialized
+requirements. Logical sets can be viewed as those layers useful in a
+particular operation. Within a logical set significant features should be
+given priority. Significant features may be regarded as those features that
+must not be turned off at any moment during important operations, such as
+route monitoring in navigation systems. In ECDIS and ENC significant
+features are considered to be in the display base. In other S-100 based
+products and systems there may also be significant features and these should
+be considered in the same spirit as the display base defined in the IMO
+ECDIS performance standard (<<MSC232>>). Great care should be taken when
+combining layers to minimise the risk of obscuring any significant feature.
+Considerations should be given to making the use of the pre-defined
+combinations of Product Specifications concept to limit the possible
+combinations, and to assign viewing group layers to specific pre-defined
+combinations of Product Specifications.
+
+[[cls-16a-5.3]]
+=== De-cluttering strategies
+
+All S-100 based Product Specifications that include portrayal need to
+consider decluttering strategies. This is necessary to reduce the risk of
+clutter when conforming data products are utilized in user systems either in
+isolation or as a layer within a larger ecosystem. Any S-100 based products
+used in isolation may cause screen clutter in a system when used at a scale
+where the screen density of the data content start interfering with each
+other. Similarly, when S-100 based data products are used as layers in a
+system, the data density may be such that the content start interfering with
+each other due to quantity of content even at larger scales due to quantity
+of content. Either scenario needs to be considered by Product Specification
+developers and system implementers; and mitigation strategies need to be
+employed.
+
+One clutter mitigation strategy that can be employed is to introduce scale
+bands in the products to limit data density at the various scale ranges by
+generalization at lower scales, including thinning for raster data, while
+including the greatest detail at the largest scales. This method works best
+on the individual product series as it cannot account for impacts of any
+other layers, but adding scale bands can be part of an overall clutter
+mitigation strategy for the most feature dense products.
+
+A second mitigation strategy can be adding scale minimum and scale maximum
+attributes to portrayed feature classes to turn off less significant
+information at either small scales or large scales. The scale minimum
+attribute is used as a limit to indicate the scale at which portrayal of a
+feature is turned off as the screen is scaled to smaller scales, for example
+by turning off point symbols that start interfering with each other due to
+density at smaller scales. The scale maximum attribute is used to turn off
+the feature portrayal at large scales, for example large areas that may be
+considered of less significance at large scales and can cause clutter, for
+example by area patterns. This method works best on the individual product
+series as it cannot account for impacts of any other layers, but can be part
+of an overall clutter mitigation strategy. Producers should ensure
+consistency between products.
+
+Configuring an interoperability catalogue can be a third mitigation strategy
+by defining rules for how predefined combinations of products should
+interact, by for example turning off less significant features in one
+product to enable easier identification of more significant features in
+other products. Interoperability catalogues can also be used to define rules
+for combining data from different products into hybrid features that can
+eliminate the need to portray multiple copies of the original data.
+Utilization of an interoperability catalogue is most suitable for situations
+where multiple layers interact and are at risk of causing screen clutter.
+
+These three strategies are not mutually exclusive and any combination of
+them can be utilised as well as in combination with other methods for
+clutter mitigation. Additional strategies are discussed in the subsequent
+sections.
