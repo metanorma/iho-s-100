@@ -1,0 +1,951 @@
+[[cls-17-4]]
+== Overview
+
+[[cls-17-4.1]]
+=== S-100 Exchange Set Structure
+
+The S-100 Exchange Set is a data container that provides all the elements
+needed for a reliable and secure exchange of S-100 conformant data. It is
+intended to be a self-contained entity consisting of data files and metadata
+records packaged together using applicable data integrity and optional
+security provisions. The overall concept of the S-100 Exchange Set is a
+realization of the <<ISO19115-3>> classes, which fundamentally underpin the
+interchange of geospatial data and relevant metadata, as depicted in
+<<fig-17-1>> below. This Figure depicts, from left to right, the ISO data
+exchange structural classes, the relevant ISO classes for metadata for
+exchange, S-100 structure classes representing the S-100 Exchange Set
+components, and the relevant S-100 Exchange Set metadata classes.
+
+Note that the S-100 structure classes represent components of the Exchange
+Set (files/folders/archives), not XML fragments in an exchange file.
+Accordingly, they do not have attributes nor do they have corresponding
+documentation tables in this Part.
+
+Note also that the S-100 Exchange Set metadata classes are analogues of the
+corresponding ISO classes but (strictly speaking) not specialisations or
+realisations of them.
+
+[[fig-17-1]]
+.Realization of the Exchange Set classes
+image::img221.png[]
+
+The above Figure illustrates the conceptual correspondence between data
+exchange provisions in <<ISO19115-3>> and S-100 standards. At an
+implementation level, the S-100 Exchange Set may include a combination of
+S-100 datasets, support files, and Catalogue files along with the metadata
+information for all such resources in the form of the S-100 Exchange Set
+Catalogue. Conceptually this leads to the more detailed model of the S-100
+Exchange Set, as shown in <<fig-17-2>> below.
+
+[[fig-17-2]]
+.S-100 Exchange Set
+image::img222.png[]
+
+The conceptual model depicted in <<fig-17-2>> is very flexible and can be
+implemented in a variety of ways as virtually all components, except for the
+S-100_ExchangeCatalogue, are optional. This level of flexibility is essential
+to properly support the mainstream use case of exchanging geospatial data, as
+well as the use cases for releasing dataset and support file cancellation
+notices or new Catalogue releases without any data files present.
+
+This approach ensures that an Exchange Set Catalogue is always included in
+any S-100 conformant Exchange Set, providing the essential discovery metadata
+about any included resources and their intended use.
+
+Preparation of an Exchange Set consists of packaging its components using a
+predefined file folder structure shown in <<fig-17-3>> below.
+
+[[cls-17-4.2]]
+=== S-100 Exchange Set Folder Structure.
+
+[[fig-17-3]]
+.An S-100 Exchange Set folder structure
+image::img223.png[width=50%]
+
+. An S-100 Exchange Set must contain an Exchange Set Catalogue, CATALOG.XML,
+its digital signature CATALOG.SIGN and may contain any number of S-100
+conformant dataset files, support files and Catalogue files.
+. All S-100 content must be placed inside a top root folder named S100_ROOT.
+This is the only top level root folder in an Exchange Set containing only
+S-100 products.
+. The S100_ROOT folder must contain a subfolder for each specific S-100
+Product Specification data type included in the Exchange Set; for example
+S-101, S-104, S-102 (names defined in the Product Specification Register of
+the IHO Geospatial Information (GI) Registry). These subfolders hold S-100
+content specific to an individual Product Specification.
+. Each product subfolder must contain subfolders for the component dataset
+files (DATASET_FILES), support files (SUPPORT_FILES) and Catalogues
+(CATALOGUES) as required.
+. Individual data files may be optionally placed in their own subfolders (as
+demonstrated in the S-102 folder in <<fig-17-3>> above) or grouped together
+(as demonstrated in the S-101 folder in <<fig-17-3>> above). The
+ISOMetadataFile (see <<fig-17-2>>) must be located in the SUPPORT_FILES
+folder. If used, all associated ISOMetadataFile must follow the MD_<data file
+base name>.XML file naming convention.
+. Support files, on the other hand, may be grouped together in one folder to
+prevent duplication across multiple dataset folders. Similarly, when needed,
+an Exchange Set may carry additional Catalogues and/or their different
+versions which should also be grouped together in one folder.
+. The required Exchange Set Catalogue XML document instance must be named
+CATALOG.XML and placed in the S100_ROOT folder, together with its digital
+signature (CATALOG.SIGN) file. All other digital signatures are included
+within their corresponding resource metadata records in the CATALOG.XML.
+
+An S-100 Exchange Set can be optionally defined alongside S-57 datasets with
+their own ENC_ROOT and INFO root folders as required by the S-57 ENC Product
+Specification and (optionally) S-63. In this case there are three top level
+folders: ENC_ROOT and INFO for S-57, and S100_ROOT with two separate
+Catalogues covering their respective content (CATALOG.031 and CATALOG.XML).
+<<fig-17-4>> below shows one of these use cases with S-57 and multiple S-100
+products included.
+
+[[fig-17-4]]
+.Combined S-100 and S-57 Exchange Sets folder structure
+image::img224.png[width=50%]
+
+In addition to the folder structure, it is important to align the Exchange
+Set creation workflow with the data integrity and security provisions
+outlined in S-100 Part 15. These provisions cover digital signing,
+compression, and encryption of Exchange Set resources. All resources within
+an S-100 Exchange Set must be digitally signed and their signatures included
+in the Exchange Set Catalogue. Data compression and encryption are optional
+operations.
+
+Exchange Set creation, therefore, consists of:
+
+. The creation of a suitable Exchange Set folder structure.
+. The arrangement of all resources in their designated folders.
+. Optional compression and encryption of any resources which require it.
+. Creation of digital signatures for all resources.
+. Construction of an Exchange Set Catalogue which records the structure
+created.
+
+S-100 Part 15 defines the requirements and process for creation and
+verification of digital signature values and production of
+compressed/encrypted datasets.
+
+[[cls-17-4.3]]
+=== Storage and Management of External Resources
+
+S-100 datasets may refer to a number of externally referenced, supporting
+resources for content. This content may be textual or graphical and encoded
+in any of a number of formats (defined by the S100_SupportFileFormat
+enumeration in the Exchange Catalogue Schema). Datasets hold a reference to
+the external resource as an attribute value. This value may be updated as any
+other attribute and updates the reference to the external resource. External
+resources can support either datasets or Catalogues or can be standalone
+entities in the Exchange Set
+
+The S-100 Exchange Catalogue provides:
+
+. A normative definition of the location of each supporting resource. Where
+these are physical files this is a physical location within the <__S-100
+Product__>/SUPPORT_FILES subdirectory in the Exchange Catalogue file
+structure.
+. For each unique reference to an external resource encoded in a dataset or a
+supporting resource required by a Catalogue, the Exchange Catalogue provides
+a unique map (by reference) in the metadata entry for the resource to the
+dataset or Catalogue metadata entry for which it is required.
+
+For example:
+
+[[fig-17-5]]
+.Exchange Set supporting resources (example)
+image::img225.png[]
+
+All content relating to such external resources should be validated and must
+be consistent with the dataset content to form a valid S-100 Exchange Set.
+
+Datasets refer to external resources using S-100 attributes with a URI
+primitive type. Such references must use S-100 URI form and must be uniquely
+resolvable by the implementing system without requiring any supplementary
+information within the Exchange Catalogue metadata entries.
+
+Examples of such URI definitions are:
+
+[[tab-17-1]]
+.URI references (examples)
+[cols="a,a",options=header]
+|===
+| URI type | Example URI
+
+| File reference | `file::101GB00400797.TXT`
+| MRN (S-100 Digital Signature Value) | `urn:mrn:iho:s100:dsig:dsa:MEQCIDDzwjK4ksBsMx-AADc5eGQ9uI9Qi8oDx0lVdavMshZnAiBKx_m4KPS3Kk8zYJx-nzeJzhs_H_VHWpVkdtExAqJ-0Q==`
+|===
+
+Full specification of file URIs and MRNs supported by S-100 are contained in
+S-100 Part 1, clause 1-4.6. Use of different types of URIs by ECDIS
+implementations may be restricted in ECDIS implementations by <<S98,locality:annex=C>>.
+
+As long as the mapping from the external resource metadata to the dataset
+metadata is unique it is valid, so multiple datasets are able to "share"
+common external resources within an Exchange Catalogue without ambiguity. To
+provide unambiguous file URIs from external resources to datasets all base
+dataset filenames must be unique
+
+Dataset naming shall follow a standard pattern to give implementers the
+assurance of unique base dataset filenames for incoming datasets.
+
+XXXYYYYØØØØØØØØØ.[EXT]
+
+* XXX is the product code (for example, 123 is for Maritime Radio Services;
+101 for ENC)
+* YYYY is the producer code according to the Producer Code Register
+* ØØØØ is an arbitrary length unique code in alphanumeric characters
+including any differentiating characters as required. The code shall be
+unique for the data producer (that is, different data producers may use the
+same code) and not re-used.
+* [EXT] is the file encoding specific file extension
+
+Supporting resources shall follow the same naming convention, except for the
+ISOMetadataFile which must use the structure MD_<data file base name>.XML. To
+further assist implementers, data producers shall ensure that the content in
+the latest revision of supporting resources is specific to the unqiue code
+used. Differing content in supporting resources shall be assigned different
+unique codes across an individual Data Producer's entire content.
+
+A supporting resource cannot be shared across Product Specifications.
+
+Use of the file name in a file URI allows an exchange set producer to
+maintain a single, up-to-date version of any supporting file resource without
+necessitating dataset updates when the content of the resource changes. If a
+data producer wishes to ensure a dataset update is produced whenever
+supporting resource content changes then use of either digital signature or
+checksum URIs in the dataset shall be used.
+
+[[cls-17-4.3.1]]
+==== Supported resources / multiple references guidance
+
+One single support file can be referenced by feature attributes in multiple
+datasets. This creates some complexity in a scenario where the support file
+content is updated, and the changes do not apply to all the datasets
+currently referencing the support file.
+
+If applicable, in the situation where one support file is referenced by
+multiple datasets and the support file content changes and initiates a new
+edition of the support file, all the datasets referencing the support file
+will adhere to the new edition. If the support file change is not applicable
+to all datasets referencing it, a new support file must be created for the
+new changes, and the dataset references to the old support file must be
+deleted and references to the new support file added. For the datasets not
+applicable to the change, the old support file and reference will still be
+valid.
+
+For further detailed explanation refer to <<S98>>.
+
+[[cls-17-4.3.2]]
+==== ISOMetadataFile guidance
+
+The S-100 Exchange Set model provides a mechanism for including ISO compliant
+metadata records for each dataset in an Exchange Set. These optional
+supporting resources can be included and referenced using the individual
+ISOMetadataFile records. They are not intended to be used on ECDIS, but may
+be optionally included to support wider interoperability with other user
+communities or to fulfil ISO metadata requirements where needed.
+
+[[cls-17-4.4]]
+=== S-100 Exchange Set Catalogue
+
+The S100 Exchange Set Catalogue is an XML document instance, which provides
+the metadata information needed to discover and use the resources contained
+in the S-100 Exchange Set. It must be named CATALOG.XML. This mandatory,
+central component of S-100 Exchange Sets consists of several components which
+capture suitable metadata records for each resource type. These components
+cover metadata for the Exchange Set Catalogue, dataset discovery, support
+file discovery, any references to
+<<ISO19115-1>>/<<ISO19115-2>>/<<ISO19115-3>> dataset metadata, and additional
+Catalogues as depicted in <<fig-17-4>> above.
+
+[[fig-17-6]]
+.Exchange Set Catalogue
+image::img226.png[]
+
+The discovery metadata subsections have attributes which enable important
+information about the datasets and accompanying support files to be examined
+without the need to process the data, for example encryption/compression
+flags. Similarly, other Catalogues can be included in the S-100 Exchange Set,
+in support of the datasets, such as feature, portrayal, coordinate reference
+systems, codelists etc. In addition, the S100 Exchange Set Catalogue provides
+mechanisms for managing the lifecycle of records, support resources and
+catalogues. For example, the S100_SupportFileRevisionStatus and S100_Purpose
+enumerations support a revision control mechanism not only for delivering new
+versions and revisions, but also for cancelling such resources. This provides
+the ability to cancel records, support resources and catalogues using the
+S100 Exchange Set Catalogue records, rather than publishing incremental
+versions of the actual resources.
+
+More detailed information about the various elements of the Catalogue is
+shown in <<fig-17-7>> below and in the textual description in the Tables at
+<<cls-17-4.5>>.
+
+[[cls-17-4.4.1]]
+==== New Editions, revisions, updates and cancellations
+
+This section defines the sequencing of datasets for New Editions and, where a
+particular S-100 encoding supports incremental updates, updates and
+re-issues. In order to ensure that feature type updates are incorporated into
+an end user system in the correct sequence without any omission, a number of
+parameters encoded in the data and metadata are used in the following way:
+
+*Edition number*:: When a dataset is initially created (Base dataset), the
+Edition number 1 is assigned to it. The Edition number is increased by 1 at
+each New Edition.
+
+*Update number*:: Update number 0 is assigned to a new dataset and a New
+Edition. The first update dataset file associated with this new dataset must
+have update number 1. The update number must be increased by one for each
+subsequent update, until a New Edition is released.
++
+--
+A re-issue of a dataset must have the update number of the last update
+applied to the dataset, and use the same Edition number.
+--
+*Issue date*:: Date up to which the Data Producer has incorporated all
+applicable changes. The issue date must be greater than the previous issue
+date of the dataset.
+
+In addition to fileless dataset cancellation using fields in the Catalogue
+metadata file (S100_Purpose = cancelled) a dataset may be cancelled by the
+Data Producer by the issuing of a cancellation update. In order to cancel a
+dataset, an update dataset file is created for which the Edition number must
+be set to 0. This method is only used to cancel a Base dataset file. Where a
+dataset is cancelled and its name is reused at a later date, the issue date
+must be greater than the issue date of the cancelled dataset. When the
+dataset is cancelled it must be removed from the system. Fileless
+cancellation may be achieved by using a dataset metadata entry with the
+filename and original digital signature specifying the resource to be
+cancelled, and with all other mandatory metadata fields also set to the same
+values as the original, with the exception of the issueDate, which must be
+set to the issue date of the fileless cancellation itself.
+
+An Exchange Set may contain Base dataset files and update dataset files for
+the same datasets. Under these circumstances the update dataset files must
+follow on in the correct sequential order from the last update applied to the
+Base dataset file.
+
+[%landscape]
+<<<
+
+[[fig-17-7]]
+.S-100 Exchange Set Catalogue -- class details
+image::img227.png[]
+
+[[cls-17-4.5]]
+=== Elements of the Exchange Set Catalogue
+
+The tables in this section provide a detailed textual description of the
+encoding of the S-100 Exchange Set Catalogue. The design follows a number of
+key design principles that have been consistently applied throughout the
+development process.
+
+One of these principles drives the choice of multiplicity value assignments.
+At the S-100 framework level, the majority of S-100 Exchange Set Catalogue
+elements are intended to be optional and therefore have their lower
+multiplicity bound set to 0. Only those elements that are considered
+absolutely necessary across all S-100 data products have their lower
+multiplicity bound set to 1, effectively making them mandatory for all data
+products. Overall, the resulting multiplicity values at the S-100 Framework
+level are considered to be a starting point for S-100 Product Specification
+developers and can be overridden at the individual data product level if
+necessary.
+
+Another principle was to retain some of the existing element names for
+historical reasons. For example, the naming of the NotForNavigation element
+could be improved, but this element was retained from previous versions for
+backwards compatibility reasons. Similarly, the terms file and resource are
+used interchangeably in the model and for historical reasons.
+
+For Product Specifications to be used in S-100 ECDIS, covered by <<S98>>, a
+third principle is that the S-100 Exchange Catalogue profile cannot be
+extended at the Product Specification level. This principle exists so that
+implementers of the S-100 Exchange Catalogue profile are not required to
+consider product specific extensions.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% for item in data offset:0 limit:8 %}
+[[cls-17-4.5.{{forloop.index}}]]
+==== {{item.table}}
+
+{% if item.foreword %}
+{{item.foreword}}
+{% endif %}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+{% for row in item.rows %}
+| {{row.role}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}} | {{row.remarks}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+{% for row in item.rows %}
+| {{row.item}} | {{row.name}} | {{row.description}} | {{row.code}} | {{row.remarks}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note1 and item.note1 != "" %}
+[[note-{{forloop.index}}.1]]
+NOTE: {{item.note1}}
+{% endif %}
+
+{% if item.note2 and item.note2 != "" %}
+[[note-{{forloop.index}}.2]]
+NOTE: {{item.note2}}
+{% endif %}
+{% endfor %}
+----
+
+[[ex1]]
+[example]
+====
+An S-104 (Water Level Information for Surface Navigation) predictions dataset
+has the following data for _temporalExtent_ encoded in the dataset discovery
+block in the Exchange Catalogue:
+
+[source%unnumbered,xml]
+----
+<temporalExtent>
+  <timeInstantBegin>2021-07-03T06:00:00Z</timeInstantBegin>
+  <timeInstantEnd>2021-07-10T18:00:00Z</timeInstantEnd>
+</temporalExtent>
+----
+
+indicating that the temporal extent of the predictions in the dataset is the
+period beginning at exactly 6 a.m. on 3 July 2021 (UTC) and ending at exactly
+6 p.m. on 10 July 2021 (UTC).
+====
+
+[[ex2]]
+[example]
+====
+The successor dataset to <<ex1>> has the following data for
+_temporalExtent_:
+
+[source%unnumbered,xml]
+----
+<temporalExtent>
+  <timeInstantBegin>2021-07-03T12:00:00Z</timeInstantBegin>
+  <timeInstantEnd>2021-07-10T24:00:00Z</timeInstantEnd>
+</temporalExtent>
+----
+
+indicating that the temporal extent of the predictions in the dataset is the
+period beginning at exactly noon on 3 July 2021 (UTC) and ending at exactly
+midnightat the [underline]#end# of 10 July 2021 (UTC). Since this temporal
+extent overlaps the temporal extent of <<ex1>> from noon UTC on 3 July
+2021, it supersedes the dataset in <<ex1>> at and after noon UTC on 3 July
+2021.
+====
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign start_index = 8 %}
+{% for item in data offset:8 limit:13 %}
+[[cls-17-4.5.{{start_index | plus: forloop.index}}]]
+==== {{item.table}}
+
+{% if item.foreword and item.foreword != "" %}
+{{item.foreword}}
+{% endif %}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+{% for row in item.rows %}
+| {{row.role}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}} | {{row.remarks}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a,a,a",options="header"]
+|===
+| Item | Name | Description | Code | Remarks
+
+{% for row in item.rows %}
+| {{row.item}} | {{row.name}} | {{row.description}} | {{row.code}} | {{row.remarks}}
+{% endfor %}
+|===
+{% endif %}
+
+{% if item.note1 and item.note1 != "" %}
+[[note-{{forloop.index}}.1]]
+NOTE: {{item.note1}}
+{% endif %}
+
+{% if item.note2 and item.note2 != "" %}
+[[note-{{forloop.index}}.2]]
+NOTE: {{item.note2}}
+{% endif %}
+{% endfor %}
+----
+
+==== CI_DateTypeCode
+
+This codelist is documented in the ISO Schemas documentation, available in
+the S-100 Schemas distribution. It is used in several places in S-100
+metadata.
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% assign start_index = 21 %}
+{% for item in data offset:21 limit:1 %}
+[[cls-17-4.5.{{start_index | plus: forloop.index}}]]
+==== {{item.table}}
+
+.{{item.table}}
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+{% for row in item.rows %}
+| {{row.role}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}} | {{row.remarks}}
+{% endfor %}
+{% endfor %}
+|===
+----
+
+[[tab-17-2]]
+.Individuals (restriction of CI_Individual from <<ISO19115-1>>)
+[cols="a,a,a,a",options=header]
+|===
+| Name | Path | Datasets | Other resources
+
+| Name of the individual
+| CI_Individual.name
+| *C* +
+_(documented if 'positionName'_ and _'partyIdentifier' not documented)_
+| *C* +
+_(same as for dataset)_
+
+| Position of the individual in an organization
+| CI_Individual.positionName
+| *C* +
+_(documented if 'name' and 'partyIdentifier' not documented)_
+| *C* +
+_(same as for dataset)_
+
+| Contact information for the individual
+| CI_Individual > contactInfo > CI_Contact
+| *M* (see <<note-t2>>)
+| *M*(see <<note-t2>>)
+
+| Identifier for the party
+| CI_Individual.partyIdentifier
+| *C* +
+_(documented if 'name' and 'positionName' not documented_
+| *C* +
+_(same as for dataset)_
+|===
+
+[[tab-17-3]]
+.Organisations (restriction of CI_Organisation from <<ISO19115-1>>)
+[cols="a,a,a,a",options=header]
+|===
+| Name | Path | Datasets | Other resources
+
+| Name of the organisation
+| CI_Organisation.name
+| *C* +
+_(documented if 'positionName' not documented -- see <<note-t1>>)_
+| *C* +
+_(same as for dataset)_
+
+| Position of an individual in the organisation
+| CI_Organisation.positionName
+| *C* +
+_(documented if 'name' not documented_ -- see <<note-t1>>)_
+| *C* +
+_(same as for dataset)_
+
+| Contact information for the organisation
+| CI_Organisation.contactInfo > CI_Contact
+| *M* +
+(see <<note-t2>>)
+| *M* +
+(see <<note-t2>>)
+
+| Identifier for the party
+| CI_Organisation.partyIdentifier
+| *C* +
+_(documented if 'name' and 'positionName' not documented_
+| *C* +
+_(same as for dataset)_
+|===
+
+[[note-t1]]
+[NOTE,keep-separate=true]
+====
+S-100 restricts <<ISO19115-1>> in that documenting the 'logo' attribute of
+CI_Organisation is not sufficient to allow omission of both 'name' and
+'positionName'.
+====
+
+[[note-t2]]
+[NOTE,keep-separate=true]
+====
+At least one of CI_Contact attributes phone / address / onlineResource /
+contactInstructions must be documented.
+====
+
+[%portrait]
+<<<
+
+[[cls-17-4.6]]
+=== Overview of multilingual support in S-100 Exchange Set Catalogue
+
+The S100 Exchange Set Catalogue provides the necessary multilingual support
+by directly reusing the localization framework present in <<ISO19115-1>>
+metadata standard. This effectively adds two localization elements:
+defaultLocale and otherLocale to various classes within the model. These
+elements are intended to consistently identify the languages used in both the
+metadata records and within the geospatial resources, such as datasets,
+support files and other Catalogues included in an Exchange Set. The
+defaultLocale element is intended to identify the default language and
+character set while the otherLocale element is intended to provide the same
+for any alternatively used localized character strings. Both elements are
+defined as PT_Locale type defined as illustrated in <<fig-17-8>> below.
+
+[[fig-17-8]]
+.<<ISO19115-1>> PT_Locale class.
+image::img228.png[width=60%]
+
+The PT_Locale class as defined in <<ISO19115-1>> has the following members:
+
+* LanguageCode -- required ISO 639-2/T, 3-letter code in lowercase; that is,
+"fra"
+* CountryCode -- optional <<ISO3166-1>> 2-letter code in uppercase; that
+is, "CA" intended to be used when the national language differences can impact
+the interpretation or processing of localized content
+* MD_CharacterSetCode -- required MD_CharacterSetCode
+
+NOTE: Since codes for language, country, and character sets are defined as
+entries in a "codelists catalogue" that is included in the S-100 Schema
+distribution, the codelist values must be identical to keys in this file.
+
+[example]
+The codelist value&nbsp; for LanguageCode is 'eng'. It is encoded in the XML
+attribute `codeListValue`.
+
+`<lan:LanguageCode codeList="http://www.iho.int/S100/5.0.0/resources/Codelists/cat/codelists.xml#S100_MD_LanguageCode" codeListValue="eng">English</lan:LanguageCode>`
+
+For more details and examples, see the documentation and samples provided
+with the S-100 generic Schemas.
+
+The implementation of the PT_Locale type provides the necessary structure to
+consistently define and communicate the key language characteristics within
+metadata or other geospatial resources.
+
+Additionally, the localization framework provides the support for using
+multiple languages in the metadata records by extending CharacterString
+simple type with PT_FreeText and LocalisedCharacterString subtypes as
+illustrated in <<fig-17-9>> below.
+
+[[fig-17-9]]
+.<<ISO19115-1>> PT_FreeText and LocalisedCharacterString subtypes
+image::img229.png[]
+
+This allows any free text metadata record instances expressed in the default
+metadata language to also be expressed in other languages by aggregating the
+corresponding localized translations using LocalisedCharacterString and
+adding a reference to the underlying otherLocale definition. The diagram
+below shows a pseudo-XML implementation example illustrating how such
+aggregations should be constructed.
+
+[%unnumbered]
+image::img230.png[]
+
+[[cls-17-4.7]]
+=== Encoding of S-100 Exchange Set Catalogue elements in multiple languages
+
+The S100 Exchange Set Catalogue model provides two elements: defaultLocale
+and otherLocale to define and indicate the languages used for all metadata
+records within an instance of an Exchange Catalogue. Only one defaultLocale
+is permitted within the core section of the S100 Exchange Set Catalogue
+(within S100_ExchangeCatalogue) and it is intended to communicate the default
+language used for all Catalogue records. Since the expected default language
+is English and the default character set is UTF-8 the defaultLocale element
+is optional and can be omitted. In most situations, however, it is prudent to
+explicitly define defaultLocale to prevent any confusion and more readily
+support data sharing with other user communities that might not be fully
+aware of S-100 conventions. This can be achieved as illustrated below.
+
+[%unnumbered]
+image::img231.png[]
+
+Data producing agencies wishing to provide additional localized translations
+of any of the Catalogue records can achieve so by first defining otherLocale
+and then referring to it when required. The first step can be achieved as
+illustrated below and, similarly to defaultLocale, this only needs to be
+defined once within the core section of the S100 Exchange Set Catalogue
+(within S100_ExchangeCatalogue) for each additional language used in a
+Catalogue instance. This approach is intended to communicate any additional
+language used for localized Catalogue records.
+
+[%unnumbered]
+image::img232.png[]
+
+Of note is the id attribute of PT_Locale. When used in otherLocale
+definition, it needs to be a unique, ideally descriptive identification of a
+specific language which can be used as a reference by localized records. With
+the otherLocale element defined, any free text instances captured using the
+default language can also provide corresponding localized translations using
+PT_FreeText and LocalisedCharacterString subtypes as illustrated below.
+
+[%unnumbered]
+image::img233.png[]
+
+[[cls-17-4.8]]
+=== Indicating languages used inside geospatial resources described in S-100 Exchange Set Catalogue
+
+Data producing agencies using multiple languages in their products or other
+resources, who wish to explicitly indicate the languages used can use the
+same localization framework. In contrast to the metadata records, where
+language definitions are applicable to all records in an Exchange Catalogue
+instance, the default and other language definitions are individual resource
+specific. This is accomplished by defining default and/or other languages in
+the same way as before but placing them inside specific resource records. For
+example, a data producing agency wishing to communicate that a specific
+dataset includes features encoded using multiple languages can add the
+defaultLocale and otherLocale definitions inside the corresponding dataset
+discovery metadata record. At the resource level, both of these elements are
+optional and English UTF-8 encoding is considered to be the default therefore
+there is generally no need to capture this fact explicitly.
+
+S-100 support file resources are a special case, as the textual information
+inside them is intended to be in a single language. As with all other
+resources, English UTF-8 encoding is the default therefore there is no need
+to capture this fact explicitly. It would be prudent, however, to define
+support file specific defaultLocale when the language used for the content is
+other than English. Both the S-100 Exchange Set Catalogue and S-100 Datasets
+can reference any number of support resources. The diagram below shows a
+pseudo-XML version with examples of MRN-based identifiers used as references
+between datasets and support resources. This illustrates the mechanism for
+using a predefined referencing system to interconnect the independently
+captured metadata records for datasets and support resources.
+
+[%unnumbered]
+image::img234.png[]
+
+The above diagram also illustrates the optional defaultLocale fully omitted
+for any resources encoded using English UTF-8 thus simplifying the related
+metadata content. At the same time, data producers wishing to supply support
+resources in other languages can achieve this by capturing them independently
+and adding the corresponding metadata records, including defining their
+defaultLocale, as appropriate. The diagram below shows a pseudo-XML metadata
+example of a support resource supplied as two individual files one in English
+and the other in French.
+
+[%unnumbered]
+image::img235.png[]
+
+While the localization framework currently allows a high degree of
+flexibility, data producers are strongly encouraged to apply one consistent
+multilanguage support approach across their entire S-100 product portfolios
+to ensure a consistent user experience. The recommended approach is to
+provide all support resources in any other officially supported language in
+addition to English.
+
+[[cls-17-4.9]]
+=== Encoding of maintenance information
+
+The interval described by _userDefinedMaintenanceFrequency_ is with respect
+to the issue date and time of the dataset described by this dataset discovery
+metadata block. End-user's and distributor's systems should use this interval
+for planning any automated operations to obtain the successor dataset, but
+must allow for delays or variations in the actual availability of successor
+dataset(s).
+
+[quote]
+____
+The format for _userDefinedMaintenanceFrequency_ is given by the XML built-in
+datatype _duration_, which can be validated by off-the-shelf XML parsers. See
+"_XML Schema Part 2: Datatypes (2^nd^ edition) - Clause 3.2.6 duration__"
+(relevant extracts below):
+
+The lexical representation for *duration* is the <<ISO8601>> extended format
+PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of
+months, nD the number of days, 'T' is the date/time separator, nH the number
+of hours, nM the number of minutes and nS the number of seconds. The number
+of seconds can include decimal digits to arbitrary precision.
+
+The values of the Year, Month, Day, Hour and Minutes components are not
+restricted but allow an arbitrary unsigned integer; that is, an integer that
+conforms to the pattern [0-9]+.. Similarly, the value of the Seconds
+component allows an arbitrary unsigned decimal. Following <<ISO8601>>, at
+least one digit must follow the decimal point if it appears.
+
+Reduced precision and truncated representations of this format are allowed
+provided they conform to the following:
+
+* If the number of years, months, days, hours, minutes, or seconds in any
+expression equals zero, the number and its corresponding designator *may* be
+omitted. However, at least one number and its designator *must* be present.
+* The seconds part *may* have a decimal fraction.
+* The designator 'T' must be absent if and only if all of the time items are
+absent. The designator 'P' must always be present.
+____
+
+[[cls-17-4.9.1]]
+==== Encoding and interpretation rules in S-100 metadata
+
+. [underline]#Restriction to non-negative durations#: S-100 restricts the
+duration type by prohibiting zero or negative values of duration in
+userDefinedMaintenanceFrequency.
+. [underline]#Number of digits#: S-100 recommends (but does not require)
+using 2 digits for the months, days, hours, minutes, components, when they
+are present. If the seconds component is encoded, two digits are recommended
+for the number of whole seconds (for example, encode 0.5 seconds as PT00.5S;
+encode 100 seconds as PT01M40S).
+. [underline]#Start and end instants#: The start and end instants of the
+interval calculated by combining userDefinedMaintenanceFrequency with the
+issue date/time must be interpreted according to Part 3 Clause 3-8. The value
+must be encoded appropriately; this means that smaller date/time components
+must not be encoded unless the availability of the successor dataset is known
+to the corresponding level of precision. Smaller units should be used when
+the availability is known to the corresponding precision, such as "48 hours"
+instead of "2 days" when the successor dataset availability is planned to the
+hour.
+. [underline]#Encoding of zero components#: Zero components must be encoded
+if and only if they are significant for indicating the granularity of the
+start/end instants of the interval.
+. [underline]#Variability#: A variation of stem:[pm]X should be allowed for,
+where X is the component of smallest granularity; if the value of the
+smallest component is 1, variability is unspecified.
+. [underline]#Stability for successive datasets, and exceptions#: The value
+of this attribute will normally be stable over a sequence of
+predecessor/successor datasets. The alternate encoding using maintenanceDate
+should be used for known exceptional circumstances affecting the release of a
+successor, such as an office closure at the end of the intervening period,
+reverting to normal encoding with userDefinedMaintenanceFrequency when the
+normal update schedule is restored.
+. [underline]#Off-schedule updates#: Communication of exceptional,
+unforeseeable off-schedule issues of data such as emergency hurricane
+forecasts should be provided for by other means than
+userDefinedMaintenanceFrequency or maintenanceDate attributes, since they are
+by definition unforeseeable.
+. [underline]#Supersession#: If both userDefinedMaintenanceFrequency and
+maintenanceDate are encoded in the same discovery metadata block, the
+maintenanceDate supersedes the userDefinedMaintenanceFrequency.
+
+EXAMPLES:
+
+[[tab-17-4]]
+.Maintenance metadata (examples)
+[cols="a,a,a,a,a",options=header]
+|===
+| No. | maintenanceAnd +
+UpdateFrequency | maintenanceDate | userDefined +
+MaintenanceFrequency | Remarks
+
+| 1 | - | - | P3DT10H30M | An interval of 3 days, 10 hours, and 30 minutes. Variability +/-1 minute.
+| 2 | - | - | PT6H | An interval of exactly 6 hours, with a variability of +/1 hour.
+| 3 | - | - | P30M | An interval of 30 months.
+| 4 | - | - | PT30M | An interval of 30 minutes.
+| 5 | - | - | P6H +
+P30S +
+P30M10S | Invalid (they contain time components but lack the 'T' designator)
+| 6 | - | - | PT30m | Invalid ('m' should be upper-case).
+| 7 | - | - | PT12:30 +
+P3DT10H 30M | Invalid (the ':' or space separators are not allowed, only the separators specified by the XML Schema datatypes specification for duration are allowed)
+| 8 | - | - | P1M | One month, variability unknown. According to the "Start and end instants" rule, will be interpreted as the same day in the following month, or the nearest preceding day if there is no such date in the following month.If the issue date of the current dataset is 30 August, the successor dataset can be expected to be issued between midnight at the beginning of 30 September and midnight at the end of 30 September.
+| 9 | - | - | P1M00D | One month, with a variability of +/- 1 day. With a dataset issued on January 31 2021, the next dataset is expected on February 28, 2021; with a dataset issued on January 31, 2024 means the next dataset is expected February 29, 2024. A 1-day variation before after those dates should be anticipated.
+| 10 | - | - | P30D | 30 days, variability +/- 1 day. With a dataset issued on January 31, 2021 it means the next dataset is expected on March 2, 2021; with a dataset issued on January 31, 2024 it means the next dataset is expected on March 1, 2024. A 1-day variation should be allowed for in both cases.
+| 11 | irregular | `cit:CI_Date >cit:dateType=nextUpdatecit:date=2021-10-25` | - | On 25 October 2021, at an unspecified time on that date.
+| 12 | irregular | `cit:CI_Date >cit:dateType=nextUpdatecit:date=2021-10-25T14:00:00Z` | - | On 25 October 2021, at 2 pm UTC.
+| 13 | asNeeded | `cit:CI_Date >cit:dateType=nextUpdatecit:date=2021-10-25T14:00:00Z` | - | To encode an exception to a dataset sequence normally on a regular schedule. Next dataset will be available on 25 October 2021, at 2 pm UTC.
+|===
+
+XML encoding examples:
+
+[example]
+.Dataset is updated at an interval of 6 hours:
+====
+[source%unnumbered]
+----
+<mri:resourceMaintenance>
+  <mmi:MD_MaintenanceInformation>
+    <mmi:userDefinedMaintenanceFrequency>
+      <gco:TM_PeriodDuration>PT06H</gco:TM_PeriodDuration>
+    </mmi:userDefinedMaintenanceFrequency>
+  </mmi:MD_MaintenanceInformation>
+</mri:resourceMaintenance>
+----
+====
+
+[example]
+====
+Dataset is normally updated on a regular schedule, but the next update will
+be on 1 January 2022 at 5 am local time in the time zone with UTC offset -5
+hours (for example, 5 am US Eastern Standard Time). The codeList attributes
+must be populated with the URL of the appropriate codelist, which will be in
+the ISO or S-100 Schema distribution package.
+
+[source%unnumbered]
+----
+<mri:resourceMaintenance>
+  <mmi:MD_MaintenanceInformation>
+    <mmi:maintenanceAndUpdateFrequency>
+      <mmi:MD_MaintenanceFrequencyCode codeList="http://...." codeListValue="asNeeded">
+        empty, or any text in any single language
+      </mmi:MD_MaintenanceFrequencyCode>
+    </mmi:maintenanceAndUpdateFrequency>
+    <mmi:maintenanceDate>
+      <cit:CI_Date>
+        <cit:date>
+          <gco:DateTime>2022-01-01T05:00:00-05:00</gco:DateTime>
+        </cit:date>
+        <cit:dateType>
+          <cit:CI_DateTypeCode codeList="http://..." codeListValue="nextUpdate">
+            empty, or any text in any single language
+          </cit:CI_DateTypeCode>
+        </cit:dateType>
+      </cit:CI_Date>
+    </mmi:maintenanceDate>
+  </mmi:MD_MaintenanceInformation>
+</mri:resourceMaintenance>
+----
+====
+
+[example]
+====
+Dataset has no consistent update schedule. The next update will be on 1
+January 2022 at an unspecified time.
+
+[source%unnumbered]
+----
+<mri:resourceMaintenance>
+  <mmi:MD_MaintenanceInformation>
+    <mmi:maintenanceAndUpdateFrequency>
+      <mmi:MD_MaintenanceFrequencyCode codeList="http://...." codeListValue="irregular"/>
+    </mmi:maintenanceAndUpdateFrequency>
+    <mmi:maintenanceDate>
+      <cit:CI_Date>
+        <cit:date>
+          <gco:Date>2022-01-01</gco:Date>
+        </cit:date>
+        <cit:dateType>
+          <cit:CI_DateTypeCode codeList="http://...." codeListValue="nextUpdate"/>
+        </cit:dateType>
+      </cit:CI_Date>
+    </mmi:maintenanceDate>
+  </mmi:MD_MaintenanceInformation>
+</mri:resourceMaintenance>
+----
+====

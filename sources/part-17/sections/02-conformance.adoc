@@ -1,0 +1,18 @@
+== Conformance
+
+=== Conformance of this Profile with other Standards
+
+The S-100 Discovery Metadata for Information Exchange Catalogues profile
+adopts data types defined in other ISO standards, mainly in <<ISO19115-1>>,
+<<ISO19115-3>>, Geographic information - Metadata - XML Schema implementation
+for fundamental concepts and <<ISO19136>>, along with their underlying
+obligations and conditions. The XML Schema references related to these
+external data types are embedded in the XML Schemas for this profile, thus
+ensuring the conformance of this profile with other standards during
+authoring and validation of XML catalogue instances.
+
+=== Conformance to this Profile
+
+The conformance to this profile can be confirmed by validating XML catalogue
+instances against the S-100 Metadata Profile Schemas which are available from
+the IHO S-100 repository.

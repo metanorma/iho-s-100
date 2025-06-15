@@ -1,0 +1,26 @@
+== Scope
+
+The S-100 Discovery Metadata for Information Exchange Catalogues profile
+described in this Part provides a specification for describing and creating
+Exchange Catalogues that enables users to identify, discover and manage
+content of the S-100 Exchange Sets. More importantly it leverages XML to
+allow machine to machine discovery and exchange of information about
+geographic datasets commonly produced by hydrographic organizations. Its
+purpose is the creation of metadata records that provide information about
+the identification, spatial and temporal extent, quality, Application Schema,
+spatial reference system, and distribution of digital geographic data. It is
+applicable to the cataloguing of datasets, clearinghouse activities, and the
+full description of geographic and non-geographic resources.
+
+For information exchange, there are several categories of metadata required:
+metadata about the overall Exchange Catalogue, metadata about each of the
+datasets contained in the Catalogue, and metadata about the support files
+that make up the package. If the Exchange Catalogue contains any Feature,
+Portrayal or Interoperability Catalogues there is a provision to carry
+additional metadata about those.
+
+This document is intended for developers and implementers of metadata
+applications, and provides a basic understanding of the principles and the
+overall requirements for standardisation of geographic information. It should
+be used in conjunction with the standards listed under clause 4a-4 --
+Normative references.
