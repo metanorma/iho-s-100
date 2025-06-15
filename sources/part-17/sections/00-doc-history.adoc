@@ -1,0 +1,36 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Added clarification regarding fileless dataset cancellation.
+      location: part=17,clause="17-4.4.1"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Updated Figure 17-7 to change S100_SE_DigitalSignatureReference enumeration value to ECDSA-384-SHA2 (value 8).
+      location: part=17,clause="17-4.4.1"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Added clarification that the S-100 Exchange Catalogue profile cannot be extended at the Product Specification level.
+      location: part=17,clause="17-4.5"
+- date:
+  - type: updated
+    value:  2024-06
+  edition: 5.2.0
+  amend:
+    - description: Added new note for Class table S100_DataCoverage specifying the method by which the boundingPolygon is to be represented in GML encoding.
+      location: part=17,clause="17-4.5"
+----

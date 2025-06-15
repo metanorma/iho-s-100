@@ -1,0 +1,52 @@
+[[cls-17-3]]
+== Normative references
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including
+amendments) applies.
+
+[bibliography]
+=== Profile definition
+
+The following documents were the references used to define the S-100 Metadata
+Profile:
+
+* [[[ISO19115-1,ISO 19115-1:2014]]]
+
+* [[[ISO19915-1-amd,ISO 19115-1/Amd 1:2018]]]
+
+* [[[ISO19115-2,ISO 19115-2:2009]]]
+
+* [[[ISO19119,ISO 19119:2016]]]
+
+* [[[ISO19115-3,ISO/TS 19115-3:2016]]]
+
+[bibliography]
+=== Informative references
+
+* [[[ISO19115,ISO 19115:2003]]]
+
+* [[[ISO19115-cor,ISO 19115:2003/Cor.1:2006]]]
+
+* [[[ISO19139,ISO/TS 19139:2007]]]
+
+* [[[ISO19136,hidden(ISO 19136)]]]
+
+* [[[S98,hidden(IHO S-98)]]]
+
+* [[[ISO3166-1,hidden(ISO 3166-1)]]]
+
+* [[[ISO8601,hidden(ISO 8601)]]]
+
+* [[[ISO8211,hidden(ISO 8211)]]]
+
+* [[[ISO639-2,hidden(ISO 639-2)]]]
+
+* [[[ISO15444,hidden(ISO/IEC 15444 (all parts))]]]
+
+* [[[ISO19005,hidden(ISO 19005 (all parts))]]]
+
+* [[[ISO32000,hidden(ISO 32000 (all parts))]]]
+
+* [[[ISO3166-2,hidden(ISO 3166-2)]]]
