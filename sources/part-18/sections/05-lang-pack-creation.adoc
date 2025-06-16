@@ -1,0 +1,48 @@
+[[cls-18-5]]
+== Language Pack Creation
+
+[[cls-18-5.1]]
+=== Authoring
+
+Language Pack authors are responsible for the definition of translated content
+for a particular language for selected elements of content. While some elements
+may always require translations (such as definitions of features or information
+types), others (such as language nonspecific enumeration names) may not. It is
+the responsibility of the language pack author to determine which elements
+require translation.
+
+Translations may be revised over time and so the schema makes provision for
+revisions to, optionally, be contained within a language pack. These are not
+expected to be implemented by end user systems, however, and each language pack
+delivered to end user systems defines a complete translation of the required
+elements in the source XML into the target language.
+
+[[cls-18-5.2]]
+=== Distribution
+
+S-100 Part 17 Exchange Catalogue enables the inclusion of zero or more language
+packs within S-100 Exchange Sets for distribution to end users. Such language
+packs can be included alongside the content to which they refer or
+independently to supplement pre-installed content on the end user system.
+
+Where they are delivered alongside the content to which they refer, then they
+shall be referenced to the content by association in the Exchange Catalogue
+using the mechanisms defined for supporting resources within that Part. As
+Exchange Set content they will be digitally signed.
+
+There is no specific filename convention for language packs but as supporting
+resources they shall use the filename convention defined in Part 17.
+
+To avoid ambiguity Exchange Sets shall only contain a single language pack for
+any given source resource in a given target language.
+
+[[cls-18-5.3]]
+=== Implementation
+
+The implementer of the S-100 system is responsible for correctly interpreting
+delivered language packs and performing the content value substitution
+correctly. The implementer is also responsible for providing support for
+multiple language packs and any harmonization with multi-lingual support within
+S-100 product datasets. This can provide the end user with a harmonized
+experience where data content and associated user interface elements are
+configured using the same language specifiers.

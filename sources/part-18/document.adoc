@@ -1,0 +1,34 @@
+= Universal Hydrographic Data Model -- Part 18: Language Packs
+:series: S
+:docnumber: 100
+:doctype: specification
+:edition: 5.2.0
+:language: en
+:published-date: 2024-06
+:copyright-year: 2024
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-norm-refs.adoc[]
+
+include::sections/03-description.adoc[]
+
+include::sections/04-lang-pack-model.adoc[]
+
+include::sections/05-lang-pack-creation.adoc[]
+
+include::sections/06-lang-pack-schema.adoc[]
+
+include::sections/aa-lang-packs.adoc[]

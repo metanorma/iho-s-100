@@ -1,0 +1,44 @@
+[[cls-18-3]]
+== General Description
+
+Under S-100 a number of XML Schemas are defined. These are used in variety of
+contexts within the framework and by data producers and implementers to define
+XML content. This part introduces the concept of "language packs" to enable
+multi-lingual support specific to XML content.
+
+For specific XML "source" content, a language pack is a published XML dataset
+which provides translations of selected elements of the source content. A
+language pack is, itself, XML content with a schema defined under S-100,
+described in <<cls-18-6>>.
+
+This mechanism enables transformation of selected elements of the source
+content from one language (the "source language") to another (the "target
+language").
+
+[[fig-18-1]]
+.Language pack support process
+image::img236.png[]
+
+Multiple language packs may also be constructed to define multi-lingual
+translations of (potentially different) content from the Source XML. For
+example:
+
+[[fig-18-2]]
+.Example multi-lingual support
+image::img237.png[]
+
+Note that the language pack only provides a list of translations for specific
+identified elements within the source content. A version of the source content
+with all the relevant elements translated is not necessarily produced. The
+language pack and the source content are distributed and used together by
+implementing systems to provide multi-lingual support to an end user
+
+For example, in <<fig-18-3>> below an XML Feature Catalogue and three language
+packs, together with a dataset are delivered in an Exchange Set to an
+implementing system. The dataset provides the data content and the Feature
+Catalogue and its language packs provides multi-lingual support for the user
+interface elements (for example, legends and textual descriptions of features).
+
+[[fig-18-3]]
+.Multi-lingual support -- Exchange Set to implementing system
+image::img238.png[]
