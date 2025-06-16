@@ -1,0 +1,56 @@
+[[cls-18-4]]
+== Language Pack Model
+
+The model of a language pack is described in <<fig-18-4>> below.
+
+[[fig-18-4]]
+.Language pack model
+image::img239.png[]
+
+The *_TranslationPackageType_* consists of a minimal set of header information
+and a sequence of source files elements. Each of the *_SourceFileType_*
+elements has a header to identify the resource and a set of items that hold the
+information for one text element in the resource to be translated.
+
+Model details are in the following Tables. Note that most classes exist in a
+namespace *S100_LA*. This prefix is not part of the class names but logically
+belongs to them. Exceptions are marked in the Tables.
+
+[%landscape]
+<<<
+
+[yaml2text,sections/tables/tables.yaml,data]
+----
+{% for item in data %}
+[[cls-18-4.{{forloop.index}}]]
+=== {{item.table}}
+
+{% assign first = item.rows[0] %}
+{% assign has_extra = first.mult or first.type %}
+
+.{{item.table}}
+{% if has_extra %}
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+{% for row in item.rows %}
+| {{row.role}} | {{row.name}} | {{row.description}} | {{row.mult}} | {{row.type}} | {{row.remarks}}
+{% endfor %}
+|===
+{% else %}
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+{% for row in item.rows %}
+| {{row.item}} | {{row.name}} | {{row.description}} | {{row.code}} | {{row.remarks}}
+{% endfor %}
+|===
+{% endif %}
+
+{% endfor %}
+----
+
+[%portrait]
+<<<

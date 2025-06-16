@@ -1,0 +1,19 @@
+[bibliography]
+== Normative References
+
+The following referenced documents are required for the application of this
+document. For dated references, only the edition cited applies. For undated
+references, the latest edition of the referenced document (including
+amendments) applies:
+
+* [[[xml,XML Schema]]],
+_span:title[XML Schema: W3C XML Schema]_
+
+* [[[xpath,XPath Specification]]],
+_span:title[XPath Specification: W3C specification]._
+span:date[2017-3-21]:
+span:uri[https://www.w3.org/TR/xpath/]
+
+* [[[ISO639-2,ISO 639-2]]]
+
+* [[[ISO19115,hidden(ISO 19115)]]]

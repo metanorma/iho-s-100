@@ -1,0 +1,369 @@
+[[cls-18-6]]
+== Language Pack Schema
+
+[[cls-18-6.1]]
+=== Schema Overview
+
+Under this Part of S-100 a language pack is created as XML content conforming
+to the language pack Schema. This Schema is comprised of two components:
+
+. A header defining:
+.. The language implemented in the language pack.
+.. The language pack producer and time/date of issue.
+. Translation entries for one (or more) source XML resources. Each source XML
+resource is identified by a URI and a single element which identifies its
+revision. A sequence of translation entries for each source is given, each
+containing (as a minimum):
+.. A location specifier of an element in the source XML. This is specified
+using an XPath specification.
+.. The translated text of the element.
+
+For the purposes of assisting the process of language pack creation, and
+maintenance the language pack Schema may also optionally contain, for each
+translation entry:
+
+. The source content, from which the translation is made.
+. A state value for the translation.
+
+The root _translationPackage_ element defines the language supported by the
+language pack (the destination language), the issue date and time and language
+pack producer. The _translationPackage_ then contains any number of
+_sourceFile_ translations providing translations into the destination language.
+All languages are specified using <<ISO639-2>> with descriptors contained in
+the S-100 Schema codelists. This ensures languages specified in language packs
+use the same descriptors as languages contained in dataset encodings.
+
+The _sourceFile_ element contains a header identifying the source xml file for
+which the translation is provided. Unique identification of the source resource
+is accomplished by matching defined XPath resources in the source with defined
+values in the language pack _translationPackage_ identification element. This
+is because such unique identifiers may differ between different S-100 XML
+schemas and so a general path specification is used to enable unique
+identification of any XML content within S-100.
+
+_TranslationItems_ define the translations themselves. The _path_ attribute in
+an instance of a _TranslationItemType_ will point to either an element or an
+attribute in the source file using an XPath expression. The expression must
+uniquely define one element, hence a query on the XML DOM tree must return
+exactly one node.
+
+For example, given the following XML source content:
+
+[source%unnumbered,xml]
+----
+<{{{span:highlight-y[S100FC:S100_FC_FeatureCatalogue]}}} xmlns:S100FC=http://www.iho.int/S100FC ...
+...
+  <{{{span:highlight-y[S100FC:S100_FC_SimpleAttributes]}}}>
+    <{{{span:highlight-y[S100FC:S100_FC_SimpleAttribute]}}}>
+      <{{{span:highlight-y[S100FC:name]}}}>Category of opping</S100FC:name>
+      <S100FC:definition>Topping on a pizza (a maximum of four)</S100FC:definition>
+      <{{{span:highlight-g[S100FC:code>categoryOfTopping</S100FC:code]}}}>
+----
+
+A simplified tree structure of the above XML file is shown in <<fig-18-5>>
+below:
+
+[[fig-18-5]]
+.Feature Catalogue tree structure (example)
+image::img240.png[]
+
+The XPath expression:
+
+[source%unnumbered]
+----
+/{{{span:highlight-y[S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute]}}}[{{{span:highlight-g[./S100FC:code/text()='categoryOfTopping']}}}]/{{{span:highlight-y[S100FC:name]}}}
+----
+
+would locate the marked element by first locating elements with the name
+*__S100FC:S100_FC_Simple_Attribute__* with parent
+*S100FC:S100_FCSimpleAttributes* (and *S100FC:S100_FC_FeatureCatalog)* that has
+a child *_S100FC:code_* with a text of "_categoryOfTopping_". The child
+*S100FC:name* is then selected and then used as the reference for translation.
+In the general case where elements have the same code the XPath expression
+could be ambiguous. This problem does not arise In Feature Catalogues as the
+*S100FC:code* is always unique so expressions referring to codes guarantees an
+unambiguous path specification in the _TranslationItem_.
+
+The TranslationItem is then encoded with a translation of the text of the
+element (the name) in the destination language and any optional state or
+revision information.
+
+[[cls-18-6.2]]
+=== Schema implementation
+
+The Schema is defined in the namespace:
+
+[source%unnumbered,xml]
+----
+xmlns="http://www.iho.int/s100/la/5.0"
+----
+
+It uses types from two <<ISO19115>> Schemas:
+
+[source%unnumbered,xml]
+----
+xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+----
+
+The following settings are made for this Schema:
+
+[source%unnumbered,xml]
+----
+targetNamespace="http://www.iho.int/S100/la/5.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified"
+----
+
+In the Schema the type *Status* is implemented as a simple type as follows:
+
+[source%unnumbered,xml]
+----
+<xs:simpleType name="Status">
+  <xs:annotation>
+    <xs:documentation>
+    The status of the translation item. The purpose is manly to support the functionality of an translation tool.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="New">
+      <xs:annotation>
+        <xs:documentation>
+        The item is new, there is no translation available yet.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    <xs:enumeration value="Modified">
+      <xs:annotation>
+        <xs:documentation>
+        The original text has been changed in the source
+        </xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    <xs:enumeration value="Deleted">
+      <xs:annotation>
+        <xs:documentation>
+        The text defined by path is not longer available in the source document.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+    <xs:enumeration value="Translated">
+      <xs:annotation>
+        <xs:documentation>
+        The item has a valid translation.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:enumeration>
+  </xs:restriction>
+</xs:simpleType>
+----
+
+For the definition of the language a complex type *LanguageType* is defined
+that is using an element of the type *gco:CodeListValue_Type* (from
+<<ISO19115>>):
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="LanguageType">
+  <xs:sequence>
+    <xs:element name="languageCode" type="gco:CodeListValue_Type"/>
+  </xs:sequence>
+</xs:complexType>
+----
+
+Each translation item is defined by the type *TranslationItemType*:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="TranslationItemType">
+  <xs:annotation>
+    <xs:documentation>
+    One item to be translated. This will be a uniquely identifiable element or attribute in a source (XML) file
+    </xs:documentation>
+  </xs:annotation>
+  <xs:sequence>
+    <xs:element name="path" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        The XPath that defines the 'source' text.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="original" type="xs:string" minOccurs="0">
+      <xs:annotation>
+        <xs:documentation>
+        The original text as exists in the source document.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="status" type="Status"minOccurs="0">
+      <xs:annotation>
+        <xs:documentation>
+        The status of the translation item
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="translation" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        The translated text.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+----
+
+The type *ResourceIdentification* contains the information to identify a source
+file. This defines an XPath to the version element in the source and the value
+that this element in the source file must have:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="ResourceIdentification">
+  <xs:annotation>
+    <xs:documentation>
+    Information to identify a specific version of an (XML) file.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:sequence>
+    <xs:element name="path" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        The XPath to the element or attribute that allows the unique identification of the source file.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="value" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+        The value of the element or attribute that describes the identification of the source file. e.g. the version or issue date
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+----
+
+The type *SourceHeaderType* contains the information on the source file as the
+filename and an identification mechanism:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="SourceHeaderType">
+  <xs:annotation>
+    <xs:documentation>
+    Information to identyfing the source file. It supports mechanism to distinguish different versions of a source file.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:sequence>
+    <xs:element name="resourceIdentifier" type="xs:anyURI"/>
+    <xs:element name="identification" type="ResourceIdentification"minOccurs="0" maxOccurs="unbounded">
+      <xs:annotation>
+        <xs:documentation>
+        Identification by one or more elements or attributes in the source file.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+----
+
+The type *SourceFileType* contains the header information of the file and a
+list of translation items for that file:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="SourceFileType">
+  <xs:sequence>
+    <xs:element name="header" type="SourceHeaderType"/>
+    <xs:element name="translationItem" type="TranslationItemType" minOccurs="0" maxOccurs="unbounded">
+      <xs:annotation>
+        <xs:documentation>
+        The list of translation items.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+----
+
+The last type defined by the Schema is the type *TranslationPackageFile*:
+
+[source%unnumbered,xml]
+----
+<xs:complexType name="TranslationPackageType">
+  <xs:sequence>
+    <xs:element name="language" type="LanguageType">
+      <xs:annotation>
+        <xs:documentation>
+        The language that will be supported by this translation file.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name="issueDate" type="xs:date"/>
+    <xs:element name="issueTime" type="xs:time" minOccurs="0"/>
+    <xs:element name="responsibleParty" type="cit:CI_Responsibility_PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="sourceFile" type="SourceFileType" maxOccurs="unbounded">
+      <xs:annotation>
+        <xs:documentation>
+        The list of source files for that this translation file provides translations.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+----
+
+This defines the metadata of the translation file as:
+
+* Language;
+* Issue date;
+* Issue time;
+* The responsible party;
+
+and a list of source files with their translations.
+
+Note that for the responsible party the type
+*cit:CI_Responsibility_PropertyType* is used.
+
+A possible encoding would look like:
+
+[source%unnumbered,xml]
+----
+<S100LA:responsibleParty>
+  <cit:CI_Responsibility>
+    <cit:role>
+      <cit:CI_RoleCodecodeList="codeListLocation#CI_RoleCode"
+      codeListValue="custodian">custodian</cit:CI_RoleCode>
+    </cit:role>
+    <cit:party>
+      <cit:CI_Individual>
+        <cit:name>
+          <gco:CharacterString>Max Mustermann</gco:CharacterString>
+        </cit:name>
+      </cit:CI_Individual>
+    </cit:party>
+  </cit:CI_Responsibility>
+</S100LA:responsibleParty>
+----
+
+As an alternative to the element `<cit:CI_Individual>` the element
+`<cit:CI_Organisation>` can be used if the producer is an organization rather
+than an individual. The predefined roles for the responsible party are defined
+in the appropriate codelist by the S-100 Schemas. Note that the predefined list
+of roles for a responsible party are. Although there is no value for
+'_translator_', '_contributor_' could be used for this role if required.
+
+Finally, the Schema defines the root element of a translation file:
+
+[source%unnumbered,xml]
+----
+<xs:element name="translationPackage" type="TranslationPackageType">
+  <xs:annotation>
+    <xs:documentation>
+    The root element of a translation file.
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+----

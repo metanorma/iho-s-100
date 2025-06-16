@@ -1,0 +1,19 @@
+== Scope
+
+This Part of S-100 details how multi-lingual support for XML elements of the
+framework may be implemented. A generic mechanism and structures are described
+for production of individual language packs which implement translations of any
+XML content.
+
+This is designed to provide multi-lingual instances of XML resources which
+support Product Specifications for provision to end users. Implementing systems
+are then able to construct translated instances of those supporting resources.
+This Part is not specific to any one individual class of XML resource. It does
+not detail how multi-lingual support may be added to S-100 Product
+Specifications, datasets or any external resources they may reference. It
+provides a generic mechanism which can be applied to any XML based elements of
+the S-100 framework to adapt them for multi-lingual implementations.
+
+This Part of S-100 provides the generic methodology for implementing such
+support and informative examples for a primary use case, the creation of
+multi-lingual support for S-100 Feature Catalogues.

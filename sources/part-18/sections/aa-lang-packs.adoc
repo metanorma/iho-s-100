@@ -1,0 +1,323 @@
+[[app-18-A]]
+[appendix,obligation=informative]
+== Language Packs for Feature Catalogues
+
+Although, as stated in the introduction to this Part, language pack production
+can be applied to any S-100 XML content, the primary use case is the production
+of language packs to support Feature Catalogues for implementing systems. This
+allows systems (either for end users or data producers) to use translated
+versions of Feature Catalogue entries such as features, information types,
+attributes and relationships.
+
+In this example implementation an individual Feature Catalogue, defined by an
+S-100 Product Specification process contains a number of elements which could,
+potentially, be translated.
+
+A set of translations is prepared of those fields required and a language pack
+is constructed, conformant with the language pack schema, which implements a
+particular language for the given Feature Catalogue.
+
+[[fig-18-A-1]]
+.Language packs in S-100
+image::img241.png[]
+
+This language pack, together with the Feature Catalogue can then be distributed
+to end users for implementation by the end user system. The end user system is
+able to either construct a version of the Feature Catalogue in the language
+given, or interleave the translated items as required, at runtime. This is
+implementation-specific.
+
+As certain elements are used as references in feature catalogues to provide
+bindings between entries (for example, feature attribute binding references)
+care should be taken to ensure such mappings remain intact, should end user
+systems choose to create complete translations of the Feature Catalogue at
+runtime. This would preclude the S100_FC_Item code field from translation as it
+provides the reference in attribute and sub-attribute bindings.
+
+Language packs for feature catalogues should use the following fields for
+product and version identification of the source Feature Catalogue:
+
+* `/S100FC:S100_FC_FeatureCatalogue/S100FC:name`
+* `/S100FC:S100_FC_FeatureCatalogue/S100FC:versionNumber`
+* `/S100FC:S100_FC_FeatureCatalogue/S100FC:versionDate`
+
+The following fields are candidates for translation in a feature catalogue
+language pack (Feature Catalogue XPath locations).
+
+*General elements:*
+
+* `/S100FC:S100_FC_FeatureCatalogue/S100FC:scope`
+* `/S100FC:S100_FC_FeatureCatalogue/S100FC:fieldOfApplication`
+
+*Simple Attributes:*
+
+Name, definition, and remarks are subject of translation. Note that a predicate
+must be used to uniquely identify the element in the source file.
+
+In the predicate `[./S100FC:code/text()=*_'code'_*]`, `*_'code'_*`
+will be the code of the attribute; for example, '`categoryOfLight`'.
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:remarks
+----
+
+*Listed values of enumeration attributes:*
+
+Label, definition, and remarks are subject of translation.
+
+Note that that here two predicates are required one for the attribute code and
+one for the enumeration code of the listed value.
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()={{{*_'enumerationValue'_*}}}]/S100FC:label
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()={{{*_'enumerationValue'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()={{{*_'enumerationValue'_*}}}]/S100FC:remarks
+----
+
+*Complex Attributes:*
+
+Similar to simple attributes.
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_ComplexAttributes/S100FC:S100_FC_ComplexAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_ ComplexAttributes /S100FC:S100_FC_ComplexAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_ ComplexAttributes /S100FC:S100_FC_ComplexAttribute[./S100FC:code/text()={{{*_'attributeCode'_*}}}]/S100FC:remarks
+----
+
+*Roles:*
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_Roles/S100FC:S100_FC_Role[./S100FC:code/text()={{{*_'roleCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_Roles/S100FC:S100_FC_Role[./S100FC:code/text()={{{*_'roleCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_Roles/S100FC:S100_FC_Role[./S100FC:code/text()={{{*_'roleCode'_*}}}]/S100FC:remarks
+----
+
+*InformationAssociations:*
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationAssociations/S100FC:S100_FC_InformationAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationAssociations/S100FC:S100_FC_InformationAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationAssociations/S100FC:S100_FC_InformationAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:remarks
+----
+
+*FeatureAssociations:*
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureAssociations/S100FC:S100_FC_FeatureAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureAssociations/S100FC:S100_FC_FeatureAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureAssociations/S100FC:S100_FC_FeatureAssociation[./S100FC:code/text()={{{*_'associationCode'_*}}}]/S100FC:remarks
+----
+
+*InformationTypes:*
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationTypes/S100FC:S100_FC_InformationType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationTypes/S100FC:S100_FC_InformationType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_InformationTypes/S100FC:S100_FC_InformationType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:remarks
+----
+
+*FeatureTypes:*
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureTypes/S100FC:S100_FC_FeatureType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:name
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureTypes/S100FC:S100_FC_FeatureType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:definition
+----
+
+[source%unnumbered]
+----
+/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_FeatureTypes/S100FC:S100_FC_FeatureType[./S100FC:code/text()={{{*_'typeCode'_*}}}]/S100FC:remarks
+----
+
+As stated in <<cls-18-5>>, Feature Catalogues may produce translations of some
+or all of these fields, depending on the preference of the language pack author.
+
+An example of some of these fields are shown in the extract from an S-101
+feature catalogue below:
+
+[source%unnumbered,xml]
+----
+<S100FC:S100_FC_SimpleAttribute>
+  <S100FC:name>Category of Light</S100FC:name>
+  <S100FC:definition>Classification of different light types.</S100FC:definition>
+  <S100FC:code>categoryOfLight</S100FC:code>
+  <S100FC:remarks>All lights are considered to be marine lights unless the category of light indicates otherwise.</S100FC:remarks>
+  <S100FC:alias>CATLIT</S100FC:alias>
+  <S100FC:definitionReference>
+    <S100FC:sourceIdentifier>88</S100FC:sourceIdentifier>
+    <S100FC:definitionSource ref="IHOREG"/>
+  </S100FC:definitionReference>
+  <S100FC:valueType>enumeration</S100FC:valueType>
+  <S100FC:listedValues>
+    <S100FC:listedValue>
+    <S100FC:label>Leading Light</S100FC:label>
+    <S100FC:definition>A light associated with other lights so as to form a leading line to be followed.</S100FC:definition>
+    <S100FC:code>4</S100FC:code>
+    <S100FC:definitionReference>
+      <S100FC:sourceIdentifier>863</S100FC:sourceIdentifier>
+      <S100FC:definitionSource ref="IHOREG"/>
+    </S100FC:definitionReference>
+  </S100FC:listedValue>
+  <S100FC:listedValue>
+    <S100FC:label>Aero Light</S100FC:label>
+    <S100FC:definition>An aero light is established for aeronautical navigation and may be of higher power than marine lights and visible from well offshore.</S100FC:definition>
+    <S100FC:code>5</S100FC:code>
+    <S100FC:definitionReference>
+      <S100FC:sourceIdentifier>864</S100FC:sourceIdentifier>
+      <S100FC:definitionSource ref="IHOREG"/>
+    </S100FC:definitionReference>
+  </S100FC:listedValue>
+----
+
+This section of the S-101 Feature Catalogue would result in the following
+translations included in a German S-101 feature catalogue language pack:
+
+[[tab-18-A-1]]
+.Language pack translation (examples)
+[cols="a,a,a",options=header]
+|===
+| Element | English Text | German Text
+
+| *Name[code=**categoryOfLight]* | Category of Light | Kategorie des Leuchtfeuers
+| *Definition[code=**categoryOfLight]* | Classification of different light types | Die Systematik der unterschiedlichen Leuchtfeuerarten
+| *Remarks[code=**categoryOfLight]* | All lights are considered to be marine lights unless the category of light indicates otherwise | Alle Leuchtfeuer werden als maritime Leuchtfeuer betrachtet, solange die Kategorie nichts anderes angibt.
+| *listedValue/label[code=4]* | Leading Light | Richtfeuer
+| *listedValue/definition[code=4]* | A light associated with other lights so as to form a leading line to be followed. | Ein Feuer, dass zusammen mit anderen Feuern eine Linie bestimmt, der gefolgt werden muss.
+| *listedValue/label[code=5]* | Aero Light | Luftfahrtfeuer
+| *listedValue/definition[code=5]* | An aero light is established for aeronautical navigation and may be of higher power than marine lights and visible from well offshore | Feuer für Luftfahrtsnavigation.
+
+Hat eventuell eine höhere Leuchtstärke als maritime Leuchtfeuer und kann weit vor der Küste sichtbar sein.
+|===
+
+The values in the table would be encoded in the German S-101 language pack, as
+demonstrated in the following XML fragment.
+
+Note that not all items are translated in this example. For those that are
+translated the status is set to 'Translated'. All other items have still the
+status 'New' meaning not yet translated.
+
+[source%unnumbered,xml]
+----
+<S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:name</S100LA:path>
+    <S100LA:original>Category of Light</S100LA:original>
+    <S100LA:status>Translated</S100LA:status>
+    <S100LA:translation>Kategorie des Leuchtfeuers</S100LA:translation>
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:definition</S100LA:path>
+    <S100LA:original>Classification of different light types.</S100LA:original>
+    <S100LA:status>Translated</S100LA:status>
+    <S100LA:translation>Die Systematik der unterschiedlichen Leuchtfeuerarten </S100LA:translation>
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:remarks</S100LA:path>
+    <S100LA:original>All lights are considered to be marine lights unless the category of light indicates otherwise.</S100LA:original>
+    <S100LA:status>New</S100LA:status>
+    <S100LA:translation />
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()='4']/S100FC:label</S100LA:path>
+    <S100LA:original>Leading Light</S100LA:original>
+    <S100LA:status>New</S100LA:status>
+    <S100LA:translation />
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()='4']/S100FC:definition</S100LA:path>
+    <S100LA:original>A light associated with other lights so as to form a leading line to be followed.</S100LA:original>
+    <S100LA:status>New</S100LA:status>
+    <S100LA:translation />
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()='5']/S100FC:label</S100LA:path>
+    <S100LA:original>Aero Light</S100LA:original>
+    <S100LA:status>New</S100LA:status>
+    <S100LA:translation />
+  </S100LA:translationItem>
+  <S100LA:translationItem>
+
+<S100LA:path>/S100FC:S100_FC_FeatureCatalogue/S100FC:S100_FC_SimpleAttributes/S100FC:S100_FC_SimpleAttribute[./S100FC:code/text()='categoryOfLight']/S100FC:listedValues/S100FC:listedValue[./S100FC:code/text()='5']/S100FC:definition</S100LA:path>
+    <S100LA:original>An aero light is established for aeronautical navigation and may be of higher power than marine lights and visible from well offshore.</S100LA:original>
+    <S100LA:status>New</S100LA:status>
+    <S100LA:translation />
+  </S100LA:translationItem>
+----
+
+This language pack would be named according to the naming convention in S-100
+Part 17 and would support a Feature Catalogue using the reference structure
+defined.
