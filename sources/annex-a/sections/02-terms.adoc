@@ -1,0 +1,1923 @@
+== Terms and Definitions
+
+=== 2.5 dimension
+
+two-dimensional topology used with a three-dimensional coordinate system
+constrained to a two-dimensional manifold
+
+.[source]
+<<ISO19107>>
+
+=== abstract class
+
+an abstract class defines a polymorphic object class which cannot be
+instantiated
+
+.[source]
+<<ISO19103>>
+
+=== accuracy
+
+closeness of agreement between a test result and the accepted reference values
+
+.[source]
+<<ISO3534-1>>
+
+NOTE: A test result can be from an observation or measurement.
+
+=== addition
+
+insertion of an item into the register
+
+.[source]
+<<ISO19135>>
+
+=== affine coordinate system
+
+coordinate system in Euclidean space with straight axes that are not
+necessarily mutually perpendicular
+
+.[source]
+<<ISO19111>>
+
+=== aggregation
+
+special form of association that specifies a whole-part relationship between
+the aggregate (whole) and a component part (see {{composition}})
+
+.[source]
+<<ISO19103>>
+
+=== annotation
+
+any marking on illustrative material for the purpose of clarification
+
+NOTE: Numbers, letters, {{symbol,symbols}}, and signs are examples of
+annotation.
+
+.[source]
+<<ISO19117,section=4.1>>
+
+=== application programming interface
+
+one implementation of the required application services as defined in
+<<IEC61162-401>>
+
+NOTE: One API from one manufacturer may be different from another API,
+although the basic functionality is the same.
+
+=== application schema
+
+conceptual schema for data required by one or more applications
+
+.[source]
+<<ISO19101>>
+
+=== association
+
+semantic relationship between two or more classifiers that specifies
+connections among their instances
+
+.[source]
+<<ISO19103>>
+
+NOTE: A binary association is an association among exactly two classifiers
+(including the possibility of an association from a classifier to itself).
+
+=== attribute
+
+. named property of an entity
++
+--
+NOTE: Describes a geometrical, topological, thematic, or other characteristic
+of an entity.
+--
+. feature within a classifier that describes a range of values that instances
+of the classifier may hold
++
+--
+NOTE: An attribute is semantically equivalent to a composition association;
+however, the intent and usage is normally different.
+
+NOTE: "Feature" used in this definition is the UML meaning of the term and is
+not meant as defined in clause 4 of this part.
+--
+
+.[source]
+<<ISO2382-17>>
+
+=== A-profile
+
+communication protocol supplying application services (see OSI 5 to 7)
+
+=== band
+
+range of wavelengths of electromagnetic radiation that produce a single
+response by a sensing device
+
+.[source]
+<<ISO19101-2>>
+
+=== base standard
+
+ISO geographic information standard or other information technology standard
+that is used as a source from which a profile may be constructed
+
+.[source]
+<<ISO19106>>
+
+=== BLOB
+alt:[Binary Large Object]
+
+a collection of binary data stored as a single entity
+
+=== boundary
+
+set that represents the limit of an entity
+
+.[source]
+<<ISO19107>>
+
+NOTE: Boundary is most commonly used in the context of geometry, where the set
+is a collection of points or a collection of objects that represent those
+points.
+
+=== cartesian coordinate system
+
+coordinate system which gives the position of points relative to stem:[n]
+mutually perpendicular axes
+
+.[source]
+<<ISO19111>>
+
+=== character
+
+in online data exchange: an octet containing a code from the set defined in
+<<ISO8859-1>>. The null character (octet containing all zero bits) may have
+special meaning
+
+=== chart window
+
+the portion of the screen that is displaying chart feature information in a
+graphical representation similar to that of a nautical chart
+
+=== clarification
+
+non-substantive change to a register item
+
+.[source]
+<<ISO19135>>
+
+NOTE: A non-substantive change does not change the semantics or technical
+meaning of the item. A clarification does not result in a change to the
+registration status of the register item.
+
+=== class
+
+description of a set of objects that share the same attributes, operations,
+methods, relationships, and semantics
+
+.[source]
+<<ISO19103>>
+
+NOTE: A class represents a concept within the system being modelled. Depending
+on the kind of model, the concept may be real-world (for an analysis model),
+or it may also contain algorithmic and computer implementation concepts (for a
+design model). A classifier is a generalization of class that includes other
+class-like elements, such as data type, actor and component.
+
+NOTE: A class may use a set of interfaces to specify collections of operations
+it provides to its environment. See: interface.
+
+=== classification
+
+the process of determining the appropriate type within a feature catalogue for
+a particular real world feature, including consideration of data quality
+
+=== classifier
+
+mechanism that describes behavioural and structural features
+
+.[source]
+<<ISO19103>>
+
+NOTE: Classifiers include interfaces, classes, datatypes, and components.
+
+=== client
+
+a technical entity (for example: Device, Program) which uses a service
+
+=== co-attribute (of an attribute)
+
+a sub-attribute of the same complex attribute; an attribute of the same
+feature or information type
+
+=== code list
+
+value domain including a code for a permissible value
+
+.[source]
+<<ISO19136>>
+
+=== colour token
+
+an identifier for a colour in a palette
+
+=== complex attribute
+
+an aggregation of other attributes which may be either simple or complex
+
+.[source]
+<<ISO19109>>
+
+=== composite curve
+
+sequence of curves such that each curve (except the first) starts at the end
+point of the previous curve in the sequence
+
+.[source]
+<<ISO19107>>
+
+=== composition
+
+form of aggregation association with strong ownership and coincident lifetime
+as part of the whole
+
+.[source]
+<<ISO19103>>
+
+NOTE: Parts with non-fixed multiplicity may be created after the composite
+itself, but once created they live and die with it (that is, they share
+lifetimes). Such parts can also be explicitly removed before the death of the
+composite. Composition may be recursive. Synonym: composite aggregation.
+
+=== compound coordinate reference system
+
+coordinate reference system using at least two independent coordinate
+reference systems
+
+.[source]
+<<ISO19111>>
+
+=== concatenated coordinate operation
+
+coordinate operation consisting of sequential application of multiple
+coordinate operations
+
+.[source]
+<<ISO19111>>
+
+=== conceptual model
+
+model that defines the concepts of a universe of discourse
+
+.[source]
+<<ISO19101>>
+
+=== conceptual schema
+
+formal description of a conceptual model
+
+.[source]
+<<ISO19101>>
+
+=== conformance
+
+fulfilment of specified requirements
+
+.[source]
+<<ISO19105>>
+
+=== continuous coverage
+
+coverage that returns different values for the same feature attribute at
+different direct positions within a single geometric object in its
+spatiotemporal domain
+
+.[source]
+<<ISO19123>>
+
+NOTE: Although the spatiotemporal domain of a continuous coverage is
+ordinarily bounded in terms of its spatial extent, it can be subdivided into
+an infinite number of direct positions.
+
+=== control body
+
+group of technical experts that makes decisions regarding the content of a
+register
+
+.[source]
+<<ISO19135>>
+
+=== coordinate
+
+one of a sequence of stem:[n] numbers designating the position of a point in
+N-dimensional space
+
+.[source]
+<<ISO19111>>
+
+NOTE: The numbers must be qualified by units.
+
+=== coordinate conversion
+
+coordinate operation in which both coordinate reference systems are based on
+the same datum
+
+.[source]
+<<ISO19111>>
+
+=== coordinate operation
+
+change of coordinates, based on a one-to-one relationship, from one coordinate
+reference system to another
+
+.[source]
+<<ISO19111>>
+
+=== coordinate reference system
+
+a coordinate system that is related to the real world by a datum
+
+.[source]
+<<ISO19111>>
+
+NOTE: For geodetic and vertical datums, it will be related to the Earth.
+
+=== coordinate system
+
+set of mathematical rules for specifying how coordinates are to be assigned to
+points
+
+.[source]
+<<ISO19111>>
+
+=== coordinate transformation
+
+coordinate operation in which the two coordinate reference systems are based
+on different datums
+
+.[source]
+<<ISO19111>>
+
+=== coordinate tuple
+
+ordered list of coordinates
+
+=== coverage
+
+feature that acts as a function to return values from its range for any direct
+position within its spatial, temporal or spatiotemporal domain
+
+.[source]
+<<ISO19123>>
+
+[example]
+Examples include a raster image, polygon overlay, or digital elevation matrix
+
+=== coverage geometry
+
+configuration of the domain of a coverage described in terms of coordinates
+
+.[source]
+<<ISO19123>>
+
+=== curve
+
+1-dimensional geometric primitive, representing the continuous image of a line
+
+.[source]
+<<ISO19107>>
+
+NOTE: The boundary of a curve is the set of points at either end of the curve.
+If the curve is a cycle, the two ends are identical, and the curve (if
+topologically closed) is considered to not have a boundary. The first point is
+called the start point, and the last is the end point. Connectivity of the
+curve is guaranteed by the "continuous image of a line" clause. A topological
+theorem states that a continuous image of a connected set is connected.
+
+=== curve segment
+
+1-dimensional geometric object used to represent a continuous component of a
+curve using homogeneous interpolation and definition methods
+
+.[source]
+<<ISO19107>>
+
+NOTE: The geometric set represented by a single curve segment is equivalent to
+a curve.
+
+=== cycle
+
+spatial object without a boundary
+
+.[source]
+<<ISO19107>>
+
+NOTE: Cycles are used to describe boundary components (see {{ring}}). A cycle has
+no boundary because it closes on itself, but it is bounded (that is, it does
+not have infinite extent). A circle or a sphere, for example, has no boundary,
+but is bounded.
+
+=== data
+
+reinterpretable representation of information in a formalised manner suitable
+for communication, interpretation, or processing
+
+.[source]
+<<ISO2382-1>>
+
+=== data capture and classification guide
+
+instructions describing the data capturing process and the process of
+classification
+
+=== data compaction
+
+reduction of the number of data elements, bandwidth, cost, and time for the
+generation, transmission, and storage of data without loss of information by
+eliminating unnecessary redundancy, removing irrelevancy, or using special
+coding
+
+.[source]
+<<ANS523>>
+
+NOTE: Whereas data compaction reduces the amount of data used to represent a
+given amount of information, data compression does not.
+
+=== data compression
+
+compression: reduction in the number of bits used to represent source image
+data
+
+.[source]
+<<ISO10918-1>>
+
+NOTE: Data compression does not reduce the amount of data used to represent a
+given amount of information, whereas data compaction does. Both data
+compression and data compaction result in the use of fewer data elements for a
+given amount of information.
+
+=== data marshalling
+
+defines a transmission format for data records that is independent of computer
+architecture, network particulars, compilers and programming languages. Data
+marshalling routines convert between this transport format and internal data
+representations used in different modules
+
+=== data product
+
+a dataset or dataset series that conforms to a data product specification
+
+.[source]
+<<ISO19131>>
+
+=== data product specification
+
+a detailed description of a dataset or dataset series together with additional
+information that will enable it to be created, supplied to and used by another
+party
+
+.[source]
+<<ISO19131>>
+
+NOTE: A data product specification provides a description of Hydrographic
+Concepts and a specification for mapping the universe of discourse to a
+dataset. It may be used for production, sales, end-use or other purposes.
+
+=== data quality date
+
+date or range of dates on which a data quality measure is applied
+
+.[source]
+<<ISO19113>>
+
+=== data quality element
+
+quantitative component documenting the quality of a dataset
+
+.[source]
+<<ISO19101>>
+
+NOTE: The applicability of a data quality element to a dataset depends on both
+the dataset's content and its product specification, the result being that all
+data quality elements may not be applicable to all datasets
+
+=== data quality evaluation procedure
+
+operations used in applying and reporting quality evaluation methods and their
+results
+
+.[source]
+<<ISO19113>>
+
+=== data quality measure
+
+evaluation of a data quality subelement
+
+.[source]
+<<ISO19113>>
+
+[example]
+The percentage of the values of an attribute that are correct.
+
+=== data quality overview element
+
+non-quantitative component documenting the quality of a dataset
+
+.[source]
+<<ISO19101>>
+
+NOTE: Information about the purpose, usage and lineage of a dataset is
+non-quantitative quality information.
+
+=== data quality result
+
+value or set of values resulting from applying a data quality measure or the
+outcome of evaluating the obtained value or set of values against a specified
+conformance quality level
+
+.[source]
+<<ISO19113>>
+
+[example]
+A data quality result of "90" with a data quality value type of "percentage"
+reported for the data quality element and its data quality subelement
+"completeness, commission" is an example of a value resulting from applying a
+data quality measure to a data specified by a data quality scope. A data
+quality result of "true" with a data quality value type of "Boolean variable"
+is an example of comparing the value (90) against a specified acceptable
+conformance quality level (85) and reporting an evaluation of a kind, pass or
+fail.
+
+=== data quality scope
+
+extent or characteristic(s) of the data for which quality information is
+reported
+
+.[source]
+<<ISO19113>>
+
+NOTE: A data quality scope for a dataset can comprise a dataset series to
+which the dataset belongs, the dataset itself, or a smaller grouping of data
+located physically within the dataset sharing common characteristics. Common
+characteristics can be an identified feature type, feature attribute, or
+feature relationship; data collection criteria; original source; or a
+specified geographic or temporal extent.
+
+=== data quality subelement
+
+component of a data quality element describing a certain aspect of that data
+quality element
+
+.[source]
+<<ISO19113>>
+
+=== data quality value type
+
+value type for reporting a data quality result
+
+.[source]
+<<ISO19113>>
+
+[example]
+"boolean variable", "percentage", "ratio"
+
+NOTE: A data quality value type is always provided for a data quality result.
+
+=== data quality value unit
+
+value unit for reporting a data quality result
+
+.[source]
+<<ISO19113>>
+
+[example]
+"metre"
+
+NOTE: A data quality value unit is provided only when applicable for a data
+quality result.
+
+=== data type
+
+specification of a value domain with operations allowed on values in this
+domain
+
+.[source]
+<<ISO19103>>
+
+[example]
+Integer, Real, Boolean, String, DirectPosition and Date
+
+NOTE: Data types include primitive predefined types and user-definable types.
+
+NOTE: A data type is identified by a term, for example Integer
+
+=== dataset
+
+identifiable collection of data
+
+.[source]
+<<ISO19115>>
+
+NOTE: A dataset may be a smaller grouping of data which, though limited by
+some constraint such as spatial extent or feature type, is located physically
+within a larger dataset. Theoretically, a dataset may be as small as a single
+feature or feature attribute contained within a larger dataset. A hardcopy map
+or chart may be considered a dataset.
+
+=== dataset series
+
+collection of datasets sharing the same product specification
+
+.[source]
+<<ISO19115>>
+
+=== datum
+
+parameter or set of parameters that define the position of the origin, the
+scale, and the orientation of a coordinate system
+
+.[source]
+<<ISO19113>>
+
+=== dependency
+
+relationship between two modelling elements, in which a change to one
+modelling element (the independent element) will affect the other modelling
+element (the dependent element)
+
+=== direct position
+
+position described by a single set of coordinates within a coordinate
+reference system
+
+.[source]
+<<ISO19107>>
+
+=== discrete coverage
+
+coverage that returns the same feature attribute values for every direct
+position within any single geometric object in its spatiotemporal domain
+
+.[source]
+<<ISO19123>>
+
+NOTE: The spatiotemporal domain of a discrete coverage consists of a finite
+set of geometric objects.
+
+=== domain
+
+well-defined set
+
+.[source]
+<<ISO19103>>
+
+NOTE: Domains are used to define the domain set and range set of attributes,
+operators and functions.
+
+=== domain specific catalogue functions
+
+scripting functions provided within a scripting catalogue which are not part
+of the standard catalogue functions
+
+=== domain specific functions
+
+all scripting functions which are defined outside S-100 Part 13. The union of
+Domain Specific Host Functions and Domain Specific Catalogue Functions
+
+=== domain specific host functions
+
+scripting functions provided by a host to support domain-specific
+functionalities
+
+=== ellipsoid
+
+surface formed by the rotation of an ellipse about a main axis
+
+.[source]
+<<ISO19111>>
+
+Mathematically it is expressed in Cartesian coordinates as:
+stem:[(x^2+y^2)/a^2 + z^2/b^2 = 1]
+
+Where 'stem:[a]' is the semi-major axis and 'stem:[b]' is the semi-minor axis.
+The latter is the rotation axis, such ellipsoids are also called oblate
+spheroids.
+
+=== ellipsoidal coordinate system
+
+coordinate system in which position is specified by geodetic latitude,
+geodetic longitude and (in the three dimensional case) ellipsoidal height
+
+.[source]
+<<ISO19111>>
+
+=== ellipsoidal height
+
+distance of a point from the ellipsoid measured along the perpendicular from
+the ellipsoid to this point; positive if upwards or outside of the ellipsoid
+
+.[source]
+<<ISO19111>>
+
+=== encoding
+
+conversion of data into a series of codes
+
+.[source]
+<<ISO19118>>
+
+=== end point
+
+last point of a curve
+
+.[source]
+<<ISO19107>>
+
+=== event
+
+action which occurs at an instant
+
+.[source]
+<<ISO19108>>
+
+=== exterior
+
+difference between the universe and the closure
+
+.[source]
+<<ISO19107>>
+
+NOTE: The concept of exterior is applicable to both topological and geometric
+complexes.
+
+=== face
+
+2-dimensional topological primitive
+
+.[source]
+<<ISO19107>>
+
+NOTE: The geometric realization of a face is a surface. The boundary of a face
+is the set of directed edges within the same topological complex that are
+associated to the face via the boundary relations. These can be organized as
+rings.
+
+=== feature
+
+abstraction of real world phenomena
+
+.[source]
+<<ISO19101>>
+
+NOTE: A feature may occur as a type or an instance. Feature type or feature
+instance should be used when only one is meant.
+
+[example]
+The phenomenon named 'Eiffel Tower' may be classified with other phenomena
+into a feature type 'tower'.
+
+=== feature association
+
+relationship that links instances of one feature type with instances of the
+same or a different feature type
+
+.[source]
+<<ISO19110>>
+
+=== feature attribute
+
+characteristic of a feature
+
+.[source]
+<<ISO19101>>
+
+NOTE: A feature attribute type has a name, a data type and a domain associated
+to it. A feature attribute instance has an attribute value taken from the
+value domain of the feature attribute type.
+
+[example]
+A feature attribute named 'colour' may have an attribute value 'green' which
+belongs to the data type 'text'.
+
+[example]
+A feature attribute named 'length' may have an attribute value '82,4' which
+belongs to the data type 'real'.
+
+=== feature catalogue
+
+a catalogue containing definitions and descriptions of the feature types,
+feature attributes, and feature associations occurring in one or more sets of
+geographic data
+
+.[source]
+<<ISO19110>>
+
+=== feature portrayal function
+
+function that maps a geographic feature to a {{symbol}}
+
+.[source]
+<<ISO19117,section=4.10>>
+
+=== field
+
+a named collection of labeled {{subfield,subfield(s)}}
+
+[example]
+IHO attribute label/code and IHO Attribute Value are collected into a field
+named Feature Record Attribute.
+
+=== flattening
+
+ratio of the difference between the semi-major (stem:[a]) and semi-minor axis
+(stem:[b]) of an ellipsoid to the semi-major axis stem:[f = (a*b)/a]
+
+.[source]
+<<ISO19111>>
+
+=== function
+
+rule that associates each element from a domain (source, or domain of the
+function) to a unique element in another domain (target, co-domain, or range)
+
+.[source]
+<<ISO19107>>
+
+NOTE: The range is defined by another domain.
+
+=== generalization
+
+taxonomic relationship between a more general element and a more specific
+element
+
+.[source]
+<<ISO19103>>
+
+NOTE: The more specific element is fully consistent with the more general
+element and contains additional information. An instance of the more specific
+element may be used where the more general element is allowed. See:
+{{inheritance}}.
+
+=== geodetic coordinate reference system
+
+coordinate reference system based on a geodetic datum
+
+.[source]
+<<ISO19111>>
+
+=== geodetic datum
+
+datum describing the relationship of a 2- or 3-dimensional coordinate system
+to the Earth
+
+.[source]
+<<ISO19111>>
+
+=== geodetic latitude
+
+angle from the equatorial plane to the perpendicular to the ellipsoid through
+a given point, northwards treated as positive
+
+.[source]
+<<ISO19111>>
+
+=== geodetic longitude
+
+angle from the prime meridian plane to the meridian plane of a given point,
+eastward treated as positive
+
+.[source]
+<<ISO19111>>
+
+=== geographic information
+
+Information concerning phenomena implicitly or explicitly associated with a
+location relative to the Earth
+
+.[source]
+<<ISO19101>>
+
+=== geolocation information
+
+information used to determine geographic location corresponding to image
+location
+
+=== geometric aggregate
+
+collection of geometric objects that has no internal structure
+
+.[source]
+<<ISO19107>>
+
+=== geometric boundary
+
+boundary represented by a set of geometric primitives of smaller geometric
+dimension that limits the extent of a geometric object
+
+.[source]
+<<ISO19107>>
+
+=== geometric complex
+
+set of disjoint geometric primitives where the boundary of each geometric
+primitive can be represented as the union of other geometric primitives of
+smaller dimension within the same set
+
+.[source]
+<<ISO19107>>
+
+NOTE: The geometric primitives in the set are disjoint in the sense that no
+direct position is interior to more than one geometric primitive. The set is
+closed under boundary operations, meaning that for each element in the
+geometric complex, there is a collection (also a geometric complex) of
+geometric primitives that represents the boundary of that element. Recall
+that the boundary of a point (the only 0D primitive object type in geometry)
+is empty. Thus, if the largest dimension geometric primitive is a surface
+(2-D), the composition of the boundary operator in this definition terminates
+after at most two steps. It is also the case that the boundary of any object
+is a cycle.
+
+=== geometric dimension
+
+largest number stem:[n] such that each direct position in a geometric set can
+be associated with a subset that has the direct position in its interior and
+is similar (isomorphic) to stem:[R^n], Euclidean stem:[n]-space
+
+.[source]
+<<ISO19107>>
+
+=== geometric object
+
+spatial object representing a set of direct positions
+
+.[source]
+<<ISO19107>>
+
+NOTE: A geometric object consists of a geometric primitive, a collection of
+geometric primitives, or a geometric complex treated as a single entity. A
+geometric object may be the spatial characteristics of an object such as a
+feature or a significant part of a feature.
+
+=== geometric primitive
+
+geometric object representing a single, connected, homogeneous element of
+geometry
+
+.[source]
+<<ISO19107>>
+
+NOTE: Geometric primitives are non-decomposed objects that present
+information about geometric configuration. They include points, curves,
+surfaces, and solids.
+
+=== geometry value object
+
+object composed of a set of geometry value pairs such that the geometric
+object elements of the geometry value pairs are elements of a larger
+geometric object
+
+.[source]
+<<ISO19123>>
+
+=== georectified
+
+corrected for positional displacement with respect to the surface of the earth
+
+=== georeferencing
+
+process of determining the relation between the position of data in the image
+coordinates and its geographic or map location
+
+=== grid
+
+network composed of two or more sets of curves in which the members of each
+set intersect the members of the other sets in an algorithmic way
+
+.[source]
+<<ISO19123>>
+
+NOTE: The curves partition a space into grid cells.
+
+=== grid coordinate system
+
+coordinate system in which position is specified relative to the intersection
+of curves
+
+=== grid coordinates
+
+sequence of two or more numbers specifying a position with respect to its
+location on a grid
+
+=== grid point
+
+point located at the intersection of two or more curves in a grid
+
+.[source]
+<<ISO19123>>
+
+=== gridded data
+
+data whose attributevalues are associated with positions on a grid coordinate
+system
+
+=== ground control point
+
+point on the earth that has an accurately known geographic position
+
+=== host
+
+the environment hosting a Lua interpreter. Typically the host is an
+application which uses one or more S-100 based products, such as an ECDIS
+
+=== host functions
+
+the scripting functions provided by a host. The union of the Standard Host
+Functions and the Domain Specific Host Functions
+
+=== human readable
+
+a representation of information that can be naturally read by humans
+
+=== identifier
+
+a linguistically independent sequence of characters capable of uniquely and
+permanently identifying that with which it is associated
+
+.[source]
+<<ISO11179-3>>, adapted
+
+=== image
+
+gridded coverage whose attributevalues are a numerical representation of a
+physical parameter
+
+NOTE: The physical parameters are the result of measurement by a sensor or a
+prediction from a model.
+
+=== image coordinate reference system
+
+coordinate reference system based on an image datum
+
+=== image datum
+
+datum which defines the relationship of a coordinate system to an image
+
+=== imagery
+
+representation of phenomena as images produced by electronic and/or optical
+techniques
+
+.[source]
+<<ISO19101-2>>
+
+NOTE: In this part of <<ISO19115>>, it is assumed that the objects and
+phenomena have been sensed or detected by camera, infrared and multispectral
+scanners, radar and photometers, or other remote sensing instruments and
+devices.
+
+=== inheritance
+
+mechanism by which more specific elements incorporate structure and behaviour
+of more general elements related by behaviour
+
+.[source]
+<<ISO19103>>
+
+NOTE: See {{generalization}}.
+
+=== instance
+
+entity to which a set of operations can be applied and which has a state that
+stores the effects of the operations
+
+.[source]
+<<ISO19103>>
+
+NOTE: See: {{object}}.
+
+=== interior
+
+set of all direct positions that are on a geometric object but which are not
+on its boundary
+
+.[source]
+<<ISO19107>>
+
+NOTE: The interior of a topological object is the homomorphic image of the
+interior of any of its geometric realizations. This is not included as a
+definition because it follows from a theorem of topology.
+
+=== ISO/IEC 8211 record
+
+an <<ISO8211>> implementation of a S-57 {{record}} and which comprises one
+or more {{field,fields}}
+
+=== label
+
+an <<ISO8211>> implementation concept used to identify the {{subfield}}
+
+=== LIDAR
+
+system consisting of 1) a photon source (frequently, but not necessarily, a
+laser), 2) a photon detection system, 3) a timing circuit, and 4) optics for
+both the source and the receiver that uses emitted laser light to measure
+ranges to and/or properties of solid objects, gases, or particulates in the
+atmosphere
+
+NOTE: Time of flight (TOF) LIDARs use short laser pulses and precisely record
+the time each laser pulse was emitted and the time each reflected return(s)
+is received in order to calculate the distance(s) to the scatterer(s)
+encountered by the emitted pulse. For topographic LIDAR, these time-of-flight
+measurements are then combined with precise platform location/attitude data
+along with pointing data to produce a three-dimensional product of the
+illuminated scene of interest.
+
+.[source]
+<<ISO19130-2,section=4.40>>, via ISO Multilingual Glossary of Terms.
+
+=== machine readable
+
+a representation of information that can be processed by computers
+
+=== map projection
+
+coordinate conversion from an ellipsoidal coordinate system to a plane
+
+.[source]
+<<ISO19111>>
+
+=== meridian
+
+intersection of an ellipsoid by a plane containing the shortest axis of the
+ellipsoid
+
+.[source]
+<<ISO19111>>
+
+=== message
+
+a fixed format sequence of data that are exchanged
+
+=== metadata
+
+data about data
+
+.[source]
+<<ISO19115>>
+
+=== metadata element
+
+discrete unit of metadata
+
+NOTE: Metadata elements are unique within a metadata entity.
+
+NOTE: Equivalent to an attribute in UML terminology.
+
+.[source]
+<<ISO19115>>
+
+=== metadata entity
+
+set of metadata elements describing the same aspect of data
+
+NOTE: May contain one or more metadata entities.
+
+NOTE: Equivalent to a class in UML terminology
+
+.[source]
+<<ISO19115>>
+
+=== metadata section
+
+subset of metadata which consists of a collection of related metadata
+entities and metadata elements
+
+NOTE: Equivalent to a package in UML terminology
+
+.[source]
+<<ISO19115>>
+
+=== metamodel
+
+model that defines the language for expressing a model
+
+=== model
+
+abstraction of some aspects of universe of discourse
+
+.[source]
+<<ISO19101>>
+
+NOTE: A semantically complete abstraction of a system.
+
+=== modification
+
+a substantive semantic change to a register item
+
+.[source]
+<<ISO19135>>
+
+=== multiplicity
+
+specification of the number of possible occurences of a property, or the
+number of allowable elements that may participate in a given relationship
+
+.[source]
+<<ISO19103>>
+
+[example]
+1..\* (one to many) , 1 (exactly one), 0..1 (zero or one).
+
+=== navigation display
+alt:[navigation screen]
+
+the ECDIS or INS display(s) which is being used for route monitoring or
+collision avoidance
+
+NOTE: Displays showing only non-S-100 information (e.g., radar,
+meteorological information) are excluded from the scope of this document.
+
+=== object
+
+entity with a well-defined boundary and identity that encapsulates state and
+behaviour
+
+NOTE: State is represented by attributes and relationships, behaviour is
+represented by operations, methods, and state machines. An object is an
+instance of a class. See: {{class}}, {{instance}}.
+
+=== operation
+
+in online data exchange: a function(s) needed on the server and/or client in
+an Online Data Exchange service in order to correctly accomplish the intended
+service
+
+=== package
+
+general purpose mechanism for organizing elements into groups
+
+.[source]
+<<ISO19103>>
+
+NOTE: Packages may be nested within other packages. Both model elements and
+diagrams may appear in a package.
+
+=== palette
+
+collection of colours defined in CIE and/or sRGB colour space and identified
+by a colour token
+
+=== pass
+
+single instance of a remote, mobile measuring system going by a target of
+interest
+
+NOTE: In this part of <<ISO19115>>, the measuring system will usually be a
+remote sensing platform. In a navigation context, the measuring system might
+be a GPS satellite.
+
+=== pixel
+
+smallest element of a digital image to which attributes are assigned
+
+.[source]
+<<ISO19129>>
+
+NOTE: It is the smallest unit of display for a visible image.
+
+=== platform
+
+structure which supports a sensor, or sensors
+
+=== point
+
+0-dimensional geometric primitive, representing a position
+
+.[source]
+<<ISO19107>>
+
+NOTE: The boundary of a point is the empty set.
+
+=== point coverage
+
+coverage that has a spatial domain composed of points
+
+.[source]
+<<ISO19123>>
+
+=== polarisation
+
+restricting radiation, especially light, vibrations to a single plane
+
+=== portrayal
+
+presentation of information to humans
+
+.[source]
+<<ISO19117>>
+
+NOTE: Within the scope of this International Standard portrayal is restricted
+to the portrayal of geographic information.
+
+=== portrayal catalogue
+
+collection of defined {{portrayal,portrayals}} for a feature catalogue
+
+NOTE: Content of a portrayal catalogue includes
+{{portrayal function,portrayal functions}}, {{symbol,symbols}}, and
+{{portrayal context}}.
+
+.[source]
+<<ISO19117,section=4.21>>
+
+=== portrayal context
+
+circumstances, imposed by factors extrinsic to a geographic dataset, that
+affect the {{portrayal}} of that dataset
+
+NOTE: Portrayal context can influence the selection of
+{{portrayal function,portrayal functions}} and construction of
+{{symbol,symbols}}.
+
+[example]
+Factors contributing to portrayal context can include the proposed display or
+map scale, the viewing conditions (day/night/dusk), and the display
+orientation requirements (north not necessarily at the top of the screen or
+page) among others.
+
+.[source]
+<<ISO19117,section=4.22>>
+
+=== portrayal function
+
+function that maps geographic features to {{symbol,symbols}}
+
+NOTE: {{portrayal,Portrayal}} functions can also include parameters and
+other computations that are not dependent on geographic feature properties.
+
+.[source]
+<<ISO19117,section=4.23>>
+
+=== portrayal rule
+
+specific type of {{portrayal function}} expressed in a declarative language
+
+NOTE: A declarative language is rule-based and includes decision and
+branching statements.
+
+.[source]
+<<ISO19117,section=4.25>>
+
+=== pre-order Traversal Sequence
+
+representation of the order in which information, in a tree structure
+diagram, must be interpreted. The sequence is extremely important and
+inviolate as there is no other explicit method of specifying the interfield
+(parent/child) relationships within the <<ISO8211>> data records.
+
+=== prime meridian
+
+meridian from which the longitudes of other meridians are quantified
+
+.[source]
+<<ISO19111>>
+
+=== profile
+
+set of one or more base standards or subsets of base standards, and, where
+applicable, the identification of chosen clauses, classes, options and
+parameters of those base standards, that are necessary for accomplishing a
+particular function
+
+NOTE: A profile is derived from base standards so that by definition,
+conformance to a profile is conformance to the base standards from which it
+is derived.
+
+.[source]
+<<ISO19106>>
+
+=== projected coordinate reference system
+
+coordinate reference system derived from a two-dimensional geodetic
+coordinate reference system by applying a map projection
+
+.[source]
+<<ISO19111>>
+
+=== quadtree
+
+expression of a two-dimensional object as a tree structure of quadrants,
+which are formed by recursively subdividing each non-homogeneous quadrant
+until all quadrants are homogeneous with respect to a selected
+characteristic, or until a predetermined cut-off depth is reached
+
+.[source]
+<<ISO2382>>
+
+=== quality
+
+totality of characteristics of a product that bear on its ability to satisfy
+stated and implied needs
+
+.[source]
+<<ISO19113>>
+
+=== range <coverage>
+
+set of values associated by a function with the elements of the
+spatiotemporal domain of a coverage
+
+.[source]
+<<ISO19123>>
+
+=== raster
+
+usually rectangular pattern of parallel scanning lines forming or
+corresponding to the display on a cathode ray tube
+
+.[source]
+<<ISO19123>>
+
+NOTE: A raster is a type of grid.
+
+=== realization
+
+relationship between a specification and its implementation
+
+.[source]
+<<ISO19103>>
+
+NOTE: An indication of the inheritance of behaviour without the inheritance
+of structure.
+
+=== record
+
+finite, named collection of related items (objects or values)
+
+.[source]
+<<ISO19107>>
+
+NOTE: Logically, a record is a set of pairs <name, item>.
+
+=== rectified grid
+
+grid for which there is a linear relationship between the grid coordinates
+and the coordinates of an external coordinate reference system
+
+.[source]
+<<ISO19123>>
+
+NOTE: If the coordinate reference system is related to the earth by a datum,
+the grid is a georectified grid.
+
+=== referenceable grid
+
+grid associated with a transformation that can be used to convert grid
+coordinate values to values of coordinates referenced to an external
+coordinate reference system
+
+.[source]
+<<ISO19123>>
+
+NOTE: If the coordinate reference system is related to the earth by a datum,
+the grid is a georeferenceable grid.
+
+=== register
+
+set of files containing identifiers assigned to items with descriptions of
+the associated items
+
+.[source]
+<<ISO19135>>
+
+NOTE: Descriptions may consist of many types of information, including names,
+definitions and codes.
+
+=== register manager
+
+organization to which management of a register has been delegated by the
+register owner
+
+.[source]
+<<ISO19135>>
+
+NOTE: In the case of an IHO Register, the Register Manager performs the
+functions of the registration authority specified in the IHO Directives.
+
+=== register owner
+
+organization that establishes a register
+
+.[source]
+<<ISO19135>>
+
+=== registration
+
+assignment of a permanent, unique (in the register), and unambiguous
+identifier to an item
+
+.[source]
+<<ISO19135>>
+
+=== registry
+
+information system on which a register is maintained
+
+.[source]
+<<ISO19135>>
+
+=== relationship
+
+semantic connection among model elements
+
+.[source]
+<<ISO19103>>
+
+NOTE: Kinds of relationships include association, generalization,
+metarelationship, flow, and several kinds grouped under dependency.
+
+=== remote sensing
+
+collection and interpretation of information about an object without being in
+physical contact with the object
+
+=== render
+
+conversion of digital graphics data into visual form
+
+.[source]
+<<ISO19117>>
+
+[example]
+Generation of an image on a video display.
+
+=== resolution (of a sensor)
+
+smallest difference between indications of a sensor that can be meaningfully
+distinguished
+
+NOTE: For imagery, resolution refers to radiometric, spectral, spatial and
+temporal resolutions.
+
+.[source]
+<<ISO19101-2>>
+
+=== resource
+
+asset or means that fulfils a requirement
+
+[example]
+Dataset, service, document, person or organisation.
+
+.[source]
+<<ISO19115>>
+
+=== retirement
+
+declaration that a register item is no longer suitable for use in the
+production of new data
+
+.[source]
+<<ISO19135>>
+
+NOTE: The status of the retired item changes from 'valid' to 'retired'. A
+retired item is kept in the register to support the interpretation of data
+produced before its retirement.
+
+=== ring
+
+simple curve which is a cycle
+
+.[source]
+<<ISO19107>>
+
+NOTE: Rings are used to describe boundary components of surfaces in 2-D
+coordinate systems.
+
+=== schema
+
+formal description of a model
+
+.[source]
+<<ISO19101>>
+
+=== scripting catalogue
+
+generic term describing a collection of one or more files containing
+scripting functions
+
+=== scripting domain
+
+the application of scripting to an S-100 domain, such as portrayal
+
+=== scripting engine
+
+a Lua interpreter or virtual machine
+
+=== scripting function
+
+a function written in Lua
+
+=== semi-major axis
+
+semi-diameter of the longest axis of an ellipsoid
+
+.[source]
+<<ISO19111>>
+
+=== semi-minor axis
+
+semi-diameter of the shortest axis of an ellipsoid
+
+.[source]
+<<ISO19111>>
+
+=== sensor
+
+element of a measuring instrument or measuring chain that is directly
+affected by the measurand [International Vocabulary of Basic and General
+Terms in Metrology (VIM)]
+
+=== sensor model
+
+description of the radiometric and geometric characteristics of a sensor
+
+.[source]
+<<ISO19101-2>>
+
+=== server
+
+a technical entity (for example: Device, Program) that offers a service to a
+client
+
+=== service specification
+
+the purpose of a service specification is to provide a holistic overview of
+one particular service and its building blocks at logical level including the
+A-Profile. It may be complemented by a model based description (for example,
+UML model describing the service interfaces, operations and data structures).
+The service specification describes a well-defined baseline of the service
+and clearly identifies the service version
+
+=== session
+
+set of client service communication. A session is set up or established at a
+certain point in time, and then torn down at some later point. An established
+communication session may involve more than one message in each direction. A
+session is stateful, meaning that at least one of the communicating parts
+needs to save information about the session history in order to be able to
+communicate, as opposed to stateless communication, where the communication
+consists of independent requests with responses
+
+=== spatial reference
+
+description of position in the real world
+
+=== spatiotemporal domain <coverage>
+
+domain composed of geometric objects described in terms of spatial and/or
+temporal coordinates
+
+.[source]
+<<ISO19123>>
+
+NOTE: The spatiotemporal domain of a continuous coverage consists of a set of
+direct positions defined in relation to a collection of geometric objects.
+
+=== specification
+
+declarative description of what something is or does
+
+NOTE: Contrast: implementation.
+
+=== specification scope
+
+a partitioning of the data content of the product on the basis of one or more
+criteria
+
+.[source]
+<<ISO19131>>, adapted
+
+=== spectral resolution
+
+specific wavelength interval within the electromagnetic spectrum
+
+[example]
+Band 1 of Landsat TM lies between stem:[0.45] and stem:[0.52 "unitsml(um)"]
+in the visible part of the spectrum.
+
+=== standard catalogue functions
+
+scripting functions which are guaranteed to be part of all scripting
+catalogues
+
+=== standard host functions
+
+scripting functions which must be provided by the host. Scripting functions
+call standard host functions to obtain information about the dataset(s) being
+processed
+
+=== standard scripting functions
+
+All scripting functions defined within S-100 Part 13. The union of Standard
+Host Functions and Standard Catalogue Functions
+
+=== start point
+
+first point of a curve
+
+.[source]
+<<ISO19107>>
+
+=== stereotype
+
+new type of modelling element that extends the semantics of the metamodel
+
+.[source]
+<<ISO19103>>
+
+NOTE: Stereotypes must be based on certain existing types or classes in the
+metamodel. Stereotypes may extend the semantics, but not the structure of
+pre-existing types and classes. Certain stereotypes are predefined in the
+UML, others may be user defined. Stereotypes are one of three extensibility
+mechanisms in UML. The others are constraint and tagged value.
+
+=== stream
+
+in online data exchange: a continuous sequence of fragmented data to be
+transported by a communication system
+
+=== sub-attribute
+
+an attribute of a complex attribute
+
+=== subfield
+
+a subfield is a component of a {{field}}. It is a contiguous string of bytes
+whose position, length and data type are described in the field data
+description. It is the smallest unit of information which can be described by
+this standard
+
+NOTE: Certain stylized subfields, such as date (YYYYMMDD), must be further
+resolved by an application.
+
+=== submitting organization
+
+organization authorised by a register owner to propose changes to the content
+of a register
+
+.[source]
+<<ISO19135>>
+
+=== subregion
+
+collection of geospatial data for a specific area within a dataset where the
+geospatial data conforms to a common, specific acquisition requirement that
+may differ from that of other collections within the cell
+
+=== supersession
+
+declaration that a register item has been retired and replaced by one or more
+new items
+
+.[source]
+<<ISO19135>>
+
+NOTE: The status of the replaced item changes from 'valid' to 'superseded.' A
+superseded item is kept in the register to support the interpretation of data
+produced before its supersession.
+
+=== surface
+
+connected 2-dimensional geometric primitive, representing the continuous
+image of a region of a plane
+
+.[source]
+<<ISO19107>>
+
+NOTE: The boundary of a surface is the set of oriented, closed curves that
+delineate the limits of the surface.
+
+=== surface patch
+
+2-dimensional, connected geometric object used to represent a continuous
+portion of a surface using homogeneous interpolation and definition methods
+
+.[source]
+<<ISO19107>>
+
+=== symbol
+
+portrayal primitive such as linestyles, patterns, text and point symbol
+graphics defined in SVG
+
+=== tag
+
+an <<ISO8211>> implementation concept used to identify each instance of a
+{{field}}
+
+=== tag value
+
+explicit definition of a property as a name-value pair
+
+NOTE: In a tagged value, the name is referred as the tag. Certain tags are
+predefined in the UML; others may be user defined. Tagged values are one of
+three extensibility mechanisms in UML. The others are constraint and
+stereotype.
+
+=== technical service
+
+taken from the concepts of service-oriented architectures, a technical
+service refers to a set of related software functionalities that can be
+reused for different purposes together with policies that govern and control
+its usage. A technical service is a service offered by an electronic device
+to another electronic device. Often operational services are implemented by
+electronic devices that offer several technical services to use the
+operational service
+
+=== temporal reference system
+
+reference system against which time is measured
+
+=== tessellation
+
+partitioning of a space into a set of conterminous geometric objects having
+the same dimension as the space being partitioned
+
+.[source]
+<<ISO19123>>
+
+NOTE: A tessellation composed of congruent regular polygons or polyhedra is a
+regular tessellation; One composed of regular, but non-congruent polygons or
+polyhedra is semi-regular. Otherwise the tessellation is irregular.
+
+=== triangulated irregular network
+alt:[TIN]
+
+tessellation composed of triangles
+
+.[source]
+<<ISO19123>>
+
+=== tuple
+
+ordered list of values
+
+=== type
+
+stereotype of class that is used to specify a domain of instances (objects)
+together with the operations applicable to the objects
+
+NOTE: A type may have attributes and associations.
+
+=== unit
+
+defined quantity in which dimensioned parameters are expressed
+
+=== value
+
+element of a type domain
+
+.[source]
+<<ISO19103>>
+
+NOTE: A value may be considered a possible state of an object within a class
+or type (domain).
+
+NOTE: A data value is an instance of a data type, a value without identity.
+
+=== value domain
+
+set of accepted values
+
+.[source]
+<<ISO19103>>
+
+[example]
+The range 3-28, all integers, any ASCII character, enumeration of all
+accepted values (green, blue, white).
+
+=== vertical coordinate reference system
+
+one-dimensional coordinate reference system based on a vertical datum
+
+.[source]
+<<ISO19111>>
+
+=== vertical coordinate system
+
+one-dimensional coordinate system used for gravity-related height or depth
+measurements
+
+.[source]
+<<ISO19111>>
+
+=== vertical datum
+
+datum describing the relation of gravity-related heights or depths to the
+Earth
+
+.[source]
+<<ISO19111>>

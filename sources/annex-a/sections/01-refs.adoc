@@ -1,0 +1,62 @@
+[bibliography]
+== References
+
+* [[[ISO19117,hidden(ISO 19117:2012)]]]
+
+* [[[ISO2382-17,hidden(ISO/IEC 2382-17:1999)]]]
+
+* [[[ISO19101-2,hidden(ISO/TS 19101-2:2008)]]]
+
+* [[[ISO8859-1,hidden(ISO/IEC 8859-1)]]]
+
+* [[[ISO19103,hidden(ISO/TS 19103:2005)]]]
+
+* [[[ISO19123,hidden(ISO 19123:2005)]]]
+
+* [[[ISO2382-1,hidden(ISO/IEC 2382-1:1993)]]]
+
+* [[[ANS523,hidden(ANSI-T1.523:2001)]]]
+
+* [[[ISO10918-1,hidden(ISO/IEC 10918-1)]]]
+
+* [[[ISO11179-3,hidden(ISO/IEC 11179-3:2003)]]]
+
+* [[[ISO19130-2,hidden(ISO/TS 19130-2:2014)]]]
+
+* [[[ISO19107,hidden(ISO 19107)]]]
+
+* [[[ISO3534-1,hidden(ISO 3534-1)]]]
+
+* [[[ISO19135,hidden(ISO 19135)]]]
+
+* [[[ISO19111,hidden(ISO 19111)]]]
+
+* [[[IEC61162-401,hidden(IEC 61162-401)]]]
+
+* [[[ISO19101,hidden(ISO 19101)]]]
+
+* [[[ISO19106,hidden(ISO 19106)]]]
+
+* [[[ISO19136,hidden(ISO 19136)]]]
+
+* [[[ISO19109,hidden(ISO 19109)]]]
+
+* [[[ISO19105,hidden(ISO 19105)]]]
+
+* [[[ISO19131,hidden(ISO 19131)]]]
+
+* [[[ISO19113,hidden(ISO 19113)]]]
+
+* [[[ISO19115,hidden(ISO 19115)]]]
+
+* [[[ISO19118,hidden(ISO 19118)]]]
+
+* [[[ISO19108,hidden(ISO 19108)]]]
+
+* [[[ISO19110,hidden(ISO 19110)]]]
+
+* [[[ISO19129,hidden(ISO/TS 19129)]]]
+
+* [[[ISO2382,hidden(ISO/IEC 2382)]]]
+
+* [[[ISO8211,hidden(ISO/IEC 8211)]]]
