@@ -6,7 +6,8 @@
 
 * Machine readable.
 * A file/directory structure with a Catalogue file.
-* Files for pixmaps, symbols, complex line styles, areafills, fonts and colour profiles.
+* Files for pixmaps, symbols, complex line styles, areafills, fonts and colour
+profiles.
 * Alert information in a separate file.
 * Portrayal rules in separate files.
 * Model and Schema for the Catalogue included.
@@ -126,13 +127,18 @@ NOTE: {{item.note}}
 [[cls-9-13.5]]
 === Schema for pixmap files
 
-A pixmap is a two dimensional array of pixels defining an image. This Schema allows to encode pixmaps that can be then be referenced, for example from pixmap area fills. The coordinate system for the pixmap is different than other coordinate systems in this standard. The stem:[y]-axis is directed downwards and the origin is in the upper left corner of the pixmap.
+A pixmap is a two dimensional array of pixels defining an image. This Schema allows
+to encode pixmaps that can be then be referenced, for example from pixmap area
+fills. The coordinate system for the pixmap is different than other coordinate
+systems in this standard. The stem:[y]-axis is directed downwards and the origin is
+in the upper left corner of the pixmap.
 
 [[fig-9-26]]
 .Coordinate system for pixmap
 image::img116.png[]
 
-The graphic above shows a simple pixmap with width 10 pixel and height 9 pixel. Most of the pixels are transparent (here white) some pixels are coloured.
+The graphic above shows a simple pixmap with width 10 pixel and height 9 pixel. Most
+of the pixels are transparent (here white) some pixels are coloured.
 
 The style defines a simple type for the colour identifier:
 
@@ -147,7 +153,8 @@ The style defines a simple type for the colour identifier:
 </xs:simpleType>
 ----
 
-This describes a token 1 to 3 characters long that can contain digits, alpha characters or the underscore. It is used to identifiy a colour in the colour map.
+This describes a token 1 to 3 characters long that can contain digits, alpha
+characters or the underscore. It is used to identifiy a colour in the colour map.
 
 The next type is a complex type for a pixel:
 
@@ -163,9 +170,12 @@ The next type is a complex type for a pixel:
 </xs:complexType>
 ----
 
-It extends the colour identifier and adds two attributes for the coordinate of the pixel according to the pixmap coordinate system.
+It extends the colour identifier and adds two attributes for the coordinate of the
+pixel according to the pixmap coordinate system.
 
-Each pixmap contains a colour map; a list of colour definitions bundled with a colour identifier. Two types are defined in the Schema one for the colour map item and one for the colour map.
+Each pixmap contains a colour map; a list of colour definitions bundled with a
+colour identifier. Two types are defined in the Schema one for the colour map item
+and one for the colour map.
 
 [source%unnumbered,xml]
 ----
@@ -184,7 +194,9 @@ Each pixmap contains a colour map; a list of colour definitions bundled with a c
 </xs:complexType>
 ----
 
-NOTE: The colour definition is taken from the S-100 symbol definition Schema. That allows using colour token from a colour profile or direct sRGB colour definitions. Transparency can be defined here as well.
+NOTE: The colour definition is taken from the S-100 symbol definition Schema. That
+allows using colour token from a colour profile or direct sRGB colour definitions.
+Transparency can be defined here as well.
 
 The last type defined is the complex type for the pixmap itself.
 
@@ -207,7 +219,11 @@ The last type defined is the complex type for the pixmap itself.
 </xs:complexType>
 ----
 
-It defines an optional description element and mandatory elements for width and height. Furthermore it defines an element for the colour map, an element for the background colour and the any number of pixel elements. The background colour is implicitly used for all pixels that are not defined by a pixel element. Note that there is a key element to ensure that colour identifiers are unique.
+It defines an optional description element and mandatory elements for width and
+height. Furthermore it defines an element for the colour map, an element for the
+background colour and the any number of pixel elements. The background colour is
+implicitly used for all pixels that are not defined by a pixel element. Note that
+there is a key element to ensure that colour identifiers are unique.
 
 Finally the root element is defined:
 
@@ -230,7 +246,9 @@ Finally the root element is defined:
 </xs:element>
 ----
 
-The keyref element are there for ensure the referential integrity of the colour identifier used in the pixel and background element. The unique element ensures that no pixel is defined more than ones.
+The keyref element are there for ensure the referential integrity of the colour
+identifier used in the pixel and background element. The unique element ensures that
+no pixel is defined more than ones.
 
 A complete pixmap file for the example above looks like:
 

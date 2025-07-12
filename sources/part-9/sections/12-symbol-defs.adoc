@@ -4,7 +4,10 @@
 [[cls-9-12.1]]
 === Overview
 
-The SymbolDefinition package describes the graphic primitives used for the portrayal. Parts of the primitives are defined externally by using SVG definitions. Those external parts will be referenced from the types in this model. The package diagram is shown in the <<fig-9-15>> below.
+The SymbolDefinition package describes the graphic primitives used for the
+portrayal. Parts of the primitives are defined externally by using SVG definitions.
+Those external parts will be referenced from the types in this model. The package
+diagram is shown in the <<fig-9-15>> below.
 
 [[fig-9-15]]
 .Symbol Definition Packages
@@ -70,8 +73,14 @@ From left to right:
 * Local CRS for point geometry
 +
 NOTE: for multi points the local CRS is repeated at each point.
-* Local CRS for curve geometry. The origin of the coordinate system can be any point of the line. This point can be defined by the absolute or relative distance from the start of the line. The stem:[x]-axis is directed in the direction of the tangent at the tangency point and the stem:[y]-axis is oriented perpendicular to this direction.
-* Local CRS for surface geometry. For the boundary the same rules apply as for curve geometry. For the interior of the surface a coordinate system is used that has axes parallel to the Portrayal CRS. The origin can be an arbitrary point that is constant relative to the surface. This point can be outside the surface.
+* Local CRS for curve geometry. The origin of the coordinate system can be any point
+of the line. This point can be defined by the absolute or relative distance from the
+start of the line. The stem:[x]-axis is directed in the direction of the tangent at
+the tangency point and the stem:[y]-axis is oriented perpendicular to this direction.
+* Local CRS for surface geometry. For the boundary the same rules apply as for curve
+geometry. For the interior of the surface a coordinate system is used that has axes
+parallel to the Portrayal CRS. The origin can be an arbitrary point that is constant
+relative to the surface. This point can be outside the surface.
 
 [[fig-9-17]]
 .Local CRS
@@ -125,7 +134,9 @@ NOTE: {{item.note}}
 [[cls-9-12.3.1]]
 ==== Model
 
-This package contains the model of a symbol. Note that the definition of the symbol graphic itself is not the subject of this model. This will be defined in external files according to the SVG 1.1 recommendation.
+This package contains the model of a symbol. Note that the definition of the symbol
+graphic itself is not the subject of this model. This will be defined in external
+files according to the SVG 1.1 recommendation.
 
 [[fig-9-19]]
 .Symbol Package
@@ -271,7 +282,9 @@ NOTE: {{item.note}}
 [[cls-9-12.6.1]]
 ==== Overview
 
-The text package contains the types necessary for the depiction of text. This includes fonts. In this model fonts may be described by characteristics or referenced by name. Two types of text instructions are supported:
+The text package contains the types necessary for the depiction of text. This
+includes fonts. In this model fonts may be described by characteristics or
+referenced by name. Two types of text instructions are supported:
 
 * Text relative to a point
 * Text that will be drawn along a linear geometry
@@ -279,9 +292,14 @@ The text package contains the types necessary for the depiction of text. This in
 [[cls-9-12.6.2]]
 ==== Fonts
 
-A font is a set of typefaces. A typeface is the artistic representation or interpretation of characters; it is the way the type looks.
+A font is a set of typefaces. A typeface is the artistic representation or
+interpretation of characters; it is the way the type looks.
 
-This standard supports two methods of defining fonts, the first describes a font by four attributes and let the system find a best match to an actual font available on the graphic system. The second method is referencing an external font file. The format of this file must conform to the 'True Type Font' standard and must be included in the the Portrayal Catalogue.
+This standard supports two methods of defining fonts, the first describes a font by
+four attributes and let the system find a best match to an actual font available on
+the graphic system. The second method is referencing an external font file. The
+format of this file must conform to the 'True Type Font' standard and must be
+included in the the Portrayal Catalogue.
 
 [[cls-9-12.6.3]]
 ==== Model
@@ -334,7 +352,9 @@ NOTE: {{item.note}}
 [[cls-9-12.7.1]]
 ==== Overview
 
-The coverage package contains the types for the depiction of a Coverage. This portrayal is applicable to the portrayal of numeric Coverage values. Three types of coverage portrayals are supported:
+The coverage package contains the types for the depiction of a Coverage. This
+portrayal is applicable to the portrayal of numeric Coverage values. Three types of
+coverage portrayals are supported:
 
 * Colour;
 * Numeric Annotation; and
@@ -343,14 +363,25 @@ The coverage package contains the types for the depiction of a Coverage. This po
 [[cls-9-12.7.2]]
 ==== Ranges
 
-Ranges are used to control how portrayal is assigned to the values in a Coverage. These make use of the S-100_NumericRange complex type which is defined in <<Part1>>. The Numeric Range type allows for various range definitions with different closure options.
+Ranges are used to control how portrayal is assigned to the values in a Coverage.
+These make use of the S-100_NumericRange complex type which is defined in <<Part1>>.
+The Numeric Range type allows for various range definitions with different closure
+options.
 
 [[cls-9-12.7.3]]
 ==== Lookup Table
 
-The CoverageFill class carries an ordered list of lookup entries. Each of these entries carries a range used to evaluate a match by testing if the coverage value matches the range. The first lookup entry with a matching range is used to apply up to one of each type of portrayal (colour, numeric annotation or a symbol) to the coverage element. This allows for example to fill a cell in a grid with a colour and assign a numeric or symbol annotation to the cell as well.
+The CoverageFill class carries an ordered list of lookup entries. Each of these
+entries carries a range used to evaluate a match by testing if the coverage value
+matches the range. The first lookup entry with a matching range is used to apply up
+to one of each type of portrayal (colour, numeric annotation or a symbol) to the
+coverage element. This allows for example to fill a cell in a grid with a colour and
+assign a numeric or symbol annotation to the cell as well.
 
-The lookup table can also associate an alert specified in the drawing instruction with a range of coverage values. When associating alerts with coverage values there may or may not be portrayal elements (colour, numeric annotation or a symbol) present.
+The lookup table can also associate an alert specified in the drawing instruction
+with a range of coverage values. When associating alerts with coverage values there
+may or may not be portrayal elements (colour, numeric annotation or a symbol)
+present.
 
 [[cls-9-12.7.4]]
 ==== Model

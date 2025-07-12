@@ -7,46 +7,46 @@
 [[cls-10a-5.1.1]]
 ==== Encoding rules
 
-In S-100 attributes can be either simple or complex. Simple attributes 
-have values whereas complex attributes are an aggregation of other 
-attributes, either simple or complex. The following diagram shows an 
+In S-100 attributes can be either simple or complex. Simple attributes
+have values whereas complex attributes are an aggregation of other
+attributes, either simple or complex. The following diagram shows an
 example of a feature type with both simple and complex attributes.
 
 [[fig-10a-3]]
 image::img132.png[]
 
-The feature has four attributes: A1, A2, A3, and A4. A1 and A3 are 
-simple attributes; A2 and A4 are complex attributes. A2 comprises two 
-attributes (A5 and A6) where A5 is a simple one and A6 is another 
-complex attribute. A4 and A6 are two complex attributes; both consist 
+The feature has four attributes: A1, A2, A3, and A4. A1 and A3 are
+simple attributes; A2 and A4 are complex attributes. A2 comprises two
+attributes (A5 and A6) where A5 is a simple one and A6 is another
+complex attribute. A4 and A6 are two complex attributes; both consist
 of two simple attributes.
 
-Another characteristic of attributes is the cardinality. This indicates 
-how many attributes of the same kind (the same code in a feature 
-catalogue) are used at the same parent. The same parent means that they 
-are all top level attributes or belonging to the same instance of a 
-complex attribute. In the example above A9 and A10 are assumed to have 
+Another characteristic of attributes is the cardinality. This indicates
+how many attributes of the same kind (the same code in a feature
+catalogue) are used at the same parent. The same parent means that they
+are all top level attributes or belonging to the same instance of a
+complex attribute. In the example above A9 and A10 are assumed to have
 the same code.
 
-With the concept of cardinalities larger than one, an attribute can be 
-seen as an array of attributes. To access an attribute in such an array 
-one needs not only the code of that attribute but also the index of 
-that attribute. Note that the order in such an array may be meaningful 
+With the concept of cardinalities larger than one, an attribute can be
+seen as an array of attributes. To access an attribute in such an array
+one needs not only the code of that attribute but also the index of
+that attribute. Note that the order in such an array may be meaningful
 and must be maintained by the encoding.
 
-Taking all of the above into account an attribute can be uniquely 
+Taking all of the above into account an attribute can be uniquely
 addressed by three values:
 
 . The attribute code -- encoded with the sub-field NATC;
-. The index of the attribute (starting with 1) -- encoded with the 
+. The index of the attribute (starting with 1) -- encoded with the
 sub-field ATIX;
 . The parent of the attribute -- encoded with the sub-field PAIX.
 
-The Parent Index (PAIX) is solely used for defining the tree inside the 
-field only, and there is no need to preserve it in an internal system 
+The Parent Index (PAIX) is solely used for defining the tree inside the
+field only, and there is no need to preserve it in an internal system
 (for example, System Database) structure.
 
-To complete the example above, the following table defines codes and 
+To complete the example above, the following table defines codes and
 values of the attributes:
 
 .Codes and values of the attributes
@@ -106,10 +106,10 @@ values of the attributes:
 | A10 | 29 | 2 | 43 | same code as A9
 |===
 
-To encode an attribute a set of five items is necessary: the three 
-mentioned above plus an update instruction and the value of the 
-attribute. To specify the parent of the attribute an index is used. 
-This index points to the n^th^ tuple in the ATTR field starting with 1. 
+To encode an attribute a set of five items is necessary: the three
+mentioned above plus an update instruction and the value of the
+attribute. To specify the parent of the attribute an index is used.
+This index points to the n^th^ tuple in the ATTR field starting with 1.
 The following table shows the encoding of the example:
 
 .Encoding of the example
@@ -129,9 +129,9 @@ The following table shows the encoding of the example:
 | 10 | 28 | 1 | 8 | Insert | Canada | A8
 |===
 
-Note that here the pre-order traversing is used to define the order of 
-tuples in the field. This keeps all part of a complex attribute 
-together and guarantees that the parent is always stored before the 
+Note that here the pre-order traversing is used to define the order of
+tuples in the field. This keeps all part of a complex attribute
+together and guarantees that the parent is always stored before the
 child. The pre-order traversing is defined as follows:
 
 . Encode the root;
@@ -139,38 +139,38 @@ child. The pre-order traversing is defined as follows:
 
 This traversing order is mandatory within this standard.
 
-Note also that the ATIN subfield (Attribute update Instruction) will 
-always be 'Insert' for encoding base data attributes. The other ATIN 
+Note also that the ATIN subfield (Attribute update Instruction) will
+always be 'Insert' for encoding base data attributes. The other ATIN
 values (Modify, Delete) are only needed for updating the ATTR field.
 
-All values of attribute are stored as character strings even if the 
-value domain is a numeric type. UTF-8 will be the only encoding allowed 
-in S-100 for such character strings. This allows the encoding of all 
-characters of the first multilingual plane of <<ISO10646>>. There is no 
+All values of attribute are stored as character strings even if the
+value domain is a numeric type. UTF-8 will be the only encoding allowed
+in S-100 for such character strings. This allows the encoding of all
+characters of the first multilingual plane of <<ISO10646>>. There is no
 other encoding for national character sets necessary.
 
 [[cls-10a-5.1.2]]
 ==== Updating of the Attribute field
 
-To update an attribute the attribute must be uniquely identifiable and 
+To update an attribute the attribute must be uniquely identifiable and
 once identified instructions are needed to affect that attribute.
 
-The identifiaction of an attribute is defined by the Numeric Attribute 
+The identifiaction of an attribute is defined by the Numeric Attribute
 Code (NATC) and the Attribute Index (ATIX).
 
-The Attribute Update Instruction indicates whether an attribute is to 
-be deleted from the field; modified, or inserted. Deletion and 
-modification imply that the attribute exists. Deletion and insertion 
-may change the indices of other attributes in an array of attributes 
-and therefore must be taken into account when the attribute field is 
-updated, thus the ATIX sub-field must use then the corrected value. 
-Instructions must be applied in sequence in order that the indices used 
+The Attribute Update Instruction indicates whether an attribute is to
+be deleted from the field; modified, or inserted. Deletion and
+modification imply that the attribute exists. Deletion and insertion
+may change the indices of other attributes in an array of attributes
+and therefore must be taken into account when the attribute field is
+updated, thus the ATIX sub-field must use then the corrected value.
+Instructions must be applied in sequence in order that the indices used
 are identifying the correct attributes components on subsequent updates.
 
-To demonstrate the updating of attributes the example above should be 
-modified as shown in the following <<fig-10a-4>>. Note that to identify 
-a node in the attribute tree it is necessary to specify all nodes from 
-the root of the tree. In order to insert the attribute B5 both the 
+To demonstrate the updating of attributes the example above should be
+modified as shown in the following <<fig-10a-4>>. Note that to identify
+a node in the attribute tree it is necessary to specify all nodes from
+the root of the tree. In order to insert the attribute B5 both the
 nodes A6 and A2 must be encoded before and marked as modified.
 
 [[fig-10a-4]]
@@ -185,7 +185,7 @@ The details are:
 
 | B5 | 29 | 2 | 32 | Insert | Will change A10's index to 3
 | A10 | 29 | 3 | 7 | Modify |
-| B2 | 35 | 1 | | Insert | complex 
+| B2 | 35 | 1 | | Insert | complex
 | B3 | 36 | 1 | 32 | Insert |
 | B4 | 37 | 1 | 123 | Insert |
 | B1 | 32 | 1 | abc | Insert |
@@ -193,8 +193,8 @@ The details are:
 | A8 | 28 | 1 | Germany | Modify |
 |===
 
-In order to identify B5, A10 and B2 the entries for A2 and A6 must be 
-inserted. The same is true for A4 (to identify A8). The complete field 
+In order to identify B5, A10 and B2 the entries for A2 and A6 must be
+inserted. The same is true for A4 (to identify A8). The complete field
 will look like:
 
 .Insertion of entries to identify attributes in the field
@@ -215,27 +215,27 @@ will look like:
 | 11 | 28 | 1 | 10 | Modify | Germany | A8
 |===
 
-Note that in order to delete a complex attribute it will be adequate to 
-delete the root entry of that attribute. For example, to delete A2 only 
+Note that in order to delete a complex attribute it will be adequate to
+delete the root entry of that attribute. For example, to delete A2 only
 one entry (22, 1, 0, Delete) has to be encoded.
 
 [[cls-10a-5.1.3]]
 ==== Unknown attribute values
 
-An attribute value is unknown whenever the attribute code is present, 
+An attribute value is unknown whenever the attribute code is present,
 but the attribute value is missing (encoded as an empty string).
 
 Updating of the attribute field with a missing attribute value:
 
 * Insert - create the attribute with an initial value of unknown.
 * Modify - change the attribute value to unknown.
-* Delete - delete the attribute (in this case the attribute value 
+* Delete - delete the attribute (in this case the attribute value
 should always be encoded as 'unknown').
 
 [[cls-10a-5.1.4]]
 ==== Encoding of attribute values
 
-The following rules must be used to encode attribute values in the 
+The following rules must be used to encode attribute values in the
 ATVL sub-field:
 
 .Encoding rules for attribute values in the ATVL sub-field
@@ -404,23 +404,23 @@ See <<Part3;and!Part5>> for more details.
 [[cls-10a-5.2.1]]
 ==== Encoding rules
 
-An Information association is a link from one record to an information 
-type record. An information type record can be referenced from any 
-number of other records but at least one record should have an 
-association to an information type record. Such associations will be 
-encoded by means of the Information Association field (INAS). For each 
-association a separate field has to be used. The association itself can have attributes. The attributes are encoded in the field by the 
-same mechanism as described for the ATTR field. The same subfields are 
-used at the end of the association field. Each association is uniquely 
-addressed by the combination of the RRNM, RRID, IASS, and ROLE 
+An Information association is a link from one record to an information
+type record. An information type record can be referenced from any
+number of other records but at least one record should have an
+association to an information type record. Such associations will be
+encoded by means of the Information Association field (INAS). For each
+association a separate field has to be used. The association itself can have attributes. The attributes are encoded in the field by the
+same mechanism as described for the ATTR field. The same subfields are
+used at the end of the association field. Each association is uniquely
+addressed by the combination of the RRNM, RRID, IASS, and ROLE
 subfields.
 
-The RRNM subfield is referencing the record name subfield (RCNM) and 
-the RRID subfield is referencing the record id subfield (RCID) of the 
+The RRNM subfield is referencing the record name subfield (RCNM) and
+the RRID subfield is referencing the record id subfield (RCID) of the
 target record.
 
-The Information Association Update Instruction INUI subfield is used 
-to indicate if an association is to be inserted or deleted on update. 
+The Information Association Update Instruction INUI subfield is used
+to indicate if an association is to be inserted or deleted on update.
 For a base data set this field must have the value 'Insert'.
 
 [yaml2text,sections/tables/05-tables.yaml,data]

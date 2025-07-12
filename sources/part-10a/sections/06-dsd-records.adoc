@@ -7,23 +7,23 @@
 [[cls-10a-6.1.1]]
 ==== Encoding rules
 
-This record encodes general information about the data set. This 
-information includes identification, structural information and 
+This record encodes general information about the data set. This
+information includes identification, structural information and
 Metadata.
 
-The Data Set Identification field contains information to identify the 
+The Data Set Identification field contains information to identify the
 data set. This information is divided into three groups:
 
 . Information about the encoding;
 . Information about the data product;
 . Information about the data set itself.
 
-The first group specifies the encoding specification on which the 
+The first group specifies the encoding specification on which the
 encoding is based and what version of that specification is applicable.
 
-The second group defines the data product, the edition of the product 
-specification and the profile used within the product. The product 
-itself is specified by a unique identifier. Edition and Profile depend 
+The second group defines the data product, the edition of the product
+specification and the profile used within the product. The product
+itself is specified by a unique identifier. Edition and Profile depend
 on the product specification and will be encoded as character strings.
 
 The third group contains:
@@ -62,29 +62,29 @@ The third group contains:
 | 21 | disaster
 |===
 
-The Data Set Structure Information field contains some structural 
+The Data Set Structure Information field contains some structural
 information. These are:
 
-. An origin offset used to shift the coordinate data being encoded 
+. An origin offset used to shift the coordinate data being encoded
 such that higher precision can be carried in the region of the dataset.
 . The multiplication factors for the separate coordinate axes.
 . The number of the different kinds of records in the data file.
 
-In an S-100 Feature catalogue all items are uniquely identifiable 
-using the S100_FC_Item code which is a character string. This applies 
-to Attributes, Information Types, Feature Types, Information 
-Associations, Feature Associations and Association roles.  In the 
-interest of space and efficiency of the 8211 encoding it is desirable 
-to use numeric identifiers for these items. To support this 
-capability, the 8211 encoding includes a table for each item type that 
-holds a listing of the S100_FC_Item codes used in the dataset. Each 
-entry in the table carries the item code and the associated numeric 
-code which will be used within the dataset everywhere that item type 
-is referenced. These numeric codes are only guaranteed to be unique 
-within one instance of a dataset. For example a Feature with code 
-Coastline could be recorded in the Feature Type Codes field with a 
-numeric code of 10. Then all the Coastline Features in the dataset 
-would carry the numeric code of 10. In another dataset the numeric 
+In an S-100 Feature catalogue all items are uniquely identifiable
+using the S100_FC_Item code which is a character string. This applies
+to Attributes, Information Types, Feature Types, Information
+Associations, Feature Associations and Association roles.  In the
+interest of space and efficiency of the 8211 encoding it is desirable
+to use numeric identifiers for these items. To support this
+capability, the 8211 encoding includes a table for each item type that
+holds a listing of the S100_FC_Item codes used in the dataset. Each
+entry in the table carries the item code and the associated numeric
+code which will be used within the dataset everywhere that item type
+is referenced. These numeric codes are only guaranteed to be unique
+within one instance of a dataset. For example a Feature with code
+Coastline could be recorded in the Feature Type Codes field with a
+numeric code of 10. Then all the Coastline Features in the dataset
+would carry the numeric code of 10. In another dataset the numeric
 code for Coastline could be 15.
 
 [[cls-10a-6.1.2]]
@@ -156,31 +156,31 @@ NOTE: {{item.note}}
 [[cls-10a-6.2.1]]
 ==== Encoding rules
 
-All two-dimensional coordinates in a dataset refer to one horizontal 
-CRS. Three-dimensional coordinates refer to a compound CRS which 
-consists of the horizontal CRS and a vertical CRS. There can be more 
+All two-dimensional coordinates in a dataset refer to one horizontal
+CRS. Three-dimensional coordinates refer to a compound CRS which
+consists of the horizontal CRS and a vertical CRS. There can be more
 than one vertical CRSs in a dataset one for each compound CRS.
 
-The CRSH field contains the following information about the (single) 
+The CRSH field contains the following information about the (single)
 CRS:
 
-* The type of CRS (this implies the dimension of the coordinate 
+* The type of CRS (this implies the dimension of the coordinate
 system);
 * The type of the associated coordinate system;
 * The name of the CRS;
-* An identifier in an external source (if the CRS is defined by 
+* An identifier in an external source (if the CRS is defined by
 referencing);
 * An indication which external source is referenced;
-* Information about this source (if it is not one from a predefined 
+* Information about this source (if it is not one from a predefined
 list).
 
-If the CRS is not defined by referencing all details of the coordinate 
-axes, the datum and if necessary about the used projection must be 
-encoded. This has to done by means of the appropriate fields. In this 
-case the CRSI subfield must be encoded empty and the CRSS subfield 
+If the CRS is not defined by referencing all details of the coordinate
+axes, the datum and if necessary about the used projection must be
+encoded. This has to done by means of the appropriate fields. In this
+case the CRSI subfield must be encoded empty and the CRSS subfield
 must have the value 255 (Not Applicable).
 
-For more details on CRS refer to the Coordinate Reference System 
+For more details on CRS refer to the Coordinate Reference System
 Component of this standard.
 
 This encoding specification supports the following types of CRS's:
@@ -313,7 +313,7 @@ The next table shows the supported coordinate axes:
 |
 |===
 
-This table shows the supported projections together with their set of 
+This table shows the supported projections together with their set of
 parameters:
 
 .Supported projections and their set of parameters
@@ -336,24 +336,24 @@ parameters:
 | New Zealand Mapgrid | 13 | Latitude of natural origin | Longitude of natural origin | - | - | - | 9811
 |===
 
-All latitudes and longitudes must be given in degrees (south and west 
-are negative). Azimuths are given in degrees. For the detailed 
+All latitudes and longitudes must be given in degrees (south and west
+are negative). Azimuths are given in degrees. For the detailed
 formulas of the projections refer to the EPSG documentation.
 
-In case that both two-dimensional and three-dimensional coordinates 
-are used in the same data set the three-dimensional coordinates must 
-be described by a compound CRS. The two-dimensional coordinates refer 
+In case that both two-dimensional and three-dimensional coordinates
+are used in the same data set the three-dimensional coordinates must
+be described by a compound CRS. The two-dimensional coordinates refer
 to the first component (usually a 2D Geographic or Projected CRS).
 
-Although all coordinates in a data set must refer to the same CRS 
-different Vertical Datums can be used for the height or depth 
-component of a coordinate tuple. Therefore the VDAT field can be 
-repeated. For each Vertical Datum a unique identifier is defined. 
-Those identifiers will be used in the 3D - coordinate fields to 
-indicate which Vertical Datum is used. The encoding of the Coordinate 
-Reference System record will be demonstrated with two examples. The 
-first example specifies a compound CRS. The first component is a 2D 
-Geographic CRS (WGS84) and the second component is a Vertical CRS for 
+Although all coordinates in a data set must refer to the same CRS
+different Vertical Datums can be used for the height or depth
+component of a coordinate tuple. Therefore the VDAT field can be
+repeated. For each Vertical Datum a unique identifier is defined.
+Those identifiers will be used in the 3D - coordinate fields to
+indicate which Vertical Datum is used. The encoding of the Coordinate
+Reference System record will be demonstrated with two examples. The
+first example specifies a compound CRS. The first component is a 2D
+Geographic CRS (WGS84) and the second component is a Vertical CRS for
 depth using the Vertical Datum: Mean Sea Level.
 
 [source%unnumbered]
