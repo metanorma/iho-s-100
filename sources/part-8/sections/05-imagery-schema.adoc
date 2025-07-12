@@ -144,7 +144,7 @@ image::img61.png[]
 These two types of grids and traversal orders have applications for hydrographic data
 (for example <<cls-8-5.2.5>> -- Morton Order).
 
-Other traversal orders defined in the ISO standard 19123 are also permitted in S-100
+Other traversal orders defined in the <<ISO19123>> are also permitted in S-100
 (see <<cls-8-7.7.2>>).
 
 [[cls-8-5.2.3]]
@@ -405,12 +405,12 @@ dataset or other grouping of dataset elements.
 
 The description of metadata may be organized in several different ways. In this
 Standard the metadata is organized into modules. The S100_DatasetDiscoveryMetadata
-module relates to the dataset as a whole, and is described in S-100 Part 17. The
+module relates to the dataset as a whole, and is described in <<Part17>>. The
 S100_IF_CollectionMetadata module refers to the S100_IF_StructuralMetadata module, the
 S100_IF_AcquisitionMetadata module and the S100_IF_QualityMetadata module as
 sub-components. S100_IF_CollectionMetadata may be encoded within the dataset file or
 externally. Structural, acquisition, and quality metadata are optional except for
-required elements defining the coverage format, which are specified in S-100 Part 10c.
+required elements defining the coverage format, which are specified in <<Part10c>>.
 
 Coverages or Point Set data may also be organized into tiles. Metadata may also be
 associated with a tile. The overall structure of a dataset is illustrated in
@@ -442,7 +442,7 @@ entity of exchange.
 
 Associated with a dataset is a set of discovery metadata that describes the dataset so
 that it can be accessed. It consists of the dataset discovery metadata defined in
-S-100 Part 17.
+<<Part17>>.
 
 [[cls-8-5.3.3]]
 ==== S100_ExchangeSet
@@ -591,7 +591,7 @@ defined in <<ISO19115-1>>, <<ISO19115-2>> and <<ISO19157>>.
 
 Associated with a coverage data type is a set of structure metadata that describes the
 structure of the coverage or point set. This is an abstract class realized by S-100
-Part 10c, where the structural metadata elements which are essential for S-100
+<<Part10c>>, where the structural metadata elements which are essential for S-100
 coverage types are specified.
 
 [[cls-8-5.3.7]]
@@ -606,7 +606,7 @@ realized by individual Product Specifications.
 
 Associated with a coverage data type is optionally one or many sets of quality
 metadata that describes the quality of the data. This is an abstract class partially
-realized by S-100 Part 10c (as the _uncertainty_ dataset in Table 10c-11) and
+realized by <<Part10c>> (as the _uncertainty_ dataset in <<Part10c,table="10c-11">>) and
 partially in individual Product Specifications.
 
 [[cls-8-5.3.9]]
@@ -630,18 +630,18 @@ in the S100_IF_StructuralMetadata module. Typical tiling schemes are described i
 ==== S100_IF_IdentificationMetadata
 
 Identification metadata for S-100 coverage datasets includes information about the
-Product Specification, issue data and time, geographic location identifier, etc. This is an abstract class realized in S-100 Part 10c.
+Product Specification, issue data and time, geographic location identifier, etc. This is an abstract class realized in <<Part10c>>.
 
 [[cls-8-5.3.12]]
 ==== S100_IF_ContentMetadata
 
 This is an abstract class representing metadata about dataset content, in particular
-features and attributes as defined in the Feature Catalogue. It is realized in S-100
-Part 10c.
+features and attributes as defined in the Feature Catalogue. It is realized in
+<<Part10c>>.
 
 [[cls-8-5.3.13]]
 ==== SC_CRS
 
 This class represents information about the coordinate reference system and datums
 (horizontal and vertical) used by the coverages. It is realized by attributes defined
-in S-100 Part 10c.
+in <<Part10c>>.

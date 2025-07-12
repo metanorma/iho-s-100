@@ -683,7 +683,7 @@ of the standard catalogue functions
 
 === domain specific functions
 
-all scripting functions which are defined outside S-100 Part 13. The union of
+all scripting functions which are defined outside <<Part13>>. The union of
 Domain Specific Host Functions and Domain Specific Catalogue Functions
 
 === domain specific host functions
@@ -1111,7 +1111,7 @@ definition because it follows from a theorem of topology.
 
 === ISO/IEC 8211 record
 
-an <<ISO8211>> implementation of a S-57 {{record}} and which comprises one
+an <<ISO8211>> implementation of a <<S57>> {{record}} and which comprises one
 or more {{field,fields}}
 
 === label
@@ -1721,7 +1721,7 @@ processed
 
 === standard scripting functions
 
-All scripting functions defined within S-100 Part 13. The union of Standard
+All scripting functions defined within <<Part13>>. The union of Standard
 Host Functions and Standard Catalogue Functions
 
 === start point

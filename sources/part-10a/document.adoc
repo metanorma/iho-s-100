@@ -32,3 +32,5 @@ include::sections/05-common-fields.adoc[]
 include::sections/06-dsd-records.adoc[]
 
 include::sections/07-object-records.adoc[]
+
+include::sections/99-bibliography.adoc[]

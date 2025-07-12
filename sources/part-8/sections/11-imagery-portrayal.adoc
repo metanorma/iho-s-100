@@ -2,7 +2,7 @@
 == Imagery and Gridded Data Portrayal
 
 The mechanism for portrayal is out of scope for this component of S-100. It is
-described in the Portrayal component of S-100 Parts 9 and 9a. The basic mechanism for
+described in the Portrayal component of <<Part9;and!Part9a>>. The basic mechanism for
 feature centric rule based portrayal is given in <<ISO19117>> "Portrayal". However,
 certain information may need to be carried with a set of imagery and gridded data to
 support external portrayal mechanisms.

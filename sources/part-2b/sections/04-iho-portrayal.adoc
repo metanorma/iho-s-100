@@ -268,7 +268,7 @@ A class used to assign permissions to a Register user.
 | Boolean
 |
 
-| Attribute | controlBody | User is Control Body | 1 | Boolean | Part 2 Management of Registers
+| Attribute | controlBody | User is Control Body | 1 | Boolean | <<Part2>>
 | Association
 | register
 | The Register that the manager manages
@@ -454,7 +454,7 @@ engineering image with dimensions.
 ==== S100_PR_Symbol
 
 The class S100_PR_Symbol is a specialization of the class S100_PR_VisualItem used to
-register a symbol according to Part 9 Portrayal.
+register a symbol according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -471,7 +471,7 @@ register a symbol according to Part 9 Portrayal.
 ==== S100_PR_LineStyle
 
 The class S100_PR_LineStyle is a specialization of the class S100_PR_VisualItem used
-to register a linestyle according to Part 9 Portrayal.
+to register a linestyle according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -495,7 +495,7 @@ to register a linestyle according to Part 9 Portrayal.
 ==== S100_PR_AreaFill
 
 The class S100_PR_AreaFill is a specialization of the class S100_PR_VisualItem used
-to register an area fill according to Part 9 Portrayal.
+to register an area fill according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -519,7 +519,7 @@ to register an area fill according to Part 9 Portrayal.
 ==== S100_PR_Pixmap
 
 The class S100_PR_Pixmap is a specialization of the class S100_PR_VisualItem used to
-register a pixmap according to Part 9 Portrayal.
+register a pixmap according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -536,7 +536,7 @@ register a pixmap according to Part 9 Portrayal.
 ==== S100_PR_ItemSchema
 
 The class S100_PR_ItemSchema is a specialization of the class S100_PR_RegisterItem
-used to register a portrayal item schema according to Part 9 Portrayal.
+used to register a portrayal item schema according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -554,13 +554,13 @@ used to register a portrayal item schema according to Part 9 Portrayal.
 | The XML schema stored as a Blob
 | 1
 | Blob
-| Schema from Part 9 Portrayal
+| Schema from <<Part9>>
 |===
 
 ===== S100_PR_ SymbolSchema
 
-The class is a specialization of S100_PR_ItemSchema and is used to register the Part
-9 Portrayal symbol schema.
+The class is a specialization of S100_PR_ItemSchema and is used to register the
+<<Part9>> symbol schema.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -576,8 +576,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the 
 
 ===== S100_PR_ LineStyleSchema
 
-The class is a specialization of S100_PR_ItemSchema and is used to register the Part
-9 Portrayal line style schema.
+The class is a specialization of S100_PR_ItemSchema and is used to register the
+<<Part9>> line style schema.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -593,8 +593,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the 
 
 ===== S100_PR_AreaFillSchema
 
-The class is a specialization of S100_PR_ItemSchema and is used to register the Part
-9 Portrayal area fill schema.
+The class is a specialization of S100_PR_ItemSchema and is used to register the <<Part9>>
+area fill schema.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -610,8 +610,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the 
 
 ===== S100_PR_PixmapSchema
 
-The class is a specialization of S100_PR_ItemSchema and is used to register the Part
-9 Portrayal pixmap schema.
+The class is a specialization of S100_PR_ItemSchema and is used to register the
+<<Part9>> pixmap schema.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -627,8 +627,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the 
 
 ===== S100_PR_ColourProfileSchema
 
-The class is a specialization of S100_PR_ItemSchema and is used to register the Part
-9 colour profile schema.
+The class is a specialization of S100_PR_ItemSchema and is used to register the
+<<Part9>> colour profile schema.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -731,7 +731,7 @@ It provides a colour value for colour tokens within a colour palette.
 ==== S100_PR_DisplayMode
 
 This is a specialization of the class S100_PR_RegisterItem used to register a Display
-Mode according to Part 9 Portrayal.
+Mode according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -742,26 +742,26 @@ Mode according to Part 9 Portrayal.
 | Used to register a Display Mode
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 |===
 
 ==== S100_PR_ViewingGroupLayer
 
 This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
-Group Layer according to Part 9 Portrayal.
+Group Layer according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
-| Class | S100_PR_ViewingGroupLayer | Used to register a Viewing Group Layer | - | S100_PR_RegisterItem | See Part 9 Portrayal
+| Class | S100_PR_ViewingGroupLayer | Used to register a Viewing Group Layer | - | S100_PR_RegisterItem | See <<Part9>>
 | Association | displayMode | A display mode which may include this layer | 0..* | S100_PR_DisplayMode | Used to identify dependencies
 |===
 
 ==== S100_PR_ViewingGroup
 
 This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
-Group according to Part 9 Portrayal.
+Group according to <<Part9>>.
 
 [%unnumbered,options=header,cols=6]
 |===
@@ -772,7 +772,7 @@ Group according to Part 9 Portrayal.
 | Used to register a Viewing Group
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 
 | Attribute
 | foundationMode
@@ -802,7 +802,7 @@ This is a specialization of the class S100_PR_RegisterItem.
 | The specific content for a display plane definition as a register item of type 'displayPlane'
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 
 | Attribute
 | order
@@ -826,7 +826,7 @@ use in a Portrayal Catalogue.
 | The specific content for a font file definition as a register item of type 'font'
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 
 | Attribute
 | fontFile
@@ -856,7 +856,7 @@ S100_PR_DrawingPriority is a specialization of S100_PR_RegisterItem.
 | Used to register drawing priorities to be used in a Portrayal Catalogue
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 
 | Attribute
 | priority
@@ -879,7 +879,7 @@ S100_PR_ContextParameter is a specialization of S100_PR_RegisterItem.
 | The specific content for a context parameter as a register item of type 'contextParameter'
 | -
 | S100_PR_RegisterItem
-| See Part 9 Portrayal
+| See <<Part9>>
 
 | Attribute
 | parameterType
@@ -1333,7 +1333,7 @@ When multiple viewing groups are provided, consideration should be given to prov
 ==== S100_PR_ParameterType
 
 The definition and members of enumeration S100_PR_ParameterType are the same as
-ParameterType in Part 9, clause 9-13.3.30.
+ParameterType in <<Part9,clause="9-13.3.30">>.
 
 ==== S100_PR_HighlightStyle
 

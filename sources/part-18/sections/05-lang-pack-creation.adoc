@@ -20,7 +20,7 @@ elements in the source XML into the target language.
 [[cls-18-5.2]]
 === Distribution
 
-S-100 Part 17 Exchange Catalogue enables the inclusion of zero or more language
+<<Part17>> enables the inclusion of zero or more language
 packs within S-100 Exchange Sets for distribution to end users. Such language
 packs can be included alongside the content to which they refer or
 independently to supplement pre-installed content on the end user system.
@@ -31,7 +31,7 @@ using the mechanisms defined for supporting resources within that Part. As
 Exchange Set content they will be digitally signed.
 
 There is no specific filename convention for language packs but as supporting
-resources they shall use the filename convention defined in Part 17.
+resources they shall use the filename convention defined in <<Part17>>.
 
 To avoid ambiguity Exchange Sets shall only contain a single language pack for
 any given source resource in a given target language.

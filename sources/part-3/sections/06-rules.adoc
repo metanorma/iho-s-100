@@ -61,7 +61,7 @@ this information can be exported.
 Catalogue, the reference to the Catalogue shall be documented.
 . Documentation of feature types in an Application Schema shall be in a Catalogue
 with a structure derived from the GFM, such as in a Catalogue in accordance with
-S-100 Part 5. This could be in text format or XML accompanied by a style sheet
+<<Part5>>. This could be in text format or XML accompanied by a style sheet
 (XSLT) used to create a text version.
 
 === Rules for Application Schema in UML (<<ISO19109,clause="8.3">>)
@@ -112,7 +112,7 @@ Catalogue Schema etc.
 
 ==== Restricted use of standard Schemas
 
-For some standard Schemas, for example S-100 Part 7 (Spatial Schema), it is
+For some standard Schemas, for example <<Part7>> (Spatial Schema), it is
 possible to redefine the Schema in such a way that only selected parts of the
 Schema will be used, and only some of the definitions of classes and relationships
 will be used.
@@ -125,18 +125,18 @@ given for the actual standard.
 
 ==== Rules for use of metadata Schema (<<ISO19109,clause="8.5">>)
 
-The metadata Schema defined in S100 Part 4 is an application Schema for metadata
+The metadata Schema defined in <<Part4a>>, <<Part4b;and!Part4c>> is an application Schema for metadata
 data sets. Metadata are data describing and documenting data. Metadata for
 geographic data typically provides information about their identification, extent,
 quality, spatial and temporal aspects, spatial reference and distribution.
 
 Metadata types shall be implemented as complex attributes that realize elements
-from S100 Part 4. Thus metadata attributes shall be thematic attribute types.
+from <<Part4a>>, <<Part4b;and!Part4c>>. Thus metadata attributes shall be thematic attribute types.
 
 [[cls-3-6.4.4]]
 ==== Temporal rules (<<ISO19109,clause="8.6">>)
 
-S-100 does not include a profile of ISO 19108. Temporal attributes shall be
+S-100 does not include a profile of <<ISO19108>>. Temporal attributes shall be
 modelled using the types Date, Time or DateTime, S100_TruncatedDate, or complex
 attributes using combinations of these temporal types. Use of these types makes the
 attribute an instance of S100_GF_SimpleAttributeType or
@@ -147,31 +147,31 @@ S100_GF_ComplexAttributeType, as appropriate.
 ==== General spatial rules (<<ISO19109,clause="8.7.1">>)
 
 The value domain of spatial attribute types shall be in accordance with the
-specifications given by S-100 Part 7, which provides conceptual Schemas for
+specifications given by <<Part7>>, which provides conceptual Schemas for
 describing the spatial characteristics of features and a set of spatial operators
 consistent with these Schemas.
 
-S-100 Part 7 explicitly excludes topological primitives and consequently any
-topology rules set out in clause 8.7 of ISO 19109 are not relevant in this profile.
+<<Part7>> explicitly excludes topological primitives and consequently any
+topology rules set out in <<ISO19109,clause="8.7">> are not relevant in this profile.
 
 ==== Spatial attributes
 
 . Spatial characteristics of a feature shall be described by one or more spatial
 attributes. In an Application Schema, a spatial attribute is a subtype of a feature
-attribute (see 5.3), and the taxonomy of its values is defined in the S-100 Part 7.
+attribute (see <<cls-5.3>>), and the taxonomy of its values is defined in the <<Part7>>.
 . A spatial attribute shall be represented in an Application Schema in either of
 two ways:
 
 .. Case 1: as an ATTRIBUTE of a UML CLASS that represents a feature, in which case
 the ATTRIBUTE shall take one of the spatial objects defined in the Spatial Schema,
-ISO 19107, as the data type for its value; or
+<<ISO19107>>, as the data type for its value; or
 .. Case 2: as a UML ASSOCIATION between the class that represents a feature and one
-of the spatial objects defined in the Spatial Schema, ISO 19107.
+of the spatial objects defined in the Spatial Schema, <<ISO19107>>.
 
 . A spatial attribute shall take a spatial object as its value. Spatial objects are
 classified as geometric objects, which are sub-classed as primitives, complexes or
 aggregates (for geometric objects). The value types of spatial attributes must be
-the types described in Part 7, or their subtypes.
+the types described in <<Part7>>, or their subtypes.
 
 ==== Spatial Quality
 
@@ -261,7 +261,7 @@ document how they are used in the dataset.
 
 Application Schemas which use an attribute of codelist type shall include a CLASS
 with tags as specified in <<tab-3-17>> below. The codelist types are described in
-Part 1.
+<<Part1>>.
 
 [[tab-3-17]]
 .Tags for codelist types

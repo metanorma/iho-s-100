@@ -31,7 +31,7 @@ therefore decrypt the HW_ID stored in the user permit. Data Servers encrypt thei
 dataset keys with the manufacturers HW_ID when producing a set of data permits.
 
 [[fig-15-4]]
-.High level licensing diagram based on S-101 ENC products
+.High level licensing diagram based on <<S101>> ENC products
 image::img186.png[]
 
 [[cls-15-7.2]]

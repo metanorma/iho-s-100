@@ -140,7 +140,7 @@ input, the validation rules may:
 
 Additionally, context parameters and validation rules can be enabled or
 disabled based on XPath 1.0 Boolean expressions, supporting conditional
-validation and a machine-readable UI. For instance, validation of the S-101
+validation and a machine-readable UI. For instance, validation of the <<S101>>
 Shallow Contour parameter may be disabled when the value of the Two Shades
 parameter is true.
 

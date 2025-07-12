@@ -2,4 +2,4 @@
 
 Any Conceptual Schema written for a specification that claims conformance to this
 part of S-100 shall conform to the rules set out in clause 5. This profile conforms
-to conformance class 2 of ISO 19106:2004.
+to conformance class 2 of <<ISO19106>>.

@@ -1,8 +1,8 @@
 [[cls-9a-5]]
 == General Portrayal Model
 
-There are no changes to the Part 9 general portrayal model. A Lua portrayal follows the
-general portrayal model described in 9-5. <<fig-9a-1>> illustrates the general
+There are no changes to the <<Part9>> general portrayal model. A Lua portrayal follows the
+general portrayal model described in <<Part9,clause="9-5">>. <<fig-9a-1>> illustrates the general
 portrayal model.
 
 [[fig-9a-1]]
@@ -13,7 +13,7 @@ image::img126.png[]
 === The Portrayal Process
 
 As illustrated in <<fig-9a-2>>, a Lua portrayal requires the following changes to the
-portrayal process described in Part 9, clause 9-5.1 and captured in <<tab-9a-1>>:
+portrayal process described in <<Part9,clause="9-5.1">> and captured in <<tab-9a-1>>:
 
 [[tab-9a-1]]
 .Changes to the portrayal process
@@ -35,7 +35,7 @@ image::img127.png[]
 === LuaPortrayal Process
 
 This section describes the Part 9a portrayal process in detail, and indicates where
-there are changes to Part 9. The Lua portrayal process is shown in <<fig-9a-3>>.
+there are changes to <<Part9>>. The Lua portrayal process is shown in <<fig-9a-3>>.
 
 [[fig-9a-3]]
 .Lua Portrayal Process
@@ -101,7 +101,7 @@ When the portrayal scripts return the drawing instructions for a feature instanc
 also return a list of "observed" portrayal context parameters (see <<cls-9a-14.2.1>>).
 The observed context parameters are those context parameters which were evaluated
 during the generation of drawing instructions for a particular feature. For more detail
-on context parameters refer to Part 9 clause 9-13.3.22.
+on context parameters refer to <<Part9,clause="9-13.3.22">>.
 
 A notional portrayal cache is shown in <<fig-9a-4>>. To implement, the host should
 cache the value of observed context parameters along with the generated drawing

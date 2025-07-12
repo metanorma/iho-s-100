@@ -18,10 +18,10 @@ Each class in this part is intended to have a mechanism to be
 identifiable and/or to identify an external source that is
 derived from the class S100_IO_IdentifiedObject.
 
-Different from ISO 19111 this class is not derived from an
+Different from <<ISO19111>> this class is not derived from an
 external document but uses members defined by external standards.
 In addition, no other class in this part is derived from external
-standards. Where in ISO 19111 those classes inherit essential
+standards. Where in <<ISO19111>> those classes inherit essential
 members, those members will be introduced here in the appropriate
 package diagram. This should improve the readability of this
 component and also avoids multiple inheritance where it is not
@@ -48,7 +48,7 @@ The type RS_Identifier (from <<ISO19115>>) has three parts:
 . codeSpace: CharacterString [0..1];
 . version: CharacterString [0..1].
 
-The type CI_Citation is also defined in ISO 19115, for more
+The type CI_Citation is also defined in <<ISO19115>>, for more
 details refer there.
 
 === The Coordinate Reference Systems package

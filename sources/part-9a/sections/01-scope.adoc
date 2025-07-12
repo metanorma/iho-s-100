@@ -1,6 +1,6 @@
 == Scope
 
-This part defines the changes to S-100 Part 9 necessary to implement portrayal using
-the scripting mechanism defined in S-100 Part 13. Products which specify use of a
-portrayal catalogue as described in this part must also require implementation of S-100
-Part 13.
+This part defines the changes to <<Part9>> necessary to implement portrayal using
+the scripting mechanism defined in <<Part13>>. Products which specify use of a
+portrayal catalogue as described in this part must also require implementation of
+<<Part13>>.

@@ -11,11 +11,11 @@ identified scope.
 
 The content information of a feature-based data product is described in
 terms of a general feature model and a Feature Catalogue [adopted from
-S-100 Part 3 and S-100 Part 5].
+<<Part3;and!Part5>>].
 
 The data product specification shall contain an application schema. For
 all data product specifications in the realm of S-100, the application
-schema shall be expressed in UML. All other rules of S-100 Part 3
+schema shall be expressed in UML. All other rules of <<Part3>>
 concerning the creation of the general feature model and especially
 conformance to <<ISO19109>> apply as well. If the application schema is a
 separate document, then the product specification shall include a
@@ -27,7 +27,7 @@ these unique names.
 The data product specification shall include a feature catalogue, which
 provides a full description of each feature type including attributes,
 attribute values and relationships in the data product. The feature
-catalogue shall be realized in accordance with S-100 Part 5. The feature
+catalogue shall be realized in accordance with <<Part5>>. The feature
 catalogue shall be available in both 'machine readable' (for example XML
 based on the S-100 Feature Catalogue XSD) and 'human readable' (for
 example textual derived by XSLT from the XML) forms.
@@ -59,7 +59,7 @@ elements in <<tab-11-5>>.
 === Coverage-based and imagery data
 
 The content information of a coverage-based data product (including
-imagery data product) shall be described in accordance with S-100 Part 7.
+imagery data product) shall be described in accordance with <<Part7>>.
 The content information shall be described in the following manner:
 
 A data product specification shall identify each coverage type and each
@@ -90,13 +90,13 @@ components shall be identified to describe a coverage or an image
 The data product specification shall include information that defines the
 reference systems used in the data product. The spatial reference system
 used shall be a coordinate reference system (CRS) in conformance with
-S-100 Part 6 CRS Component. The application schema will show how CRS
+<<Part6>> CRS Component. The application schema will show how CRS
 references are carried in the data sets; this may be by reference to a
 register of CRS parameters, such as the EPSG Geodetic Parameter Dataset.
 
 A product specification may express coordinate operation parameters for
 operations between particular CRSs. These parameters shall be recorded as
-described in S-100 Part 6.
+described in <<Part6>>.
 
 [yaml2text,sections/tables/tables.yaml,data]
 ----

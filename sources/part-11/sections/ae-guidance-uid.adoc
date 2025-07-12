@@ -20,12 +20,12 @@ It is important to preserve original identifiers in data products to
 assist in identifying data objects which describe the same real-world
 entity between different datasets, especially datasets from different
 specifications. For example: Identify instances of the same restricted
-area between ENC (S-101) and Marine Protected Area (S-122) datasets in
+area between ENC (<<S101>>) and Marine Protected Area (<<S122>>) datasets in
 an ECDIS. Another principle for preserving instance identifiers is to
 assist in identifying associated instances between datasets, especially
-datasets from different specifications. For example: S-124 Navigational
+datasets from different specifications. For example: <<S124>> Navigational
 Warning marking a light as out of order. This one navigational warning
-could be used to mark the issue in S-201, S-125 and S-101. Note that
+could be used to mark the issue in <<S201>>, <<S125>> and <<S101>>. Note that
 this requires the identifiers to be preserved so that the system can
 link the related feature instances.
 
@@ -39,7 +39,7 @@ products within an S-100 based environment evolves. Thinking
 interoperability to the last consequence, the clear and standardised
 definition of the Unique Identifier's structure becomes essential within
 that structure, and it is recommended that the Maritime Resource Name
-(MRN) concept, see Part 3 clause 3-10, be utilized as far as possible to
+(MRN) concept, see <<Part3,clause="3-10">>, be utilized as far as possible to
 have a common system of identifiers within the S-100 regime. S-100
 Product Specifications may implement an attribute called
 *interoperabilityIdentifier*. This attribute is intended to provide a
@@ -47,8 +47,8 @@ persistent and unique identifier, to be expressed as an MRN, between
 features in datasets of different Product Specifications. In an S-100
 ECDIS context, for instance, this would allow feature interrogation to
 include related features from different Product Specifications.
-Implementation of interoperabilityIdentifier is optional, see S-100 Part
-3, clause 3-10.1.
+Implementation of interoperabilityIdentifier is optional, see
+<<Part3,clause="3-10.1">>.
 
 There are implications to establishing a regime of preserving persistent
 unique identifiers. These include;

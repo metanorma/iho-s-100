@@ -10,7 +10,7 @@ the content of the Feature Catalogue, as defined in the appropriate Product Spec
 The scope of this Part includes:
 
 . Feature and information type data conforming to the S-100 General Feature Model defined
-in Part 3, encoded using GML (<<ISO19136>>), and structured as datasets (identifiable
+in <<Part3>>, encoded using GML (<<ISO19136>>), and structured as datasets (identifiable
 collections of data).
 . Construction of GML Schemas from Feature Catalogues.
 . Guidance for use of the Schemas in Application Schemas for data products.

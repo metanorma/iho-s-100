@@ -1,0 +1,22 @@
+[bibliography]
+== Bibliography
+
+* [[[Part2,dropid(repo:(current-metanorma-collection/IHO S-100 Part 2))]]],
+span:title[S-100 -- Part 2: Management of Registers],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part1,dropid(repo:(current-metanorma-collection/IHO S-100 Part 1))]]],
+span:title[S-100 -- Part 1: Conceptual Schema Language],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part2b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 2b))]]],
+span:title[S-100 -- Part 2b: Portrayal Register],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

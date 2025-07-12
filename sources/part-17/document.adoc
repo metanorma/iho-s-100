@@ -26,3 +26,5 @@ include::sections/02-conformance.adoc[]
 include::sections/03-norm-refs.adoc[]
 
 include::sections/04-overview.adoc[]
+
+include::sections/99-bibliography.adoc[]

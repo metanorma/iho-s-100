@@ -43,7 +43,7 @@
     value:  2024-06
   edition: 5.2.0
   amend:
-    - description: Corrected format descriptor for the Data Descriptive Field for the 3-D Floating point Coordinate List field structure – 3b24 amended to 3b48.
+    - description: Corrected format descriptor for the Data Descriptive Field for the 3-D Floating point Coordinate List field structure -- 3b24 amended to 3b48.
       location:
         - part=10a,clause=10a-7.2.1.10
 - date:

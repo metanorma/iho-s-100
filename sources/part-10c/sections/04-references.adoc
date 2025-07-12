@@ -75,3 +75,57 @@ span:date[1992-01-01]
 * [[[RFC3986,hidden(IETF RFC 3986)]]]
 
 * [[[RFC2141,hidden(IETF RFC 2141)]]]
+
+* [[[Part1,dropid(repo:(current-metanorma-collection/IHO S-100 Part 1))]]],
+span:title[S-100 -- Part 1: Conceptual Schema Language],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part8,dropid(repo:(current-metanorma-collection/IHO S-100 Part 8))]]],
+span:title[S-100 -- Part 8: Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part3,dropid(repo:(current-metanorma-collection/IHO S-100 Part 3))]]],
+span:title[S-100 -- Part 3: General Feature Model and Rules for Application Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4a))]]],
+span:title[S-100 -- Part 4a: Metadata],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4b))]]],
+span:title[S-100 -- Part 4b: Metadata for Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4c,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4c))]]],
+span:title[S-100 -- Part 4c: Metadata - Data Quality],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part10a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10a))]]],
+span:title[S-100 -- Part 10a: ISO/IEC 8211 Encoding],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part10b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10b))]]],
+span:title[S-100 -- Part 10b: GML Data Format],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[AnnexA,dropid(repo:(current-metanorma-collection/IHO S-100 Annex A))]]],
+span:title[S-100 -- Annex A: Terms and Definitions],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[S104,hidden(IHO S-104)]]]
+
+* [[[S101,hidden(IHO S-101)]]]

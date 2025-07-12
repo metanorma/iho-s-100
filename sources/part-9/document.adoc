@@ -45,6 +45,8 @@ include::sections/12-symbol-defs.adoc[]
 
 include::sections/13-port-lib.adoc[]
 
+include::sections/99-bibliography.adoc[]
+
 include::sections/aa-port-input-xml.adoc[]
 
 include::sections/ab-svg-profile.adoc[]

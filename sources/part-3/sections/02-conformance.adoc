@@ -1,8 +1,8 @@
 == Conformance
 
-This profile conforms to conformance class 2 of ISO 19106:2004. The following is a
+This profile conforms to conformance class 2 of <<ISO19106>>. The following is a
 brief description of the specializations and generalizations where the S-100
-General Feature Model differs from ISO 19109.
+General Feature Model differs from <<ISO19109>>.
 
 . A new S100_GF_NamedType is introduced.
 . A new S100_GF_ObjectType is introduced as a specialisation of S100_GF_NamedType.
@@ -29,7 +29,7 @@ characteristics.
 S100_GF_InformationAssociationType are introduced as specialisations of
 S100_GF_AssociationType.
 . The association role linkBetween of the GF_FeatureType/GF_AssociationType
-relationship in ISO 19109 is realized as follows:
+relationship in <<ISO19109>> is realized as follows:
 .. Role linkBetween of the S100_FeatureType/S100_GF_FeatureAssociationType
 relationship;
 .. Role linkBetween of the S100_InformationType /

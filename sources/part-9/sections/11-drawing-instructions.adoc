@@ -181,7 +181,7 @@ To avoid text overlaps and improve readability the display engine may suppress s
 
 An instruction to portray data coverages like gridded bathymetry, satellite images, etc.
 
-[quote,ISO, "ISO19123,section=Introduction"]
+[quote,ISO,"ISO19123"]
 ____
 A coverage is a feature that has multiple values for each attribute type, where each direct position within the geometric representation of the feature has a single value for each attribute type.
 ____
@@ -198,9 +198,9 @@ Discrete coverages are portrayed by applying a symbol and/or numeric annotation 
 
 ===== Continuous Coverages
 
-Continuous coverages are portrayed by filling the cells that have actual data associated, as opposed to no data (termed "fill values" in HDF5, not to be confused with colour or symbol fills as the terms are used in portrayal). The fills used in portrayal may be solid fills; patterns of symbols; pixmaps; or gradients. Fill transparency may also be specified by the applicable portrayal rule. Interpolation methods, if defined in the coverage type (see S-100 Part 8, clause 8-7.7.3) may be applied to depict variations in data values in each grid cell. The anchor point for text or symbol placement is dependent on the coverage's spatial type and the placement attribute in the Portrayal Catalogue.
+Continuous coverages are portrayed by filling the cells that have actual data associated, as opposed to no data (termed "fill values" in HDF5, not to be confused with colour or symbol fills as the terms are used in portrayal). The fills used in portrayal may be solid fills; patterns of symbols; pixmaps; or gradients. Fill transparency may also be specified by the applicable portrayal rule. Interpolation methods, if defined in the coverage type (see <<Part8,clause="8-7.7.3">>) may be applied to depict variations in data values in each grid cell. The anchor point for text or symbol placement is dependent on the coverage's spatial type and the placement attribute in the Portrayal Catalogue.
 
-Irregular shape grids, ungeorectified grids, variable cell size grids (see S-100 Part 10, Table 10c-15) are all treated similarly to regular grids as far as portrayal is concerned. For variable cell size grids, unit cells must be used for symbol fills (that is, in an expanded cell that covers more than one unit cell, the symbol must be depicted at the centre of each unit cell included in the expanded cell).
+Irregular shape grids, ungeorectified grids, variable cell size grids (see <<Part10c,table="10c-15">>) are all treated similarly to regular grids as far as portrayal is concerned. For variable cell size grids, unit cells must be used for symbol fills (that is, in an expanded cell that covers more than one unit cell, the symbol must be depicted at the centre of each unit cell included in the expanded cell).
 
 ===== Colour Assignment
 

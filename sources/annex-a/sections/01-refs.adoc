@@ -60,3 +60,10 @@
 * [[[ISO2382,hidden(ISO/IEC 2382)]]]
 
 * [[[ISO8211,hidden(ISO/IEC 8211)]]]
+
+* [[[Part13,dropid(repo:(current-metanorma-collection/IHO S-100 Part 13))]]],
+span:title[S-100 -- Part 13: Scripting],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[S57,hidden(IHO S-57)]]]

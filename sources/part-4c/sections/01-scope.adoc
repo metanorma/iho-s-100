@@ -1,9 +1,9 @@
 == Scope
 
-The general scope of Parts 4a, b and c has been described at the beginning of Part 4a.
+The general scope of <<Part4a>>, <<Part4b;and!Part4c>> has been described at the beginning of <<Part4a>>.
 This Part is a metadata quality guidance and incorporates quality measures as described
-in ISO 19113, 19114 and 19138 and complies with ISO 19106 _Geographical Information --
-Profiles_ which describes the rules for developing profiles of the 19100 series
+in <<ISO19113>>, <<ISO19114>> and <<ISO19138>> and complies with <<ISO19106>>
+which describes the rules for developing profiles of the 19100 series
 standards. This guidance is applicable to IHO hydrographic data sets, data set series,
 and individual features and feature properties. It is intended for hydrographic
 requirements and describes how to document information about the quality of digital

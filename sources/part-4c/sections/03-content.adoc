@@ -1,23 +1,23 @@
 == Content
 
-ISO 19115 defines almost 300 metadata elements, which include a group of core metadata
-elements. S-100 Part 4c (Metadata) describes in general how these are used within
+<<ISO19115>> defines almost 300 metadata elements, which include a group of core metadata
+elements. <<Part4c>> (Metadata) describes in general how these are used within
 S-100. However, to fully describe hydrographic data additional elements are needed.
 This document describes elements for quality measures as defined and described in
 <<ISO19138>>.
 
-=== ISO 19138 Quality Measures and UML Classes
+=== <<ISO19138>> Quality Measures and UML Classes
 
 The IHO Quality Metadata Guidance contains optional quality metadata elements for
-hydrographic requirements. Additional 19115 elements are available for use; however
+hydrographic requirements. Additional <<ISO19115>> elements are available for use; however
 they may not be recognised by systems not conforming to this profile. The metadata
 packages used in this profile are shown in Unified Modeling Language (UML) class
 diagrams at <<app-4c-A>>.
 
-S-100 Quality Measure class structure is derived from ISO 19115 Geographic Information
-Metadata. The attributes described in the S-100 Quality classes each correspond to
-independent quality measures. Full descriptions of these measures are contained in ISO
-19138 Geographic Information Data Quality Measures.
+S-100 Quality Measure class structure is derived from <<ISO19115>>.
+The attributes described in the S-100 Quality classes each correspond to
+independent quality measures. Full descriptions of these measures are contained in
+<<ISO19138>>.
 
 All of the S-100 Quality measures are intentionally optional so that different measures
 may be used for different types of data. Where multiple attributes describe the same
@@ -29,6 +29,6 @@ described in <<ISO19138,annex="B">>.
 
 === Core Metadata
 
-Core metadata elements are described in S-100 Part 4a. Dataset and feature quality
+Core metadata elements are described in <<Part4a>>. Dataset and feature quality
 metadata can be linked to a higher hierarchy level field, and all these levels may be
 supplied in one file or separate metadata files.

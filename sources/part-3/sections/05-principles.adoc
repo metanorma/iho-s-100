@@ -46,7 +46,7 @@ The following clauses define the elements of the GFM.
 
 ==== S100_GF_NamedType
 
-The class S100_GF_NamedType is not realized from ISO 19109 but is introduced
+The class S100_GF_NamedType is not realized from <<ISO19109>> but is introduced
 specifically for the S-100 GFM. It is an abstract super-class of the classes
 S100_GF_ObjectType and S100_GF_AssociationType. The intention in introducing this
 class is to show the commonality between object types and association types within
@@ -67,7 +67,7 @@ S-100. Both types are core identifiable objects of S-100 data Schemas.
 
 ==== S100_GF_ObjectType
 
-The class S100_GF_ObjectType is not realized from ISO 19109 but is introduced
+The class S100_GF_ObjectType is not realized from <<ISO19109>> but is introduced
 specifically for the S-100 GFM. It is an abstract super-class of the classes
 S100_GF_FeatureType and S100_GF_InformationType. The intention in introducing this
 class is to show the commonality between feature types and information types in
@@ -85,7 +85,7 @@ of an information association.
 
 ==== S100_GF_FeatureType
 
-The class S100_GF_FeatureType is a realization of the ISO 19109 class
+The class S100_GF_FeatureType is a realization of the <<ISO19109>> class
 GF_FeatureType. It differs from the ISO class in the following ways:
 
 * It is a sub-type of the class S100_GF_NamedType;
@@ -115,7 +115,7 @@ feature must have properties.
 
 ==== S100_GF_PropertyType
 
-The class S100_GF_PropertyType is a realization of the ISO 19109 class
+The class S100_GF_PropertyType is a realization of the <<ISO19109>> class
 GF_PropertyType. It differs from the ISO class in the following ways:
 
 . The multiplicity of the association with S100_GF_FeatureType is changed from 1 to
@@ -141,7 +141,7 @@ above.
 ==== S100_GF_AttributeType
 
 The class S100_GF_AttributeType is the S-100 realization of GF_AttributeType. It is
-largely identical to the ISO 19109 class but differs in the following way:
+largely identical to the <<ISO19109>> class but differs in the following way:
 
 . The association attributeOfAttribute is not realized in the S-100 GFM. S-100
 introduces, instead, the concept of complex attributes. Complex attributes are
@@ -161,7 +161,7 @@ described further in <<ISO19109,clause="7.4">>.
 
 ==== S100_GF_AssociationRole
 
-The class S100_GF_AssociationRole is the S-100 realization of the ISO 19109 class
+The class S100_GF_AssociationRole is the S-100 realization of the <<ISO19109>> class
 GF_AssociationRole.
 
 [[tab-3-6]]
@@ -181,10 +181,10 @@ the data transfer model. Datasets cannot contain operations.
 
 ==== S100_GF_AssociationType
 
-The class S100_GF_AssociationType is the S-100 realization of the ISO 19109 class
-GF_AssociationType. It differs from the ISO 19109 class in the following way:
+The class S100_GF_AssociationType is the S-100 realization of the <<ISO19109>> class
+GF_AssociationType. It differs from the <<ISO19109>> class in the following way:
 
-. The ISO 19109 GFM models GF_AssociationType as a subtype of the class
+. The <<ISO19109>> GFM models GF_AssociationType as a subtype of the class
 GF_FeatureType. This is done for reasons which are set out in Note 1 of <<ISO19109,clause="7.3.9">>
 The S-100 model does not model the class as a subtype of
 S100_GF_FeatureType. Within S-100 associations between feature types are not
@@ -243,7 +243,7 @@ of the type S100_InformationAssociationType.
 
 ==== S100_GF_FeatureAssociationType
 
-The class S100_GF_FeatureAssociationType is not realized from ISO 19109 but is
+The class S100_GF_FeatureAssociationType is not realized from <<ISO19109>> but is
 introduced specifically for the S-100 GFM. The reason for this is that in S-100 two
 types of associations are distinguished: feature associations and information
 associations. They are both semantically different and different in the model. This
@@ -266,7 +266,7 @@ the relationship since such relationship is usually not symmetric.
 
 ==== S100_GF_InformationAssociationType
 
-The class S100_GF_InformationAssociationType is not realized from ISO 19109 but is
+The class S100_GF_InformationAssociationType is not realized from <<ISO19109>> but is
 introduced specifically for the S-100 GFM. The reason for this is that in S-100 two
 types of associations are distinguished: feature associations and information
 associations. They are both semantically different and different in the model. This
@@ -290,8 +290,8 @@ characterized by thematic attributes and a role.
 
 ==== S100_GF_Constraint
 
-The class S100_GF_Constraint is a realization of the ISO 19109 class GF_Constraint
-with an association to S100_GF_NamedType instead of the ISO 19109 association to
+The class S100_GF_Constraint is a realization of the <<ISO19109>> class GF_Constraint
+with an association to S100_GF_NamedType instead of the <<ISO19109>> association to
 GF_Feature_Type.
 
 [[tab-3-11]]
@@ -304,6 +304,7 @@ GF_Feature_Type.
 | Attribute | description | The constraint described in natural language and/or in formal notation | 1 | CharacterString
 |===
 
+[[cls-5.3]]
 === Attributes of feature types
 
 ==== Introduction
@@ -317,13 +318,13 @@ image::img24.png[]
 
 ==== S100_GF_ThematicAttributeType
 
-The class S100_GF_ThematicAttributeType is a realization of the ISO 19109 class
+The class S100_GF_ThematicAttributeType is a realization of the <<ISO19109>> class
 GF_ThematicAttributeType. Thematic attribute types carry descriptive
 characteristics of objects other than those specified in
 <<ISO19109,clause="7.4.3">> -- <<ISO19109,clause="7.4.7">>. This class differs from
-the ISO 19109 class in the following ways:
+the <<ISO19109>> class in the following ways:
 
-. GF_ThematicAttributeType is defined in ISO 19109 as a concrete class. The S-100
+. GF_ThematicAttributeType is defined in <<ISO19109>> as a concrete class. The S-100
 GFM realization is an abstract class with two concrete subclasses --
 S100_GF_SimpleAttributeType and S100_GF_ComplexAttributeType.
 . Temporal information shall have their value type defined by the types Date, Time,
@@ -351,14 +352,12 @@ attribute type carries a descriptive characteristic of a named type.
 
 ==== S100_GF_SpatialAttributeType
 
-The class S100_GF_SpatialAttributeType is a realization of the ISO 19109 class
+The class S100_GF_SpatialAttributeType is a realization of the <<ISO19109>> class
 GF_SpatialAttributeType. A spatial attribute type shall have a GM_Object as its
-value type. GM_Object and its sub-types are defined in the Spatial Schema, S-100
-Part 7.
+value type. GM_Object and its sub-types are defined in the Spatial Schema, <<Part7>>.
 
 NOTE: The class S100_GF_SpatialAttributeType is only partially implemented in the
-Feature Catalogue described in S-100 Part 5 and in the encodings described in Part
-10.
+Feature Catalogue described in <<Part5>> and in the encodings described in <<Part10a>>, <<Part10b;and!Part10c>>.
 
 [[tab-3-13]]
 .S100_GF_SpatialAttributeType
@@ -380,11 +379,11 @@ _maskReference_ attribute is defined by the type __S100_GF_MaskReference__, show
 in <<tab-3-14>> below.
 
 The implementation of mask references in different S-100 formats is specified in
-the respective data format specifications (Part 10a for the ISO 8211 data format
-and Part 10b for the GML format) and may use constructs built into the core
+the respective data format specifications (<<Part10a>> for the <<ISO8211>> data format
+and <<Part10b>> for the GML format) and may use constructs built into the core
 specification. For example, the S-100 GML format uses the GML type _ReferenceType_
 with restrictions on allowed values of the _xlink:href_ and _xlink:role_
-attributes; the ISO 8211 format uses unsigned integers containing the record
+attributes; the <<ISO8211>> format uses unsigned integers containing the record
 identifier of a spatial object and the numeric code of the mask indicator value.
 
 The spatial objects referenced in the masking attribute must be among the
@@ -434,27 +433,27 @@ if needed, for example, to curves.
 
 ==== GF_TemporalAttributeType
 
-The ISO 19109 class GF_TemporalAttributeType is not realized explicitly in the
+The <<ISO19109>> class GF_TemporalAttributeType is not realized explicitly in the
 S-100 GFM. Temporal information shall be modelled using the thematic attribute type
 S100_GF_ThematicAttributeType (see <<cls-3-6.4.4>> for more details).
 
 ==== GF_MetadataAttributeType
 
-The ISO 19109 class GF_MetadataAttributeType is not realized explicitly in the
+The <<ISO19109>> class GF_MetadataAttributeType is not realized explicitly in the
 S-100 GFM. Metadata types shall be modelled using complex thematic attributes which
-realize types from the S-100 Part 4a metadata component. The complex thematic
+realize types from <<Part4a>> metadata component. The complex thematic
 attributes shall be defined in a Feature Catalogue.
 
 ==== GF_QualityAttributeType
 
-The ISO 19109 class GF_QualityAttributeType is not realized explicitly in the S-100
+The <<ISO19109>> class GF_QualityAttributeType is not realized explicitly in the S-100
 GFM. Quality metadata types shall be modelled using complex thematic attributes
-which realize types from the S-100 Part 4c Appendix 4c-A Data Quality. The complex
+which realize types from the <<Part4c,locality:appendix="4c-A">>. The complex
 thematic attributes shall be defined in a Feature Catalogue.
 
 ==== GF_LocationAttributeType
 
-The ISO 19109 class GF_LocationAttributeType is not realized in the S-100 GFM.
+The <<ISO19109>> class GF_LocationAttributeType is not realized in the S-100 GFM.
 
 ==== S100_TruncatedDateAttributeType
 
@@ -520,10 +519,10 @@ image::img25.png[]
 ==== S100_GF_AssociationType
 
 Associations are defined by the class S100_GF_AssociationType with two roles and a
-definition. The ISO 19109 classes GF_AggregationType, GF_SpatialAssociationType,
+definition. The <<ISO19109>> classes GF_AggregationType, GF_SpatialAssociationType,
 and GF_TemporalAssociationType are not realized explicitly in the S-100 GFM. These
-classes can be used only if an association is allowed to carry properties. The ISO
-19109 GFM allows this because GF_AssociationType is a sub-type of GF_FeatureType.
+classes can be used only if an association is allowed to carry properties. The
+<<ISO19109>> GFM allows this because GF_AssociationType is a sub-type of GF_FeatureType.
 However, S100_GF_AssociationType is not a sub-type of S100_GF_FeatureType.
 
 ==== Associations to information types

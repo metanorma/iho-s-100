@@ -15,9 +15,9 @@ conforming to the XML schema rules, the latter a UML diagram, conforming to the 
 Application Schema rules.
 
 These terms and definitions conform to <<ISO19101;and!ISO19136>>. Complete definitions are
-given in <<ISO19101;and!ISO19136>>, and are reproduced in Annex A.
+given in <<ISO19101;and!ISO19136>>, and are reproduced in <<AnnexA>>.
 
 An S-100 based Feature Catalogue presents the abstraction of reality represented in one or
 more sets of geographic data as a defined classification of phenomena. It presents a
 machine-readable description of a Product Specification Conceptual Schema according to
-S-100 Part 5.
+<<Part5>>.

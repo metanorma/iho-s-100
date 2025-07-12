@@ -246,10 +246,10 @@ classes corresponding to the illegal overlapping surfaces have to be reported as
 [Adapted from <<ISO19138>>]
 +
 --
-The allowable topological levels are described in the IHO/DGIWG joint profile of ISO
-19107 Geographic Information Spatial Schema. Which particular topological structure may
+The allowable topological levels are described in the IHO/DGIWG joint profile of
+<<ISO19107>> Geographic Information Spatial Schema. Which particular topological structure may
 be used with a specific dataset is defined in the Product Specification for that type
-of data product, for example "Chain Node Topology" for IHO S-101.
+of data product, for example "Chain Node Topology" for <<S101>>.
 
 This is an error count.
 --
@@ -597,10 +597,10 @@ misclassifications. [Adapted from <<ISO19138>>]
 representations of features. [Adapted from <<ISO19138>>]
 +
 --
-NOTE: in ISO 19115, this is "Correctness of the explicitly encoded topological
-characteristics of a dataset", but ISO 19138 states that the measures "will not serve
+NOTE: in <<ISO19115>>, this is "Correctness of the explicitly encoded topological
+characteristics of a dataset", but <<ISO19138>> states that the measures "will not serve
 as measures of the consistency of explicit descriptions of topology using the
-topological objects specified in ISO 19107", and S-100 does not explicitly encode
+topological objects specified in <<ISO19107>>", and S-100 does not explicitly encode
 geometry.
 --
 

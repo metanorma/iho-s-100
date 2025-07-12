@@ -41,6 +41,8 @@ include::sections/10-production-process.adoc[]
 
 include::sections/11-portrayal.adoc[]
 
+include::sections/99-bibliography.adoc[]
+
 include::sections/aa-interop-xml.adoc[]
 
 include::sections/ab-guidance.adoc[]

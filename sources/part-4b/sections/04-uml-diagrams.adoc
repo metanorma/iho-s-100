@@ -5,11 +5,11 @@ The metadata Schemas for the imagery and gridded data are included in
 augment the UML diagrams shown in <<ISO19115-1>>.
 
 <<ISO19115-2,annex=B>> contains the element and entity definitions for
-the metadata Schemas defined in Annex A. The dictionary, in conjunction
-with the diagrams presented in Annex A and in combination with the UML
-diagrams and data dictionary presented in ISO 19115-1, serves to fully
+the metadata Schemas defined in <<AnnexA>>. The dictionary, in conjunction
+with the diagrams presented in <<AnnexA>> and in combination with the UML
+diagrams and data dictionary presented in <<ISO19115-1>>, serves to fully
 define the total abstract model for metadata.
 
 Enumerations and their values provided in <<ISO19115-1>> are normative.
 User extensions to enumerations shall follow the rules as described in
-<<ISO19115-1>> and Annex 4a-E of S-100.
+<<ISO19115-1>> and <<Part4a,annex="E">>.

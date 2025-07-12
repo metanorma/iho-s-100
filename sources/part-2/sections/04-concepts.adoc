@@ -40,9 +40,9 @@ The following Registers have been implemented within the IHO Geospatial Informat
 (GI) Registry structure. A full description of these Registers is included in the
 accompanying references:
 
-* Concept Register (S-100 Part 2a);
-* Data Dictionary Register (S-100 Part 2a);
-* Portrayal Register (S-100 Part 2b);
+* Concept Register (<<Part2a>>);
+* Data Dictionary Register (<<Part2a>>);
+* Portrayal Register (<<Part2b>>);
 * Metadata Register (not currently described - to be included in a future Edition
 of S-100);
 * Product Specification Register (not currently described - to be included in a
@@ -52,5 +52,4 @@ Edition of S-100).
 
 A description of the operational and management procedures for the IHO GI Registry,
 expanding further on the general concepts described in the following clauses, is
-included in IHO Publication S-99 -- _Operational Procedures for the Organization
-and Management of the IHO Geospatial Information (GI) Registry_.
+included in <<S99>>.

@@ -34,7 +34,7 @@ exchanged between individual Data Clients.
 
 The Protection Scheme is designed for file based transfer of data between parties.
 Stream based transfer may use different methodologies. Data streaming is presented
-in S-100 Part 14. The S-100 Protection Scheme described in this Part is bound to
+in <<Part14>>. The S-100 Protection Scheme described in this Part is bound to
 the value "S100p15" in the protectionScheme element of the CATALOG.XML Exchange
 Set Catalogue.
 

@@ -1,0 +1,17 @@
+[bibliography]
+== Bibliography
+
+* [[[Part9a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 9a))]]],
+span:title[S-100 -- Part 9a: Portrayal (Lua)],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part1,dropid(repo:(current-metanorma-collection/IHO S-100 Part 1))]]],
+span:title[S-100 -- Part 1: Conceptual Schema Language],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

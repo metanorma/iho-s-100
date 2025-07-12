@@ -37,7 +37,7 @@ interoperability functionality.
 The viewing group is a concept to control the content of the display. It
 works as an on/off switch for any drawing instruction assigned to the
 corresponding viewing group. The concept can be seen as a filter on the
-list of drawing instructions [S-100 Part 9, clause 9-11.1.3].
+list of drawing instructions [<<Part9,clause="9-11.1.3">>].
 
 Viewing groups in Interoperability Catalogues take precedence over the
 applicable viewing groups for any feature instances from a supported

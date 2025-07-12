@@ -19,5 +19,5 @@ the Feature Catalogue.
 === Derivation of the General Feature Model
 
 A conceptual model of types that shall be used in S-100 products is presented in
-this document. It is known as the GFM and is derived from the ISO 19109 General
+this document. It is known as the GFM and is derived from the <<ISO19109>> General
 Feature Model by realization of its classes (<<fig-3-1>>).

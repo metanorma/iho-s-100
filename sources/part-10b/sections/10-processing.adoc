@@ -29,7 +29,7 @@ applications to distinguish the namespace part of the tag from the 'local name' 
 ==== Geometric primitives
 
 The S-100 GML Profile supports the S-100 implementations of GML 3.2.1 basic geometries
-(Part 7, clause 7-4.1.1).
+(<<Part7,clause="7-4.1.1">>).
 
 For the simplest geometry requirements where no spatial attribution or associations are
 required, native GML types, imported by the S-100 GML Profile Schemas, and representing
@@ -96,7 +96,7 @@ interpolation is defined by an arc of a circle of the specified radius centred a
 position given by the single control point. The arc starts,at the start angle parameter
 and extends for the angle given by the angular distance parameter. This interpolation type
 shall be used only with S100_ArcByCenterPoint and S100_CircleByCenterPoint geometry. The
-precise semantics of the parameters are defined in Part 7 clause 7-4.2.20
+precise semantics of the parameters are defined in <<Part7,clause="7-4.2.20">>
 (S100_ArcByCenterPoint).
 . *Polynomial (polynomialSpline)* -- the control points are ordered as in a line-string,
 but they are spanned by a polynomial function. Normally, the degree of continuity is
@@ -113,21 +113,21 @@ Normally, the degree of continuity is determined by the degree of the polynomial
 . *Blended parabolic (blendedParabolic)* -- the control points are ordered as in a
 line-string, but are spanned by a function that blends segments of parabolic curves
 defined by triplet sequences of successive data points. Each triplet includes the final
-two points of its predecessor. Further details of the semantics are provided in Part 7
-clause 7-4.2.2.2.
+two points of its predecessor. Further details of the semantics are provided in
+<<Part7,clause="7-4.2.2.2">>.
 
 [[cls-10b-10.1.3]]
 ==== Geometric complex, geometric composites, and geometric aggregates
 
 ===== Geometric complex and geometric composites
 
-The S-100 GML Profile supports the following composite geometries (Part 7 clause 7-4.1.1):
+The S-100 GML Profile supports the following composite geometries (<<Part7,clause="7-4.1.1">>):
 
 * CompositeCurve.
 
 ===== Geometric aggregates
 
-The S-100 GML Profile supports the aggregate geometry types (Part 7 clause 7-4.1.1):
+The S-100 GML Profile supports the aggregate geometry types (<<Part7,clause="7-4.1.1">>):
 
 * MultiPoint
 
@@ -135,8 +135,8 @@ The S-100 GML Profile supports the aggregate geometry types (Part 7 clause 7-4.1
 ==== Inline and by-reference encoding
 
 The S-100 GML Profile supports the ability to encode a geometry either inline or by
-reference where two features share the same instance of a GM_Object (see Part 3 clause
-3-6.5.4.5). Where both are specified the GML convention is followed and the inline
+reference where two features share the same instance of a GM_Object (see
+<<Part3,clause="3-6.5.4.5">>). Where both are specified the GML convention is followed and the inline
 reference takes priority.
 
 [[cls-10b-10.1.5]]
@@ -170,8 +170,9 @@ are masked.
 Beginning with Edition 5.0.0, the S-100 GML format defines a generic complex type
 S100_SpatialAttributeType for spatial attributes with _scaleMinimum_ and _scaleMaximum_
 attributes and a _maskReference_ tag. These correspond to the attributes of the
-S100_SpatialAttribute metaclass in the S-100 General Feature Model (Part 3, Figures 3-1
-and 3-2 and clause 3-5.3.5). _scaleMinimum_ and _scaleMaximum_ are implemented as integer
+S100_SpatialAttribute metaclass in the S-100 General Feature Model
+(<<Part3,figure="3-1">> and <<Part3,figure="3-2">> and <<Part3,clause="3-5.3.5">>).
+_scaleMinimum_ and _scaleMaximum_ are implemented as integer
 attributes. The _maskReference_ attribute is implemented using the GML Reference Type with
 the following constraints:
 
@@ -195,7 +196,7 @@ NOTE: This Part specifies only the _href_ and _role_ attributes. The other
 _AssociationAttributeGroup_ members, _OwnershipAttributeGroup_ members, and _nilReason_
 are not used.
 
-An example of the use of masking is depicted in Figure 10b-6 below. The surface boundary
+An example of the use of masking is depicted in <<fig-10b-6>>. The surface boundary
 is defined by reference to two curves (sequential curves comprising the exterior ring),
 whose gml:id's are JS.C.123 and JS.C.567. These curves are defined elsewhere in the file.
 The _maskReference_ tag in the example indicates that the curve JS.C.567 is suppressed.

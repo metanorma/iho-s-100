@@ -29,8 +29,7 @@ manage hydrographic, marine-related and meta data information:
 . Justification
 
 These details are derived from the classes S100_RE_RegisterItem and
-S100_RE_ManagementInfo (see <<cls-2a-4.2>> below and Part 2, clauses 2-8.3 and
-2-8.8).
+S100_RE_ManagementInfo (see <<cls-2a-4.2>> below and <<Part2,clause="2-8.3">> and <<Part2,clause="2-8.8">>).
 
 [[cls-2a-4.1.2]]
 ==== IHO Data Dictionary Register
@@ -52,7 +51,7 @@ between codes, labels and definitions).
 
 ==== UML Model
 
-The following Figure shows the UML information model of the IHO Concept and Data
+<<fig-2a-2>> shows the UML information model of the IHO Concept and Data
 Dictionary Registers:
 
 [[fig-2a-2]]
@@ -65,14 +64,14 @@ image::img20.png[]
 ==== S100_RE_Register
 
 The class S100_RE_Register models a Register in a Registry. Further details can be
-found in S-100 Part 2, clause 2-8.2.
+found in <<Part2,clause="2-8.2">>.
 
 ==== S100_CD_RegisterItem
 
 The class S100_CD_RegisterItem is a specialization of the class
 S100_RE_RegisterItem and carries the characteristics that are common to all types
 of registered items listed in <<cls-2a-4.1.1>>. This class is included in the model
-for consistency with Part 2b, in which a similar extension (S100_PR_RegisterItem)
+for consistency with <<Part2b>>, in which a similar extension (S100_PR_RegisterItem)
 defines additional attributes.
 
 [%unnumbered,options=header,cols=6]
@@ -237,21 +236,21 @@ Product Specifications.
 | Enumeration
 | S100_CD_QuantitySpecification
 | Types of quantity measures
-| Adapted from ISO 19103 Measure Types
+| Adapted from <<ISO19103>> Measure Types
 
 | Literal
 | angularVelocity
 | The instantaneous rate of change of angular displacement with time
-| From ISO 19103
+| From <<ISO19103>>
 
 | Literal
 | area
 | The measure of the physical extent of any two-dimensional geometric object
-| From ISO 19103
+| From <<ISO19103>>
 
 | Literal
 | density
-| Mass per unit volume; number per unit area. Also: specific gravity (S-32). Density of soundings is the intervals between lines of sounding and soundings in the same line (S-32)
+| Mass per unit volume; number per unit area. Also: specific gravity (<<S32>>). Density of soundings is the intervals between lines of sounding and soundings in the same line (<<S32>>)
 | "Density" can be used in different senses, the unit of measure and attribute definition must make it clear which is intended
 
 | Literal
@@ -262,7 +261,7 @@ Product Specifications.
 | Literal
 | frequency
 | Number of vibrations or cycles per unit time
-| IHO S-32
+| <<S32>>
 
 | Literal
 | length
@@ -277,12 +276,12 @@ Product Specifications.
 | Literal
 | planeAngle
 | The amount of rotation needed to bring one line or plane into coincidence with another, generally measured in radians or degrees
-| From ISO 19103 "angle"
+| From <<ISO19103>> "angle"
 
 | Literal
 | power
 | Rate of doing work or transferring energy; magnification
-| S-32 refers "power" to "magnifying power: the ratio of the apparent length of a linear dimension as seen through an optical instrument to that seen by the unaided eye". The unit of measure and attribute definition must make it clear which sense is intended
+| <<S32>> refers "power" to "magnifying power: the ratio of the apparent length of a linear dimension as seen through an optical instrument to that seen by the unaided eye". The unit of measure and attribute definition must make it clear which sense is intended
 
 | Literal
 | pressure
@@ -292,22 +291,22 @@ Product Specifications.
 | Literal
 | salinity
 | A measure of the quantity of dissolved salts
-| IHO S-32 (abbrev.)
+| <<S32>> (abbrev.)
 
 | Literal
 | speed
 | Rate of change of position with time
-| Usually calculated using the simple formula, the change in position during a given time interval. Speed is a scalar physical quantity, having magnitude but not direction. Contrast to "velocity" which is a vector quantity having both magnitude and direction. (Adapted from ISO 19103 "velocity")
+| Usually calculated using the simple formula, the change in position during a given time interval. Speed is a scalar physical quantity, having magnitude but not direction. Contrast to "velocity" which is a vector quantity having both magnitude and direction. (Adapted from <<ISO19103>> "velocity")
 
 | Literal
 | temperature
 | The intensity or degree of heat
-| IHO S-32
+| <<S32>>
 
 | Literal
 | volume
 | The measure of the physical space of any 3-D geometric object
-| From ISO 19103
+| From <<ISO19103>>
 
 | Literal
 | weight
@@ -358,32 +357,32 @@ Product Specifications.
 
 | Literal
 | date
-| Character encoding shall follow the format for date as specified by ISO 8601
+| Character encoding shall follow the format for date as specified by <<ISO8601>>
 |
 
 | Literal
 | time
-| Character encoding shall follow the format for time as specified by ISO 8601
+| Character encoding shall follow the format for time as specified by <<ISO8601>>
 |
 
 | Literal
 | dateTime
-| Character encoding shall follow the format for date and time as specified by ISO 8601
+| Character encoding shall follow the format for date and time as specified by <<ISO8601>>
 |
 
 | Literal
 | URI
-| Character encoding shall follow the format for URI as specified by RFC 3986
+| Character encoding shall follow the format for URI as specified by <<RFC3986>>
 |
 
 | Literal
 | URL
-| Character encoding shall follow the format for URL as specified by RFC 3986
+| Character encoding shall follow the format for URL as specified by <<RFC3986>>
 |
 
 | Literal
 | URN
-| Character encoding shall follow the format for URN as defined by RFC 2141
+| Character encoding shall follow the format for URN as defined by <<RFC2141>>
 |
 
 | Literal
@@ -419,7 +418,7 @@ Product Specifications.
 
 | Attribute
 | textPattern
-| A character string that specifies a scheme of one or more constraints on the structure of the text values that may be assigned to the attribute. This shall be achieved by using a regular expression. W3C XML Schema Part 2: Datasets Second Edition, Appendix F (Regular Expressions) shall be used to define text patterns in this standard
+| A character string that specifies a scheme of one or more constraints on the structure of the text values that may be assigned to the attribute. This shall be achieved by using a regular expression. <<W3C,locality:appendix="F">> shall be used to define text patterns in this standard
 | 0..1
 | CharacterString
 |

@@ -7,14 +7,14 @@ oriented data. However, Application Schemas may also be defined for coverages.
 
 This section includes examples of how Application Schemas may be defined for
 imagery and gridded data. The components of the Application Schemas are defined in
-ISO 19123 not ISO 19109. However, a coverage may be based on feature type
+<<ISO19123>> not <<ISO19109>>. However, a coverage may be based on feature type
 geometries and, in such cases, is conceptually similar to a feature collection.
 Such feature oriented coverages are discussed below.
 
 === Gridded Data
 
 This Application Schema defines a quadrilateral grid coverage with associated
-metadata. The metadata is generically referenced to ISO 19115-1 and 19115-2. A
+metadata. The metadata is generically referenced to <<ISO19115-1;and!ISO19115-2>>. A
 specific choice of metadata has not been made in this Schema. This Schema can
 serve for both "matrix" and "raster" data according to the metadata chosen.
 
@@ -78,7 +78,7 @@ simply allows multiple instances of feature.
 
 Geometric elements such as grids may be shared between multiple features, and
 features may be related by composition or other relationships as allowed in the
-general feature model of ISO 19109. A complex feature may include both a
+general feature model of <<ISO19109>>. A complex feature may include both a
 continuous grid coverage and vector data such as a polygonal boundary. A feature
 oriented data set may contain both a continuous coverage of the ocean as collected
 by sonar, and point and line features corresponding to navigational aids.

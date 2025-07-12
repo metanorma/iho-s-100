@@ -4,7 +4,7 @@
 
 This example describes a session based concept (see <<cls-14-4>>) for the
 transmission of Navigational Warnings. The data structure for such
-messages is defined in the Product Specification S-124 and will be
+messages is defined in the Product Specification <<S124>> and will be
 provided as an XML schema.
 
 The service described here enables a consumer to request messages related
@@ -30,7 +30,7 @@ it starts a session by using the StartSession operation, to which the
 Server will reply by issuing a sessionID. The client then starts
 requesting the messages for a specific area using the Get_NW_NM_Messages
 operation. The server's response will be the nw_nm_messages data-set,
-which the client will be able to interpret through the S-124 Product
+which the client will be able to interpret through the <<S124>> Product
 Specification.
 
 .S124_NW_NM_Service.wsdl

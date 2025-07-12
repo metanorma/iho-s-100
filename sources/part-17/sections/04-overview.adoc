@@ -91,21 +91,21 @@ CATALOG.XML and placed in the S100_ROOT folder, together with its digital
 signature (CATALOG.SIGN) file. All other digital signatures are included
 within their corresponding resource metadata records in the CATALOG.XML.
 
-An S-100 Exchange Set can be optionally defined alongside S-57 datasets with
-their own ENC_ROOT and INFO root folders as required by the S-57 ENC Product
-Specification and (optionally) S-63. In this case there are three top level
-folders: ENC_ROOT and INFO for S-57, and S100_ROOT with two separate
+An S-100 Exchange Set can be optionally defined alongside <<S57>> datasets with
+their own ENC_ROOT and INFO root folders as required by the <<S57>> ENC Product
+Specification and (optionally) <<S63>>. In this case there are three top level
+folders: ENC_ROOT and INFO for <<S57>>, and S100_ROOT with two separate
 Catalogues covering their respective content (CATALOG.031 and CATALOG.XML).
-<<fig-17-4>> below shows one of these use cases with S-57 and multiple S-100
+<<fig-17-4>> below shows one of these use cases with <<S57>> and multiple S-100
 products included.
 
 [[fig-17-4]]
-.Combined S-100 and S-57 Exchange Sets folder structure
+.Combined S-100 and <<S57>> Exchange Sets folder structure
 image::img224.png[width=50%]
 
 In addition to the folder structure, it is important to align the Exchange
 Set creation workflow with the data integrity and security provisions
-outlined in S-100 Part 15. These provisions cover digital signing,
+outlined in <<Part15>>. These provisions cover digital signing,
 compression, and encryption of Exchange Set resources. All resources within
 an S-100 Exchange Set must be digitally signed and their signatures included
 in the Exchange Set Catalogue. Data compression and encryption are optional
@@ -120,7 +120,7 @@ Exchange Set creation, therefore, consists of:
 . Construction of an Exchange Set Catalogue which records the structure
 created.
 
-S-100 Part 15 defines the requirements and process for creation and
+<<Part15>> defines the requirements and process for creation and
 verification of digital signature values and production of
 compressed/encrypted datasets.
 
@@ -174,8 +174,8 @@ Examples of such URI definitions are:
 |===
 
 Full specification of file URIs and MRNs supported by S-100 are contained in
-S-100 Part 1, clause 1-4.6. Use of different types of URIs by ECDIS
-implementations may be restricted in ECDIS implementations by <<S98,locality:annex=C>>.
+<<Part1,clause="1-4.6">>. Use of different types of URIs by ECDIS
+implementations may be restricted in ECDIS implementations by <<S98,annex=C>>.
 
 As long as the mapping from the external resource metadata to the dataset
 metadata is unique it is valid, so multiple datasets are able to "share"
@@ -410,7 +410,7 @@ NOTE: {{item.note2}}
 [[ex1]]
 [example]
 ====
-An S-104 (Water Level Information for Surface Navigation) predictions dataset
+An <<S104>> (Water Level Information for Surface Navigation) predictions dataset
 has the following data for _temporalExtent_ encoded in the dataset discovery
 block in the Exchange Catalogue:
 
@@ -772,13 +772,13 @@ for planning any automated operations to obtain the successor dataset, but
 must allow for delays or variations in the actual availability of successor
 dataset(s).
 
-[quote]
-____
 The format for _userDefinedMaintenanceFrequency_ is given by the XML built-in
 datatype _duration_, which can be validated by off-the-shelf XML parsers. See
 "_XML Schema Part 2: Datatypes (2^nd^ edition) - Clause 3.2.6 duration__"
 (relevant extracts below):
 
+[quote]
+____
 The lexical representation for *duration* is the <<ISO8601>> extended format
 PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of
 months, nD the number of days, 'T' is the date/time separator, nH the number
@@ -815,7 +815,7 @@ for the number of whole seconds (for example, encode 0.5 seconds as PT00.5S;
 encode 100 seconds as PT01M40S).
 . [underline]#Start and end instants#: The start and end instants of the
 interval calculated by combining userDefinedMaintenanceFrequency with the
-issue date/time must be interpreted according to Part 3 Clause 3-8. The value
+issue date/time must be interpreted according to <<Part3,clause="3-8">>. The value
 must be encoded appropriately; this means that smaller date/time components
 must not be encoded unless the availability of the successor dataset is known
 to the corresponding level of precision. Smaller units should be used when
@@ -864,7 +864,9 @@ P30M10S | Invalid (they contain time components but lack the 'T' designator)
 | 6 | - | - | PT30m | Invalid ('m' should be upper-case).
 | 7 | - | - | PT12:30 +
 P3DT10H 30M | Invalid (the ':' or space separators are not allowed, only the separators specified by the XML Schema datatypes specification for duration are allowed)
-| 8 | - | - | P1M | One month, variability unknown. According to the "Start and end instants" rule, will be interpreted as the same day in the following month, or the nearest preceding day if there is no such date in the following month.If the issue date of the current dataset is 30 August, the successor dataset can be expected to be issued between midnight at the beginning of 30 September and midnight at the end of 30 September.
+| 8 | - | - | P1M a| One month, variability unknown. According to the "Start and end instants" rule, will be interpreted as the same day in the following month, or the nearest preceding day if there is no such date in the following month.
+
+If the issue date of the current dataset is 30 August, the successor dataset can be expected to be issued between midnight at the beginning of 30 September and midnight at the end of 30 September.
 | 9 | - | - | P1M00D | One month, with a variability of +/- 1 day. With a dataset issued on January 31 2021, the next dataset is expected on February 28, 2021; with a dataset issued on January 31, 2024 means the next dataset is expected February 29, 2024. A 1-day variation before after those dates should be anticipated.
 | 10 | - | - | P30D | 30 days, variability +/- 1 day. With a dataset issued on January 31, 2021 it means the next dataset is expected on March 2, 2021; with a dataset issued on January 31, 2024 it means the next dataset is expected on March 1, 2024. A 1-day variation should be allowed for in both cases.
 | 11 | irregular | `cit:CI_Date >cit:dateType=nextUpdatecit:date=2021-10-25` | - | On 25 October 2021, at an unspecified time on that date.

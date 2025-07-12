@@ -25,6 +25,8 @@ include::sections/02-references.adoc[]
 
 include::sections/03-content.adoc[]
 
+include::sections/99-bibliography.adoc[]
+
 include::sections/aa-hydro-quality-uml.adoc[]
 
 include::sections/ab-hydro-quality-dictionary.adoc[]

@@ -7,7 +7,7 @@ embeds the data structure given by an external Product Specification. The
 data items, structured according to the Product Specification are
 broadcast via a communication medium (for example VDES). Therefore they
 are serialized and sent in conformity with the <<ISO8211>> encoding
-defined within the standard S-100 (Part 10a).
+defined within the standard (<<Part10a>>).
 
 <<fig-14-A-1>> shows how to exchange information efficiently. Static data,
 such as the data structure according to the product definition, is
@@ -19,7 +19,7 @@ serialized in <<ISO8211>> by removing all static data that has already
 been covered within the service specification. The client receives the
 data and merges it with the static data record. In this way, the entire
 data set can be reconstructed. The basis for such a concept is the
-Insert, Delete, and Modify mechanism as described in S-100 Part 10a.
+Insert, Delete, and Modify mechanism as described in <<Part10a>>.
 Therefore, it is possible to represent both static and dynamic data
 separately as <<ISO8211>> compliant.
 

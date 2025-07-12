@@ -1,0 +1,7 @@
+[bibliography]
+== Bibliography
+
+* [[[Part10a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10a))]]],
+span:title[S-100 -- Part 10a: ISO/IEC 8211 Encoding],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

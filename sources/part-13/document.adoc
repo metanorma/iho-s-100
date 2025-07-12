@@ -34,3 +34,5 @@ include::sections/06-data-exchange.adoc[]
 include::sections/07-hosting-reqs.adoc[]
 
 include::sections/08-standard-functions.adoc[]
+
+include::sections/99-bibliography.adoc[]

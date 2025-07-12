@@ -6,4 +6,4 @@ assigned to items of geographic, hydrographic and metadata information. In order
 accomplish this purpose, this Part describes the roles and responsibilities for the
 management of a Registry and its Registers. Specific administrative details of the
 IHO Geospatial Information (GI) Registry and its Registers is documented in IHO
-Publication S-99.
+Publication <<S99>>.

@@ -2,7 +2,7 @@
 
 === Register
 
-As described in Part 2, a Register is simply a managed list. It is easier to
+As described in <<Part2>>, a Register is simply a managed list. It is easier to
 maintain than a fixed document, because new items can be added as needed to the
 Register, and existing items in the Register can be clarified, superseded or
 retired. Each Register item has one or more dates associated with it that indicate
@@ -12,7 +12,7 @@ point in time.
 
 === Relationship to the ISO Register and Feature Concept Dictionary Models
 
-The realization of ISO 19126 and ISO 19135 types in the IHO GI Registry is shown in
+The realization of <<ISO19126;and!ISO19135>> types in the IHO GI Registry is shown in
 <<fig-2a-1>> below. This Figure depicts the ISO types (elements with grey
 backgrounds); the implemented S-100 Registry model classes (elements with tan
 backgrounds); and two of the Registers comprising the IHO GI Registry (elements
@@ -25,7 +25,7 @@ and attribute types, is implemented as the "Data Dictionary Register" in the IHO
 Registry (S100_DataDictionaryRegister in <<fig-2a-1>>). The Data Dictionary
 Register contains definitions of features, information types, attributes (both
 simple and complex), and enumerated values for enumeration and S100_Codelist
-attributes (see S-100 Part 1, clauses 1-4.7 and 1-4.8). The Data Dictionary
+attributes (see <<Part1,clause="1-4.7">> and <<Part1,clause="1-4.8">>). The Data Dictionary
 Register is further described in <<cls-2a-3.4;and!cls-2a-4.1.2>>.
 
 The IHO GI Registry also implements a "Concept Register" (S100_ConceptRegister in
@@ -43,7 +43,7 @@ Producer Codes, Product Specifications, and Metadata) which are not shown in
 <<fig-2a-1>>.
 
 [[fig-2a-1]]
-.Relationships of the S-100 Registry Classes to ISO 19126/ISO 19135 Model
+.Relationships of the S-100 Registry Classes to <<ISO19126>>/<<ISO19135>> Model
 image::img19.png[]
 
 [[cls-2a-3.3]]
@@ -85,4 +85,4 @@ A Feature Catalogue is a document that describes the content of a data product. 
 uses item types, for example features and attributes, from one or more Data
 Dictionaries and binds them together. In addition constraints, units of measurement
 and format description of attributes can be specified. Feature Catalogues are
-described in detail in S-100 Part 5.
+described in detail in <<Part5>>.

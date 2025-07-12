@@ -8,6 +8,6 @@ describes the relevant International Maritime Organization (IMO) guidance
 and resources within International Hydrographic Organization (IHO) that
 support efforts in portrayal harmonisation. It does not address the
 portrayal process, functionality, or architecture, which are addressed in
-other S-100 Parts (especially 9 and 9A), but instead focuses on
+other S-100 Parts (especially <<Part9;and!Part9a>>), but instead focuses on
 presentational design aspects, such as display organisation, colours, and
 symbology.

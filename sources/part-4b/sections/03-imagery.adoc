@@ -1,6 +1,6 @@
 == Imagery and gridded data metadata
 
-ISO 19115-1 identifies the metadata required to describe digital
+<<ISO19115-1>> identifies the metadata required to describe digital
 geographic data, and the extensions described in this section identify
 the metadata required to describe digital geospatial imagery and gridded
 data. Digital geospatial imagery and gridded metadata may also be
@@ -8,16 +8,16 @@ provided for aggregations of datasets.
 
 === Associated ISO standards
 
-ISO 19115-1 is designed to be the general metadata standard applicable
+<<ISO19115-1>> is designed to be the general metadata standard applicable
 to all geographic data sets. It identifies a set of core metadata
 derived from the many metadata elements and also specifies the
 conditions under which they should be used (that is mandatory,
 conditional, or optional). Although there is some service metadata in
-ISO 19115-1, (particularly in the area of identification), much of the
-service metadata is defined in ISO 19119 (Services). ISO 19115 makes
+<<ISO19115-1>>, (particularly in the area of identification), much of the
+service metadata is defined in <<ISO19119-16>> (Services). <<ISO19115>> makes
 provision for limited metadata describing spatial and temporal Schemas.
 
-ISO 19115-2 extends the metadata defined in ISO 19115 and identifies
+<<ISO19115-2>> extends the metadata defined in <<ISO19115>> and identifies
 additional metadata (such as data quality, spatial representation,
 content, and acquisition information), required to describe imagery and
 gridded data. It provides information about the properties of the
@@ -26,12 +26,12 @@ processes employed by the equipment, and production processes used to
 digitize the raw data.
 
 Geolocation information is a very important metadata component required
-for imagery. ISO 19115-1 and 19115-2 may not include sufficient
+for imagery. <<ISO19115-1;and!ISO19115-2>> may not include sufficient
 geolocation metadata for imagery and gridded data. It may therefore be
-necessary to reference ISO 19130. This standard specifies additional
+necessary to reference <<ISO19130>>. This standard specifies additional
 information required to support geolocation and also defines how sensor
 measurements and geolocation information are logically associated. The
-georeferencing information in ISO 19130 is a subset of that described in
+georeferencing information in <<ISO19130>> is a subset of that described in
 <<ISO19115-2>>. In order to develop a full set of imagery metadata, it may
 be necessary to combine the relevant sections from <<ISO19115-1>> and
 <<ISO19115-2>>, with the geolocation information or sensor properties from
@@ -49,11 +49,10 @@ The relationships between the packages contained in <<ISO19115-1>> and the
 extensions for geospatial imagery and gridded data are illustrated in
 <<fig-4b-1>> below. Dependencies on other packages are also shown in the
 figure. <<ISO19115-2>> packages are shown with no fill, <<ISO19115-1>>
-packages with grey fill, and the others (ISO 19107 (Geometry), ISO 19157
-(Data quality) and ISO 19103 (Conceptual Schema language)) in other
+packages with grey fill, and the others (<<ISO19107>> (Geometry), <<ISO19157>>
+(Data quality) and <<ISO19103>> (Conceptual Schema language)) in other
 colours. These metadata extensions have been fully documented using both
-UML models and a data dictionary, in ISO/TC211 19115-2 - Annex A and
-Annex B respectively.
+UML models and a data dictionary, in <<ISO19115-2,annex=A;and!ISO19115-2,annex=B>> respectively.
 
 [[fig-4b-1]]
 .Metadata packages (from <<ISO19115-2>>)
@@ -61,13 +60,13 @@ image::img31.png[]
 
 It should also be noted that, to ensure global uniqueness, <<ISO19103>>
 requires that all class names must be defined by a bi-alpha prefix that
-identifies the package to which a class belongs. The ISO 19115 series
+identifies the package to which a class belongs. The <<ISO19115>> series
 uses the prefixes MD (Metadata), CI (Citation), DQ (Data quality), EX
 (Extent), and LI (Lineage). To differentiate between classes used in
-<<ISO19115-1>> and those used in ISO 19115-2 (Extensions for imagery and
+<<ISO19115-1>> and those used in <<ISO19115-2>> (Extensions for imagery and
 gridded data), the MI prefix is used for imagery and gridded metadata,
 and LE and QE are used for extended Lineage and Data quality classes
-respectively. (Data quality classes are now defined in ISO 19157.)
+respectively. (Data quality classes are now defined in <<ISO19157>>.)
 <<tab-4b-1>> contains the list of package identifiers for the classes
 used for metadata.
 
@@ -104,7 +103,7 @@ the data dictionary respectively.
 
 Information about the sources and production processes used in producing
 an imagery or gridded dataset has been included in an additional Data
-Quality for Imagery package, as ISO 19115-1 only makes provision for a
+Quality for Imagery package, as <<ISO19115-1>> only makes provision for a
 general assessment of the quality. The following additional classes are
 listed below. A more detailed description of the classes and associated
 data dictionary are provided in <<ISO19115-2,clause="A.2.2">> and
@@ -112,7 +111,7 @@ data dictionary are provided in <<ISO19115-2,clause="A.2.2">> and
 
 . QE_CoverageResult is a specified subclass of DQ_Result and aggregates
 information required to report data quality for a coverage. It is based
-on concepts from ISO 19115 and ISO 19139.
+on concepts from <<ISO19115;and!ISO19139>>.
 . QE_Usability is a specified subclass of DQ_Element. It is intended to
 provide user specific.
 . Quality information about a dataset's suitability for a particular
@@ -146,7 +145,7 @@ MI_GeolocationInformation.
 
 ==== Content information for Imagery
 
-Although this package is part of ISO 19115-1, the following entities
+Although this package is part of <<ISO19115-1>>, the following entities
 have been included to better cater for imagery and gridded data:
 
 . MI_Band (subclass of MD_Band) - defines additional attributes for

@@ -39,3 +39,23 @@ otherwise useful though not normative:
 * [[[ISO19130,hidden(ISO/TS 19130)]]]
 
 * [[[ISO19111,hidden(ISO 19111)]]]
+
+* [[[Part4a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4a))]]],
+span:title[S-100 -- Part 4a: Metadata],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4b))]]],
+span:title[S-100 -- Part 4b: Metadata for Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4c,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4c))]]],
+span:title[S-100 -- Part 4c: Metadata - Data Quality],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[AnnexA,dropid(repo:(current-metanorma-collection/IHO S-100 Annex A))]]],
+span:title[S-100 -- Annex A: Terms and Definitions],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

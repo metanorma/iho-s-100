@@ -1,0 +1,12 @@
+[bibliography]
+== Bibliography
+
+* [[[Part2a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 2a))]]],
+span:title[S-100 -- Part 2a: Concept and Data Dictionary Registers],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part3,dropid(repo:(current-metanorma-collection/IHO S-100 Part 3))]]],
+span:title[S-100 -- Part 3: General Feature Model and Rules for Application Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

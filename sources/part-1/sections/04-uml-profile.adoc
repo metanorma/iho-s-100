@@ -113,8 +113,8 @@ and units of measurement.
 The repertoire of basic data types is described in the following sub-clauses.
 
 S-100 data formats may represent values using appropriate built-in or standard types.
-For example, the ISO 8211 format (Part 10a) represents the values of all thematic
-feature attributes in strings instead of using the ISO 8211 signed integer, unsigned
+For example, the <<ISO8211>> format (<<Part10a>>) represents the values of all thematic
+feature attributes in strings instead of using the <<ISO8211>> signed integer, unsigned
 integer, or signed floating point representations for thematic attributes of S-100
 type Integer or Real.
 
@@ -140,16 +140,16 @@ The following primitive types are supported in the S-100 UML Diagrams.
 `23.501, -1.234E-4, -23.0`
 | Boolean | A value representing binary logic. The value can be either true or false.
 | CharacterString | A CharacterString is an arbitrary-length sequence of characters including accents and special characters from repertoire of one of the adopted character sets.
-| Date a| A date gives values for year, month and day according to the Gregorian Calendar. Character encoding of a date is a string which shall follow the calendar date format (complete representation, basic format) for date specified by ISO 8601.
+| Date a| A date gives values for year, month and day according to the Gregorian Calendar. Character encoding of a date is a string which shall follow the calendar date format (complete representation, basic format) for date specified by <<ISO8601>>.
 
 [example]
 `19980918` (YYYYMMDD)
 
-In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+In XML formats, the XML Schema standard type should be used instead of the <<ISO8601>> basic representation (which is not a standard type in XML).
 
 [example]
 `1998-09-18`
-| Time | A time is given by an hour, minute and second in the 24-hour clock system. Character encoding of a time shall be a complete representation of the basic format as defined in ISO 8601. Complete representation means that hours, minutes and seconds shall be used. Basic format means that separating characters are omitted.Time is preferably expressed as Universal Time Coordinated (UTC).
+| Time | A time is given by an hour, minute and second in the 24-hour clock system. Character encoding of a time shall be a complete representation of the basic format as defined in <<ISO8601>>. Complete representation means that hours, minutes and seconds shall be used. Basic format means that separating characters are omitted.Time is preferably expressed as Universal Time Coordinated (UTC).
 
 [example]
 `183059Z`
@@ -176,16 +176,16 @@ Opening: `074500`
 
 Closing: `161500`
 
-In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+In XML formats, the XML Schema standard type should be used instead of the <<ISO8601>> basic representation (which is not a standard type in XML).
 
 [example]
 `18:30:59Z; 18:30:59+01:00; 18:30:59`
-| DateTime a| A DateTime is a combination of a date and a time type. Character encoding of a DateTime shall follow ISO 8601 (see above).
+| DateTime a| A DateTime is a combination of a date and a time type. Character encoding of a DateTime shall follow <<ISO8601>> (see above).
 
 [example]
 `19850412T101530`
 
-In XML formats, the XML Schema standard type should be used instead of the ISO 8601 basic representation (which is not a standard type in XML).
+In XML formats, the XML Schema standard type should be used instead of the <<ISO8601>> basic representation (which is not a standard type in XML).
 
 [example]
 `1985-04-12T10:15:30; 1985-04-12T10:15:30+01:00;1985-04-12T10:15:30Z`
@@ -200,11 +200,11 @@ Month::: integer between 01 -- 12 (inclusive)
 DD::
 Day::: integer between 01 and 28, 29, 30, or 31 (inclusive), consistent with year and month values if these are specified
 
-This type can be used to encode recurring instants (see Part 3, clause 3-8).
+This type can be used to encode recurring instants (see <<Part3,clause="3-8">>).
 
 [example]
 ====
-(ISO 8211, HDF5): YYYYMMDD with the unspecified component(s) replaced with hyphens such that the length of the encoding is always 8 characters:
+(<<ISO8211>>, HDF5): YYYYMMDD with the unspecified component(s) replaced with hyphens such that the length of the encoding is always 8 characters:
 
 `----1217` representing 17 December of any year
 ====
@@ -215,7 +215,7 @@ This type can be used to encode recurring instants (see Part 3, clause 3-8).
 
 `--12-17` representing 17 December of any year (conforming to the XML type *gMonthDay*)
 
-Part 10b provides further details about encoding in GML datasets.
+<<Part10b>> provides further details about encoding in GML datasets.
 ====
 |===
 
@@ -349,7 +349,7 @@ attribute _reportDate_ with sub-attributes shown below:
 
 ===== S100_TM_Instant
 
-S100_TM_Instant represents the ISO19108 concepts of temporal instant. A temporal
+S100_TM_Instant represents the <<ISO19108>> concepts of temporal instant. A temporal
 instant is a 0-dimensional geometric primitive representing position in time
 <<ISO19108>>.
 
@@ -387,7 +387,7 @@ instant is a 0-dimensional geometric primitive representing position in time
 
 ===== S100_TM_Period
 
-S100_TM_Period represents the ISO19108 concepts of temporal period. A temporal period
+S100_TM_Period represents the <<ISO19108>> concepts of temporal period. A temporal period
 is a one-dimensional geometric primitive representing extent in time. <<ISO19108>>.
 
 [%unnumbered,options=header,cols=6]
@@ -433,22 +433,22 @@ Product Specifications may define additional derived types.
 [cols=3,options=header]
 |===
 | Name | Description | Derived From
-| URI a| A uniform resource identifier as defined in RFC 3986. Character encoding of a URI shall follow the syntax rules defined in RFC 3986.
+| URI a| A uniform resource identifier as defined in <<RFC3986>>. Character encoding of a URI shall follow the syntax rules defined in <<RFC3986>>.
 
 [example]
 http://registry.iho.int | CharacterString
-| URL a| A uniform resource locator (URL) is a URI that provides a means of locating the resource by describing its primary access mechanism (RFC 3986).
+| URL a| A uniform resource locator (URL) is a URI that provides a means of locating the resource by describing its primary access mechanism (<<RFC3986>>).
 
 [example]
 http://registry.iho.int | URI
-| URN a| A persistent, location-independent, resource identifier that follows the syntax and semantics for URNs specified in RFC 2141.
+| URN a| A persistent, location-independent, resource identifier that follows the syntax and semantics for URNs specified in <<RFC2141>>.
 
 [example]
 urn:iho:s101:1:0:0:AnchorageArea | URI
 |===
 
 Attributes holding references to support files should be of URI attribute types and
-comply with the syntax in RFC 8089 for how to construct file references.
+comply with the syntax in <<RFC8089>> for how to construct file references.
 
 [example]
 ====
@@ -505,16 +505,16 @@ Schema;
 data specification;
 . long lists of potential values which would clutter or bloat Feature Catalogues.
 
-For example, ISO 19115 (Metadata) defines several codelists, because it needs to
+For example, <<ISO19115>> (Metadata) defines several codelists, because it needs to
 define enumerated types whose membership is determined by domain and circumstances
 (for example distribution media).
 
 A codelist type declaration must be one of the following 3 types:
 
-. An **open enumeration**, which is a list of valid key-value combinations (that is
+. An *open enumeration*, which is a list of valid key-value combinations (that is
 code-value mappings) with a provision for allowing user communities to provide
 allowed values in a specified format.
-. A **closed dictionary**, which is a dictionary (vocabulary) of key-value
+. A *closed dictionary*, which is a dictionary (vocabulary) of key-value
 combinations in a known format, identifiable by a Uniform Resource Identifier and
 which can be located by the application of standard modern techniques for locating
 resources. Additional values cannot be provided.
@@ -550,8 +550,8 @@ image::img08.png[]
 
 Implementations (and specific encodings) are allowed to depart from _encoding_ hints.
 Different implementations may use different encoding schemes (and translation tables
-to other encoding schemes). For example preparation of a Feature Catalogue for an ISO
-8211 encoding may transform a dictionary into an XML fragment which is merged into
+to other encoding schemes). For example preparation of a Feature Catalogue for an
+<<ISO8211>> encoding may transform a dictionary into an XML fragment which is merged into
 (or _Xinclude_'d in) the XML Feature Catalogue (obviously an additional procedure is
 needed for maintenance). This allows XML/GML encodings to use the dictionary while
 still allowing other encodings to function within their limitations.
@@ -566,7 +566,7 @@ image::img09.png[]
 
 A relationship in UML is a concrete semantic connection among model elements. Kinds
 of relationships include association, generalization, aggregation/composition, meta
-relationship, flow, and several kinds grouped under dependency. In ISO 19103 there is
+relationship, flow, and several kinds grouped under dependency. In <<ISO19103>> there is
 a clear distinction between the general term "Relationship," and the more specific
 term "Association". Both are defined for class to class linkages, but association is
 reserved for those relationships that are in reality instance to instance linkages.

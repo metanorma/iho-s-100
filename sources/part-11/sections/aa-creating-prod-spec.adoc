@@ -82,7 +82,7 @@ shall be bound in a feature catalogue.
 
 Determine which geometry types are required in the product. S-100
 includes definitions of 1D and 2D geometry types. If a geometry type is
-required that is not specified in S-100 Part 7 Spatial Component, then
+required that is not specified in <<Part7>>, then
 apply to S-100WG for it to be added to the framework.
 
 [[cls-11-A-3.6]]
@@ -135,7 +135,7 @@ not capable of directly expressing constraints which involve more than
 one property type (for example, "if there is more than one value of
 'colour', 'colour pattern' must be set"). If these are included in the
 Application Schema, perhaps in a formal language such as Object
-Constraint Language, the ISO 19136 rules ignore them. Thus the GML schema
+Constraint Language, the <<ISO19136>> rules ignore them. Thus the GML schema
 associated with a given product can only be used for a limited validation.
 
 [[cls-11-A-4]]

@@ -36,3 +36,5 @@ include::sections/07-data-licensing.adoc[]
 include::sections/08-data-auth.adoc[]
 
 include::sections/09-glossary.adoc[]
+
+include::sections/99-bibliography.adoc[]

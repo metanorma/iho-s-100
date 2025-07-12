@@ -1,7 +1,7 @@
 [[cls-16-7]]
 == Interoperability Catalogue Data Model and the General Feature Model
 
-This clause elaborates on how General Feature Model (Part 3) elements are
+This clause elaborates on how General Feature Model (<<Part3>>) elements are
 managed by the Interoperability Catalogue Data Model.
 
 [[cls-16-7.1]]

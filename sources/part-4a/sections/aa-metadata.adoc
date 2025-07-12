@@ -4,7 +4,7 @@
 
 The structure of metadata included in the S-100 Metadata Profile is defined with
 reference to UML diagrams that identify metadata packages and classes included in
-<<ISO19115-1>> (and further modified by Amendment 1 ISO 19115-1:2018).
+<<ISO19115-1>> (and further modified by <<ISO19115-1amd>>).
 
 The new class _S100_Metadata_ shows the relationship to _MD_Metadata_ and its related metadata classes. For the purpose of this Profile _Metadata Schema classes_ replaces the equivalent diagram <<ISO19115-1,figure=4>>.
 

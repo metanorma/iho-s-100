@@ -275,11 +275,11 @@ equal.
 Class for holding a reference to a Feature Catalogue defining any "hybrid
 feature types" that are created by combining feature types from two or
 more products for the purposes of an interoperable display. The Feature
-Catalogue must conform to S-100 Part 5.
+Catalogue must conform to <<Part5>>.
 
 [[cls-16-D-2.16]]
 ==== Element S100_IC_HybridPC
 
 Class for holding a reference to a Portrayal Catalogue defining portrayal
 rules for the "hybrid feature types" defined in a Hybrid Features
-Catalogue. The Portrayal Catalogue must conform to S-100 Part 9.
+Catalogue. The Portrayal Catalogue must conform to <<Part9>>.

@@ -2,7 +2,7 @@
 
 === Temporal definitions
 
-S-100 does not include a complete profile of ISO 19108. Temporal attributes shall
+S-100 does not include a complete profile of <<ISO19108>>. Temporal attributes shall
 be modelled using the primitive types Date; Time or DateTime; S100_TruncatedDate;
 S100_IndeterminateDate; or complex attributes using combinations of these temporal
 types. Use of these types makes the attribute an instance of
@@ -11,24 +11,23 @@ S100_GF_ComplexAttributeType, as appropriate.
 
 Time instants are usually defined either as UTC or as local time with standardized
 offset to UTC or time zone, using the Gregorian calendar. Therefore S-100 does not
-implement any of the ISO 19108 Section 5.3 Temporal Reference Systems provisions.
+implement any of the <<ISO19108,section="5.3">>.
 
-* An S-100 "instant", in the ISO 19108 sense (<<ISO19108,clause="5.2.3.2">>), is
-implemented as a single S-100 Date, Time or DateTime (see S-100 Part 1, clause
-1-4.5.3.10 S100_TM_Instant).
+* An S-100 "instant", in the <<ISO19108>> sense (<<ISO19108,clause="5.2.3.2">>), is
+implemented as a single S-100 Date, Time or DateTime (see <<Part1,clause="1-4.5.3.10">>).
 * An S-100 "period" (TM_Period <<ISO19108,clause="5.2.3.3">>) is implemented as a
-continuous interval between two S100_TM_Instants (see S-100 Part 1, clause
-1-4.5.3.11), expressed as an appropriate complex attribute, for example
+continuous interval between two S100_TM_Instants (see <<Part1,clause="1-4.5.3.11">>),
+expressed as an appropriate complex attribute, for example
 _fixedDateRange_.
 * S100_IndeterminateDate is an instant which lies within a defined period.
 * An S100_TM_Instant specified using TruncatedDate can represent an infinite
-number of ISO 19108 instants.
+number of <<ISO19108>> instants.
 
 === Temporal relationships
 
-S-100 does not implement full provision of ISO 19108's temporal topology, nor
+S-100 does not implement full provision of <<ISO19108>>'s temporal topology, nor
 temporal relative positions; however relationships between two S-100 instant
-and/or period values A and B shall be defined and described using the ISO 19108
+and/or period values A and B shall be defined and described using the <<ISO19108>>
 TM_RelativePosition values as per <<tab-3-19>> below. Only entries marked with
 (^†^) may be meaningfully defined when the S100_TM_Instant is an
 S100_IndeterminateDate expressed in indeterminate format with a bounded beginning

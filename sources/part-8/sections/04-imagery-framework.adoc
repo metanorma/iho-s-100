@@ -7,7 +7,7 @@
 The framework for Imagery, Gridded and Coverage data used in this Part of S-100 is
 derived from <<ISO19129>> Imagery, Gridded and Coverage data Framework. Only a subset
 of the framework defined in the ISO standard is required in
-S-100{blank}footnote:[There is a commonality between the text in portions of this  standard and in the ISO standard 19129 because sections of this document have been  contributed to ISO as input in the development of <<ISO19129>> and have thus been  incorporated into the ISO document.]
+S-100{blank}footnote:[There is a commonality between the text in portions of this  standard and in the <<ISO19129>> because sections of this document have been  contributed to ISO as input in the development of <<ISO19129>> and have thus been  incorporated into the ISO document.]
 The framework as described in ISO can support
 both georeferenced and georeferenceable data. This component of S100 is limited to
 georeferenced data although it can easily be extended in the future to address
@@ -69,7 +69,7 @@ framework{blank}footnote:[References to superseded ISO 191xx standards have been
 image::img56.png[]
 
 S-100 requires certain discovery metadata elements to be provided in an Exchange
-Catalogue (S-100 Part 17), and permits the use of additional files conforming to the
+Catalogue (<<Part17>>), and permits the use of additional files conforming to the
 <<ISO19115-3>> format to encode additional metadata, including structural,
 acquisition, and quality metadata.
 
@@ -102,7 +102,7 @@ associated traversal orders. These provide a set of spatial organizations for gr
 data. A point set structure and a TIN structure are also defined.
 
 The feature model defined in <<ISO19109>> "Geographic information - Rules for
-Application Schema" as profiled in S-100 Part 3 applies to imagery and gridded data.
+Application Schema" as profiled in <<Part3>> applies to imagery and gridded data.
 The Application Schema defines one or more geographic feature types whose attributes
 are the elements of the respective value record. For example, a bathymetry grid may
 define a geographic feature type with attributes for depth and uncertainty. The
@@ -193,7 +193,7 @@ define feature or information types defining the attributes and, for feature typ
 spatial representation which must be one of the spatial types defined in this Part.
 
 In determining whether metadata is encoded in the Exchange Catalogue or within dataset
-files, Product Specifications must conform to S-100 Parts 10c and 17. Unnecessary
+files, Product Specifications must conform to <<Part10c;and!Part17>>. Unnecessary
 duplication of metadata in both external and internal forms is possible but
 discouraged.
 
@@ -209,5 +209,5 @@ example <<fig-8-2>>, GeoTIF).
 
 For the coverage encoding format, S-100 uses the Hierarchical Data Format (HDF version
 5), which is object oriented and suitable for all types of coverage data, including
-point sets and TIN triangles. The S-100-mandated profile of HDF5 is described in S-100
-Part 10c.
+point sets and TIN triangles. The S-100-mandated profile of HDF5 is described in
+<<Part10c>>.

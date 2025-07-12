@@ -21,7 +21,7 @@ The following references are listed only for informative purposes or to clarify
 parts of this document. Drafts are subject to change and are not international
 standards.
 
-* [[[ISO19107dis,nofetch(ISO/DIS 19107)]]], ISO/DIS 19107 _Geographic information – Spatial schema_ (Draft – June 2018)
+* [[[ISO19107dis,nofetch(ISO/DIS 19107)]]], ISO/DIS 19107 _Geographic information -- Spatial schema_ (Draft -- June 2018)
 
 * [[[ISO19106,hidden(ISO 19106)]]]
 

@@ -172,8 +172,8 @@ image::img155.png[]
 [TIP,type=box]
 ====
 The HDF5 concept of 'dataset' means an array, while the S-100 concept is
-defined as "an identifiable collection of data" (S-100 Annex A -- Terms and
-Definitions) which is generally interpreted to mean a collection of
+defined as "an identifiable collection of data" (<<AnnexA>>)
+which is generally interpreted to mean a collection of
 instances of feature and/or information type.
 
 This Part frequently uses the terms "data file" to mean a dataset in the
@@ -222,8 +222,8 @@ is linked into a group, and therefore given a name. A _named datatype_ can
 be opened and used in any way that a datatype object can be used.
 
 Not all the HDF5 datatypes have exact equivalents in the S-100 basic and
-derived datatypes defined in Part 1, clause 1-4.5.2 (Table 1-2). The
-correspondences between HDF5 and S-100 datatypes are given in Table 10c-2
+derived datatypes defined in <<Part1,clause="1-4.5.2">> (<<Part1,table="1-2">>). The
+correspondences between HDF5 and S-100 datatypes are given in <<tab-10c-2>>
 later in this Part.
 
 [[fig-10c-5]]

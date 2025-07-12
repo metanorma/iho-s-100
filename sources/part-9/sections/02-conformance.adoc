@@ -1,4 +1,4 @@
 == Conformance
 
 This part of the specification conforms to <<ISO19117>> according to the
-Annex A Abstract test suite.
+<<Part8,annex=A>> Abstract test suite.

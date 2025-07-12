@@ -407,13 +407,13 @@ On ENC the light sectors marking intricate inshore channels in, such as in
 Scandinavian waters are shown in red, green, and yellow.
 
 [[cls-16-B-3.1]]
-==== Black (S-4 -- B-141)
+==== Black (<<S-4,clause="B-141">>)
 
 Black is normally used for all physical (solid) features, including depth
 information.
 
 [[cls-16-B-3.2]]
-==== Magenta (S-4 -- B-142)
+==== Magenta (<<S-4,clause="B-142">>)
 
 The general principles for the use of magenta are that it should be reserved for:
 
@@ -424,21 +424,21 @@ implying any permanent physical obstruction (see <<S-4,clause="B-145">>
 for the use of green for environmental information).
 
 [[cls-16-B-3.3]]
-==== Buff (yellow) or grey (S-4 -- B-143)
+==== Buff (yellow) or grey (<<S-4,clause="B-143">>)
 
 A colour, usually buff (yellow) or grey, must be used as a land tint in
-paper charts. ENC portrayed with S-52 in an ECDIS uses a yellow/brown
+paper charts. ENC portrayed with <<S52>> in an ECDIS uses a yellow/brown
 colour (LANDA).
 
 [[cls-16-B-3.4]]
-==== Blue (S-4 -- B-144)
+==== Blue (<<S-4,clause="B-144">>)
 
 The colour blue has been used as a tint to emphasize shallow water. Two
 (or more) densities of blue tint may be used to show different depth bands
 of shallow water, the darkest tint showing the shallowest water.
 
 [[cls-16-B-3.5]]
-==== Green (S-4 -- B-145)
+==== Green (<<S-4,clause="B-145">>)
 
 The colour green may be used as a tint for inter-tidal areas. Green may
 also be used, instead of magenta, for environmental information and

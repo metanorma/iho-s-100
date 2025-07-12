@@ -20,7 +20,7 @@ The following clauses specify general and specific requirements for Feature
 Catalogue information elements. A Feature Catalogue generally consists of a list
 of named types, a list of properties for named types and the information on how
 both are linked together. Furthermore it contains a list of sources for its
-definitions. The model is primarily based on the ISO 19110 standard but there are
+definitions. The model is primarily based on the <<ISO19110>> standard but there are
 both extensions and differences in this model.
 
 There are two major extensions to the feature types: information types and
@@ -189,7 +189,7 @@ of other attributes to achieve a complex and hierarchical data structure.
 
 Simple attributes are designed to carry a value. In the Feature Catalogue the
 domain of the value shall be specified. All attribute values are value types.
-Part 2a-4.2.9 contains the full list of value types and their definitions. If the value type is an enumeration, or a codelist of type "open enumeration", a list of
+<<Part2a,clause="2a-4.2.9">> contains the full list of value types and their definitions. If the value type is an enumeration, or a codelist of type "open enumeration", a list of
 'Listed Values' will be defined. For codelists of type open or closed dictionary,
 a URI identifying a "dictionary" (or "vocabulary") will be provided as a
 definition.
@@ -222,7 +222,7 @@ an explicit role name or a default role name.
 Feature associations describe the relationships between feature types. Feature
 associations have a name, definition, remarks, code etc. Each association uses
 two roles that define the directed use of the relationship. Either or both of the
-roles may be a default as described in Part 3.
+roles may be a default as described in <<Part3>>.
 
 [example]
 Structure -- Equipment is an example of an association with two roles.

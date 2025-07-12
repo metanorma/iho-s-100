@@ -3,7 +3,7 @@
 Any metadata claiming conformance to this Profile shall:
 
 . Have content according to the data dictionary definitions in <<ISO19115-1,annex=B>>,
-(including changes required by ISO 19115-1 Amendment 1:2018) with the exception of the
+(including changes required by <<ISO19115-1amd>>) with the exception of the
 metadata element _metadataIdentifier_ which has a mandatory obligation;
 . Prove conformance by validating XML document instances against the S-100 Metadata
 Profile Schemas which are available from the IHO website at Profiles based on this

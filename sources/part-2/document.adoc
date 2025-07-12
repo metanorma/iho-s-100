@@ -34,3 +34,5 @@ include::sections/06-register-manager.adoc[]
 include::sections/07-proposal-process.adoc[]
 
 include::sections/08-register-schema.adoc[]
+
+include::sections/99-bibliography.adoc[]

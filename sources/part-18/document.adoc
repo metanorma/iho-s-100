@@ -31,4 +31,6 @@ include::sections/05-lang-pack-creation.adoc[]
 
 include::sections/06-lang-pack-schema.adoc[]
 
+include::sections/99-bibliography.adoc[]
+
 include::sections/aa-lang-packs.adoc[]

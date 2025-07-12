@@ -20,7 +20,7 @@ latest edition of the referenced document (including amendments) applies.
 * [[[OMG,OMG UML]]],
 span:organization[OMG Unified Modelling Language (OMG UML)],
 span:title[Superstructure],
-span:volume[V2.1.2]
+span:volume[2.1.2]
 
 * [[[RFC3986,IETF RFC 3986]]]
 
@@ -29,9 +29,15 @@ span:volume[V2.1.2]
 * [[[RFC8089,IETF RFC 8089]]]
 
 * [[[SKOS,SKOS]]],
-span:title[_SKOS -- Simple Knowledge Organization System -- Reference_].
+_span:title[SKOS -- Simple Knowledge Organization System -- Reference]_.
 span:classification[W3C Recommendation],
-span:date[2009].
+span:date[2009-01-01].
 span:uri[http://www.w3.org/TR/2009/REC-skos-reference-20090818/]
 
 * [[[ISO19108,hidden(ISO 19108)]]]
+
+* [[[ISO19106,hidden(ISO 19106:2004)]]]
+
+* [[[ISO19115,hidden(ISO 19115)]]]
+
+* [[[ISO8211,hidden(ISO/IEC 8211)]]]

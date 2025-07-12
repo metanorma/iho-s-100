@@ -3,14 +3,13 @@
 === Conformance of this Profile with other Standards
 
 This Part defines a profile of <<ISO19123>> concepts and types that constitutes the
-conceptual basis for the relevant S-100 encoding format (S-100 Part 10c -- HDF5 Data
-Model and File Format), and for S-100-based Product Specifications describing data
+conceptual basis for the relevant S-100 encoding format (<<Part10c>>), and for S-100-based Product Specifications describing data
 products based on gridded information and other coverage-type products.
 
 This Part utilises the approach taken by ISO/TS 19129 and concepts defined in that
 specification to define specific conceptual structures combining <<ISO19123>> concepts
 in order to provide a simplified common basis for the S-100 encoding format for
-coverage-based hydrographic data, which is described in Part 10c.
+coverage-based hydrographic data, which is described in <<Part10c>>.
 
 === Backward compatibility
 

@@ -24,6 +24,10 @@ span:date[2006-01-01].
 _span:title[Performance Standards for Integrated Navigation Systems (INS), IMO Resolution 252(83)]_,
 span:date[2007-01-01].
 
+* [[[MSC86,MSC.86(70)]]],
+_span:title[Adoption of New and Amended Performance Standards for Navigational Equipment, IMO Resolution 86(70)]_,
+span:date[1998-12-08].
+
 * [[[MSC302,MSC.302(87)]]],
 _span:title[Adoption of Performance Standards for Bridge Alert Management, IMO Resolution 302(87)]_,
 span:date[2010-01-01].
@@ -93,7 +97,7 @@ span:date[2015-07-01].
 
 * [[[S57,hidden(IHO S-57)]]]
 
-* [[[S98,hidden(IHO S-98)]]]
+* [[[S98,hidden(IHO S-98)]]], _Data Product Interoperability in S-100 Navigation Systems_, Edition 1.0.0, May 2022
 
 * [[[S32,hidden(IHO S-32)]]]
 
@@ -102,3 +106,18 @@ span:date[2015-07-01].
 * [[[S63,hidden(IHO S-63)]]]
 
 * [[[S64,hidden(IHO S-64)]]]
+
+* [[[Part16,dropid(repo:(current-metanorma-collection/IHO S-100 Part 16))]]],
+span:title[S-100 -- Part 16: Interoperability Catalogue Model],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part9,dropid(repo:(current-metanorma-collection/IHO S-100 Part 9))]]],
+span:title[S-100 -- Part 9: Portrayal],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part9a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 9a))]]],
+span:title[S-100 -- Part 9a: Portrayal (Lua)],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

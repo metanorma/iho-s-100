@@ -1,0 +1,12 @@
+[bibliography]
+== Bibliography
+
+* [[[Part2,dropid(repo:(current-metanorma-collection/IHO S-100 Part 2))]]],
+span:title[S-100 -- Part 2: Management of Registers],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part9,dropid(repo:(current-metanorma-collection/IHO S-100 Part 9))]]],
+span:title[S-100 -- Part 9: Portrayal],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

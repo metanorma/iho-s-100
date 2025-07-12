@@ -55,7 +55,7 @@
       description: "Signed public key certificates referred to by digital signatures in the Exchange Set"
       mult: "0..*"
       type: "S100_SE_CertificateContainerType"
-      remarks: "Content defined in S-100 Part 15. All certificates used, except the SA root certificate (installed separately by the implementing system) shall be included"
+      remarks: "Content defined in <<Part15>>. All certificates used, except the SA root certificate (installed separately by the implementing system) shall be included"
     - role: "Attribute"
       name: "dataServerIdentifier"
       description: "Identifies the data server for the permit"
@@ -95,7 +95,7 @@
       mult: "1"
       type: "CharacterString"
       remarks: |
-        <S100XC:identifier>US_101_20200101_120101_01</S100XC:identifier>
+        `<S100XC:identifier>US_101_20200101_120101_01</S100XC:identifier>`
     - role: "Attribute"
       name: "dateTime"
       description: "Creation date and time of the Exchange Catalogue, including time zone"
@@ -144,7 +144,7 @@
       description: "Dataset file name"
       mult: "1"
       type: "URI"
-      remarks: "See Part 1, clause 1-4.6"
+      remarks: "See <<Part1,clause=1-4.6>>"
     - role: "Attribute"
       name: "description"
       description: "Short description giving the area or location covered by the dataset"
@@ -188,7 +188,7 @@
       type: | 
         S100_SE_DigitalSignatureReference
 
-        (see Part 15)
+        (see <<Part15>>)
       remarks: ""
     - role: "Attribute"
       name: "digitalSignatureValue"
@@ -197,8 +197,8 @@
       type: |
         S100_SE_DigitalSignature
 
-        (see Part 15)
-      remarks: "The value resulting from application of digitalSignatureReferenceImplemented as the digital signature format specified in Part 15"
+        (see <<Part15>>)
+      remarks: "The value resulting from application of digitalSignatureReferenceImplemented as the digital signature format specified in <<Part15>>"
     - role: "Attribute"
       name: "copyright"
       description: "Indicates if the dataset is copyrighted"
@@ -351,7 +351,10 @@
       name: "metadataPointOfContact"
       description: "Point of contact for metadata"
       mult: "0..1"
-      type: "CI_Responsibility>CI_Individual orCI_Responsibility>CI_Organisation"
+      type: |
+        CI_Responsibility>CI_Individual or
+
+        CI_Responsibility>CI_Organisation
       remarks: "Only if metadataPointOfContact is different to producingAgency"
     - role: "Attribute"
       name: "metadataDateStamp"
@@ -543,17 +546,17 @@
       remarks: "-"
     - item: "Value"
       name: "ISO/IEC 8211"
-      description: "The <<ISO8211>> data format as defined in Part 10a"
+      description: "The <<ISO8211>> data format as defined in <<Part10a>>"
       code: "1"
       remarks: "-"
     - item: "Value"
       name: "GML"
-      description: "The GML data format as defined in Part 10b"
+      description: "The GML data format as defined in <<Part10b>>"
       code: "2"
       remarks: "-"
     - item: "Value"
       name: "HDF5"
-      description: "The HDF5 data format as defined in Part 10c"
+      description: "The HDF5 data format as defined in <<Part10c>>"
       code: "3"
       remarks: "-"
     - item: "Value"
@@ -611,7 +614,7 @@
       description: "The level of compliance of the Product Specification to S-100"
       mult: "0..1"
       type: "S100_CompliancyCategory"
-      remarks: "See Part 4a, clause 4a-5.5"
+      remarks: "See <<Part4a,clause=4a-5.5>>"
 
 - table: "S100_CompliancyCategory"
   rows:
@@ -652,7 +655,7 @@
       name: "S100p15"
       description: "IHO S-100 Part 15"
       code: "1"
-      remarks: "See Part 15"
+      remarks: "See <<Part15>>"
 
 - table: "S100_SupportFileDiscoveryMetadata"
   rows:
@@ -726,7 +729,7 @@
       type: |
         S100_SE_DigitalSignatureReference
 
-        (see Part 15)
+        (see <<Part15>>)
       remarks: ""
     - role: "Attribute"
       name: "digitalSignatureValue"
@@ -735,11 +738,11 @@
       type: |
         S100_SE_DigitalSignature
 
-        (see Part 15)
+        (see <<Part15>>)
       remarks: |
         The value resulting from application of digitalSignatureReference
 
-        Implemented as the digital signature format specified in Part 15
+        Implemented as the digital signature format specified in <<Part15>>
     - role: "Attribute"
       name: "defaultLocale"
       description: "Default language and character set used in the support file"
@@ -754,7 +757,7 @@
       description: "Identifier of the resource supported by this support file"
       mult: "0..*"
       type: "CharacterString"
-      remarks: "Conventions for identifiers are detailed in S-100 Part 15. S-100 allows file URI, digital signature or cryptographic hash checksums to be used"
+      remarks: "Conventions for identifiers are detailed in <<Part15>>. S-100 allows file URI, digital signature or cryptographic hash checksums to be used"
     - role: "Attribute"
       name: "resourcePurpose"
       description: "The purpose of the supporting resource"
@@ -973,17 +976,17 @@
       name: "digitalSignatureReference"
       description: "Specifies the algorithm used to compute digitalSignatureValue"
       mult: "1"
-      type: "S100_SE_DigitalSignatureReference(see Part 15)"
+      type: "S100_SE_DigitalSignatureReference(see <<Part15>>)"
       remarks: ""
     - role: "Attribute"
       name: "digitalSignatureValue"
       description: "Value derived from the digital signature"
       mult: "1..*"
-      type: "S100_SE_DigitalSignature(see Part 15)"
+      type: "S100_SE_DigitalSignature(see <<Part15>>)"
       remarks: |
         The value resulting from application of digitalSignatureReference
 
-        Implemented as the digital signature format specified in Part 15
+        Implemented as the digital signature format specified in <<Part15>>
     - role: "Attribute"
       name: "compressionFlag"
       description: "Indicates if the resource is compressed"

@@ -38,6 +38,8 @@ span:uri[https://www.w3.org/TR/wsdl20/]
 
 * [[[ISO9834-8,hidden(ISO/IEC 9834-8)]]]
 
+* [[[S124,hidden(IHO S-124)]]], _Navigational Warnings_, Edition 1.0.0, May 2023
+
 [[cls-14-2.1]]
 == Open Systems Interconnection (OSI)
 

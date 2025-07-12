@@ -360,7 +360,7 @@ All unspecified components are replaced by as many hyphens as the component has 
 | A code list value, represented as a CharacterString.
 | The URI of the code list dictionary is defined by the Feature Catalogue.
 
-See Parts 3 and 5 for more details.
+See <<Part3;and!Part5>> for more details.
 | eng
 |===
 

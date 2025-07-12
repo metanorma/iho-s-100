@@ -1,8 +1,8 @@
 == Conformance
 
-This profile conforms to level 2 of ISO 19106:2004. The following is a brief
+This profile conforms to level 2 of <<ISO19106>>. The following is a brief
 description of the specializations and generalizations where the profile differs
-from ISO 19135:2005.
+from <<ISO19135>>.
 
 . S100_RE_Register constrains the use of the attribute alternativeLanguages.
 . S100_RE_RegisterItem constrains the use of the attributes fieldOfApplication and
@@ -11,6 +11,6 @@ alternativeExpression.
 . S100_RE_ManagementInfo is a new class which amalgamates the classes
 RE_DecisionStatus, S100_RE_ProposalType, S100_RE_SubmittingOrganization,
 S100_RE_ItemStatus and RE_Disposition.
-. S100_RE_ProposalType is a new class which amalgamates the ISO 19135 classes
+. S100_RE_ProposalType is a new class which amalgamates the <<ISO19135>> classes
 RE_AdditionInformation, RE_ClarificationInformation, RE_AmendmentInformation and
 RE_AmendmentType.

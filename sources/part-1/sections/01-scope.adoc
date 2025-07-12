@@ -13,4 +13,4 @@ Secondly, this Part provides guidelines on how UML should be used to create
 standardized geographic information and service models that are a basis for achieving
 the goal of interoperability. Since it deals with the UML, a section with specific
 UML terms and definitions is provided, in addition to these terms being included in
-S-100 Annex A (Terms and Definitions).
+<<AnnexA>> (Terms and Definitions).

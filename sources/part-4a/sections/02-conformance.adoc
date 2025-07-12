@@ -2,21 +2,21 @@
 
 === Conformance of this Profile with other Standards
 
-In addition to the elements listed in ISO 19115-1, this profile also adopts all
-associated 19115-1 obligations and conditions, with the exception of the
+In addition to the elements listed in <<ISO19115-1>>, this profile also adopts all
+associated <<ISO19115-1>> obligations and conditions, with the exception of the
 _metadataIdentifier_ element which has been changed from optional to mandatory. This has
 been done to facilitate the implementation and management of metadata records by
 allowing instances of duplicate metadata records to be identified, and defining the
 relationship of a child metadata record with its parent metadata record. The specifics
 of any metadata hierarchy relationships will be detailed in the Product Specifications.
 
-Taking into account the change identified above, and the requirements documented in ISO
-19106:2004, this Profile meets the requirements of conformance
+Taking into account the change identified above, and the requirements documented in
+<<ISO19106>>, this Profile meets the requirements of conformance
 class{blank}footnote:[Conformance class 1 as described at Section 2 Conformance and
 Appendix B.3 Example of a profile with specialisations (<<ISO19106>>).]. The Profile is
 a community profile{blank}footnote:[A profile of a single base standard can include a
 subset, which is equivalent to the entire base standard. That is, a subset can equal the
-whole (<<ISO19106,page=15>>).] of ISO 19115-1 and includes an extension in the context
+whole (<<ISO19106,page=15>>).] of <<ISO19115-1>> and includes an extension in the context
 permitted by the base standard{blank}footnote:[This conforms to the rules included at
 <<ISO19115-1,appendix="C">>.]
 
@@ -27,6 +27,6 @@ XML implementation of this profile is included at <<app-4a-C>>.
 
 === Backward compatibility
 
-According to <<ISO19115-1>>, ISO continues to make the UML models from ISO
-19115:2003/Cor 1:2006 available for use. Backward compatibility is to be provided using
+According to <<ISO19115-1>>, ISO continues to make the UML models from <<ISO19115cor>>
+available for use. Backward compatibility is to be provided using
 a transformation service.

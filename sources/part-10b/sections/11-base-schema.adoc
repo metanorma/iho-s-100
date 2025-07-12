@@ -85,7 +85,7 @@ image::img147.png[]
 
 More complex spatial types are defined as extensions of the corresponding GML spatial
 types with an information association added, since in S-100 spatial objects can have
-information associations. The Figure below shows the design of the Point type in the S-100
+information associations. <<fig-10b-9>> below shows the design of the Point type in the S-100
 schema. It includes a single gml:Point type and 0 or more associations to S-100
 information types.
 
