@@ -24,7 +24,7 @@ shall not be used.
 | enumeration | Enumeration | Numeric codes must be 1 or 2-byte unsigned integers, range [1, 2^8^ -- 1] or [1, 2^16^ - 1]
 | date | (Character) String, length=8 | Date format according to <<Part1,table="1-2">>; that is, complete representation, basic format, as specified by <<ISO8601>>
 | time | (Character) Variable-length string | Time format according to <<Part1,table="1-2">>; that is, complete representation, basic format as specified by <<ISO8601>>. UTC indicated by "Z" suffix; local time by absence of suffix. The zone offset format is also permitted); for example, 123000+0100
-| dateTime | (Character) (variable length string) | Date-time format as specified by <<ISO8601>>. 
+| dateTime | (Character) (variable length string) | Date-time format as specified by <<ISO8601>>.
 
 [example]
 19850412T101530Z

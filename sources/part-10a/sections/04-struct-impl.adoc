@@ -4,22 +4,22 @@
 [[cls-10a-4.1]]
 === Introduction
 
-This chapter specifies the structure of an exchange set at the record 
-and field levels. It further specifies the contents of the physical 
-constructs required for their implementation as <<ISO8211>> data 
-records, fields, and subfields. The grouping of records into 
-<<ISO8211>> files is considered application specific and is, therefore, 
-described in the relevant Product Specification. For the encoding only 
+This chapter specifies the structure of an exchange set at the record
+and field levels. It further specifies the contents of the physical
+constructs required for their implementation as <<ISO8211>> data
+records, fields, and subfields. The grouping of records into
+<<ISO8211>> files is considered application specific and is, therefore,
+described in the relevant Product Specification. For the encoding only
 the binary <<ISO8211>> format is used.
 
 [[cls-10a-4.2]]
 === Notations used in this clause
 
-The specification of the structure of a record is given as a tree 
-structure diagram which comprises the names, linkages and repetition 
-factors of the physical constructs. The detailed specifications of 
-fields and subfields are given in tabular form. Additionally for each 
-field the Data Descriptive field is given. Those fields are used in the 
+The specification of the structure of a record is given as a tree
+structure diagram which comprises the names, linkages and repetition
+factors of the physical constructs. The detailed specifications of
+fields and subfields are given in tabular form. Additionally for each
+field the Data Descriptive field is given. Those fields are used in the
 Data Descriptive Record (DDR) of an <<ISO8211>> conformal data set.
 
 [[cls-10a-4.3]]
@@ -29,17 +29,17 @@ Data Descriptive Record (DDR) of an <<ISO8211>> conformal data set.
 image::img130.png[]
 
 [%key]
-Where A is the root node and parent of node B and node C. Node B is the 
+Where A is the root node and parent of node B and node C. Node B is the
 root of a sub-tree and the parent of nodes D and E.
 
-Nodes are also referred to as the offspring or child of their parents. 
+Nodes are also referred to as the offspring or child of their parents.
 For example node B is the offspring of node A.
 
-The tree structure diagrams must be interpreted in a pre-ordered 
+The tree structure diagrams must be interpreted in a pre-ordered
 traversal sequence (top down, left branch first).
 
-For ease of annotation these diagrams are presented vertically in this 
-standard using ASCII characters. In this notation the above diagram 
+For ease of annotation these diagrams are presented vertically in this
+standard using ASCII characters. In this notation the above diagram
 becomes:
 
 [source%unnumbered]
@@ -79,22 +79,22 @@ Where:
 | `(k\\*n)` | A concatenation of `k` subfields and a `n`-column table (`k` subfields are followed by `n` repeating subfields)
 |===
 
-The tree structure diagrams define which fields are allowed to be 
-repeated. However, within a record, the degree of repetition of fields 
-will depend on the data that is being encoded. In some cases a 
-particular field may not be required and so will be absent. However, in 
-all cases, the pre-order traversal sequence of a data record will be 
-the same as shown in the generic tree structure diagram for that record 
+The tree structure diagrams define which fields are allowed to be
+repeated. However, within a record, the degree of repetition of fields
+will depend on the data that is being encoded. In some cases a
+particular field may not be required and so will be absent. However, in
+all cases, the pre-order traversal sequence of a data record will be
+the same as shown in the generic tree structure diagram for that record
 type.
 
 [[cls-10a-4.4]]
 === Field Tables
 
-Each table is preceded by a row in bold outline indicating the field 
-name and field tag. The body of the table specifies the subfield names 
-and labels as well as the <<ISO8211>> format. The subfield 
-specification may include a required value or range constraint. The 
-following is an example of a field table using the Data Set 
+Each table is preceded by a row in bold outline indicating the field
+name and field tag. The body of the table specifies the subfield names
+and labels as well as the <<ISO8211>> format. The subfield
+specification may include a required value or range constraint. The
+following is an example of a field table using the Data Set
 Identification field.
 
 .Example of a field table
@@ -125,18 +125,18 @@ Identification field.
 
 Where:
 
-*Label*:: is the <<ISO8211>> subfield label, present only in the data 
-descriptive record and required to identify the subfields within a 
-field. A label preceded by "*" signifies that the subfield and the 
-subsequent ones, repeat within the field. This, therefore, indicates 
-the presence of a 2-D array or table for which the subfield labels 
+*Label*:: is the <<ISO8211>> subfield label, present only in the data
+descriptive record and required to identify the subfields within a
+field. A label preceded by "*" signifies that the subfield and the
+subsequent ones, repeat within the field. This, therefore, indicates
+the presence of a 2-D array or table for which the subfield labels
 provide the column headings (the vector labels of a cartesian label).
 *Format*:: is the <<ISO8211>> binary subfield data format.
 
 [[cls-10a-4.5]]
 === Data formats
 
-Subfield data formats are specified by <<ISO8211>>. The allowable data 
+Subfield data formats are specified by <<ISO8211>>. The allowable data
 formats are as follows:
 
 .Subfield data formats
@@ -160,14 +160,14 @@ The appropriate Escape Sequence is: (2/5) (2/15) (4/7) "%/G"
 | The binary value with all bits set to 1 must be used
 | `w` specifies the number of Bytes used
 
-Permissible values are: 1,2,4 
+Permissible values are: 1,2,4
 
 | `b2w`
 | Signed Integer (LSBF)
 | The binary value with all bits set to 1 must be used
 | `w` specifies the number of Bytes used
 
-Permissible values are: 1,2,4 
+Permissible values are: 1,2,4
 
 | `b48`
 | Signed Floating Point (LSBF)
@@ -178,15 +178,15 @@ Permissible values are: 1,2,4
 [[cls-10a-4.6]]
 === Data Descriptive fields
 
-Data Descriptive fields are fields of the Data Descriptive Record (DDR) 
-of an <<ISO8211>> conformal data file. These fields describe the format 
-of each field in a Data record (DR) of such a file. A Data Descriptive 
-field comprises the Field Control, the Data Field Name, the Array 
-Descriptor, and the Format Controls. More details on Data Descriptive 
+Data Descriptive fields are fields of the Data Descriptive Record (DDR)
+of an <<ISO8211>> conformal data file. These fields describe the format
+of each field in a Data record (DR) of such a file. A Data Descriptive
+field comprises the Field Control, the Data Field Name, the Array
+Descriptor, and the Format Controls. More details on Data Descriptive
 Fields are in <<ISO8211,clause="6.4">>.
 
-Data Descriptive Fields contain non printable characters. In this 
-document they are replaced with graphical symbols as the following 
+Data Descriptive Fields contain non printable characters. In this
+document they are replaced with graphical symbols as the following
 table defines:
 
 .Data Descriptive Fields
@@ -199,38 +199,38 @@ table defines:
 | FT (Field Terminator) | (1/14) | ▼
 |===
 
-The Data Descriptive Field is given in a bold text box following the 
+The Data Descriptive Field is given in a bold text box following the
 table describing the format of the field.
 
 [[cls-10a-4.7]]
 === Order of records
 
-The order of records will enable the import software to check that a 
+The order of records will enable the import software to check that a
 referenced record exists each time it is referenced.
 
 Exists means either:
 
-* The record is inserted in this data set file prior to the record that 
+* The record is inserted in this data set file prior to the record that
 reference it; or
-* It is inserted by the base data set file or an earlier update file 
+* It is inserted by the base data set file or an earlier update file
 and not deleted between the insertion and the record that reference it.
 
-In addition, when a record is going to be deleted it must not be 
+In addition, when a record is going to be deleted it must not be
 referenced by any other record.
 
 The record order is:
 
 . Data Set General Information record
 . Data Set Coordinate Reference System record
-. Information Type records (RUIN=Insert) (for the order inside this 
+. Information Type records (RUIN=Insert) (for the order inside this
 group see the encoding rules for Information Type records)
 . Point records (RUIN=Insert)
 . Multi Point records (RUIN=Insert)
 . Curve records (RUIN=Insert)
-. Composite Curve records (RUIN=Insert) (for the order inside this 
+. Composite Curve records (RUIN=Insert) (for the order inside this
 group see the encoding rules for Composite Curve records)
 . Surface records (RUIN=Insert)
-. Feature Type records (RUIN=Insert) (for the order inside this group 
+. Feature Type records (RUIN=Insert) (for the order inside this group
 see the encoding rules for Feature Type records)
 . Information Type records (RUIN=Modify)
 . Point records (RUIN=Modify)
@@ -247,13 +247,13 @@ see the encoding rules for Feature Type records)
 . Point records (RUIN= Delete)
 . Information Type records (RUIN= Delete) (reverse order as for Insert)
 
-Note that Product Specifications can omit entries they don't use but 
-not change the order. They might further define a more specific order 
-within each group if the general rule regarding references is not 
+Note that Product Specifications can omit entries they don't use but
+not change the order. They might further define a more specific order
+within each group if the general rule regarding references is not
 broken.
 
-If several records for the modification of one record are required in 
-one dataset, they must be using increasing record version numbers and 
+If several records for the modification of one record are required in
+one dataset, they must be using increasing record version numbers and
 the order must be according to these numbers.
 
 [[cls-10a-4.8]]
@@ -262,19 +262,19 @@ the order must be according to these numbers.
 [[cls-10a-4.8.1]]
 ==== General structure
 
-This clause does not replace <<ISO8211>>, nor does it give a 
-comprehensive overview of <<ISO8211>>. The reader is referred to 
+This clause does not replace <<ISO8211>>, nor does it give a
+comprehensive overview of <<ISO8211>>. The reader is referred to
 <<ISO8211>> for a complete description and explanation.
 
-The clause will give a short overview of <<ISO8211>> by explaining 
-those parts of the encapsulation structure which are of relevance to 
+The clause will give a short overview of <<ISO8211>> by explaining
+those parts of the encapsulation structure which are of relevance to
 S-100.
 
-<<ISO8211>> files are organized by Logical Records (LR), the first 
-record is the Data Descriptive Record (DDR) and all subsequent records 
+<<ISO8211>> files are organized by Logical Records (LR), the first
+record is the Data Descriptive Record (DDR) and all subsequent records
 are Data Records (DR).
 
-The DDR contains information on the hierarchy and structure of the 
+The DDR contains information on the hierarchy and structure of the
 remaining part of the file. It does not define the semantic of the data.
 
 Each Logical Record (both DDR and DR) contains three basic elements:
@@ -286,17 +286,17 @@ Each Logical Record (both DDR and DR) contains three basic elements:
 [[cls-10a-4.8.2]]
 ==== The Leader
 
-The Leader of a Logical Record contains the parameters necessary to 
-read records and to disaggregate the directory into its entries. In 
-addition, the DDR Leader contains a few data descriptive parameters 
+The Leader of a Logical Record contains the parameters necessary to
+read records and to disaggregate the directory into its entries. In
+addition, the DDR Leader contains a few data descriptive parameters
 applicable to the entire file. It has a fixed length of 24 bytes.
 
-The first five bytes in any Leader will contain the length of the 
-complete Record in bytes encoded as a decimal number in ASCII 
-representation (for example, a Record of 242 bytes will have a record 
-length entry of "00242"). If a Record has a size of 100000 bytes or 
-larger then the value must be set to "00000". In this case the software 
-must be able to calculate the Record size from the information in the 
+The first five bytes in any Leader will contain the length of the
+complete Record in bytes encoded as a decimal number in ASCII
+representation (for example, a Record of 242 bytes will have a record
+length entry of "00242"). If a Record has a size of 100000 bytes or
+larger then the value must be set to "00000". In this case the software
+must be able to calculate the Record size from the information in the
 directory.
 
 [[cls-10a-4.8.2.1]]
@@ -371,39 +371,39 @@ The entry map of the DR Leader:
 [[cls-10a-4.8.3]]
 ==== The Directory
 
-The Directory of a Logical Record contains the parameters necessary to 
-identify and locate each field in the Field Area. The Directory 
+The Directory of a Logical Record contains the parameters necessary to
+identify and locate each field in the Field Area. The Directory
 consists of repeated Directory entries containing the:
 
 * field tag;
 * field length; and
 * field position.
 
-The Directory ends with the field terminator (1/14). The field 
-positions are relative to the beginning of the Field Area. The position 
-of the first field following the Directory is 0. The number of bytes 
-used for the three elements (the field entry) is defined by the entry 
+The Directory ends with the field terminator (1/14). The field
+positions are relative to the beginning of the Field Area. The position
+of the first field following the Directory is 0. The number of bytes
+used for the three elements (the field entry) is defined by the entry
 map in the Leader of the Logical Record.
 
 [[cls-10a-4.8.4]]
 ==== The Field Area
 
-The Field Area is different for the DDR and DR. In the first Record 
-only, the DDR, the Field Area contains data descriptive fields. Each 
-data descriptive field contains information necessary to decode the 
-user data in the Field Area of the DR('s). The fact that the data 
-description is contained in the interchange file makes it possible to 
-exchange data without an external description, though the semantic of 
-the elements is not known. The S-100 Standard and the Product 
-Specifications that use an <<ISO8211>> data encoding does contain an 
-external data description used for the exchange of the data. However, 
-the data descriptive fields can only be omitted from the DDR if they 
-are not used in the current file; not because of the existence of an 
-external data description. The data descriptive fields of the DDR form 
+The Field Area is different for the DDR and DR. In the first Record
+only, the DDR, the Field Area contains data descriptive fields. Each
+data descriptive field contains information necessary to decode the
+user data in the Field Area of the DR('s). The fact that the data
+description is contained in the interchange file makes it possible to
+exchange data without an external description, though the semantic of
+the elements is not known. The S-100 Standard and the Product
+Specifications that use an <<ISO8211>> data encoding does contain an
+external data description used for the exchange of the data. However,
+the data descriptive fields can only be omitted from the DDR if they
+are not used in the current file; not because of the existence of an
+external data description. The data descriptive fields of the DDR form
 an integral part of an <<ISO8211>> conforming file.
 
-The limitation to the used fields is a minimum requirement and other 
-fields may be defined by data descriptive fields in the DDR. However, 
+The limitation to the used fields is a minimum requirement and other
+fields may be defined by data descriptive fields in the DDR. However,
 this adds unnecessary data to the data set and should be avoided.
 
 The Field Area of the DR contains the actual data to be transferred.
@@ -413,14 +413,14 @@ The Field Area of the DR contains the actual data to be transferred.
 
 ====== Field control field
 
-The first field of the DDR is the field control field. The field tag 
-for the field control field is "0000". The field control field contains 
-a list of field tag pairs. The list defines the hierarchy of all the 
-fields described in the DDR. The list contains pairs of partent/child 
-tags and together with the preorder traversal sequence of the field 
-descriptions in the DDR describes a generic tree structure for the 
-exchange file. The pairs may be placed in the list in any sequence and 
-must be contiguous. <<fig-10a-2>> gives an example of a tree. 
+The first field of the DDR is the field control field. The field tag
+for the field control field is "0000". The field control field contains
+a list of field tag pairs. The list defines the hierarchy of all the
+fields described in the DDR. The list contains pairs of partent/child
+tags and together with the preorder traversal sequence of the field
+descriptions in the DDR describes a generic tree structure for the
+exchange file. The pairs may be placed in the list in any sequence and
+must be contiguous. <<fig-10a-2>> gives an example of a tree.
 The set of field tag pairs is HE, EA, EB, HF, HG, GC and GD.
 
 [[fig-10a-2]]
@@ -437,9 +437,9 @@ The field controls of the field control field are : "0000;&" + 3 SPACEs.
 
 ====== Data descriptive fields
 
-The successive fields of the field area contain the data descriptive 
-fields. The data descriptive fields are encoded in the DDR in a 
-preorder traversal sequence. The preorder traversal sequence of the 
+The successive fields of the field area contain the data descriptive
+fields. The data descriptive fields are encoded in the DDR in a
+preorder traversal sequence. The preorder traversal sequence of the
 tree shown above is HEABFGCD.
 
 The structure of a data descriptive field is as follows:
@@ -449,8 +449,8 @@ The structure of a data descriptive field is as follows:
 | Field controls | Field name | UT | Array descriptor | UT | Format controls | FT
 |===
 
-The field controls describe the level and data type of the data fields 
-defined by the data descriptive fields. The structure of the field 
+The field controls describe the level and data type of the data fields
+defined by the data descriptive fields. The structure of the field
 controls is shown in the following Table.
 
 .Structure of the field controls
@@ -475,25 +475,25 @@ controls is shown in the following Table.
 "%/G" -- UTF8 Encoding implementation level 1
 |===
 
-The field name contains the long description of the data fields as 
-defined in the tree structures given in this Part of S-100. The Array 
-descriptor and Format controls define the inner field structure for the 
+The field name contains the long description of the data fields as
+defined in the tree structures given in this Part of S-100. The Array
+descriptor and Format controls define the inner field structure for the
 associated data fields. Refer to <<ISO8211>> for a complete description.
 
 [[cls-10a-4.8.4.2]]
 ===== The Field Area of the DR's
 
-The data fields in the DR's must be encoded in the preorder traversal 
-sequence as defined in the DDR. The structure of the data fields is 
+The data fields in the DR's must be encoded in the preorder traversal
+sequence as defined in the DDR. The structure of the data fields is
 defined by the data descriptive fields in the DDR.
 
 [[cls-10a-4.8.5]]
 ==== An example
 
-The following rather simple example shows an S-100 conformal 
+The following rather simple example shows an S-100 conformal
 <<ISO8211>> conformal dataset file.
 
-It contains a single feature type (_BuoySafeWater_) with the following 
+It contains a single feature type (_BuoySafeWater_) with the following
 attribute set:
 
 .Example of an conformal dataset file
@@ -542,7 +542,7 @@ The position is:
 | Longitude | stem:[12,1234 "unitsml(deg)" "W"] | -121234000 | F8C61DB0
 |===
 
-The example contains non-printable characters and binary codes. They 
+The example contains non-printable characters and binary codes. They
 are replaced with the denotation as defined in the following Table:
 
 .Denotations for non-printable characters and binary codes
