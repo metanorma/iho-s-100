@@ -17,3 +17,5 @@ span:uri[https://www.w3.org/TR/xpath/]
 * [[[ISO639-2,ISO 639-2]]]
 
 * [[[ISO19115,hidden(ISO 19115)]]]
+
+* [[[S101,hidden(IHO S-101)]]]

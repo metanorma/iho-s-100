@@ -447,7 +447,7 @@ additional parameters are needed. The control (data) points given in
 the Coordinate fields and the interpolation type suffice to define the 
 curve segment. Note that for closed segments the start and end points 
 of the segment must overlap in order to produce a smooth closed curve 
-(see Part 7 clause 7-4.2.2.2).
+(see <<Part7,clause="7-4.2.2.2">>).
 
 Coordinates of control points can be stored in the following fields: 
 C2IL, C2FL, C3IL, or C3FL. Those fields, coordinate list fields, can 

@@ -4,7 +4,7 @@ This part of the standard defines the models, structures and formats for a
 machine readable Portrayal Catalogue. The intent is for a Portrayal
 Catalogue to be delivered separately from product datasets such that it can
 be imported and interpreted to map Feature objects defined according to the
-Part 3 General Feature Model (GFM) into Drawing Instructions and
+<<Part3>> General Feature Model (GFM) into Drawing Instructions and
 symbolization.
 
 The actual contents of a Portrayal Catalogue need to be defined as part of a

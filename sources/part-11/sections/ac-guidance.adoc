@@ -198,7 +198,7 @@ codelist values, codelist dictionaries may be distributed as support
 files in exchange sets. For the purposes of distribution, discovery,
 management of updates, and version control, such local dictionary files
 can be treated as ordinary support files. Discovery metadata for support
-files is described in Part 4a (see class
+files is described in <<Part4a>> (see class
 S100_SupportFileDiscoveryMetadata).
 
 [[cls-11-C-6.1]]

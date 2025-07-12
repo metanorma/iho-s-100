@@ -3,9 +3,9 @@
 
 The data product specification shall identify the data quality
 requirements for each scope within the data product in accordance with
-S-100 Part 4c. For every data quality scope it is necessary to list all
-the data quality elements and data quality sub-elements defined in S-100
-Part 4c, even if only to state that a specific data quality element or
+<<Part4c>>. For every data quality scope it is necessary to list all
+the data quality elements and data quality sub-elements defined in
+<<Part4c>>, even if only to state that a specific data quality element or
 data quality sub-element is not applicable for this data quality scope.
 
 Each product specification shall describe the data quality requirements.

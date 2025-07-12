@@ -74,7 +74,7 @@ Geospatial Information (GI) registry as a repository of data object
 concepts, type definitions, and symbology. S-100 also provides an abstract
 specification for visual interoperability for displaying multiple products
 on the same screen; the only concrete specification for interoperability at
-the time of writing is S-98, which covers EDCIS interoperability.
+the time of writing is <<S98>>, which covers EDCIS interoperability.
 * Specifications for individual data products are produced by several
 organisations depending on the specific domain. Standards covering
 geographic data and marine services are developed by IHO, weather and
@@ -123,7 +123,7 @@ image::img220.png[]
 === Application systems concepts and limitations
 
 This clause describes the concept and limitations of the main types of
-application systems covered by this Part. ECDIS and INS are covered in S-98
+application systems covered by this Part. ECDIS and INS are covered in <<S98>>
 and the focus of this clause is on considerations that affect content and
 behaviour of other systems.
 

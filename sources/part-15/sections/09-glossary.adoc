@@ -1,9 +1,9 @@
 [[cls-15-9]]
 == Glossary of S-100 Data Protection Scheme and computing terms
 
-For a list of general abbreviations used throughout S-100, see Part 0, clause
-0-2. For a list of general terms and definitions used throughout S-100, see
-Annex A.
+For a list of general abbreviations used throughout S-100, see
+<<Part0,clause="0-2">>.
+For a list of general terms and definitions used throughout S-100, see <<AnnexA>>.
 
 [[tab-15-13]]
 .S-100 Data Protection Scheme terms

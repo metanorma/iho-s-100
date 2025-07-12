@@ -94,7 +94,7 @@ any risk of ambiguities is sufficiently addressed.
 [[cls-16a-5.2]]
 === Visual interoperability
 
-The Interoperability Catalogue Model, see Part 16, is a framework that can
+The Interoperability Catalogue Model, see <<Part16>>, is a framework that can
 be used to create a catalogue of rules for how to combine a set of layers.
 This set can be a fixed list or a flexible approach.
 

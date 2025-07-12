@@ -17,7 +17,7 @@ cartographic object classes, scale maximum / minimum attributes,
 attributes which suggest layout for textual information (for example
 $TINTS, $JUSTH).
 
-The portrayal library shall be defined in accordance with S-100 Part 9.
+The portrayal library shall be defined in accordance with <<Part9>>.
 
 [yaml2text,sections/tables/tables.yaml,data]
 ----

@@ -1,0 +1,22 @@
+[bibliography]
+== Bibliography
+
+* [[[Part17,dropid(repo:(current-metanorma-collection/IHO S-100 Part 17))]]],
+span:title[S-100 -- Part 17: Discovery Metadata for Information Exchange Catalogues],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[AnnexA,dropid(repo:(current-metanorma-collection/IHO S-100 Annex A))]]],
+span:title[S-100 -- Annex A: Terms and Definitions],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part0,dropid(repo:(current-metanorma-collection/IHO S-100 Part 0))]]],
+span:title[S-100 -- Part 0: Overview],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part14,dropid(repo:(current-metanorma-collection/IHO S-100 Part 14))]]],
+span:title[S-100 -- Part 14: Online Data Exchange],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

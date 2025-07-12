@@ -22,5 +22,5 @@ additional metadata about those.
 This document is intended for developers and implementers of metadata
 applications, and provides a basic understanding of the principles and the
 overall requirements for standardisation of geographic information. It should
-be used in conjunction with the standards listed under clause 4a-4 --
+be used in conjunction with the standards listed under <<Part4a,clause="4a-4">> --
 Normative references.

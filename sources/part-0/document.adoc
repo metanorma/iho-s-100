@@ -30,3 +30,5 @@ include::sections/02-abbreviations.adoc[]
 include::sections/03-objectives.adoc[]
 
 include::sections/04-parts.adoc[]
+
+include::sections/99-bibliography.adoc[]

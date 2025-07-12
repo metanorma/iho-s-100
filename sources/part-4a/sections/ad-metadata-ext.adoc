@@ -23,8 +23,8 @@ that has "free text" listed as its domain value;
 === When creating an extension
 
 Prior to the creation of extended metadata, a careful review of the existing metadata
-within ISO 19115-1 must be performed to confirm that suitable metadata does not already
-exist. If suitable metadata exist within ISO 19115-1, then it must be used. For each
+within <<ISO19115-1>> must be performed to confirm that suitable metadata does not already
+exist. If suitable metadata exist within <<ISO19115-1>>, then it must be used. For each
 extended metadata package, class, and/or element, the name, definition, obligation,
 condition, maximum occurrence, data type, and domain values shall be defined.
 Relationships shall be defined so that a structure and Schema can be determined. The
@@ -56,7 +56,7 @@ otherwise made available.
 . An extension shall not permit anything not allowed by S-100.
 . References to files shall be of type URI following the formatting.
 
-NOTE: For Product Specifications to be used in S-100 ECDIS, covered by S-98, these
-extension rules do not apply to the Exchange Catalogue profile as described in S-100
-part 17, as Part 17 for those products can only be restricted at the Product
+NOTE: For Product Specifications to be used in S-100 ECDIS, covered by <<S98>>, these
+extension rules do not apply to the Exchange Catalogue profile as described in <<Part17>>,
+as <<Part17>> for those products can only be restricted at the Product
 Specification level.

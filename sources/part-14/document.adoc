@@ -37,6 +37,8 @@ include::sections/08-service-def-model.adoc[]
 
 include::sections/09-comm-management.adoc[]
 
+include::sections/99-bibliography.adoc[]
+
 include::sections/aa-broadcasting.adoc[]
 
 include::sections/ab-web-service.adoc[]

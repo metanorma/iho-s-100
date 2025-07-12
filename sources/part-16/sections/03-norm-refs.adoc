@@ -22,3 +22,9 @@ span:note[(Retrieved 2017-12-08)].
 * [[[S-58,hidden(IHO S-58)]]]
 
 * [[[ISO19139,hidden(ISO/TS 19139)]]]
+
+* [[[S98,hidden(IHO S-98)]]], _Data Product Interoperability in S-100 Navigation Systems_, Edition 1.0.0, May 2022
+
+* [[[S52,hidden(IHO S-52)]]]
+
+* [[[S101,hidden(IHO S-101)]]]

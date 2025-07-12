@@ -10,17 +10,17 @@ based geometric data does not apply to imagery and gridded data.
 S-100 uses the metadata elements in <<ISO19115-1>>, where possible, to address the
 basic metadata requirements for geographic data, including Imagery, Gridded, and
 Coverage data. Other metadata elements primarily related to acquisition and
-processing are addressed in <<ISO19115-2>> _Geographic information - Metadata - Part
-2: Extensions for imagery and gridded data_. Quality metadata is described in
-<<ISO19157>> _Geographic information - Data Quality_. The minimum amount of metadata
+processing are addressed in <<ISO19115-2>>.
+Quality metadata is described in
+<<ISO19157>>. The minimum amount of metadata
 required to describe geographic data is addressed in <<ISO19115-1>>. The details of
 sensor models and their associated data models and metadata are provided in
 <<ISO19130>> _Geographic information - Sensor and data models for imagery and gridded
 data_.
 
-Metadata for S-100 is described in S-100 Parts 4a-4c. The specific metadata for S-100
+Metadata for S-100 is described in <<Part4a;to!Part4c>>. The specific metadata for S-100
 Imagery and Gridded Data is shown in <<app-8-D>>. The data format representations for
-S-100 metadata are described in S-100 Parts 10c and 17.
+S-100 metadata are described in <<Part10c;and!Part17>>.
 
-Suggested metadata supporting a scanned paper chart in compliance with  <<S61>> is
+Suggested metadata supporting a scanned paper chart in compliance with <<S61>> is
 described in <<app-8-D>> (<<cls-8-D-4>>).

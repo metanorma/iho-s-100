@@ -23,9 +23,9 @@ Specification references may impact the link between the dataset and the
 Interoperability Catalogue.
 
 It is recommended that Interoperability Catalogues be distributed in an
-exchange set structure, see Part 17. Discovery metadata for
+exchange set structure, see <<Part17>>. Discovery metadata for
 Interoperability Catalogues must be provided in XML format conforming to
-S-100 dataset discovery as specified in S-100 Part 17, with the extensions
+S-100 dataset discovery as specified in <<Part17>>, with the extensions
 described in this clause.
 
 [[cls-16-10.1]]
@@ -153,7 +153,7 @@ to consider for the specific update process.
 ==== Updating the Interoperability Catalogue
 
 It is recommended that new versions of the Interoperability Catalogues be
-distributed using an Exchange Set structure, see Part 17.
+distributed using an Exchange Set structure, see <<Part17>>.
 
 Interoperability Catalogues may remain active after a new version has been
 issued. Systems receiving new versions within the same major edition
@@ -169,8 +169,8 @@ is issued.
 ==== Cancelling a version of the Interoperability Catalogue
 
 In order to cancel a version of the Interoperability Catalogue it is
-recommended that the methodology used for exchange set as defined in Part
-17 metadata is utilized.
+recommended that the methodology used for exchange set as defined in <<Part17>>
+metadata is utilized.
 
 [[cls-16-10.7]]
 === Support files
@@ -183,7 +183,7 @@ these are described below.
 ==== Updating the Interoperability Catalogue support files
 
 It is recommended that support files are updated using the methodology
-used for exchange set as defined in Part 17 metadata is utilized.
+used for exchange set as defined in <<Part17>> metadata is utilized.
 
 Support files should be stored in a separate folder within the exchange
 set.

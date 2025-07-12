@@ -453,5 +453,5 @@ S-100 maintenance proposal.
 encoded in "other: ..." form, meaning that ECDIS software, for example, is
 not required to recognise any datum encoded as "other: ..." and will
 therefore be unable to adjust ENC depth information with water level data
-from the corresponding S-104 dataset, and may warn or reject the S-104
-dataset as being incompatible with S-101 ENCs.*
+from the corresponding <<S104>> dataset, and may warn or reject the <<S104>>
+dataset as being incompatible with <<S101>> ENCs.*

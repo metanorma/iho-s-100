@@ -32,3 +32,69 @@ The following documents were the references used to define the S-100 Metadata Pr
 * [[[ISO19106,hidden(ISO 19106)]]]
 
 * [[[ISO19136,hidden(ISO 19136)]]]
+
+* [[[ISO19130,hidden(ISO/TS 19130)]]]
+
+* [[[ISO10646-1,hidden(ISO/IEC 10646-1)]]]
+
+* [[[S64,hidden(IHO S-64)]]]
+
+* [[[S52,hidden(IHO S-52)]]]
+
+* [[[S57,hidden(IHO S-57)]]]
+
+* [[[S62,hidden(IHO S-62)]]]
+
+* [[[S63,hidden(IHO S-63)]]]
+
+* [[[S98,hidden(IHO S-98)]]], _Data Product Interoperability in S-100 Navigation Systems_, Edition 1.0.0, May 2022
+
+* [[[Part4b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4b))]]],
+span:title[S-100 -- Part 4b: Metadata for Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4c,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4c))]]],
+span:title[S-100 -- Part 4c: Metadata - Data Quality],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part7,dropid(repo:(current-metanorma-collection/IHO S-100 Part 7))]]],
+span:title[S-100 -- Part 7: Spatial Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part8,dropid(repo:(current-metanorma-collection/IHO S-100 Part 8))]]],
+span:title[S-100 -- Part 8: Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part11,dropid(repo:(current-metanorma-collection/IHO S-100 Part 11))]]],
+span:title[S-100 -- Part 11: Product Specifications],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part6,dropid(repo:(current-metanorma-collection/IHO S-100 Part 6))]]],
+span:title[S-100 -- Part 6: Coordinate Reference Systems],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part10a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10a))]]],
+span:title[S-100 -- Part 10a: ISO/IEC 8211 Encoding],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part10b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10b))]]],
+span:title[S-100 -- Part 10b: GML Data Format],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part10c,dropid(repo:(current-metanorma-collection/IHO S-100 Part 10c))]]],
+span:title[S-100 -- Part 10c: HDF5 Data Model and File Format],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part17,dropid(repo:(current-metanorma-collection/IHO S-100 Part 17))]]],
+span:title[S-100 -- Part 17: Discovery Metadata for Information Exchange Catalogues],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

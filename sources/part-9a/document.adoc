@@ -46,3 +46,5 @@ include::sections/12-symbol-definitions.adoc[]
 include::sections/13-port-library.adoc[]
 
 include::sections/14-port-functions.adoc[]
+
+include::sections/99-bibliography.adoc[]

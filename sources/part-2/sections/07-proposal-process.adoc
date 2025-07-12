@@ -12,7 +12,7 @@ image::img17.png[]
 
 The process for determining the acceptability of proposals is illustrated in
 <<fig-2-1;and!fig-2-2>> above. It must be completed within a time period specified
-by the Register Owner, in accordance with S-99.
+by the Register Owner, in accordance with <<S99>>.
 
 The Register Manager shall ensure the following:
 
@@ -39,7 +39,7 @@ Register of the Registry;
 .. The proposed item does not fall within the scope of this Register; or
 .. The justification for the proposal is inadequate.
 . Inform the Register Manager of the decision, and the rationale for the decision,
-within a time limit specified by the Register Owner, in accordance with S-99.
+within a time limit specified by the Register Owner, in accordance with <<S99>>.
 
 The Register Manager shall:
 

@@ -40,3 +40,63 @@ undated references, the latest edition of the referenced document
 * [[[ISO19115-3,ISO 19115-3]]]
 
 * [[[ISO19107,ISO 19107]]]
+
+* [[[Part3,dropid(repo:(current-metanorma-collection/IHO S-100 Part 3))]]],
+span:title[S-100 -- Part 3: General Feature Model and Rules for Application Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4a))]]],
+span:title[S-100 -- Part 4a: Metadata],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4b,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4b))]]],
+span:title[S-100 -- Part 4b: Metadata for Imagery and Gridded Data],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part4c,dropid(repo:(current-metanorma-collection/IHO S-100 Part 4c))]]],
+span:title[S-100 -- Part 4c: Metadata - Data Quality],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part6,dropid(repo:(current-metanorma-collection/IHO S-100 Part 6))]]],
+span:title[S-100 -- Part 6: Coordinate Reference Systems],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part7,dropid(repo:(current-metanorma-collection/IHO S-100 Part 7))]]],
+span:title[S-100 -- Part 7: Spatial Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part9,dropid(repo:(current-metanorma-collection/IHO S-100 Part 9))]]],
+span:title[S-100 -- Part 9: Portrayal],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part15,dropid(repo:(current-metanorma-collection/IHO S-100 Part 15))]]],
+span:title[S-100 -- Part 15: Data Protection Scheme],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part17,dropid(repo:(current-metanorma-collection/IHO S-100 Part 17))]]],
+span:title[S-100 -- Part 17: Discovery Metadata for Information Exchange Catalogues],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[S101,hidden(IHO S-101)]]]
+
+* [[[S122,hidden(IHO S-122)]]]
+
+* [[[S124,hidden(IHO S-124)]]], _Navigational Warnings_, Edition 1.0.0, May 2023
+
+* [[[S201,hidden(IHO S-201)]]], _Aids to Navigation_, Edition 1.1.0, October 2022
+
+* [[[S125,hidden(IHO S-125)]]], _Navigational Services_

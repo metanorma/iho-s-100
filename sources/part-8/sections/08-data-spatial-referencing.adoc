@@ -103,7 +103,7 @@ carried as metadata.
 [[cls-8-8.2]]
 === Point set data and TIN triangle vertex spatial referencing
 
-Point sets and TIN triangles are described in the ISO Spatial Schema standard 19107,
+Point sets and TIN triangles are described in the <<ISO19107>>,
 which has been profiled as part of S-100. Each point in a point set is located by a
 direct position. The spatial referencing system that relates to the direct positions
 in the set is referenced by the Spatial Schema, through the same SC_CRS object.

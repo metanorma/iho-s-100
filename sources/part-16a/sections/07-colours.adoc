@@ -34,11 +34,11 @@ Colour assignments for ECDIS, INS, and any similar navigation systems
 covered by IMO Performance Standards must conform to <<S98>>.
 
 Colour assignments for bridge or charthouse systems not covered by IMO
-Performance Standards for navigation systems should conform to S-98 Colour
-Assignments, but may add other colour assignments as necessary for their
+Performance Standards for navigation systems should conform to <<S98>>,
+but may add other colour assignments as necessary for their
 purposes.
 
-Colour assignments for other systems may conform to S-98 Colour Assignments,
+Colour assignments for other systems may conform to <<S98>>,
 but may depart from or extend it, depending on application requirements or
 user environments.
 

@@ -16,7 +16,7 @@ the data product:
 +
 --
 NOTE: This section can be covered by an encoding guide, for example for
-the S-101 ENC Product Specification - the Data Classification and
+the <<S101>> ENC Product Specification - the Data Classification and
 Encoding Guide;
 --
 . Data product format -- see <<cls-11-12>>;

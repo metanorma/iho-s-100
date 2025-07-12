@@ -40,6 +40,8 @@ span:uri[http://www.microsoft.com/typography/SpecificationsOverview.mspx]
 
 * [[[S52,hidden(IHO S-52)]]]
 
+* [[[S101,hidden(IHO S-101)]]]
+
 * [[[IEC62288,hidden(IEC 62288:2014)]]]
 
-* [[[ISO19123,hidden(ISO 19123)]]]
+* [[[ISO19123,ISO 19123]]]

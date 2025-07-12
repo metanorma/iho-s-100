@@ -6,10 +6,7 @@ document. For dated references, only the edition cited applies. For undated
 references, the latest edition of the referenced document (including amendments)
 applies.
 
-* [[[FIPS81,NIST FIPS 81]]],
-span:title[FIPS Publication 81, DES Modes of Operation],
-span:organization[National Institute of Standards and Technology],
-span:uri[www.itl.nist.gov/fipspubs/fip81.htm]
+* [[[FIPS81,NBS FIPS 81]]]
 
 * [[[FIPS180-4,NIST FIPS 180-4]]]
 
@@ -21,7 +18,7 @@ span:uri[www.itl.nist.gov/fipspubs/fip81.htm]
 _span:title[Open SSL Cryptography and SSL/TLS Toolkit]_,
 span:uri[https://www.openssl.org/]
 
-* [[[pkcs,IETF RFC 2986]]]
+* [[[RFC2986,IETF RFC 2986]]]
 
 * [[[RFC1423,IETF RFC 1423]]]
 
@@ -49,3 +46,5 @@ span:organization[International Telecommunication Union]
 * [[[RFC5480,hidden(IETF RFC 5480)]]]
 
 * [[[RFC4648,hidden(IETF RFC 4648)]]]
+
+* [[[S101,hidden(IHO S-101)]]]

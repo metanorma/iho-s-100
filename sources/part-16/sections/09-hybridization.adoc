@@ -55,7 +55,7 @@ Hybrid Feature and Portrayal Catalogues are physically separate files from
 the main Interoperability Catalogue, but the main Catalogue links to them
 by encoding the names of the hybrid catalogue files which are used by the
 feature creation rules defined in it. The hybrid Feature and Portrayal
-Catalogues conform to the structures required by S-100 Parts 5 and 9
+Catalogues conform to the structures required by <<Part5;and!Part9>>
 respectively. It is recommended that hybrid Feature and Portrayal
 Catalogues be bundled with the Interoperability Catalogue in an exchange
 set as support files, see <<cls-16-10>> below.

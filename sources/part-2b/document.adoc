@@ -26,3 +26,5 @@ include::sections/02-references.adoc[]
 include::sections/03-concepts.adoc[]
 
 include::sections/04-iho-portrayal.adoc[]
+
+include::sections/99-bibliography.adoc[]

@@ -201,7 +201,7 @@ Similar to simple attributes.
 As stated in <<cls-18-5>>, Feature Catalogues may produce translations of some
 or all of these fields, depending on the preference of the language pack author.
 
-An example of some of these fields are shown in the extract from an S-101
+An example of some of these fields are shown in the extract from an <<S101>>
 feature catalogue below:
 
 [source%unnumbered,xml]
@@ -238,8 +238,8 @@ feature catalogue below:
   </S100FC:listedValue>
 ----
 
-This section of the S-101 Feature Catalogue would result in the following
-translations included in a German S-101 feature catalogue language pack:
+This section of the <<S101>> Feature Catalogue would result in the following
+translations included in a German <<S101>> feature catalogue language pack:
 
 [[tab-18-A-1]]
 .Language pack translation (examples)
@@ -258,7 +258,7 @@ translations included in a German S-101 feature catalogue language pack:
 Hat eventuell eine höhere Leuchtstärke als maritime Leuchtfeuer und kann weit vor der Küste sichtbar sein.
 |===
 
-The values in the table would be encoded in the German S-101 language pack, as
+The values in the table would be encoded in the German <<S101>> language pack, as
 demonstrated in the following XML fragment.
 
 Note that not all items are translated in this example. For those that are
@@ -318,6 +318,6 @@ status 'New' meaning not yet translated.
   </S100LA:translationItem>
 ----
 
-This language pack would be named according to the naming convention in S-100
-Part 17 and would support a Feature Catalogue using the reference structure
+This language pack would be named according to the naming convention in
+<<Part17>> and would support a Feature Catalogue using the reference structure
 defined.

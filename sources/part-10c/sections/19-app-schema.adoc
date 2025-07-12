@@ -1,15 +1,15 @@
 [[cls-10c-19]]
-== Application Schema Realizations from Part 8 (Informative)
+== Application Schema Realizations from <<Part8>> (Informative)
 
 <<fig-10c-13>> below illustrates the realization of different types of
 coverages as described in <<cls-10c-10.1>> and <<tab-10c-4>> from the
-coverage types defined in Part 8. Product Specification development teams
+coverage types defined in <<Part8>>. Product Specification development teams
 may wish to develop similar figures for their Product Specifications to
 describe how the coverage types as encoded in the HDF5 format for their
-data products are realized from the coverage types defined in Part 8.
+data products are realized from the coverage types defined in <<Part8>>.
 
 [[fig-10c-13]]
-.Realizations of HDF5 encoding coverage types from Part 8 types
+.Realizations of HDF5 encoding coverage types from <<Part8>> types
 image::img164.png[]
 
 It is possible to extend <<fig-10c-13>> to include upper-level derivations

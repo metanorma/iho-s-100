@@ -17,3 +17,5 @@ span:uri[https://www.lua.org/manual/5.1/]
 * [[[RFC3986,hidden(IETF RFC 3986)]]]
 
 * [[[RFC2141,hidden(IETF RFC 2141)]]]
+
+* [[[S101,hidden(IHO S-101)]]]

@@ -411,7 +411,7 @@ the `<svg>` element or the `<g>` element the values will be inherited to
 all child elements of these elements. If defined at a child element this
 value overrides the value from the container element.
 
-The following Table describes the style properties supported by this
+The following <<tab-9-B-4>> describes the style properties supported by this
 profile.
 
 [[tab-9-B-4]]

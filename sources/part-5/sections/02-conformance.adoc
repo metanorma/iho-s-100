@@ -1,8 +1,8 @@
 == Conformance
 
-This profile conforms to conformance class 2 of ISO 19106:2004. The following is
+This profile conforms to conformance class 2 of <<ISO19106>>. The following is
 a brief description of the specializations and generalizations where the profile
-differs from ISO 19110.
+differs from <<ISO19110>>.
 
 . New abstract classes, __S100_FC_Item__, __S100_FC_NamedType__, and
 _S100_FC_ObjectType_ are introduced.

@@ -2,7 +2,7 @@
 
 === Register
 
-As described in Part 2, a Register is simply a managed list. It is easier to maintain
+As described in <<Part2>>, a Register is simply a managed list. It is easier to maintain
 than a fixed document, because new items can be added as needed to the Register, and
 existing items in the Register can be clarified, superseded or retired. Each Register
 item has one or more dates associated with it that indicate when changes in its
@@ -30,4 +30,4 @@ of cross-referencing.
 The Portrayal Catalogue contains portrayal rules that map the features to symbology;
 and optionally to alerts/indications. It also contains symbol definitions, colour
 definitions, portrayal parameters and portrayal management concepts. Portrayal
-Catalogues are described in detail in S-100 Part 9.
+Catalogues are described in detail in <<Part9>>.

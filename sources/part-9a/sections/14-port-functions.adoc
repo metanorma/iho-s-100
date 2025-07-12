@@ -1,16 +1,16 @@
 [[cls-9a-14]]
 == Portrayal Domain Specific Functions
 
-The Lua portrayal is an instance of a Part 13 scripting domain. The functions
+The Lua portrayal is an instance of a <<Part13>> scripting domain. The functions
 described below are specific to this scripting domain; they are domain specific
-functions to be used in conjunction with the standard functions detailed in Part 13.
+functions to be used in conjunction with the standard functions detailed in <<Part13>>.
 
 [[cls-9a-14.1]]
 === Portrayal Domain Specific Catalogue Functions
 
 The functions listed on the following clauses are implemented within the Portrayal
 Catalogue rule files. They can be called by the host, and augment the standard
-catalogue functions described in Part 13.
+catalogue functions described in <<Part13>>.
 
 [[cls-9a-14.1.1]]
 ==== Boolean PortrayalMain(String[] featureIDs)
@@ -95,7 +95,7 @@ _defaultValue_:: String
 +
 --
 The default value for the portrayal context parameter. This value is encoded as
-described in Part 13 clause 13-8.1.
+described in <<Part13,clause="13-8.1">>.
 --
 
 [underline]#*Remarks:*#
@@ -103,7 +103,7 @@ described in Part 13 clause 13-8.1.
 Creates a ContextParameter object for use within the scripting environment.
 
 [[cls-9a-14.1.4]]
-==== void PortrayalSetContextParameter(String __contextParameterId__, String _value_)
+==== void PortrayalSetContextParameter(String _contextParameterId_, String _value_)
 
 [underline]#*Return Value:*#
 
@@ -121,7 +121,7 @@ _value_:: String
 +
 --
 The new value for the portrayal context parameter. This value is encoded as described
-in Part 13 clause 13-8.1.
+in <<Part13,clause="13-8.1">>.
 --
 
 *Remarks:*
@@ -135,7 +135,7 @@ modified.
 
 The host must implement the function described in the following clause in order to
 support portrayal. This function is called from the portrayal domain specific
-catalogue functions, and augments the standard host functions described in Part 13.
+catalogue functions, and augments the standard host functions described in <<Part13>>.
 
 [[cls-9a-14.2.1]]
 ==== Boolean HostPortrayalEmit(String __featureID__, String __drawingInstructions__, String _observedParameters_)
@@ -160,7 +160,7 @@ _drawingInstructions_:: String
 +
 --
 All of the drawing instructions generated for the feature instance identified by
-_featureID_. This string is in Data Exchange Format (DEF) as described in Part 13.
+_featureID_. This string is in Data Exchange Format (DEF) as described in <<Part13>>.
 --
 
 _observedParameters_:: String

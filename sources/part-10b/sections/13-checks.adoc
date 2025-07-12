@@ -2,4 +2,4 @@
 == Dataset level metadata and integrity checks
 
 The S-100 GML Profile does not explicitly contain any elements relating to dataset level
-metadata or integrity checks. S-100 Part 15 includes such provisions.
+metadata or integrity checks. <<Part15>> includes such provisions.

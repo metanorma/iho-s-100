@@ -11,12 +11,12 @@ sections in this Part indicate where the names from the Application Schema
 (or equivalently, the Feature Catalogue) are used.
 
 Elements in embedded ("carrier") metadata and positioning information which
-correspond to attributes in Parts 4a-4c must also conform to the
-corresponding camel case names in Parts 4a-4c & 8.
+correspond to attributes in <<Part4a;to!Part4c>> must also conform to the
+corresponding camel case names in <<Part4a;to!Part4c>> & <<Part8>>.
 
 Elements which do not have a direct correspondence may have names that are
 unique to the HDF5 format (the differences being intended to simplify the
-abstractions in <<ISO19123>> and S-100 Parts 4, 4b, and 8, and shorten fields
+abstractions in <<ISO19123>> and <<Part4a>>, <<Part4b>>, and <<Part8>>, and shorten fields
 which are deeply nested within the XML schemas).
 
 The names 'latitude' and 'longitude' must be used for geographic coordinate
@@ -24,7 +24,7 @@ axes when they are appropriate, in preference to 'X' and 'Y', which should
 be used only when latitude/longitude are inappropriate.
 
 The correpondences between the carrier metadata elements in this profile
-and Parts 4-4c and Part 8 are specified later in this document.
+and <<Part4a;to!Part4c>> and <<Part8>> are specified later in this document.
 
 Names in non-embedded metadata and catalogue files in exchange sets are
 treated as for vector product Product Specifications -- that is, they must

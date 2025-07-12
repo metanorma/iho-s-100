@@ -1,0 +1,7 @@
+[bibliography]
+== Bibliography
+
+* [[[Part17,dropid(repo:(current-metanorma-collection/IHO S-100 Part 17))]]],
+span:title[S-100 -- Part 17: Discovery Metadata for Information Exchange Catalogues],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

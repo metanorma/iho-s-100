@@ -343,7 +343,7 @@ The coverage package contains the types for the depiction of a Coverage. This po
 [[cls-9-12.7.2]]
 ==== Ranges
 
-Ranges are used to control how portrayal is assigned to the values in a Coverage. These make use of the S-100_NumericRange complex type which is defined in S-100 Part 1 Conceptual Schema Language. The Numeric Range type allows for various range definitions with different closure options.
+Ranges are used to control how portrayal is assigned to the values in a Coverage. These make use of the S-100_NumericRange complex type which is defined in <<Part1>>. The Numeric Range type allows for various range definitions with different closure options.
 
 [[cls-9-12.7.3]]
 ==== Lookup Table

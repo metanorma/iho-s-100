@@ -43,7 +43,7 @@ parameters uniquely identify a single instance among all datasets across all
 product types to be used by the host during a scripting session. Since each
 type of _ID_ is a string, one way to accomplish this is by prepending the
 relevant information to the _ID_; for example, "S101.101US003DE01M__.000.F1"
-to identify the first feature in the referenced S-101 dataset.
+to identify the first feature in the referenced <<S101>> dataset.
 
 [[cls-13-8.1]]
 === Standard catalogue functions
@@ -137,7 +137,7 @@ this value is nil, there is no upper value constraint.
 _rangeClosure_:: string or nil
 
 &nbsp;::: Defines the closure operations for the lower and upper ranges. This
-is one of enumerated values as defined in Table 1-3. This must be specified
+is one of enumerated values as defined in <<Part1,table="1-3">>. This must be specified
 if either or both the lower or upper ranges are specified.
 
 _precision_:: integer or nil
@@ -634,9 +634,9 @@ allow the host to create objects used when calling into the scripting
 catalogue. The schema and contents of the created objects are opaque to the
 host -- they are only intended for use within the scripting catalogue.
 
-The complex types correspond to the classes described in S-100 Part 5 -
-_Feature Catalogue_. Each type information creation function described in
-this section specifies the corresponding S-100 Part 5 Feature Catalogue type.
+The complex types correspond to the classes described in <<Part5>>.
+Each type information creation function described in
+this section specifies the corresponding <<Part5>> Feature Catalogue type.
 
 Creation functions for _FC_DefinitionReference_ and its dependent types,
 including the _CI_Citation_ class, are intentionally omitted. There are no

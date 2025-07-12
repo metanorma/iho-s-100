@@ -1,7 +1,7 @@
 == Scope
 
-The general scope of parts 4a, 4b and 4c has been described at the
-beginning of part 4a. This part concerns itself specifically with the
+The general scope of <<Part4a>>, <<Part4b;and!Part4c>> has been described at the
+beginning of <<Part4a>>. This part concerns itself specifically with the
 growing requirement to manage large volumes of imagery and gridded data
 which most hydrographic organizations have in addition to handling the
 vector data. There are many different imagery and gridded data formats

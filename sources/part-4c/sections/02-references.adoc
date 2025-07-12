@@ -31,3 +31,5 @@ text, constitute provisions of this metadata guidance.
 * [[[ISO639-1,ISO 639-1:2002]]]
 
 * [[[ISO639-2,ISO 639-2:1998]]]
+
+* [[[S101,hidden(IHO S-101)]]]

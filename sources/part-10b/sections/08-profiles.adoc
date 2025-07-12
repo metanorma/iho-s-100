@@ -19,7 +19,7 @@ The S-100 GML Profile prohibits the use of the gml:StandardObjectProperties grou
 ==== Primitive types
 
 The S-100 GML Profile supports the types defined in S-100 Feature Catalogues (as defined
-in S-100 Part 2a, clause 2a-4.2.9) with the following equivalents. Types are supported
+in <<Part2a,clause="2a-4.2.9">>) with the following equivalents. Types are supported
 using XML Schema ("xs:") built-in data types where possible except as noted.
 
 [[tab-10b-1]]
@@ -46,7 +46,7 @@ in the range 0.0-360.0 (for stem:["unitsml(deg)"] representations).
 [[cls-10b-8.2.2]]
 ==== Extended Value types
 
-The S-100 GML Profile supports the value types defined in Part 1, clause 1-4.5.3.5:
+The S-100 GML Profile supports the value types defined in <<Part1,clause="1-4.5.3.5">>:
 
 * Measure
 * Length

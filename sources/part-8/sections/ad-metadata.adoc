@@ -80,8 +80,8 @@ following is a list of the packages defined in <<ISO19115-1>>.
 CI_Responsibility
 |===
 
-ISO TC211 has also completed <<ISO19115-2>> _Geographic information - Metadata - Part
-2: Extensions for imagery and gridded data_. It contains additional packages for
+ISO TC211 has also completed <<ISO19115-2>>.
+It contains additional packages for
 MI_AcquisitionInformation, Lineage (Source and Process), Quality result for Coverage
 (QE_CoverageDescription) and usability (QE_Usability) that are relevant for the
 description of Imagery and Gridded data in S100.

@@ -76,7 +76,7 @@ Interoperability Catalogue should consider the impact on this
 Interoperability Catalogue and associated Product Specifications
 throughout the lifecycle of the Product Specification. The general
 principles of Software Quality Assurance (SQA) as found in section 4 of
-the Annex to MSC.1/Circ.1512 should be applied.
+the Annex to <<imo>> should be applied.
 
 [[fig-16-C-1]]
 .Generic life cycle (from MSC.1/Circ.1512)
@@ -131,7 +131,7 @@ Usability Testing.
 image::img219.png[]
 
 The details of recommended activities at each stage are found in section 6
-of the Annex to MSC.1/Circ.1512.
+of the Annex to <<imo>>.
 
 [[cls-16-C-5.1]]
 ==== Human-Centred Design and user interface

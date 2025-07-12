@@ -26,12 +26,12 @@ The S-100 development and maintenance process is specifically aimed at allowing 
 input from non-IHO stakeholders, thereby increasing the likelihood that these potential
 users will maximise their use of hydrographic data for their particular purposes.
 
-S-100 will eventually replace S-57 -- the established _IHO Transfer Standard for Digital
-Hydrographic Data_. Although S-57 has many good aspects, it has some limitations:
+S-100 will eventually replace <<S57>> -- the established _IHO Transfer Standard for Digital
+Hydrographic Data_. Although <<S57>> has many good aspects, it has some limitations:
 
-* S-57 has been used almost exclusively for encoding Electronic Navigational Charts
+* <<S57>> has been used almost exclusively for encoding Electronic Navigational Charts
 (ENCs) for use in Electronic Chart Display and Information Systems (ECDIS).
-* S-57 is not a contemporary standard that is widely accepted in the GIS domain.
+* <<S57>> is not a contemporary standard that is widely accepted in the GIS domain.
 * It has an inflexible maintenance regime. Freezing standards for lengthy periods is
 counter-productive.
 * As presently structured, it cannot support future requirements (for example, gridded
@@ -41,8 +41,8 @@ flexibility and capability of using a wider range of transfer mechanisms.
 * It is regarded by some as a limited standard focused exclusively for the production
 and exchange of ENC data.
 
-The transition from S-57 to S-100 will be carefully monitored by the IHO to ensure that
-existing S-57 users, particularly ENC stakeholders, are not adversely affected. S-57
+The transition from <<S57>> to S-100 will be carefully monitored by the IHO to ensure that
+existing <<S57>> users, particularly ENC stakeholders, are not adversely affected. <<S57>>
 will continue to exist as the designated format for ENC data for the foreseeable future.
 
 In the meantime, all existing and potential users of hydrographic information and data

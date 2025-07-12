@@ -420,7 +420,7 @@ fields described in the DDR. The list contains pairs of partent/child
 tags and together with the preorder traversal sequence of the field 
 descriptions in the DDR describes a generic tree structure for the 
 exchange file. The pairs may be placed in the list in any sequence and 
-must be contiguous. The following Figure gives an example of a tree. 
+must be contiguous. <<fig-10a-2>> gives an example of a tree. 
 The set of field tag pairs is HE, EA, EB, HF, HG, GC and GD.
 
 [[fig-10a-2]]

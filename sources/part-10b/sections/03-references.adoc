@@ -51,7 +51,7 @@ The following references are listed only for informative purposes or to clarify 
 this document. Drafts are subject to change and are not international standards.
 
 * [[[ISODIS19107,nofetch(ISO/DIS 19107)]]],
-_span:title[Geographic information – Spatial schema (Draft – June 2018)]_
+_span:title[Geographic information -- Spatial schema (Draft -- June 2018)]_
 
 * [[[OGC10-025r1,hidden(OGC 10-025r1)]]]
 
@@ -70,3 +70,38 @@ _span:title[Geographic information – Spatial schema (Draft – June 2018)]_
 * [[[ISO19115,hidden(ISO 19115)]]]
 
 * [[[ISO19101,hidden(ISO 19101)]]]
+
+* [[[Part3,dropid(repo:(current-metanorma-collection/IHO S-100 Part 3))]]],
+span:title[S-100 -- Part 3: General Feature Model and Rules for Application Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part1,dropid(repo:(current-metanorma-collection/IHO S-100 Part 1))]]],
+span:title[S-100 -- Part 1: Conceptual Schema Language],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part2a,dropid(repo:(current-metanorma-collection/IHO S-100 Part 2a))]]],
+span:title[S-100 -- Part 2a: Concept and Data Dictionary Registers],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part7,dropid(repo:(current-metanorma-collection/IHO S-100 Part 7))]]],
+span:title[S-100 -- Part 7: Spatial Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part15,dropid(repo:(current-metanorma-collection/IHO S-100 Part 15))]]],
+span:title[S-100 -- Part 15: Data Protection Scheme],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[AnnexA,dropid(repo:(current-metanorma-collection/IHO S-100 Annex A))]]],
+span:title[S-100 -- Annex A: Terms and Definitions],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

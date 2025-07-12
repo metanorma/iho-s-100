@@ -31,7 +31,7 @@ provide identification and definitions to the registered items.
 
 === Conformance
 
-This profile conforms to conformance class 2 of ISO 19106:2004. The following is a
+This profile conforms to conformance class 2 of <<ISO19106>>. The following is a
 brief description of the specializations and generalizations where the profile
 differs from ISO 19126:2008.
 

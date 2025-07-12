@@ -94,7 +94,7 @@ particular feature instance.
 ==== Discovery metadata
 
 Full discovery metadata is encoded in an external discovery metadata file,
-as specified in Parts 4a (Metadata) and 4b (Metadata for Imagery and
+as specified in <<Part4a>> (Metadata) and <<Part4b>> (Metadata for Imagery and
 Gridded Data). See <<cls-10c-12>> for naming conventions.
 
 [[cls-10c-9.2.2]]
@@ -120,7 +120,7 @@ specific features and attributes) and which will therefore be different for
 each feature class. This metadata is used for feature and attribute
 specification information (corresponding to entries in the feature
 catalogue). This type information is analogous to the feature catalogue
-described in Part 5, but may contain only extracts from the Feature
+described in <<Part5>>, but may contain only extracts from the Feature
 Catalogue as well as add format-specific parameters relevant only to HDF5
 encodings. The Type Metadata is encoded as content (HDF5 datasets) in the
 feature information group and as attributes of each feature container
@@ -160,8 +160,8 @@ metadata or exchange catalogue, if they are considered discovery metadata.
 
 Data products may also define vector feature metadata; for example, quality
 meta-features with vector geometry. Vector features are not encoded within
-the HDF5 file but in a separate file conforming to S-100 Part 10a or Part
-10b. If vector meta-features are present, a reference to the separate file
+the HDF5 file but in a separate file conforming to <<Part10a>> or
+<<Part10b>>. If vector meta-features are present, a reference to the separate file
 must be included in carrier metadata by naming the file in the
 _metaFeatures_ attribute (see <<cls-10c-9.4>>).
 
@@ -372,9 +372,6 @@ using the logical data structure.
 
 The following sections describe the content and attributes of each group.
 
-[%landscape]
-<<<
-
 [[cls-10c-9.4]]
 === Root group
 
@@ -385,68 +382,71 @@ interpret the information in the product even if external metadata files
 are unavailable, and, mostly, (b) are not included elsewhere in the
 metadata.
 
+[%landscape]
+<<<
+
 [[tab-10c-5]]
 .Root group
-[cols=9,options=header]
+[cols=7,options=header]
 |===
-| Group | HDF5 Category 4+| Name 2+| Data Type | Data Space / Remarks
+| Group | HDF5 Category 3+| Name | Data Type | Data Space / Remarks
 
 .10+| / _(root)_
 
 | Attributes
-4+| (Carrier metadata attributes)
-2+| Integer, Float, Enumeration, or String
-| (none)
+3+| (Carrier metadata attributes)
+| Integer, Float, Enumeration, or String
+a| (none)
 
 Described in <<tab-10c-6>>
 
 | Group
-4+| Group_F
-2+|
+3+| Group_F
+|
 | Feature information group (see <<cls-10c-9.6>>)
 
 .8+| Group(s)
-4+| (featureCode)
-2+|
+3+| (featureCode)
+|
 a| Feature container group -- one group for each feature type in the data product.The name is the feature code, which is given in Group_F.
 
 See <<cls-10c-9.6>> for structure and attributes
 
 h| HDF5 Category
-3+h| Name
-2+|
+2+h| Name
+|
 |
 
 .6+| Group(s)
-3+| (featureCode).N
-2+|
+2+| (featureCode).N
+|
 a| Feature instance group(s) -- one for each instance of the feature.
 
 See  <<cls-10c-9.7>> for structure and attributes
 
 h| HDF5 Category
 h| Name
-2+|
-2+|
+|
+|
 
 | Group(optional)
 | Group_TL
-2+|
-2+a| Tiling information, only if product uses tiles.
+|
+a| Tiling information, only if product uses tiles.
 
 See <<cls-10c-9.8>>
 
 | Group(optional)
 | Group_IDX
-2+|
-2+a| Spatial index information, only if product uses spatial indexes.
+|
+a| Spatial index information, only if product uses spatial indexes.
 
 See <<cls-10c-9.9>>
 
 | Group
 | Positioning
-2+|
-2+a| Positioning information -- 2-D or 3-D.
+|
+a| Positioning information -- 2-D or 3-D.
 
 Not required for dataCodingFormat = 2 (Regular grid) and dataCodingFormat = 9
 
@@ -456,8 +456,8 @@ See <<cls-10c-9.10>>
 
 | Group(s)
 | Group_NNN
-2+|
-2+a| Static data -- only 1 values group
+|
+a| Static data -- only 1 values group
 
 Time series data -- 000 to 999 groups
 
@@ -466,7 +466,7 @@ See <<cls-10c-9.11>>
 
 The common (core) metadata elements are specified as attributes of the
 root group, as listed in <<tab-10c-6>>. The root group contains only a
-subset of the elements of minimum metadata specified in Parts 4a and 4b.
+subset of the elements of minimum metadata specified in <<Part4a;and!Part4b>>.
 The external XML metadata file is required to contain all the mandatory
 metadata elements.
 
@@ -663,7 +663,7 @@ The unit must be degrees.
 
 Name of XML metadata file (<<cls-10c-12>>).
 
-Ref. S-100 Part 8
+Ref. <<Part8>>
 
 Must be present and populated if an ISO XML metadata file describing this dataset is included in the Exchange Set; must be omitted otherwise.
 
@@ -739,8 +739,8 @@ is only a single coverage feature, its extent may or may not be the same
 as the data set.
 
 NOTE: The core attributes correspond to metadata attributes in
-S100_DatasetDiscoveryMetadata (Part 4a) or the imagery/gridded/coverage
-data attributes in Part 8. The correspondences are given in the Remarks
+S100_DatasetDiscoveryMetadata (<<Part4a>>) or the imagery/gridded/coverage
+data attributes in <<Part8>>. The correspondences are given in the Remarks
 column.
 
 NOTE: Vertical datum is optional since it is not applicable to some types
@@ -806,8 +806,8 @@ How the Product Specification describes core and extended metadata
 attributes is left to the specification writers, but specifications should
 distinguish core attributes from extended attributes as well as clearly
 indicating any additional restrictions or conditions on core attributes.
-The ISO format for specifying metadata extensions (Part 4a clause
-4a-5.7.5) may be used.
+The ISO format for specifying metadata extensions
+(<<Part4a,clause="4a-5.7.5">>) may be used.
 
 [[cls-10c-9.5]]
 === Feature information group
@@ -853,9 +853,10 @@ lower: lower bound on value of attribute +
 upper: upper bound on attribute value +
 closure: type of closure
 
-The "code" and "datatype" components encode the rangeType attribute of the coverage features in Part 8
+The "code" and "datatype" components encode the rangeType attribute of the coverage features in
+<<Part8>>
 
-"lower", "upper", and "closure" encode any constraints on attribute values as encoded in the feature catalogue (see "S100_FC_SimpleAttribute>constraints" in Part 5 and S100_NumericRange in Part 1)
+"lower", "upper", and "closure" encode any constraints on attribute values as encoded in the feature catalogue (see "S100_FC_SimpleAttribute>constraints" in <<Part5>> and S100_NumericRange in <<Part1>>)
 |===
 
 NOTE: Land mask or unknown values are represented by the attribute's
@@ -1042,7 +1043,7 @@ This is the number of coordinate axes, not the rank of the HDF5 arrays storing c
 | Enumeration
 | The procedure used for evaluating the coverage at a position that falls on the boundary or in an area of overlap between geometric objects
 
-Values from CV_CommonPointRule (Part 8, Table 8-11)
+Values from CV_CommonPointRule (<<Part8,table="8-11">>)
 
 |
 | Horizontal position uncertainty
@@ -1106,7 +1107,8 @@ Only for time series data
 | Enumeration
 .2+| Method to be used to assign values from the sequence of values to the grid coordinates
 
-Type and scan direction are encoded as separate attributestype: Enumeration CV_SequenceType (Part 8, Table 8-13)
+Type and scan direction are encoded as separate attributestype: Enumeration CV_SequenceType
+(<<Part8,table="8-13">>)
 
 scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
 
@@ -1121,7 +1123,7 @@ scanDirection: String <axisNames entry> (comma-separated). For example, "latitud
 | Enumeration
 | Interpolation method recommended for evaluation of the S100_GridCoverage
 
-Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+Values: S100_CV_InterpolationMethod (<<Part8,table="8-13">>)
 
 |
 | Offset of data point in cell
@@ -1159,7 +1161,7 @@ See  <<cls-10c-9.6.1>>
 | Enumeration
 | Interpolation method recommended for evaluation of the S100_GridCoverage
 
-Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+Values: S100_CV_InterpolationMethod (<<Part8,table="8-13">>)
 
 6+.<| dataCodingFormat = 4
 |
@@ -1179,7 +1181,7 @@ Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
 
 Type and scan direction are encoded as separate attributes
 
-type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+type: Enumeration CV_SequenceType (<<Part8,table="8-12">>)
 
 scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
 
@@ -1192,7 +1194,7 @@ scanDirection: String <axisNames entry> (comma-separated). For example, "latitud
 | Enumeration
 | Interpolation method recommended for evaluation of the S100_GridCoverage
 
-Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+Values: S100_CV_InterpolationMethod (<<Part8,table="8-13">>)
 
 |
 | Offset of data point in cell
@@ -1232,7 +1234,7 @@ See <<cls-10c-9.6.1>>
 
 Type and scan direction are encoded as separate attributes
 
-type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+type: Enumeration CV_SequenceType (<<Part8,table="8-12">>)
 
 scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
 
@@ -1247,7 +1249,7 @@ scanDirection: String <axisNames entry> (comma-separated). For example, "latitud
 | Enumeration
 | Interpolation method recommended for evaluation of the S100_GridCoverage
 
-Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+Values: S100_CV_InterpolationMethod (<<Part8,table="8-13">>)
 
 |
 | Offset of data point in cell
@@ -1285,7 +1287,7 @@ See <<cls-10c-9.6.1>>
 | Enumeration
 | Interpolation method recommended for evaluation of the S100_GridCoverage
 
-Values: S100_CV_InterpolationMethod (Part 8, Table 8-13)
+Values: S100_CV_InterpolationMethod (<<Part8,table="8-13">>)
 
 6+.<| dataCodingFormat = 8
 |
@@ -1339,7 +1341,7 @@ String
 
 Type and scan direction are encoded as separate attributes
 
-type: Enumeration CV_SequenceType (Part 8, Table 8-12)
+type: Enumeration CV_SequenceType (<<Part8,table="8-12">>)
 
 scanDirection: String <axisNames entry> (comma-separated). For example, "latitude, longitude". Reverse scan direction along an axis is indicated by prefixing a '-' sign to the axis name
 
@@ -1390,7 +1392,7 @@ corresponding axis. The order of values in _dataOffsetVector_ must
 correspond to the order of axes in the _axisNames_ array (<<tab-10c-9>>).
 
 For TIN coverages, the data points are located at the vertex points of the
-TIN. See S-100 Part 8, clause 8-7.4.
+TIN. See <<Part8,clause="8-7.4">>.
 
 [[cls-10c-9.6.2]]
 ==== Feature attribute table
@@ -1492,7 +1494,7 @@ Applicable only to 3-D grids. Either this dataset or the verticalExtent attribut
 | Compound (Integer X D)
 | 1-D array, of compound elements, 2 rows. Row 0 gives the "low" values, row 1 the "high" values
 
-The area of the grid for which data are provided. (Part 8 Figure 8-24)
+The area of the grid for which data are provided. (<<Part8,figure="8-24">>)
 
 Components of compound type are named according to the axis names in the axisNames dataset
 
@@ -1674,14 +1676,14 @@ minimumZ, maximumZ: Minimum and maximum values of the grid's spatial extent alon
 | gridSpacingLongitudinal
 | 1
 | Float
-| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (<<Part8,clause="8-7.5">>). Units: Arc Degrees
 
 |
 | Grid spacing, lat.
 | gridSpacingLatitudinal
 | 1
 | Float
-| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (<<Part8,clause="8-7.5">>). Units: Arc Degrees
 
 |
 | Grid spacing, Z
@@ -1761,7 +1763,7 @@ minimumZ, maximumZ: Minimum and maximum values of the grid's spatial extent alon
 | gridSpacingLongitudinal
 | 1
 | Float
-| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+| Cell size in the X/longitude dimension. This is the X/longitudinal component of the offset vector (<<Part8,clause="8-7.5">>). Units: Arc Degrees
 
 For variable cell size grids this is the unit cell size (the size of the smallest cell in this dimension)
 
@@ -1770,7 +1772,7 @@ For variable cell size grids this is the unit cell size (the size of the smalles
 | gridSpacingLatitudinal
 | 1
 | Float
-| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (S-100 Part 8, clause 8-7.5). Units: Arc Degrees
+| Cell size in the Y/latitude dimension. This is the Y/latitudinal component of the offset vector (<<Part8,clause="8-7.5">>). Units: Arc Degrees
 
 For variable cell size grids this is the unit cell size
 
@@ -1833,7 +1835,8 @@ in each dimension are replaced by the total number of nodes in the grid.
 
 NOTE: Attributes "Valid time of earliest value" and "Valid time of latest
 value" provide the _temporalElement_ component of the domainExtent
-attribute in the grid model (S-100 Part 8, Figures 8-22, 8-23 and 8-24).
+attribute in the grid model
+(<<Part8,figure="8-22">>, <<Part8,figure="8-23">> and <<Part8,figure="8-24">>).
 
 NOTE: Product Specifications may require use of one or the other of the
 domainExtent or boundingBox attributes, depending on whether spatial
@@ -1906,8 +1909,8 @@ image::img160.png[]
 
 This group encodes information about the tiling scheme used in the (S-100)
 dataset. It is present if and only if the data is encoded in more than a
-single tile. Some tiling schemes are described in S-100 Part 8, clause
-8-6. This edition of the HDF5 profile supports only two tilings: simple
+single tile. Some tiling schemes are described in <<Part8,clause="8-6">>.
+This edition of the HDF5 profile supports only two tilings: simple
 grid and variable density simple grid. In both cases, the extents of the
 tiles are specified in terms of their bounding boxes (<<tab-10c-12>>).
 
@@ -1968,7 +1971,7 @@ tileID: Integer (tile identifier)
 The details of tiling methods are left to Product Specifications in this
 edition of S-100. This profile does not specify an ordering for the tiles,
 nor does it control the use or non-use of hierarchical tiling schemes.
-S-100 Part 8, clause 8-6 requires that any tiling scheme used must be
+<<Part8,clause="8-6">> requires that any tiling scheme used must be
 completely described as part of the Product Specification for a particular
 data product. This includes the dimensions, location and data density of
 tiles as well as a tile identification mechanism (tileID).

@@ -36,3 +36,5 @@ include::sections/08-temp-framework.adoc[]
 include::sections/09-trunc-dates.adoc[]
 
 include::sections/10-instance-ids.adoc[]
+
+include::sections/99-bibliography.adoc[]

@@ -11,7 +11,7 @@ own maritime geospatial products and services.
 
 The S-100 standard has been developed with the advantage of hindsight based on
 experience gained through the development and use of the existing IHO Transfer Standard
-for Digital Hydrographic Data (known as S-57). S-100 has been documented using an
+for Digital Hydrographic Data (known as <<S57>>). S-100 has been documented using an
 object-oriented notation known as the Unified Modelling Language (UML). (Although UML
 defines nine types of diagrams, only class, object and package diagrams have been used
 in S-100).

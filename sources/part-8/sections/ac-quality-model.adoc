@@ -3,7 +3,7 @@
 == Quality Model for Imagery and Gridded Data
 
 The following is a list of quality elements test procedures that addresses imagery.
-Quality elements for gridded and coverage data are described in S-100 Part 4c and
+Quality elements for gridded and coverage data are described in <<Part4c>> and
 <<S97,part=C>>.
 
 === Top-level classes of the quality-model

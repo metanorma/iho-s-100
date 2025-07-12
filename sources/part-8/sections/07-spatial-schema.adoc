@@ -163,7 +163,7 @@ See <<note1>>
 | Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
 | 1
 | RecordType
-| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c)
+| Implemented externally as Feature Catalogue (<<Part5>>) and feature information group (<<Part10c>>)
 
 | Attribute
 | commonPointRule
@@ -248,7 +248,7 @@ See <<note3>>
 | Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
 | 1
 | RecordType
-| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c)
+| Implemented externally as Feature Catalogue (<<Part5>>) and feature information group (<<Part10c>>)
 
 | Attribute
 | commonPointRule
@@ -360,7 +360,7 @@ See <<note7>>
 | Describes the range of the coverage A list of name:data type pairs each of which describes an attribute type included in the range of the coverage
 | 1
 | RecordType
-| Implemented externally as Feature Catalogue (S-100 Part 5) and feature information group (S-100 Part 10c).
+| Implemented externally as Feature Catalogue (<<Part5>>) and feature information group (<<Part10c>>).
 
 | Attribute
 | commonPointRule
@@ -755,7 +755,7 @@ each grid point to binary numbers and interleaving the binary digits of the resu
 to produce the Morton code of the grid point. The method is documented in computer
 science textbooks as well as <<ISO19123>> and other accessible articles. Hilbert
 curves are more complex but descriptions are available in computer science and other
-reference texts (for example, the non-normative references in S-100 Part 10c).
+reference texts (for example, the non-normative references in <<Part10c>>).
 
 [[cls-8-7.7.3]]
 ==== S100_CV_InterpolationMethod

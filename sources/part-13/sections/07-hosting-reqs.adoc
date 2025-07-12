@@ -2,8 +2,8 @@
 == Hosting requirements
 
 This section defines the requirements imposed on a host in order to support
-scripting functionality. For example, a program written to display an S-101
-ENC using the S-100 Part 9A portrayal must conform to the requirements of
+scripting functionality. For example, a program written to display an <<S101>>
+ENC using the <<Part9a>> portrayal must conform to the requirements of
 this section.
 
 [[cls-13-7.1]]

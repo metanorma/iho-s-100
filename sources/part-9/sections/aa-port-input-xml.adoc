@@ -127,7 +127,7 @@ _noteText_ and _language_:
 === Spatial objects
 
 The base Schema defines spatial types which describe XML encodings of the
-Part 7 Spatial Schema. These types provide a consistent way to represent
+<<Part7>>. These types provide a consistent way to represent
 spatial objects to the portrayal processing. The input XML encoding of
 spatial objects should conform with the base Schema; the spatial model
 cannot be modified by a product's Feature Catalogue.

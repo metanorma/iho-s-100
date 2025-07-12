@@ -1,5 +1,5 @@
 [[cls-9a-12]]
 == Symbol Definitions
 
-The symbol definitions described in Part 9 clause 9-12 are implemented within the
+The symbol definitions described in <<Part9,clause="9-12">> are implemented within the
 Model of the Drawing Instructions (see <<cls-9a-11.2>>).

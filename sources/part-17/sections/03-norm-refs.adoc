@@ -33,7 +33,11 @@ Profile:
 
 * [[[ISO19136,hidden(ISO 19136)]]]
 
-* [[[S98,hidden(IHO S-98)]]]
+* [[[S98,hidden(IHO S-98)]]], _Data Product Interoperability in S-100 Navigation Systems_, Edition 1.0.0, May 2022
+
+* [[[S57,hidden(IHO S-57)]]]
+
+* [[[S63,hidden(IHO S-63)]]]
 
 * [[[ISO3166-1,hidden(ISO 3166-1)]]]
 
@@ -50,3 +54,5 @@ Profile:
 * [[[ISO32000,hidden(ISO 32000 (all parts))]]]
 
 * [[[ISO3166-2,hidden(ISO 3166-2)]]]
+
+* [[[S104,hidden(IHO S-104)]]]

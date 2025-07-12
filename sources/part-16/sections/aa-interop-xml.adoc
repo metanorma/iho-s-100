@@ -183,7 +183,7 @@ image::img214.png[]
 image::img215.png[]
 
 <<fig-16-A-17>> shows an expanded example of a display plane showing one
-of the display planes for S-101 -- this one contains navigation aids. The
+of the display planes for <<S101>> -- this one contains navigation aids. The
 specification for one feature has been expanded as an example.
 
 The drawing priority and viewing group given in a Portrayal Catalogue can
@@ -191,12 +191,12 @@ be overridden for interoperation purposes by different values encoded in
 an Interoperability Catalogue, on a per-feature (type) basis.
 
 [[fig-16-A-17]]
-.Example of display plane with S-101 features (informative)
+.Example of display plane with <<S101>> features (informative)
 image::img216.png[]
 
 <<fig-16-A-18>> depicts an example of the use of the substitution
 capabilities of an Interoperability Catalogue. The element
-substituteSymbolization for S-101 feature CurrentNonGravitational has its
+substituteSymbolization for <<S101>> feature CurrentNonGravitational has its
 point and line symbols replaced by new symbols which are identified
 inline. The symbol and linestyle files are included in the Portrayal
 Catalogue identified by IHOICPCEXMP0001.

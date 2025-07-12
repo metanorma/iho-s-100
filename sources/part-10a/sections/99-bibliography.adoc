@@ -1,0 +1,17 @@
+[bibliography]
+== Bibliography
+
+* [[[Part7,dropid(repo:(current-metanorma-collection/IHO S-100 Part 7))]]],
+span:title[S-100 -- Part 7: Spatial Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part3,dropid(repo:(current-metanorma-collection/IHO S-100 Part 3))]]],
+span:title[S-100 -- Part 3: General Feature Model and Rules for Application Schema],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]
+
+* [[[Part5,dropid(repo:(current-metanorma-collection/IHO S-100 Part 5))]]],
+span:title[S-100 -- Part 5: Feature Catalogue],
+span:edition[5.2.0],
+span:organization[International Hydrographic Organization]

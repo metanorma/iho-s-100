@@ -31,7 +31,7 @@ image::img170.png[]
 === Distribution
 
 The distribution mechanism of a scripting catalogue is defined within the
-scripting domain. For example, S-100 Part 9A includes a scripting catalogue
+scripting domain. For example, <<Part9a>> includes a scripting catalogue
 within the Portrayal Catalogue;distribution of the scripting catalogue is
 accomplished via distribution of the Portrayal Catalogue.
 

@@ -542,7 +542,7 @@ metadata.
 [[cls-15-8.10]]
 === MRN specifications
 
-In order to support discoverability of Part 17 Exchange Set resources the
+In order to support discoverability of <<Part17>> Exchange Set resources the
 following MRN namespaces are defined by this Part of S-100. These are intended to
 be used to enable discovery of dataset supplementary resources by unique
 cryptographic hash or digital signature. The algorithm used to define the hash or
@@ -617,7 +617,7 @@ image::img190.png[]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
-| Class | S100_SE_CertificateContainerType | A set of signed Public Key certificates | - | - | Used in S-100 Part 17 Exchange Catalogues
+| Class | S100_SE_CertificateContainerType | A set of signed Public Key certificates | - | - | Used in <<Part17>> Exchange Catalogues
 | Attribute | schemeAdministrator | The Scheme Administrator identity | 0..1 | CharacterString | The identity of the Scheme Administrator is contained in the "id" attribute of the schemeAdminstrator element. The Scheme Adminstrator certificate is NOT included in catalogue metadata as it is independently verified by the implementing systemThe encoding of IHO as schemeAdministrator is <S100SE:schemeAdministrator id="IHO"/>
 | Attribute | certificate | A signed Public Key certificate | 1..* | Base 64 encoded Character String | Conforms to X.509 encoding. Contains a digitally signed identifier of an entity
 |===
@@ -666,8 +666,8 @@ The class S100_SE_DigitalSignature is realized as one of either
 S100_SE_SignatureOnData (a digital signature of a particular identified resource)
 or an additional digital signature defined using the class
 S100_SE_AdditionalSignature, each of which is either a S100_SE_SignatureOnData or
-S100_SE_SignatureOnSignature element as described in <<cls-15-8.8>>. S-100 Part
-17 metadata thus allows for multiple digital signatures, a single mandatory
+S100_SE_SignatureOnSignature element as described in <<cls-15-8.8>>.
+<<Part17>> metadata thus allows for multiple digital signatures, a single mandatory
 S100_SE_SignatureOnData and any number of additional signatures, either of the
 data or other signatures.
 
@@ -783,7 +783,7 @@ data or other signatures.
 
 | Enumeration
 | S100_SE_DigitalSignatureReference
-| A reference to a cryptographic algorithm used in an implementation of Part 15
+| A reference to a cryptographic algorithm used in an implementation of IHO S-100 Part 15
 |
 | Only ECDSA is currently used in implementations of S-100 for file based transfer of data to ECDIS. Other values are included for interoperability with other implementations by external standards. See <<cls-15-8.4>>
 
