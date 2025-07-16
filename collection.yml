@@ -1,0 +1,92 @@
+---
+directives:
+  - documents-inline
+
+bibdata:
+  title:
+    - language: en
+      content: IHO S-100 Universal Hydrographic Data Model
+
+  type: collection
+
+  docid:
+    type: iho
+    id: IHO S-100
+
+  edition: "5.2.0"
+
+  date:
+    - type: updated
+      value: "2024-06-01"
+
+  copyright:
+    owner:
+      name: International Hydrographic Organization
+      abbreviation: IHO
+    from: "2024"
+
+manifest:
+  level: collection
+  title: IHO S-100
+
+  docref:
+    - file: _site/documents/specification/document.1.xml
+      identifier: IHO S-100 Part 0
+    - file: _site/documents/specification/document.2.xml
+      identifier: IHO S-100 Part 1
+    - file: _site/documents/specification/document.3.xml
+      identifier: IHO S-100 Part 2
+    - file: _site/documents/specification/document.4.xml
+      identifier: IHO S-100 Part 2a
+    - file: _site/documents/specification/document.5.xml
+      identifier: IHO S-100 Part 2b
+    - file: _site/documents/specification/document.6.xml
+      identifier: IHO S-100 Part 3
+    - file: _site/documents/specification/document.7.xml
+      identifier: IHO S-100 Part 4a
+    - file: _site/documents/specification/document.8.xml
+      identifier: IHO S-100 Part 4b
+    - file: _site/documents/specification/document.9.xml
+      identifier: IHO S-100 Part 4c
+    - file: _site/documents/specification/document.10.xml
+      identifier: IHO S-100 Part 5
+    - file: _site/documents/specification/document.11.xml
+      identifier: IHO S-100 Part 6
+    - file: _site/documents/specification/document.12.xml
+      identifier: IHO S-100 Part 7
+    - file: _site/documents/specification/document.13.xml
+      identifier: IHO S-100 Part 8
+    - file: _site/documents/specification/document.14.xml
+      identifier: IHO S-100 Part 9
+    - file: _site/documents/specification/document.15.xml
+      identifier: IHO S-100 Part 9a
+    - file: _site/documents/specification/document.16.xml
+      identifier: IHO S-100 Part 10
+    - file: _site/documents/specification/document.17.xml
+      identifier: IHO S-100 Part 11
+    - file: _site/documents/specification/document.18.xml
+      identifier: IHO S-100 Part 12
+    - file: _site/documents/specification/document.19.xml
+      identifier: IHO S-100 Part 13
+    - file: _site/documents/specification/document.20.xml
+      identifier: IHO S-100 Part 14
+    - file: _site/documents/specification/document.21.xml
+      identifier: IHO S-100 Part 15
+    - file: _site/documents/specification/document.22.xml
+      identifier: IHO S-100 Part 16
+    - file: _site/documents/specification/document.23.xml
+      identifier: IHO S-100 Part 16a
+    - file: _site/documents/specification/document.24.xml
+      identifier: IHO S-100 Part 17
+    - file: _site/documents/specification/document.25.xml
+      identifier: IHO S-100 Part 18
+    - file: _site/documents/specification/document.26.xml
+      identifier: IHO S-100 Annex A
+
+output_folder: collection
+
+format:
+  - xml
+  - html
+  - presentation
+  - pdf
