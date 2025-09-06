@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 7: Spatial Schema
 :series: S
 :docnumber: 100
+:partnumber: 7
+:title: Universal Hydrographic Data Model
+:title-part: Spatial Schema
 :doctype: specification
 :edition: 5.2.0
 :language: en

@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 17: Discovery Metadata for Information Exchange Catalogues
 :series: S
 :docnumber: 100
+:partnumber: 17
+:title: Universal Hydrographic Data Model
+:title-part: Discovery Metadata for Information Exchange Catalogues
 :doctype: specification
 :edition: 5.2.0
 :language: en

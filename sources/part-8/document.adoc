@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 8: Imagery and Gridded Data
 :series: S
 :docnumber: 100
+:partnumber: 8
+:title: Universal Hydrographic Data Model
+:title-part: Imagery and Gridded Data
 :doctype: specification
 :edition: 5.2.0
 :language: en

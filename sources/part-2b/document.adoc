@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 2b: Portrayal Register
 :series: S
 :docnumber: 100
+:partnumber: 2b
+:title: Universal Hydrographic Data Model
+:title-part: Portrayal Register
 :doctype: specification
 :edition: 5.2.0
 :language: en

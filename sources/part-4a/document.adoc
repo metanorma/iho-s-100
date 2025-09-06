@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 4a: Metadata
 :series: S
 :docnumber: 100
+:partnumber: 4a
+:title: Universal Hydrographic Data Model
+:title-part: Metadata
 :doctype: specification
 :edition: 5.2.0
 :language: en

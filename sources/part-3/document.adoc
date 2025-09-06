@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 3: General Feature Model and Rules for Application Schema
 :series: S
 :docnumber: 100
+:partnumber: 3
+:title: Universal Hydrographic Data Model
+:title-part: General Feature Model and Rules for Application Schema
 :doctype: specification
 :edition: 5.2.0
 :language: en

@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 9a: Portrayal (Lua)
 :series: S
 :docnumber: 100
+:partnumber: 9a
+:title: Universal Hydrographic Data Model
+:title-part: Portrayal (Lua)
 :doctype: specification
 :edition: 5.2.0
 :language: en

@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 2a: Concept and Data Dictionary Registers
 :series: S
 :docnumber: 100
+:partnumber: 2a
+:title: Universal Hydrographic Data Model
+:title-part: Concept and Data Dictionary Registers
 :doctype: specification
 :edition: 5.2.0
 :language: en

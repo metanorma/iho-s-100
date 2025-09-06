@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 11: Product Specifications
 :series: S
 :docnumber: 100
+:partnumber: 11
+:title: Universal Hydrographic Data Model
+:title-part: Product Specifications
 :doctype: specification
 :edition: 5.2.0
 :language: en

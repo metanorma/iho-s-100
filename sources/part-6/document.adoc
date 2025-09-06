@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 6: Coordinate Reference Systems
 :series: S
 :docnumber: 100
+:partnumber: 6
+:title: Universal Hydrographic Data Model
+:title-part: Coordinate Reference Systems
 :doctype: specification
 :edition: 5.2.0
 :language: en

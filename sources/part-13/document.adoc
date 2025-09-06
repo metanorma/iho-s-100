@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 13: Scripting
 :series: S
 :docnumber: 100
+:partnumber: 13
+:title: Universal Hydrographic Data Model
+:title-part: Scripting
 :doctype: specification
 :edition: 5.2.0
 :language: en

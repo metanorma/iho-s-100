@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 2: Management of Registers
 :series: S
 :docnumber: 100
+:partnumber: 2
+:title: Universal Hydrographic Data Model
+:title-part: Management of Registers
 :doctype: specification
 :edition: 5.2.0
 :language: en
