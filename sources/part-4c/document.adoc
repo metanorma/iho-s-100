@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 4c: Metadata - Data Quality
 :series: S
 :docnumber: 100
+:partnumber: 4c
+:title: Universal Hydrographic Data Model
+:title-part: Metadata - Data Quality
 :doctype: specification
 :edition: 5.2.0
 :language: en

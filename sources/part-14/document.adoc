@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 14: Online Data Exchange
 :series: S
 :docnumber: 100
+:partnumber: 14
+:title: Universal Hydrographic Data Model
+:title-part: Online Data Exchange
 :doctype: specification
 :edition: 5.2.0
 :language: en

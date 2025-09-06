@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 1: Conceptual Schema Language
 :series: S
 :docnumber: 100
+:partnumber: 1
+:title: Universal Hydrographic Data Model
+:title-part: Conceptual Schema Language
 :doctype: specification
 :edition: 5.2.0
 :language: en

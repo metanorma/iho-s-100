@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 5: Feature Catalogue
 :series: S
 :docnumber: 100
+:partnumber: 5
+:title: Universal Hydrographic Data Model
+:title-part: Feature Catalogue
 :doctype: specification
 :edition: 5.2.0
 :language: en

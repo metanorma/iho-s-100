@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 10a: ISO/IEC 8211 Encoding
 :series: S
 :docnumber: 100
+:partnumber: 10a
+:title: Universal Hydrographic Data Model
+:title-part: ISO/IEC 8211 Encoding
 :doctype: specification
 :edition: 5.2.0
 :language: en

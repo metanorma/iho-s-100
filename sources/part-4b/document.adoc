@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 4b: Metadata for Imagery and Gridded Data
 :series: S
 :docnumber: 100
+:partnumber: 4b
+:title: Universal Hydrographic Data Model
+:title-part: Metadata for Imagery and Gridded Data
 :doctype: specification
 :edition: 5.2.0
 :language: en

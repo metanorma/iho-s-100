@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 16a: Harmonised Portrayal of S-100 Products
 :series: S
 :docnumber: 100
+:partnumber: 16a
+:title: Universal Hydrographic Data Model
+:title-part: Harmonised Portrayal of S-100 Products
 :doctype: specification
 :edition: 5.2.0
 :language: en

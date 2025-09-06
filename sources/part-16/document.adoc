@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 16: Interoperability Catalogue Model
 :series: S
 :docnumber: 100
+:partnumber: 16
+:title: Universal Hydrographic Data Model
+:title-part: Interoperability Catalogue Model
 :doctype: specification
 :edition: 5.2.0
 :language: en

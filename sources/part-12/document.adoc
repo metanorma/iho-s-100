@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 12: S-100 Maintenance Procedures
 :series: S
 :docnumber: 100
+:partnumber: 12
+:title: Universal Hydrographic Data Model
+:title-part: S-100 Maintenance Procedures
 :doctype: specification
 :edition: 5.2.0
 :language: en

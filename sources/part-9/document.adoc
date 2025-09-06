@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 9: Portrayal
 :series: S
 :docnumber: 100
+:partnumber: 9
+:title: Universal Hydrographic Data Model
+:title-part: Portrayal
 :doctype: specification
 :edition: 5.2.0
 :language: en

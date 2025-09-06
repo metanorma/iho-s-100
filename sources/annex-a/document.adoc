@@ -1,6 +1,10 @@
 = Universal Hydrographic Data Model -- Annex A: Terms and Definitions
 :series: S
 :docnumber: 100
+:annex-id: A
+:title: Universal Hydrographic Data Model
+:title-annex: Terms and Definitions
+:annex-informative: false
 :doctype: specification
 :edition: 5.2.0
 :language: en

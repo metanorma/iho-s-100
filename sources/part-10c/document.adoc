@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 10c: HDF5 Data Model and File Format
 :series: S
 :docnumber: 100
+:partnumber: 10c
+:title: Universal Hydrographic Data Model
+:title-part: HDF5 Data Model and File Format
 :doctype: specification
 :edition: 5.2.0
 :language: en

@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 10b: GML Data Format
 :series: S
 :docnumber: 100
+:partnumber: 10b
+:title: Universal Hydrographic Data Model
+:title-part: GML Data Format
 :doctype: specification
 :edition: 5.2.0
 :language: en

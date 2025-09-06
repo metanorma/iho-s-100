@@ -1,6 +1,9 @@
 = Universal Hydrographic Data Model -- Part 18: Language Packs
 :series: S
 :docnumber: 100
+:partnumber: 18
+:title: Universal Hydrographic Data Model
+:title-part: Language Packs
 :doctype: specification
 :edition: 5.2.0
 :language: en
