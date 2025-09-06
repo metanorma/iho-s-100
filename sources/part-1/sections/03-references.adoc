@@ -28,11 +28,7 @@ span:volume[2.1.2]
 
 * [[[RFC8089,IETF RFC 8089]]]
 
-* [[[SKOS,SKOS]]],
-_span:title[SKOS -- Simple Knowledge Organization System -- Reference]_.
-span:classification[W3C Recommendation],
-span:date[2009-01-01].
-span:uri[http://www.w3.org/TR/2009/REC-skos-reference-20090818/]
+* [[[SKOS,W3C REC-skos-reference-20090818]]]
 
 * [[[ISO19108,hidden(ISO 19108)]]]
 

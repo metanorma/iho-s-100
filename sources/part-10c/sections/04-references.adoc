@@ -4,12 +4,12 @@
 [bibliography]
 === Normative references
 
-* [[[hdf1,1]]],
+* [[[hdf1,HDF5 User's Guide Release 1.8.8]]],
 span:organization[The HDF Group],
 span:date[2011-11-01],
 _span:title[HDF5 User's Guide Release 1.8.8]_
 
-* [[[hdf2,2]]],
+* [[[hdf2,HDF5 Reference Manual 1.8.8]]],
 span:organization[The HDF Group],
 span:date[2011-11-01],
 _span:title[HDF5 Reference Manual 1.8.8]_

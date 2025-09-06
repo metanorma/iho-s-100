@@ -6,7 +6,7 @@ document. For dated references, only the edition cited applies. For undated
 references, the latest edition of the referenced document (including
 amendments) applies.
 
-* [[[lua,1]]],
+* [[[lua,Lua 5.1 Reference Manual]]],
 span:title[Lua 5.1 Reference Manual],
 span:uri[https://www.lua.org/manual/5.1/]
 

@@ -16,21 +16,17 @@ undated references, the latest edition of the referenced document
 
 * [[[ISO8859-1,ISO/IEC 8859-1:1998]]]
 
-* [[[IHO-draft,6]]],
+* [[[IHO-draft,IHO Draft on S-124]]],
 _span:title[IHO Draft on S-124 for Maritime Safety Information]_
 span:uri[http://www.iho.int/mtg_docs/com_wg/CPRNW/S100_NWG/2016/S-124NW-CG-01_2016-Draft_Product_Specification-03.12.2015.zip]
 
-* [[[OGS-sos,7]]],
+* [[[OGS-sos,OGC Sensor Observation Service]]],
 _span:title[OGC Sensor Observation Service]_
 span:uri[http://www.opengeospatial.org/standards/sos]
 
-* [[[w3c-soap,8]]],
-_span:title[W3C Recommendation "SOAP Version 1.2 Part 1: Messaging Framework (Second Edition)"]_
-span:uri[https://www.w3.org/TR/soap12/]
+* [[[w3c-soap,W3C soap12-part1]]]
 
-* [[[w3c-rec,9]]],
-_span:title[W3C Recommendation "Web Services Description Language (WSDL)"]_
-span:uri[https://www.w3.org/TR/wsdl20/]
+* [[[w3c-rec,W3C REC-wsdl20-20070626]]]
 
 * [[[ISO19115-1,hidden(ISO 19115-1:2014)]]]
 

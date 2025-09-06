@@ -14,7 +14,7 @@ applies.
 
 * [[[ISO18033-3,ISO/IEC 18033-3]]]
 
-* [[[ssl,5]]],
+* [[[ssl,Open SSL]]],
 _span:title[Open SSL Cryptography and SSL/TLS Toolkit]_,
 span:uri[https://www.openssl.org/]
 
@@ -30,12 +30,12 @@ span:uri[https://www.openssl.org/]
 
 * [[[RFC4647,IETF RFC 4647]]]
 
-* [[[osi,12]]],
+* [[[osi,ASN.1]]],
 span:title[OSI networking and system aspects -- Abstract Syntax Notation One (ASN.1)],
 span:organization[ITU International Telecommunication Union],
 span:uri[https://www.itu.int/ITU-T/studygroups/com17/languages/X.680-0207.pdf]
 
-* [[[x509,13]]],
+* [[[x509,X.509 Version 3]]],
 span:title[X.509 Version 3, Information Technology -- Open Systems Interconnection -- The Directory: Authentication Framework],
 span:organization[International Telecommunication Union]
 
