@@ -50,6 +50,7 @@ This repository contains the source files of S-100 standard, including:
 ** Part 16a Harmonized Portrayal
 ** Part 17 Discovery Metadata and Exchange Catalogues
 ** Part 18 Language Packs
+** Annex A Terms and Definitions
 
 These documents are encoded in the
 https://www.metanorma.org/author/topics/document-format/[Metanorma AsciiDoc format].
