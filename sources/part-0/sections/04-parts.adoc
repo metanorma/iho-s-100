@@ -55,7 +55,7 @@ a| Metadata for Imagery and Gridded Data | <<Part4b>> | <<ISO19115-1>>, Geograph
 | Language Packs | <<Part18>> | Provides the generic methodology for implementing multi-lingual support; and informative examples for a primary use case, the creation of multi-lingual support for S-100 Feature Catalogues.
 |===
 
-==== Profiles
+=== Profiles
 
 The ISO base standards provide a large number of options to the developer wishing to
 use them for practical applications. The concept of a profile provides a method of
@@ -71,14 +71,14 @@ S-100 is a set of profiles of the ISO TC 211 standards for Geographic Informatio
 relationship between S-100 standard core parts and their ISO base classes is shown in
 <<tab-0-1>>.
 
-==== Part 1 -- Conceptual Schema Language
+=== Part 1 -- Conceptual Schema Language
 
 This Part defines the conceptual schema language and basic data types for use within
 the IHO community. It identifies the combination of the Unified Modelling Language
 (UML) static structure diagram, and a set of basic data type definitions as the
 conceptual schema language for specification of geographic information.
 
-==== Part 2 -- Management of IHO Geospatial Information Registers
+=== Part 2 -- Management of IHO Geospatial Information Registers
 
 The International Hydrographic Organization (IHO) has developed a Registry in
 conformance with <<ISO19135>> - _Procedures for registration of items of geographic
@@ -86,7 +86,7 @@ information_. This Registry contains an extensible number of Registers, encompas
 Feature Concepts, Data Dictionaries, Portrayal and Meta Data. This Part describes the
 contents, structure and management of these Registers.
 
-==== Part 2a -- Concept and Data Dictionary Registers
+=== Part 2a -- Concept and Data Dictionary Registers
 
 The Concept Register specifies hydrographic core conceptual information (definitions,
 camelCase, etc) that may be used to describe geographic or meta data information. The
@@ -115,7 +115,7 @@ hydrographic and metadata information. In order to accomplish this purpose, this
 specifies elements of information that are necessary to provide identification and
 definitions to the registered items.
 
-==== Part 2b -- Portrayal Register
+=== Part 2b -- Portrayal Register
 
 This Part describes the content of the portrayal register. A Portrayal Register
 specifies the portrayal of data. The portrayal of data is independent of the data but
@@ -127,7 +127,7 @@ available for use in a relatively short timescale. This Register will support wi
 of registered items by making them publicly available and increase their visibility to
 potential users.
 
-==== Part 3 -- General Feature Model
+=== Part 3 -- General Feature Model
 
 This Part introduces the rules for developing an application schema which is a
 fundamental element of any S-100 based product specification. Equally fundamental to
@@ -136,7 +136,7 @@ conceptual model for features, their characteristics and associations. It also
 introduces the concept of the information type. The GFM is a profile of the GFM
 presented in <<ISO19109>> Rules for Application Schemas.
 
-==== Part 4 -- Metadata
+=== Part 4 -- Metadata
 
 Increasingly, hydrographic organizations are collecting, storing and archiving large
 quantities of digital data which are becoming an important national asset.
@@ -159,7 +159,7 @@ This Part also describes how to use <<ISO19115-1>>, <<ISO19115-2>> and <<ISO1915
 elements and conditions, and incorporates rules for populating quality metadata. It
 also incorporates quality measures as described in <<ISO19115-1>>, <<ISO19115-2>> and <<ISO19157>>.
 
-==== Part 5 -- Feature Catalogue
+=== Part 5 -- Feature Catalogue
 
 A Feature Catalogue is a document that describes the content of a data product. It uses
 item types, for example, features and attributes, from one or more Feature Data
@@ -185,7 +185,7 @@ be extended to the cataloguing of other forms of geographic data.
 international standard is not applicable to the representation of individual instances
 of each type.
 
-==== Part 6 -- Coordinate Reference Systems
+=== Part 6 -- Coordinate Reference Systems
 
 This Part is applicable to producers and users of hydrographic information. Its
 principles can be extended to many other forms of geographic information such as maps,
@@ -214,7 +214,7 @@ EPSG:4326). This code within the EPSG namespace identifies the ellipsoidal coord
 system based on WGS84 datum. The EPSG database is not managed in accordance with
 <<ISO19135>>.
 
-==== Part 7 -- Spatial Schema
+=== Part 7 -- Spatial Schema
 
 This Part defines the information necessary for describing and manipulating the spatial
 characteristics of features. It is based on <<ISO19107>> - _Geographical Information -
@@ -222,7 +222,7 @@ Spatial schema_, however the spatial requirements of S-100 are less comprehensiv
 the requirements of <<ISO19107>>. This profile contains the subset of <<ISO19107>> classes
 which are included in S-100.
 
-==== Part 8 -- Imagery and Gridded Data
+=== Part 8 -- Imagery and Gridded Data
 
 This Part identifies the content model for gridded data for use in Hydrographic and
 related applications, including imagery and gridded data. It describes the
@@ -232,19 +232,19 @@ although the manner by which encoding and portrayal makes use of the identified 
 models are identified. This Part is based on the <<ISO19129>> Imagery, gridded and
 coverage data framework.
 
-==== Part 9 -- Portrayal
+=== Part 9 -- Portrayal
 
 This Part specifies the portrayal model for defining and organizing symbols and
 portrayal rules necessary to portray S-100 product Features.
 
-==== Part 9a -- Portrayal (Lua)
+=== Part 9a -- Portrayal (Lua)
 
 This Part defines the additions and changes to <<Part9>> necessary to implement
 portrayal using the scripting mechanism defined in <<Part13>>. Products which
 specify use of a portrayal catalogue as described in this part must also require
 implementation of <<Part13>>.
 
-==== Part 10 -- Encoding Formats
+=== Part 10 -- Encoding Formats
 
 This Part covers encoding formats. S-100 does not mandate particular encoding formats
 so it is left to developers of Product Specifications to decide on suitable encoding
@@ -271,22 +271,22 @@ Successful data interchange depends on knowledge of the content, defined in the 
 Catalogue, and the structure, defined in the Application Schema, of a dataset, and the
 encoding rules that are applied.
 
-==== Part 10a -- ISO/IEC 8211 Encoding Schema
+=== Part 10a -- ISO/IEC 8211 Encoding Schema
 
 This Part specifies the structure and physical constructs required for the
 implementation of exchange data sets encoded in the <<ISO8211>> format.
 
-==== Part 10b -- GML Encoding
+=== Part 10b -- GML Encoding
 
 This Part specifies the structure and physical constructs required for the
 implementation of the Geographic Markup Language data format.
 
-==== Part 10c -- HDF5 Data Model and File Format
+=== Part 10c -- HDF5 Data Model and File Format
 
 This Part specifies the structure and constructs required for the implementation of
 exchange datasets encoded in the Hierarchical Data Format version 5 (HDF5).
 
-==== Part 11 -- Product Specifications
+=== Part 11 -- Product Specifications
 
 This Part explains Product Specifications. It is a descriptive IHO profile of <<ISO19131>>
 for data Product Specifications and describes data Product Specifications for
@@ -300,7 +300,7 @@ A Product Specification is a description of all the features, attributes and
 relationships of a given application and their mapping to a dataset. It is a complete
 description of all the elements required to define a particular geographic data product.
 
-==== Part 12 -- Maintenance
+=== Part 12 -- Maintenance
 
 This Part specifies procedures to be followed in maintaining and publishing the various
 Parts of S-100. It does not cover the maintenance of the S-100 Registry, as Register
@@ -310,13 +310,13 @@ to S-100.
 
 NOTE: All S-100 based Product Specifications will include a maintenance section.
 
-==== Part 13 -- Scripting
+=== Part 13 -- Scripting
 
 This Part defines a standard mechanism for including scripting support in S-100 based
 products. Scripting provides for processing of S-100 based datasets via script files
 written in the Lua programming language.
 
-==== Part 14 -- Online Communication Exchange
+=== Part 14 -- Online Communication Exchange
 
 This Part describes the components and processes needed to specify an online exchange
 of information. It could be a set of data or data which may have a continuous nature.
@@ -324,7 +324,7 @@ The latter is also known as "streaming data", wherein the data requires a more d
 information flow to be available; that is, beyond that found with the exchange of
 static datasets mostly handled as files.
 
-==== Part 15 -- Encryption and Data Protection
+=== Part 15 -- Encryption and Data Protection
 
 This Part specifies the mechanisms, structures and content required for the
 implementation of copy protections and/or authentication methods by S-100 product
@@ -334,7 +334,7 @@ Algorithms and methods for the&nbsp;production of&nbsp;digital signatures&nbsp;a
 defined as well as the surrounding infrastructure required for key management and
 identity assurance within the IHO Data Protection Scheme.
 
-==== Part 16 -- Interoperability Catalogue Model
+=== Part 16 -- Interoperability Catalogue Model
 
 This Part defines a framework for creating rules for the interoperation of S-100 data
 products, including harmonized graphical presentations and handling of alarms and
@@ -342,7 +342,7 @@ indications. It can be used to establish system specific rules which are contain
 an Interoperability Catalogue, a type of meta-product that describes how groups of
 products are to be used and displayed simultaneously.
 
-==== Part 16a -- Harmonised Portrayal of S-100 Products
+=== Part 16a -- Harmonised Portrayal of S-100 Products
 
 This Part specifies the principles for harmonising portrayal and other presentational
 functionalities across different S-100 based data products for the purpose of improving
@@ -354,7 +354,7 @@ functionality, or architecture, which are addressed in other S-100 Parts (especi
 <<Part9;and!Part9a>>), but instead focuses on presentational design aspects, such as display
 organisation, colours, and symbology.
 
-==== Part 17 -- Discovery Metadata for Information Exchange Catalogues
+=== Part 17 -- Discovery Metadata for Information Exchange Catalogues
 
 This Part provides a specification for describing and creating Exchange Catalogues that
 enables users to identify, discover and manage content of the S-100 Exchange Sets. More
@@ -377,7 +377,7 @@ provides a basic understanding of the principles and the overall requirements fo
 standardisation of geographic information. It should be used in conjunction with the
 standards listed under <<Part4a,clause="4a-4">> -- Normative references.
 
-==== Part 18 -- Language Packs
+=== Part 18 -- Language Packs
 
 This Part details how multi-lingual support for XML elements of the S-100 framework may
 be implemented. A generic mechanism and structures are described for production of
