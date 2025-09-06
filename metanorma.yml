@@ -30,7 +30,7 @@ metanorma:
       - sources/part-17/document.adoc
       - sources/part-18/document.adoc
       - sources/annex-a/document.adoc
-#      - collection.yml
+      #- collection.yml
 
   collection:
     organization: "IHO: International Hydrographic Organization"
