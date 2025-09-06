@@ -519,7 +519,7 @@
     - role: "Class"
       name: "S100_TemporalExtent"
       description: "Temporal extent"
-      mult: "--"
+      mult: "-"
       type: ""
       remarks: "At least one of the timeInstantBegin and timeInstantEnd attributes must be populated; if both are known, both must be populated. The absence of either begin or end indicates indefinite validity in the corresponding direction, limited by the issue date/time or the cancellation or supersession of the dataset"
     - role: "Attribute"
