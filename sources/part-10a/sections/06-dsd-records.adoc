@@ -36,7 +36,8 @@ The third group contains:
 . The edition of the data set (may contain subversion/update number);
 . A list of topic categories according to <<ISO19115-1>> (see list):
 
-[%unnumbered,cols=2]
+.List of topic categories according to <<ISO19115-1>>
+[cols=2]
 |===
 | Value of DSTC subfield | Topic Category
 

@@ -339,7 +339,8 @@ image::img06.png[]
 A mariner report dated at an unknown instant before the year 1950 is dated by an
 attribute _reportDate_ with sub-attributes shown below:
 
-[%unnumbered,options=header]
+.S100_IndeterminateDate
+[options=header]
 |===
 | Sub-attribute | Value | Remark
 | indeterminatePosition | 1 (before) .2+| At an indeterminate time before January 1, 1950.
@@ -353,7 +354,8 @@ S100_TM_Instant represents the <<ISO19108>> concepts of temporal instant. A temp
 instant is a 0-dimensional geometric primitive representing position in time
 <<ISO19108>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_TM_Instant
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Multiplicity | Data Type | Remarks
 | Class
@@ -390,7 +392,8 @@ instant is a 0-dimensional geometric primitive representing position in time
 S100_TM_Period represents the <<ISO19108>> concepts of temporal period. A temporal period
 is a one-dimensional geometric primitive representing extent in time. <<ISO19108>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_TM_Period
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Multiplicity | Data Type | Remarks
 | Class
@@ -926,10 +929,11 @@ enumerated types the Multiplicity and Data Type column are not used.
 The following example illustrates the use of context tables:
 
 [[fig-1-16]]
-.Use of context tables
+.Use of context tables - example 1
 image::img15a.png[]
 
-[%unnumbered,options=header,cols=6]
+.Use of context tables
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Multiplicity | Data Type | Remarks
 | Class
@@ -968,7 +972,8 @@ image::img15a.png[]
 |
 |===
 
-[%unnumbered,options=header,cols=6]
+.Use of context tables - example 2
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Multiplicity | Data Type | Remarks
 | Class
@@ -1012,10 +1017,10 @@ image::img15a.png[]
 | 0..*
 | WorkingGroup
 |
-
 |===
 
-[%unnumbered,options=header,cols=6]
+.Use of context tables - example 3
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Multiplicity | Data Type | Remarks
 | Class
@@ -1035,7 +1040,8 @@ image::img15a.png[]
 |
 |===
 
-[%unnumbered,cols=4,options=header]
+.Use of context tables - example 4
+[cols=4,options=header]
 |===
 | Role Name | Name | Description | Remarks
 | Enumeration

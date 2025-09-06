@@ -57,27 +57,20 @@ A
 
 Where:
 
-[%unnumbered,cols="a,a",options=header]
-|===
-| A, B, C, ... | <<ISO8211>> field tags
+A, B, C, ...:: <<ISO8211>> field tags
 
-| `<r>`
-| `r` is the sub-tree cardinality (if missing, `r=1`) possible values:
+`<r>`:: `r` is the sub-tree cardinality (if missing, `r=1`) possible values:
+::: `<0.. 1>` zero or one
+::: `<0 .. *>` any number including zero
+::: `<1.. *>` at least one
 
-`<0.. 1>` zero or one
+`(n)`:: the number of subfields is `n` (fixed number)
 
-`<0 .. *>` any number including zero
+`(n*m)`:: subfields are stored as an `m` by `n` array with `m` rows and `n` columns (`n` subfields are repeated `m` times)
 
-`<1.. *>` at least one
+`(*n)`:: subfields are stored as a `n`-column table with an arbitrary number of rows (`n` subfields are repeating)
 
-|
-|
-
-| `(n)` | the number of subfields is `n` (fixed number)
-| `(n*m)` | subfields are stored as an `m` by `n` array with `m` rows and `n` columns (`n` subfields are repeated `m` times)
-| `(*n)` | subfields are stored as a `n`-column table with an arbitrary number of rows (`n` subfields are repeating)
-| `(k\\*n)` | A concatenation of `k` subfields and a `n`-column table (`k` subfields are followed by `n` repeating subfields)
-|===
+`(k\\*n)`:: A concatenation of `k` subfields and a `n`-column table (`k` subfields are followed by `n` repeating subfields)
 
 The tree structure diagrams define which fields are allowed to be
 repeated. However, within a record, the degree of repetition of fields

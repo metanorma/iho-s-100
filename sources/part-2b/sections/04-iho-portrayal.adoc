@@ -51,7 +51,8 @@ This class S100_PR_Register is a specialization of the class S100_RE_Register. I
 extended with an 'owner' and 'domain'. An organization may have a dedicated Register
 and a Register is intended for a specific Domain.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Register
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -81,7 +82,8 @@ and a Register is intended for a specific Domain.
 
 This class indicates the Domain for which a Register is intended.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_RegisterDomain
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -111,7 +113,8 @@ This class indicates the Domain for which a Register is intended.
 
 This class represents a user of the Register.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_User
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -162,7 +165,8 @@ This class represents a user of the Register.
 
 This class identifies a Register Manager along with current status and time period.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_RegisterManager
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -213,7 +217,8 @@ This class identifies a Register Manager along with current status and time peri
 
 This class represents a Register Organization.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_RegisterOrganization
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -243,7 +248,8 @@ This class represents a Register Organization.
 
 A class used to assign permissions to a Register user.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_RegisterPermissions
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -289,7 +295,8 @@ A class used to assign permissions to a Register user.
 This class is a portrayal extension of the S100_RE_ManagementInfo class with a
 reference to an Organization object and possible attachments.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ManagementInfo
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -319,7 +326,8 @@ reference to an Organization object and possible attachments.
 
 This class handles attachments.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Attachment
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -357,7 +365,8 @@ This class handles attachments.
 The class S100_PR_RegisterItem is a specialization of the class S100_RE_RegisterItem
 which carries a valid XML identifier to be used in a Portrayal Catalogue.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_RegisterItem
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -390,7 +399,8 @@ An abstract specialization of S100_PR_RegisterItem to represent 'symbol',
 string and XML document defining the item details as well as a preview image and an
 engineering image with dimensions.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_VisualItem
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -456,7 +466,8 @@ engineering image with dimensions.
 The class S100_PR_Symbol is a specialization of the class S100_PR_VisualItem used to
 register a symbol according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Symbol
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -473,7 +484,8 @@ register a symbol according to <<Part9>>.
 The class S100_PR_LineStyle is a specialization of the class S100_PR_VisualItem used
 to register a linestyle according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_LineStyle
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -497,7 +509,8 @@ to register a linestyle according to <<Part9>>.
 The class S100_PR_AreaFill is a specialization of the class S100_PR_VisualItem used
 to register an area fill according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AreaFill
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -521,7 +534,8 @@ to register an area fill according to <<Part9>>.
 The class S100_PR_Pixmap is a specialization of the class S100_PR_VisualItem used to
 register a pixmap according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Pixmap
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -538,7 +552,8 @@ register a pixmap according to <<Part9>>.
 The class S100_PR_ItemSchema is a specialization of the class S100_PR_RegisterItem
 used to register a portrayal item schema according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ItemSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -557,12 +572,13 @@ used to register a portrayal item schema according to <<Part9>>.
 | Schema from <<Part9>>
 |===
 
-===== S100_PR_ SymbolSchema
+===== S100_PR_SymbolSchema
 
 The class is a specialization of S100_PR_ItemSchema and is used to register the
 <<Part9>> symbol schema.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_SymbolSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -574,12 +590,13 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the
 |
 |===
 
-===== S100_PR_ LineStyleSchema
+===== S100_PR_LineStyleSchema
 
 The class is a specialization of S100_PR_ItemSchema and is used to register the
 <<Part9>> line style schema.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_LineStyleSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -596,7 +613,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the
 The class is a specialization of S100_PR_ItemSchema and is used to register the <<Part9>>
 area fill schema.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AreaFillSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -613,7 +631,8 @@ area fill schema.
 The class is a specialization of S100_PR_ItemSchema and is used to register the
 <<Part9>> pixmap schema.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_PixmapSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -630,7 +649,8 @@ The class is a specialization of S100_PR_ItemSchema and is used to register the
 The class is a specialization of S100_PR_ItemSchema and is used to register the
 <<Part9>> colour profile schema.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ColourProfileSchema
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -648,7 +668,8 @@ The class S100_PR_ColourToken is a specialization of the class S100_PR_RegisterI
 A color token defines a single reference for multiple color values, each of which is
 associated with a single colour palette.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ColourToken
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -678,7 +699,8 @@ associated with a single colour palette.
 
 The class S100_PR_ColourPalette is a specialization of the class S100_PR_RegisterItem.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ColourPalette
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -695,7 +717,8 @@ The class S100_PR_ColourPalette is a specialization of the class S100_PR_Registe
 The class S100_PR_PaletteItem is a specialization of the class S100_PR_RegisterItem.
 It provides a colour value for colour tokens within a colour palette.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_PaletteItem
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -733,7 +756,8 @@ It provides a colour value for colour tokens within a colour palette.
 This is a specialization of the class S100_PR_RegisterItem used to register a Display
 Mode according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_DisplayMode
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -750,7 +774,8 @@ Mode according to <<Part9>>.
 This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
 Group Layer according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ViewingGroupLayer
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -763,7 +788,8 @@ Group Layer according to <<Part9>>.
 This is a specialization of the class S100_PR_RegisterItem used to register a Viewing
 Group according to <<Part9>>.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ViewingGroup
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -793,7 +819,8 @@ Group according to <<Part9>>.
 
 This is a specialization of the class S100_PR_RegisterItem.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_DisplayPlane
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -817,7 +844,8 @@ This is a specialization of the class S100_PR_RegisterItem.
 This is a specialization of S100_PR_RegisterItem. Used to register a font file for
 use in a Portrayal Catalogue.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Font
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -847,7 +875,8 @@ use in a Portrayal Catalogue.
 
 S100_PR_DrawingPriority is a specialization of S100_PR_RegisterItem.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_DrawingPriority
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -870,7 +899,8 @@ S100_PR_DrawingPriority is a specialization of S100_PR_RegisterItem.
 
 S100_PR_ContextParameter is a specialization of S100_PR_RegisterItem.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ContextParameter
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -900,7 +930,8 @@ S100_PR_ContextParameter is a specialization of S100_PR_RegisterItem.
 
 Identifies a colour value in one or more colour spaces.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_ColourValue
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -930,7 +961,8 @@ Identifies a colour value in one or more colour spaces.
 
 Identifies a colour value in the sRGB colour space.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_SRGBValue
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -967,7 +999,8 @@ Identifies a colour value in the sRGB colour space.
 
 Identifies a colour value in the CIE colour space.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_CIEValue
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1005,7 +1038,8 @@ Identifies a colour value in the CIE colour space.
 S100_PR_Alert is a specialization of S100_PR_RegisterItem. An alert is associated
 with features by Portrayal Catalogue rules.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_Alert
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1033,7 +1067,8 @@ with features by Portrayal Catalogue rules.
 
 ==== S100_PR_AlertInfo
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AlertInfo
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1068,7 +1103,8 @@ with features by Portrayal Catalogue rules.
 
 ==== S100_PR_AlertPriority
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AlertPriority
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1106,7 +1142,8 @@ with features by Portrayal Catalogue rules.
 S100_PR_AlertMessage is a specialization of S100_PR_RegisterItem. Messages are
 displayed while any associated alert is active.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AlertMessage
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1138,7 +1175,8 @@ S100_PR_AlertHighlight is a specialization of S100_PR_RegisterItem. Highlights
 associate viewing groups with alert information, which allows users to disable
 graphical highlighting of one or more active S100_PR_Alerts.
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_AlertHighlight
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1187,7 +1225,8 @@ When multiple viewing groups are provided, consideration should be given to prov
 
 ==== S100_PR_NationalLanguageString
 
-[%unnumbered,options=header,cols=6]
+.S100_PR_NationalLanguageString
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult. | Data Type | Remarks
 
@@ -1214,7 +1253,8 @@ When multiple viewing groups are provided, consideration should be given to prov
 
 ==== S100_PR_FileType
 
-[%unnumbered,options=header,cols=5]
+.S100_PR_FileType
+[options=header,cols=5]
 |===
 | Item | Name | Description | Code | Remarks
 
@@ -1245,7 +1285,8 @@ When multiple viewing groups are provided, consideration should be given to prov
 
 ==== S100_PR_FontType
 
-[%unnumbered,options=header,cols=5]
+.S100_PR_FontType
+[options=header,cols=5]
 |===
 | Item | Name | Description | Code | Remarks
 
@@ -1264,7 +1305,8 @@ When multiple viewing groups are provided, consideration should be given to prov
 
 ==== S100_PR_ImageType
 
-[%unnumbered,options=header,cols=5]
+.S100_PR_ImageType
+[options=header,cols=5]
 |===
 | Item | Name | Description | Code | Remarks
 
@@ -1295,7 +1337,8 @@ When multiple viewing groups are provided, consideration should be given to prov
 
 ==== S100_PR_AlertPriorityType
 
-[%unnumbered,options=header,cols=5]
+.S100_PR_AlertPriorityType
+[options=header,cols=5]
 |===
 | Item | Name | Description | Code | Remarks
 
@@ -1337,7 +1380,8 @@ ParameterType in <<Part9,clause="9-13.3.30">>.
 
 ==== S100_PR_HighlightStyle
 
-[%unnumbered,options=header,cols=5]
+.S100_PR_HighlightStyle
+[options=header,cols=5]
 |===
 | Item | Name | Description | Code | Remarks
 

@@ -563,14 +563,14 @@ _(same as for dataset)_
 | Name of the organisation
 | CI_Organisation.name
 | *C* +
-_(documented if 'positionName' not documented -- see <<note-t1>>)_
+_(documented if 'positionName' not documented - see <<note-t1>>)_
 | *C* +
 _(same as for dataset)_
 
 | Position of an individual in the organisation
 | CI_Organisation.positionName
 | *C* +
-_(documented if 'name' not documented_ -- see <<note-t1>>)_
+_(documented if 'name' not documented_ - see <<note-t1>>)_
 | *C* +
 _(same as for dataset)_
 
