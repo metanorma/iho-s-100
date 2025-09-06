@@ -25,24 +25,17 @@
 
 * [[[RFC3986,IETF RFC 3986]]]
 
-* [[[xlink,12]]],
-span:title[W3C XLink, XML Linking Language (XLink) Version 1.0, W3C Recommendation]
+* [[[xlink,W3C XLink]]]
 
-* [[[xml-ns,13]]],
-span:title[W3C XML Namespaces, Namespaces in XML, W3C Recommendation]
+* [[[xml-ns,W3C xml-names]]]
 
-* [[[xml,14]]],
-span:title[W3C XML, Extensible Markup Language (XML) 1.0, W3C Recommendation]
+* [[[xml,W3C xml]]]
 
-* [[[xml-schema1,15]]],
-span:title[W3C XML Schema Part 1, Structures, W3C Recommendation]
+* [[[xml-schema1,W3C xmlschema-1]]]
 
-* [[[xml-schema2,16]]],
-span:title[W3C XML Schema Part 2, Datatypes, W3C Recommendation]
+* [[[xml-schema2,W3C xmlschema-2]]]
 
-* [[[leiri,17]]],
-span:title[LEIRI, Legacy Extended IRIs for XML Resource Identification, W3C Working Group Note 3].
-span:uri[http://www.w3.org/TR/leiri]
+* [[[leiri,W3C leiri]]]
 
 [bibliography]
 === Non-normative references

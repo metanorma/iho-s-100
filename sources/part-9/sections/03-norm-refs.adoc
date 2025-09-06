@@ -6,31 +6,19 @@ document. For dated references, only the edition cited applies. For undated
 references, the latest edition of the referenced document (including
 amendments) applies.
 
-* [[[ICC4,1]]],
+* [[[ICC4,ICC Specification Version 4]]],
 span:title[ICC Specification Version 4] --
 span:organization[International Color Consortium]
 
 * [[[ISO19117,ISO 19117:2012]]]
 
-* [[[XSLT,3]]],
-span:docid.W3C[REC-XSLT-1.0-19991116],
-_span:title[XSL Transformations (XSLT) Version 1.0, W3C Recommendation]_
-span:date[1999-11-16],
-span:uri[http://www.w3.org/TR/xslt]
+* [[[XSLT,W3C REC-XSLT-19991116]]]
 
-* [[[SVG,4]]],
-span:docid.W3C[REC-SVGTiny12-20081222],
-_span:title[Scalable Vector Graphics (SVG) Tiny 1.2 Specification, W3C Recommendation]_
-span:date[2008-12-22],
-span:uri[http://www.w3.org/TR/2008/REC-SVGTiny12-20081222]
+* [[[SVG,W3C REC-SVGTiny12-20081222]]]
 
-* [[[CSS2,5]]],
-span:docid.W3C[REC-CSS2-20110607],
-_span:title[Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification, W3C Recommendation]_
-span:date[2011-06-07],
-span:uri[http://www.w3.org/TR/2011/REC-CSS2-20110607]
+* [[[CSS2,W3C REC-CSS2-20110607]]]
 
-* [[[TrueType,6]]],
+* [[[TrueType,TrueType-1.66-1995]]],
 span:docid[TrueType-1.66-1995],
 _span:title[True Type Font Revision 1.66]_
 span:date[1995-01-01],

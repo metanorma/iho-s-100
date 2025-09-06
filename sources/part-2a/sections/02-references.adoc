@@ -18,10 +18,7 @@ applies.
 
 * [[[RFC2141,IETF RFC 2141]]]
 
-* [[[W3C,W3C]]],
-span:title[_XML Schema Part 2: Datatypes_],
-span:edition[2],
-span:series[Appendix F _Regular Expressions_]. URL: span:uri[https://www.w3.org/TR/xmlschema-2/#regexs]
+* [[[W3C,W3C xmlschema-2]]]
 
 * [[[ISO19106,hidden(ISO 19106:2004)]]]
 

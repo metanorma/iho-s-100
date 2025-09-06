@@ -427,7 +427,7 @@ the definition of a direction (see <<cls-14-8.2>>).
 | Item | Name | Description | Mult | Type | Remarks
 
 | S100_CodeList | S100_OC_ServiceTechnology | List of commonly used service (description / implementation) Technologies | - | - | -
-| Literal | SOAP | Simple Object Access Protocol | - | - | SOAP Version 1.2 2007, W3C (https://www.w3.org/TR/soap12-part1)
+| Literal | SOAP | Simple Object Access Protocol | - | - | SOAP Version 1.2 2007, W3C (<<w3c-soap>>)
 | Literal | REST | Representational State Transfer | - | - | Fielding, Roy Thomas (2000). https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm[Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST) (uci.edu)]
 | Literal | CORBA | Common Object Request Broker Architecture | - | - | Object Management Group (OMG) Feb 2021 v3.4 (https://www.omg.org/spec/CORBA/)
 |===

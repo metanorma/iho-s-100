@@ -55,17 +55,9 @@ span:date[2019-01-01].
 [bibliography,normative=false]
 === Informative references
 
-* [[[CSS2,CSS2]]],
-_span:title[Cascading Style Sheets, Level 2 (CSS2) Specification, W3C Recommendation 12-May-1998, REC-CSS2-19980512]_,
-span:organization[World Wide Web Consortium],
-span:date[1998-05-01].
-span:uri[http://www.w3.org/TR/1998/REC-CSS2-19980512] (span:note[retrieved 2020-08-12]).
+* [[[CSS2,W3C REC-CSS2-19980512]]]
 
-* [[[CSS2.1,CSS2.1]]],
-_span:title[Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification, W3C Recommendation 07-June-2011, REC-CSS2-20110607]_,
-span:organization[World Wide Web Consortium],
-span:date[2011-06-07].
-span:uri[http://www.w3.org/TR/2011/REC-CSS2-20110607] (span:note[retrieved 2020-08-12]).
+* [[[CSS2.1,W3C REC-CSS2-20110607]]]
 
 * [[[G1105,IALA G1105]]],
 _span:title[Shore-side Portrayal Ensuring Harmonisation with E-Navigation Related Information]_,
