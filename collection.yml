@@ -1,11 +1,16 @@
 ---
 directives:
   - documents-inline
+  - recompile-xml: true
+  #- coverpage: index.html
+
+output_folder: collection
 
 bibdata:
   title:
-    - language: en
-      content: IHO S-100 Universal Hydrographic Data Model
+    type: title-main
+    language: en
+    content: IHO S-100 Universal Hydrographic Data Model
 
   type: collection
 
@@ -17,7 +22,7 @@ bibdata:
 
   date:
     - type: updated
-      value: "2024-06-01"
+      value: "06-2024"
 
   copyright:
     owner:
@@ -25,68 +30,68 @@ bibdata:
       abbreviation: IHO
     from: "2024"
 
-manifest:
-  level: collection
-  title: IHO S-100
-
-  docref:
-    - file: _site/documents/specification/document.1.xml
-      identifier: IHO S-100 Part 0
-    - file: _site/documents/specification/document.2.xml
-      identifier: IHO S-100 Part 1
-    - file: _site/documents/specification/document.3.xml
-      identifier: IHO S-100 Part 2
-    - file: _site/documents/specification/document.4.xml
-      identifier: IHO S-100 Part 2a
-    - file: _site/documents/specification/document.5.xml
-      identifier: IHO S-100 Part 2b
-    - file: _site/documents/specification/document.6.xml
-      identifier: IHO S-100 Part 3
-    - file: _site/documents/specification/document.7.xml
-      identifier: IHO S-100 Part 4a
-    - file: _site/documents/specification/document.8.xml
-      identifier: IHO S-100 Part 4b
-    - file: _site/documents/specification/document.9.xml
-      identifier: IHO S-100 Part 4c
-    - file: _site/documents/specification/document.10.xml
-      identifier: IHO S-100 Part 5
-    - file: _site/documents/specification/document.11.xml
-      identifier: IHO S-100 Part 6
-    - file: _site/documents/specification/document.12.xml
-      identifier: IHO S-100 Part 7
-    - file: _site/documents/specification/document.13.xml
-      identifier: IHO S-100 Part 8
-    - file: _site/documents/specification/document.14.xml
-      identifier: IHO S-100 Part 9
-    - file: _site/documents/specification/document.15.xml
-      identifier: IHO S-100 Part 9a
-    - file: _site/documents/specification/document.16.xml
-      identifier: IHO S-100 Part 10
-    - file: _site/documents/specification/document.17.xml
-      identifier: IHO S-100 Part 11
-    - file: _site/documents/specification/document.18.xml
-      identifier: IHO S-100 Part 12
-    - file: _site/documents/specification/document.19.xml
-      identifier: IHO S-100 Part 13
-    - file: _site/documents/specification/document.20.xml
-      identifier: IHO S-100 Part 14
-    - file: _site/documents/specification/document.21.xml
-      identifier: IHO S-100 Part 15
-    - file: _site/documents/specification/document.22.xml
-      identifier: IHO S-100 Part 16
-    - file: _site/documents/specification/document.23.xml
-      identifier: IHO S-100 Part 16a
-    - file: _site/documents/specification/document.24.xml
-      identifier: IHO S-100 Part 17
-    - file: _site/documents/specification/document.25.xml
-      identifier: IHO S-100 Part 18
-    - file: _site/documents/specification/document.26.xml
-      identifier: IHO S-100 Annex A
-
-output_folder: collection
-
 format:
   - xml
   - html
   - presentation
-  - pdf
+  - doc
+  #- pdf
+
+manifest:
+  docref:
+    - file: sources/part-0/document.adoc
+      identifier: IHO S-100 Part 0
+    - file: sources/part-1/document.adoc
+      identifier: IHO S-100 Part 1
+    - file: sources/part-2/document.adoc
+      identifier: IHO S-100 Part 2
+    - file: sources/part-2a/document.adoc
+      identifier: IHO S-100 Part 2a
+    - file: sources/part-2b/document.adoc
+      identifier: IHO S-100 Part 2b
+    - file: sources/part-3/document.adoc
+      identifier: IHO S-100 Part 3
+    - file: sources/part-4a/document.adoc
+      identifier: IHO S-100 Part 4a
+    - file: sources/part-4b/document.adoc
+      identifier: IHO S-100 Part 4b
+    - file: sources/part-4c/document.adoc
+      identifier: IHO S-100 Part 4c
+    - file: sources/part-5/document.adoc
+      identifier: IHO S-100 Part 5
+    - file: sources/part-6/document.adoc
+      identifier: IHO S-100 Part 6
+    - file: sources/part-7/document.adoc
+      identifier: IHO S-100 Part 7
+    - file: sources/part-8/document.adoc
+      identifier: IHO S-100 Part 8
+    - file: sources/part-9/document.adoc
+      identifier: IHO S-100 Part 9
+    - file: sources/part-9a/document.adoc
+      identifier: IHO S-100 Part 9a
+    - file: sources/part-10a/document.adoc
+      identifier: IHO S-100 Part 10a
+    - file: sources/part-10b/document.adoc
+      identifier: IHO S-100 Part 10b
+    - file: sources/part-10c/document.adoc
+      identifier: IHO S-100 Part 10c
+    - file: sources/part-11/document.adoc
+      identifier: IHO S-100 Part 11
+    - file: sources/part-12/document.adoc
+      identifier: IHO S-100 Part 12
+    - file: sources/part-13/document.adoc
+      identifier: IHO S-100 Part 13
+    - file: sources/part-14/document.adoc
+      identifier: IHO S-100 Part 14
+    - file: sources/part-15/document.adoc
+      identifier: IHO S-100 Part 15
+    - file: sources/part-16/document.adoc
+      identifier: IHO S-100 Part 16
+    - file: sources/part-16a/document.adoc
+      identifier: IHO S-100 Part 16a
+    - file: sources/part-17/document.adoc
+      identifier: IHO S-100 Part 17
+    - file: sources/part-18/document.adoc
+      identifier: IHO S-100 Part 18
+    - file: sources/annex-a/document.adoc
+      identifier: IHO S-100 Annex A
