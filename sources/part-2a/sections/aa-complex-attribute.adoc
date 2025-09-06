@@ -23,7 +23,8 @@ The simple attributes used in "lightSector" are:
 
 Therefore the complex attribute is:
 
-[%unnumbered,options=header,cols=3]
+.Example of a complex attribute
+[options=header,cols=3]
 |===
 | Characteristic 2+| Value
 
@@ -51,7 +52,8 @@ The "Rhythm of light" consists of:
 * signalPeriod
 * signalGroup
 
-[%unnumbered,options=header,cols=3]
+.Example of a complex attribute
+[options=header,cols=3]
 |===
 | Characteristic 2+| Value
 
@@ -73,7 +75,8 @@ A second way of describing the rhythm of light is the "signal sequence"
 as it is done with the <<S57>> SIGSEQ attribute. A signal sequence consists
 of intervals where the signal is either on or off (here light or eclipse)
 
-[%unnumbered,options=header,cols=3]
+.Example of a complex attribute
+[options=header,cols=3]
 |===
 | Characteristic 2+| Value
 
@@ -92,7 +95,8 @@ h| camelCase Identifer h| multiplicity h| sequential
 
 A Signal sequence is then just an ordered list of those intervals.
 
-[%unnumbered,cols=3,options=header]
+.Example of a complex attribute
+[cols=3,options=header]
 |===
 | Characteristic 2+| Value
 

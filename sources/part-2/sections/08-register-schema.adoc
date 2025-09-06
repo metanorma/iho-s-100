@@ -22,7 +22,8 @@ image::img18.png[]
 
 The class S100_RE_Register specifies information about the Register itself.
 
-[%unnumbered,options=header,cols=6]
+.S100_RE_Register
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 | Class
@@ -76,7 +77,8 @@ types of registered items. Domain specific extensions may be added in the
 appropriate part of S-100; for example, Part 2a -- Concept and Data Dictionary
 Registers.
 
-[%unnumbered,cols=6,options=header]
+.S100_RE_RegisterItem
+[cols=6,options=header]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -220,7 +222,8 @@ categoryOfLandmark is the Camel Case identifier for the concept Category of Land
 The enumeration S100_RE_ItemStatus identifies the registration status of a Register
 item.
 
-[%unnumbered,options=header,cols=4]
+.S100_RE_ItemStatus
+[options=header,cols=4]
 |===
 | Item | Name | Description | Remarks
 | Enumeration
@@ -264,7 +267,8 @@ item.
 The class S100_RE_ReferenceSource specifies information about the source of a
 Register item taken from an external document or Register.
 
-[%unnumbered,cols=6,options=header]
+.S100_RE_ReferenceSource
+[cols=6,options=header]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 | Class
@@ -302,7 +306,8 @@ The enumeration S100_RE_SimilarityToSource identifies the type of change that ha
 been made to an item specification relative to an item specification in an external
 source.
 
-[%unnumbered,options=header,cols=4]
+.S100_RE_SimilarityToSource
+[options=header,cols=4]
 |===
 | Item | Name | Description | Remarks
 
@@ -347,7 +352,8 @@ source.
 The class S100_RE_Reference specifies information about the source and/or lineage
 of a specific Register item derived from an external document or Register.
 
-[%unnumbered,cols=6,options=header]
+.S100_RE_Reference
+[cols=6,options=header]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -377,7 +383,8 @@ of a specific Register item derived from an external document or Register.
 
 The class S100_RE_ManagementInfo specifies the management record of a Register item.
 
-[%unnumbered,options=header,cols=6]
+.S100_RE_ManagementInfo
+[options=header,cols=6]
 |===
 | Role Name | Name | Description | Mult | Data Type | Remarks
 
@@ -457,7 +464,8 @@ The class S100_RE_ManagementInfo specifies the management record of a Register i
 The enumeration S100_RE_ProposalType species the type of proposal for a Register
 item.
 
-[%unnumbered,cols=4,options=header]
+.S100_RE_ProposalType
+[cols=4,options=header]
 |===
 | Item | Name | Description | Remarks
 
@@ -492,7 +500,8 @@ item.
 The enumeration S100_RE_ProposalStatus specifies the disposition of a proposal to
 add or change a Register item.
 
-[%unnumbered,options=header,cols=4]
+.S100_RE_ProposalStatus
+[options=header,cols=4]
 |===
 | Item | Name | Description | Remarks
 
