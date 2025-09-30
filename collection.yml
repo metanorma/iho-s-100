@@ -16,7 +16,7 @@ bibdata:
 
   docid:
     type: iho
-    id: IHO S-100
+    id: IHO S-100 (all parts)
 
   edition: "5.2.0"
 
@@ -35,7 +35,8 @@ format:
   - html
   - presentation
   - doc
-  #- pdf
+  - pdf
+  - rxl
 
 manifest:
   docref:
